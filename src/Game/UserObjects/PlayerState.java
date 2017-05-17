@@ -109,7 +109,7 @@ public interface PlayerState extends Cloneable {
      *
      * @return User's comm link
      */
-    CommLink getUserLink();
+    GameUser getGameUser();
 
     /**
      * Clone this instance

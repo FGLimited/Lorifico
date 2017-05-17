@@ -1,5 +1,7 @@
 package Server.Game;
 
+import Game.Effects.Effect;
+import Game.Usable.ResourceType;
 import Game.UserObjects.DomesticColor;
 import Game.UserObjects.FamilyColor;
 import Logging.Logger;
@@ -7,8 +9,7 @@ import Model.User.User;
 import Server.Game.Cards.SplitDeck;
 import Server.Game.Effects.FaithDeck;
 import Server.Game.UserObjects.GameTable;
-import Server.Game.UserObjects.GameUser;
-
+import Game.UserObjects.GameUser;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -86,14 +87,17 @@ public class Match implements UserHandler {
         // TODO: send user list to all users
 
         // When the second users is added start countdown for match start
-        if(users.size() == 2)
+        if(users.size() >= 2)
+
+            matchExecutor.shutdownNow();
+
             matchExecutor.schedule(() -> {
 
                 // If there are at least two users the game can start
                 if(users.size() > 1)
                     initGame();
 
-            }, startDelay, TimeUnit.SECONDS);
+            }, startDelay, TimeUnit.MILLISECONDS);
 
         // When maximum player
         if(users.size() == 4) {
@@ -133,8 +137,6 @@ public class Match implements UserHandler {
 
     /**
      * Initialize game objects for match start and takes care of game execution
-     *
-     * @return Player's order list
      */
     private void initGame() {
 
@@ -148,15 +150,15 @@ public class Match implements UserHandler {
         cardsDeck.shuffle();
 
         // Initialize all users and first round order
-        List<FamilyColor> roundOrder = new ArrayList<>();
+        List<GameUser> roundOrder = new ArrayList<>();
         FamilyColor[] colors = FamilyColor.values();
 
         for (int i = 0; i < users.size(); i++) {
             User current = users.get(i);
 
-            current.setGameUser(new GameUser(current.getLink(), colors[i]));
+            current.setGameUser(new Server.Game.UserObjects.GameUser(current.getLink(), colors[i]));
 
-            roundOrder.add(colors[i]);
+            roundOrder.add(current.getGameUser());
             hasMoved.put(colors[i], false);
         }
 
@@ -167,24 +169,20 @@ public class Match implements UserHandler {
         int turnNumber = 1;
         int roundNumber = 1;
 
+        Map<Integer, Effect> faithEffects = faithDeck.getFaithEffect();
+
         // Game consists of 6 turns
         for ( ; turnNumber <= 6; turnNumber++) {
 
             // Put new set of cards in all tower positions and update faith effect
-            table.changeTurn(cardsDeck.getCardPerTurn(turnNumber), faithDeck.getFaithEffect(turnNumber));
+            table.changeTurn(cardsDeck.getCardPerTurn(turnNumber), faithEffects.get(turnNumber));
 
-            // Each turn has 4 round (one for each domestic)
-            for ( ; roundNumber <= 4; roundNumber++) {
+            Turn current = new Turn(turnNumber, roundOrder, table);
 
-                // Get new round order and free all positions
-                roundOrder = table.changeRound(roundOrder);
+            current.play();
 
-                // Take care of round routine
-                playRound(roundOrder);
-            }
-
-            // 2, 4 and 6 turn executes faith way check
-            faithCheck(turnNumber);
+            // Get new round order and free all positions
+            roundOrder = table.changeRound(roundOrder);
         }
 
         // Convert all to victory points and determine game winner at the end
@@ -196,7 +194,7 @@ public class Match implements UserHandler {
      *
      * @param roundOrder Players order for this round
      */
-    private void playRound(List<FamilyColor> roundOrder) {
+    private void playRound(List<GameUser> roundOrder) {
 
         // Throw dice and update domestic value for all players
         final Map<DomesticColor, Integer> newValues = table.getDiceValue();
@@ -219,48 +217,26 @@ public class Match implements UserHandler {
             // Ask current user to make a move
             Future<Boolean> move = playerWaiter.submit(() -> waitMove(current));
 
-            boolean hasMoved = false;
-
             // Wait for a move until move timeout ends
             try {
 
-                hasMoved = move.get(moveTimeout, TimeUnit.SECONDS);
-            } catch (InterruptedException | ExecutionException ee) {
+                synchronized (hasMoved) {
+                    hasMoved.wait(moveTimeout);
+                }
+
+            } catch (InterruptedException ie) {
                 Logger.log(Logger.LogLevel.Error, "An error occurred while waiting for move.\n" +
                         "Match number: " + matchNumber + "\n" +
                         "Current user: " + current.getGameUser() + "\n" +
-                        ee.getMessage());
+                        ie.getMessage());
 
                 // TODO: spaccare tutto
 
-            } catch (TimeoutException te) {
-                // If user hasn't moved send error and go ahead
-                // TODO: send timeout error to current user
-
-
-                playerWaiter.shutdownNow();
-                hasMoved = false;
             }
 
             // TODO:
 
         }
-
-    }
-
-    private void faithCheck(int turnNumber){
-
-        if(turnNumber % 2 != 0)
-            return;
-
-        // turn 2 = 3 points || turn 4 = 4 points || turn 6 = 5 points
-        int requetedFaith = turnNumber == 2 ? 3 : (turnNumber == 4 ? 4 : 5);
-
-        users.forEach(user -> {
-
-
-
-        });
 
     }
 

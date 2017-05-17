@@ -25,13 +25,21 @@ public class FaithDeck {
     }
 
     /**
-     * Get effect for requested game turn
+     * Get faith effects for this game
      *
-     * @param turnNumber Turn number (2, 4, 6)
-     * @return Relative faith effect
+     * @return Three faith effects
      */
-    public Effect getFaithEffect(int turnNumber) {
-        return turnNumber % 2 == 0 ? faithEffects.get(turnNumber).get(0) : null;
+    public Map<Integer, Effect> getFaithEffect() {
+        Map<Integer, Effect> gameFaithEffects = new HashMap<>();
+
+        gameFaithEffects.put(1, null);
+        gameFaithEffects.put(2, faithEffects.get(1).get(0));
+        gameFaithEffects.put(3, null);
+        gameFaithEffects.put(4, faithEffects.get(2).get(0));
+        gameFaithEffects.put(5, null);
+        gameFaithEffects.put(6, faithEffects.get(3).get(0));
+
+        return gameFaithEffects;
     }
 
 }

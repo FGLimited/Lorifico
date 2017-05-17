@@ -25,7 +25,7 @@ public class PlayerState implements Game.UserObjects.PlayerState {
 
     private final Map<CardType, List<Card>> cards = new HashMap<>();
 
-    private final CommLink userLink;
+    private final GameUser gameUser;
 
     private volatile Domestic inUseDomestic = null;
 
@@ -36,9 +36,9 @@ public class PlayerState implements Game.UserObjects.PlayerState {
     /**
      * Initialize a new player state with specified comm link to send effects callbacks
      *
-     * @param userLink Bound user comm link
+     * @param gameUser Bound user
      */
-    public PlayerState(CommLink userLink) {
+    public PlayerState(GameUser gameUser) {
 
         for (ResourceType type : ResourceType.values())
             resources.put(type, 0);
@@ -51,7 +51,7 @@ public class PlayerState implements Game.UserObjects.PlayerState {
         for (CardType type : CardType.values())
             cards.put(type, new ArrayList<>());
 
-        this.userLink = userLink;
+        this.gameUser = gameUser;
     }
 
     /**
@@ -65,7 +65,7 @@ public class PlayerState implements Game.UserObjects.PlayerState {
         resourcesPenalty = toClone.resourcesPenalty;
         effects.putAll(toClone.effects);
         cards.putAll(toClone.cards);
-        userLink = toClone.userLink;
+        gameUser = toClone.gameUser;
         inUseDomestic = toClone.inUseDomestic;
         checkingPosition = toClone.checkingPosition;
         slavePerDomestic = toClone.slavePerDomestic;
@@ -144,8 +144,8 @@ public class PlayerState implements Game.UserObjects.PlayerState {
     }
 
     @Override
-    public CommLink getUserLink() {
-        return userLink;
+    public GameUser getGameUser() {
+        return gameUser;
     }
 
     @Override

@@ -18,6 +18,14 @@ public class GameUser implements Game.UserObjects.GameUser {
 
     private volatile Game.UserObjects.PlayerState currentState;
 
+    private volatile boolean roundJump = false;
+
+    /**
+     * Initialize a new game user with player state
+     *
+     * @param userLink User comm link
+     * @param familyColor Family color for this user
+     */
     public GameUser(CommLink userLink, FamilyColor familyColor) {
         this.familyColor = familyColor;
         this.userLink = userLink;
@@ -25,7 +33,7 @@ public class GameUser implements Game.UserObjects.GameUser {
         for (DomesticColor color : DomesticColor.values())
             domestics.put(color, new Domestic(familyColor, color, 0));
 
-        currentState = new Server.Game.UserObjects.PlayerState(userLink);
+        currentState = new Server.Game.UserObjects.PlayerState(this);
     }
 
     @Override
@@ -46,6 +54,16 @@ public class GameUser implements Game.UserObjects.GameUser {
     @Override
     public void setDomestics(Map<DomesticColor, Integer> newValues) {
         newValues.forEach((color, value) -> domestics.get(color).setValue(value));
+    }
+
+    @Override
+    public void setRoundJump(boolean jumpRound) {
+        roundJump = jumpRound;
+    }
+
+    @Override
+    public boolean getRoundJump() {
+        return roundJump;
     }
 
     @Override

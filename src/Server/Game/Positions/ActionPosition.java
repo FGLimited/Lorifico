@@ -101,6 +101,8 @@ public class ActionPosition implements Position<Effect> {
         // Set in use domestic as occupant
         occupant = currentState.getInUseDomestic();
 
+        occupant.setInPosition(true);
+
         // Apply selected effect to current state
         chosenT.apply(currentState);
 

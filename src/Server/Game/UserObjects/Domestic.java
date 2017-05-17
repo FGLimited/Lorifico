@@ -16,6 +16,8 @@ public class Domestic implements HasValue<Integer>, HasType<DomesticColor> {
 
     private volatile int value;
 
+    private volatile boolean inPosition = false;
+
     /**
      * Initialize a new domestic with given color and initial value
      *
@@ -50,6 +52,24 @@ public class Domestic implements HasValue<Integer>, HasType<DomesticColor> {
      */
     public FamilyColor getFamilyColor() {
         return familyColor;
+    }
+
+    /**
+     * Check if domestic is in position
+     *
+     * @return True if in position, false else
+     */
+    public boolean inPosition() {
+        return inPosition;
+    }
+
+    /**
+     * Set in position
+     *
+     * @param inPosition In position value
+     */
+    public void setInPosition(boolean inPosition) {
+        this.inPosition = inPosition;
     }
 
 }

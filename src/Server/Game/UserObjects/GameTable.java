@@ -5,7 +5,6 @@ import Game.Cards.CardType;
 import Game.Effects.Effect;
 import Game.Positions.Position;
 import Game.UserObjects.DomesticColor;
-import Game.UserObjects.FamilyColor;
 import Game.UserObjects.GameUser;
 import Game.UserObjects.PlayerState;
 import Logging.Logger;
@@ -35,7 +34,7 @@ public class GameTable {
 
     private final transient List<Position<Cost>> costPositions = new ArrayList<>();
 
-    private final List<FamilyColor> nextTurnOrder = Collections.synchronizedList(new ArrayList<>());
+    private final List<GameUser> nextTurnOrder = Collections.synchronizedList(new ArrayList<>());
 
     private final Map<DomesticColor, Integer> diceValue = new HashMap<>();
 
@@ -156,7 +155,7 @@ public class GameTable {
      * @param currentOrder Players order from current round
      * @return Players order for next round
      */
-    public List<FamilyColor> changeRound(List<FamilyColor> currentOrder) {
+    public List<GameUser> changeRound(List<GameUser> currentOrder) {
 
         // Remove family in council from current order
         currentOrder.removeAll(nextTurnOrder);
@@ -165,7 +164,7 @@ public class GameTable {
         nextTurnOrder.addAll(currentOrder);
 
         // Create new order list
-        List<FamilyColor> newOrder = new ArrayList<>(nextTurnOrder);
+        List<GameUser> newOrder = new ArrayList<>(nextTurnOrder);
 
         // Free all positions
         actionPositions.forEach(Position::free);
