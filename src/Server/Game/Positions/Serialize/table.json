@@ -1,0 +1,362 @@
+{
+  "Towers": {
+    "Territory": [
+      {
+        "number": 1,
+        "type": "TerritoryTower",
+        "positionValue": 1,
+        "cardType": "Territory"
+      },
+      {
+        "number": 2,
+        "type": "TerritoryTower",
+        "positionValue": 3,
+        "cardType": "Territory"
+      },
+      {
+        "number": 3,
+        "type": "TerritoryTower",
+        "immediatePositionEffect": {
+          "type": "Server.Game.Effects.ImmediateEffect",
+          "data": {
+            "type": "Immediate",
+            "resources": {
+              "Wood": 1
+            },
+            "points": {}
+          }
+        },
+        "positionValue": 5,
+        "cardType": "Territory"
+      },
+      {
+        "number": 4,
+        "type": "TerritoryTower",
+        "immediatePositionEffect": {
+          "type": "Server.Game.Effects.ImmediateEffect",
+          "data": {
+            "type": "Immediate",
+            "resources": {
+              "Wood": 2
+            },
+            "points": {}
+          }
+        },
+        "positionValue": 7,
+        "cardType": "Territory"
+      }
+    ],
+    "Building": [
+      {
+        "number": 5,
+        "type": "BuildingTower",
+        "positionValue": 1,
+        "cardType": "Building"
+      },
+      {
+        "number": 6,
+        "type": "BuildingTower",
+        "positionValue": 3,
+        "cardType": "Building"
+      },
+      {
+        "number": 7,
+        "type": "BuildingTower",
+        "immediatePositionEffect": {
+          "type": "Server.Game.Effects.ImmediateEffect",
+          "data": {
+            "type": "Immediate",
+            "resources": {
+              "Rock": 1
+            },
+            "points": {}
+          }
+        },
+        "positionValue": 5,
+        "cardType": "Building"
+      },
+      {
+        "number": 8,
+        "type": "BuildingTower",
+        "immediatePositionEffect": {
+          "type": "Server.Game.Effects.ImmediateEffect",
+          "data": {
+            "type": "Immediate",
+            "resources": {
+              "Rock": 2
+            },
+            "points": {}
+          }
+        },
+        "positionValue": 7,
+        "cardType": "Building"
+      }
+    ],
+    "Personality": [
+      {
+        "number": 9,
+        "type": "PersonalityTower",
+        "positionValue": 1,
+        "cardType": "Personality"
+      },
+      {
+        "number": 10,
+        "type": "PersonalityTower",
+        "positionValue": 3,
+        "cardType": "Personality"
+      },
+      {
+        "number": 11,
+        "type": "PersonalityTower",
+        "immediatePositionEffect": {
+          "type": "Server.Game.Effects.ImmediateEffect",
+          "data": {
+            "type": "Immediate",
+            "resources": {},
+            "points": {
+              "Military": 1
+            }
+          }
+        },
+        "positionValue": 5,
+        "cardType": "Personality"
+      },
+      {
+        "number": 12,
+        "type": "PersonalityTower",
+        "immediatePositionEffect": {
+          "type": "Server.Game.Effects.ImmediateEffect",
+          "data": {
+            "type": "Immediate",
+            "resources": {},
+            "points": {
+              "Military": 2
+            }
+          }
+        },
+        "positionValue": 7,
+        "cardType": "Personality"
+      }
+    ],
+    "Challenge": [
+      {
+        "number": 13,
+        "type": "ChallengeTower",
+        "positionValue": 1,
+        "cardType": "Challenge"
+      },
+      {
+        "number": 14,
+        "type": "ChallengeTower",
+        "positionValue": 3,
+        "cardType": "Challenge"
+      },
+      {
+        "number": 15,
+        "type": "ChallengeTower",
+        "immediatePositionEffect": {
+          "type": "Server.Game.Effects.ImmediateEffect",
+          "data": {
+            "type": "Immediate",
+            "resources": {
+              "Gold": 1
+            },
+            "points": {}
+          }
+        },
+        "positionValue": 5,
+        "cardType": "Challenge"
+      },
+      {
+        "number": 16,
+        "type": "ChallengeTower",
+        "immediatePositionEffect": {
+          "type": "Server.Game.Effects.ImmediateEffect",
+          "data": {
+            "type": "Immediate",
+            "resources": {
+              "Gold": 2
+            },
+            "points": {}
+          }
+        },
+        "positionValue": 7,
+        "cardType": "Challenge"
+      }
+    ]
+  },
+  "Harvest": [
+    {
+      "number": 20,
+      "type": "Action",
+      "effectType": "Harvest",
+      "domesticPenalty": 0
+    },
+    {
+      "number": 21,
+      "type": "Action",
+      "effectType": "Harvest",
+      "domesticPenalty": 3
+    },
+    {
+      "number": 22,
+      "type": "Action",
+      "effectType": "Harvest",
+      "domesticPenalty": 3
+    },
+    {
+      "number": 23,
+      "type": "Action",
+      "effectType": "Harvest",
+      "domesticPenalty": 3
+    }
+  ],
+  "Production": [
+    {
+      "number": 30,
+      "type": "Action",
+      "effectType": "Production",
+      "domesticPenalty": 0
+    },
+    {
+      "number": 31,
+      "type": "Action",
+      "effectType": "Production",
+      "domesticPenalty": 3
+    },
+    {
+      "number": 32,
+      "type": "Action",
+      "effectType": "Production",
+      "domesticPenalty": 3
+    },
+    {
+      "number": 33,
+      "type": "Action",
+      "effectType": "Production",
+      "domesticPenalty": 3
+    }
+  ],
+  "Market": [
+    {
+      "number": 40,
+      "type": "Market",
+      "immediatePositionEffect": {
+        "type": "Server.Game.Effects.ImmediateEffect",
+        "data": {
+          "type": "Immediate",
+          "resources": {
+            "Gold": 5
+          },
+          "points": {}
+        }
+      }
+    },
+    {
+      "number": 41,
+      "type": "Market",
+      "immediatePositionEffect": {
+        "type": "Server.Game.Effects.ImmediateEffect",
+        "data": {
+          "type": "Immediate",
+          "resources": {
+            "Slave": 5
+          },
+          "points": {}
+        }
+      }
+    },
+    {
+      "number": 42,
+      "type": "Market",
+      "immediatePositionEffect": {
+        "type": "Server.Game.Effects.ImmediateEffect",
+        "data": {
+          "type": "Immediate",
+          "resources": {
+            "Gold": 2
+          },
+          "points": {
+            "Military": 3
+          }
+        }
+      }
+    },
+    {
+      "number": 43,
+      "type": "Market",
+      "immediatePositionEffect": {
+        "type": "Server.Game.Effects.ImmediateEffect",
+        "data": {
+          "type": "Immediate",
+          "resources": {
+            "Favor": 2
+          },
+          "points": {}
+        }
+      }
+    }
+  ],
+  "Council": [
+    {
+      "number": 50,
+      "type": "Market",
+      "immediatePositionEffect": {
+        "type": "Server.Game.Effects.ImmediateEffect",
+        "data": {
+          "type": "Immediate",
+          "resources": {
+            "Gold": 1,
+            "Favor": 1
+          },
+          "points": {}
+        }
+      }
+    },
+    {
+      "number": 51,
+      "type": "Market",
+      "immediatePositionEffect": {
+        "type": "Server.Game.Effects.ImmediateEffect",
+        "data": {
+          "type": "Immediate",
+          "resources": {
+            "Gold": 1,
+            "Favor": 1
+          },
+          "points": {}
+        }
+      }
+    },
+    {
+      "number": 52,
+      "type": "Market",
+      "immediatePositionEffect": {
+        "type": "Server.Game.Effects.ImmediateEffect",
+        "data": {
+          "type": "Immediate",
+          "resources": {
+            "Gold": 1,
+            "Favor": 1
+          },
+          "points": {}
+        }
+      }
+    },
+    {
+      "number": 53,
+      "type": "Market",
+      "immediatePositionEffect": {
+        "type": "Server.Game.Effects.ImmediateEffect",
+        "data": {
+          "type": "Immediate",
+          "resources": {
+            "Gold": 1,
+            "Favor": 1
+          },
+          "points": {}
+        }
+      }
+    }
+  ]
+}
