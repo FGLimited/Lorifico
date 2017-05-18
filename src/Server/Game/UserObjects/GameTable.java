@@ -101,7 +101,8 @@ public class GameTable {
 
         Map<Integer, List<Cost>> positionCosts = new HashMap<>();
 
-        costPositions.forEach(position -> positionCosts.put(position.getNumber(), position.canOccupy(currentUser.getUserState())));
+        costPositions.forEach(position ->
+                positionCosts.put(position.getNumber(), position.canOccupy(currentUser.getUserState())));
 
         return positionCosts;
 
@@ -117,7 +118,8 @@ public class GameTable {
 
         Map<Integer, List<Effect>> positionEffects = new HashMap<>();
 
-        actionPositions.forEach(position -> positionEffects.put(position.getNumber(), position.canOccupy(currentUser.getUserState())));
+        actionPositions.forEach(position ->
+                positionEffects.put(position.getNumber(), position.canOccupy(currentUser.getUserState())));
 
         return positionEffects;
     }
