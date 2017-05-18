@@ -4,11 +4,11 @@ import Game.Effects.Effect;
 import Game.Positions.Position;
 import Game.Positions.PositionType;
 import Game.Usable.ResourceType;
-import Game.UserObjects.FamilyColor;
 import Game.UserObjects.PlayerState;
 import Server.Game.Effects.ImmediateEffect;
 import Server.Game.Usable.Cost;
 import Server.Game.UserObjects.Domestic;
+import Game.UserObjects.GameUser;
 import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 import java.util.HashMap;
@@ -25,7 +25,7 @@ public class CouncilPosition implements Position<Cost> {
 
     private volatile transient PositionAggregate parent;
 
-    private volatile transient List<FamilyColor> turnOrder;
+    private volatile transient List<GameUser> turnOrder;
 
     private final Effect immediatePositionEffect;
 
@@ -52,7 +52,7 @@ public class CouncilPosition implements Position<Cost> {
      *
      * @param nextTurnOrder Next turn playing order list
      */
-    public void setOrderList(List<FamilyColor> nextTurnOrder) {
+    public void setOrderList(List<GameUser> nextTurnOrder) {
         if(turnOrder == null)
             turnOrder = nextTurnOrder;
     }
@@ -92,8 +92,10 @@ public class CouncilPosition implements Position<Cost> {
         // Set occupant to in use domestic
         occupant = currentState.getInUseDomestic();
 
+        occupant.setInPosition(true);
+
         // Update list for next turn player's order
-        turnOrder.add(occupant.getFamilyColor());
+        turnOrder.add(currentState.getGameUser());
 
         // Return updated state
         return currentState;
@@ -112,6 +114,8 @@ public class CouncilPosition implements Position<Cost> {
 
     @Override
     public void free() {
+
+        occupant.setInPosition(false);
         occupant = null;
     }
 

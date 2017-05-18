@@ -37,6 +37,10 @@ public interface GameUser {
      */
     void setDomestics(Map<DomesticColor, Integer> newValues);
 
+    void setRoundJump(boolean jumpRound);
+
+    boolean getRoundJump();
+
     /**
      * Get current user state (state is not passed by reference)
      *

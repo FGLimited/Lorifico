@@ -72,6 +72,8 @@ public class MarketPosition implements Position<Cost> {
         // Set occupant to in use domestic
         occupant = currentState.getInUseDomestic();
 
+        occupant.setInPosition(true);
+
         // Return updated state
         return currentState;
     }
@@ -89,6 +91,8 @@ public class MarketPosition implements Position<Cost> {
 
     @Override
     public void free() {
+
+        occupant.setInPosition(false);
         occupant = null;
     }
 

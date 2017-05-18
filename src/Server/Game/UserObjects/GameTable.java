@@ -5,7 +5,6 @@ import Game.Cards.CardType;
 import Game.Effects.Effect;
 import Game.Positions.Position;
 import Game.UserObjects.DomesticColor;
-import Game.UserObjects.FamilyColor;
 import Game.UserObjects.GameUser;
 import Game.UserObjects.PlayerState;
 import Logging.Logger;
@@ -35,7 +34,7 @@ public class GameTable {
 
     private final transient List<Position<Cost>> costPositions = new ArrayList<>();
 
-    private final List<FamilyColor> nextTurnOrder = Collections.synchronizedList(new ArrayList<>());
+    private final List<GameUser> nextTurnOrder = Collections.synchronizedList(new ArrayList<>());
 
     private final Map<DomesticColor, Integer> diceValue = new HashMap<>();
 
@@ -75,24 +74,6 @@ public class GameTable {
     }
 
     /**
-     * Throw all three dice and return results
-     *
-     * @return Dice throw results
-     */
-    public Map<DomesticColor, Integer> getDiceValue() {
-
-        diceValue.clear();
-        Random die = new Random(System.currentTimeMillis());
-
-        diceValue.put(DomesticColor.Black, die.nextInt(6));
-        diceValue.put(DomesticColor.Orange, die.nextInt(6));
-        diceValue.put(DomesticColor.White, die.nextInt(6));
-        diceValue.put(DomesticColor.Neutral, 0);
-
-        return diceValue;
-    }
-
-    /**
      * Get affordable costs by given user for all positions
      *
      * @param currentUser Current playing user
@@ -102,7 +83,8 @@ public class GameTable {
 
         Map<Integer, List<Cost>> positionCosts = new HashMap<>();
 
-        costPositions.forEach(position -> positionCosts.put(position.getNumber(), position.canOccupy(currentUser.getUserState())));
+        costPositions.forEach(position ->
+                positionCosts.put(position.getNumber(), position.canOccupy(currentUser.getUserState())));
 
         return positionCosts;
 
@@ -118,27 +100,10 @@ public class GameTable {
 
         Map<Integer, List<Effect>> positionEffects = new HashMap<>();
 
-        actionPositions.forEach(position -> positionEffects.put(position.getNumber(), position.canOccupy(currentUser.getUserState())));
+        actionPositions.forEach(position ->
+                positionEffects.put(position.getNumber(), position.canOccupy(currentUser.getUserState())));
 
         return positionEffects;
-    }
-
-    /**
-     * Set given cards in corresponding towers and update faith effect if specified
-     *
-     * @param newCards New set of cards
-     * @param newFaithEffect Faith effect (if null previous will remain)
-     */
-    public void changeTurn(Map<CardType, List<Card>> newCards, Effect newFaithEffect) {
-
-        newCards.forEach((type, list) ->
-                towers.get(type).forEach(position ->
-                        position.setCard(list.remove(0)))
-        );
-
-        if(newFaithEffect != null)
-            currentFaithEffect = newFaithEffect;
-
     }
 
     /**
@@ -151,12 +116,53 @@ public class GameTable {
     }
 
     /**
+     * Set given cards in corresponding towers, update faith effect if specified
+     * and get dice values for next turn
+     *
+     * @param newCards New set of cards
+     * @param newFaithEffect Faith effect (if null previous will remain)
+     */
+    public Map<DomesticColor, Integer> changeTurn(Map<CardType, List<Card>> newCards, Effect newFaithEffect) {
+
+        // Update cards in tower positions
+        newCards.forEach((type, list) ->
+                towers.get(type).forEach(position ->
+                        position.setCard(list.remove(0)))
+        );
+
+        // Update faith effect if necessary
+        if(newFaithEffect != null)
+            currentFaithEffect = newFaithEffect;
+
+        // Return new dice values
+        return getDiceValue();
+    }
+
+    /**
+     * Throw all three dice and return results
+     *
+     * @return Dice throw results
+     */
+    private Map<DomesticColor, Integer> getDiceValue() {
+
+        diceValue.clear();
+        Random die = new Random(System.currentTimeMillis());
+
+        diceValue.put(DomesticColor.Black, die.nextInt(6));
+        diceValue.put(DomesticColor.Orange, die.nextInt(6));
+        diceValue.put(DomesticColor.White, die.nextInt(6));
+        diceValue.put(DomesticColor.Neutral, 0);
+
+        return diceValue;
+    }
+
+    /**
      * Get new players order for next round and free all positions
      *
      * @param currentOrder Players order from current round
      * @return Players order for next round
      */
-    public List<FamilyColor> changeRound(List<FamilyColor> currentOrder) {
+    public List<GameUser> changeRound(List<GameUser> currentOrder) {
 
         // Remove family in council from current order
         currentOrder.removeAll(nextTurnOrder);
@@ -165,7 +171,7 @@ public class GameTable {
         nextTurnOrder.addAll(currentOrder);
 
         // Create new order list
-        List<FamilyColor> newOrder = new ArrayList<>(nextTurnOrder);
+        List<GameUser> newOrder = new ArrayList<>(nextTurnOrder);
 
         // Free all positions
         actionPositions.forEach(Position::free);
@@ -210,7 +216,8 @@ public class GameTable {
                         currentUser.updateUserState(newState);
                     });
 
-        // TODO: send update to all players
+        // TODO: send update to all players here if you want differential update
+        // (else get global update from game table as you wish)
     }
 
     /**

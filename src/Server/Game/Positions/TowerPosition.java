@@ -162,6 +162,8 @@ public class TowerPosition implements Position<Cost> {
         // Update position state
         occupant = currentState.getInUseDomestic();
 
+        occupant.setInPosition(true);
+
         // Apply position immediate effect
         if(immediatePositionEffect != null)
             immediatePositionEffect.apply(currentState);
@@ -188,6 +190,8 @@ public class TowerPosition implements Position<Cost> {
 
     @Override
     public void free() {
+
+        occupant.setInPosition(false);
         occupant = null;
     }
 

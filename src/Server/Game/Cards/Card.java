@@ -5,9 +5,12 @@ import Game.Effects.Effect;
 import Game.Usable.ResourceType;
 import Game.UserObjects.PlayerState;
 import Server.Game.Usable.Cost;
+import Server.Game.Usable.UsableHelper;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -96,12 +99,17 @@ public class Card implements Game.Cards.Card {
         if(type == CardType.Territory) {
 
             // Get required military points to add a new territory card
-            Cost militaryPointCost = checkMilitaryPoints(currentState.getCardsCount(type));
+            Cost militaryPointCost = checkMilitaryPoints(currentState.getCards(type).size());
 
             // If user hasn't enough military points he can't buy this card
             if(!militaryPointCost.canBuy(currentState))
                 return Collections.emptyList();
         }
+
+        // Apply resource discount for this type of card if any
+        final Map<ResourceType, Integer> currentResources = currentState.getResources();
+        UsableHelper.editResources(currentState.getCostBonus(type), currentResources, true);
+        currentState.setResources(currentResources, false);
 
         // Return all affordable costs
         return costs
