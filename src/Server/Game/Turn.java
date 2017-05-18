@@ -135,7 +135,7 @@ public class Turn {
 
                 // TODO: ask to user if he wants penalty or victory points and go back
 
-                move(user, /* reuqest */);
+                //move(user, /* reuqest */);
 
             }
             else {

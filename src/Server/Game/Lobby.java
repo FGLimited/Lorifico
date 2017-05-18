@@ -35,5 +35,11 @@ public class Lobby implements UserHandler {
     }
 
     @Override
-    public List<User> getAllUsers() { return users; }
+    public List<User> getAllUsers() {
+        return users;
+    }
+
+    public List<Match> getAllMatches() {
+        return matches;
+    }
 }

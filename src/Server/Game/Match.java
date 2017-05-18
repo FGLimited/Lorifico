@@ -72,7 +72,7 @@ public class Match implements UserHandler {
      * Abort match without saving current status
      */
     public void abort() {
-
+        matchExecutor.shutdownNow();
     }
 
     public void addUser(User newUser) {

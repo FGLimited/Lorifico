@@ -47,9 +47,9 @@ public interface PlayerState extends Cloneable {
      * Update current resources
      *
      * @param updatedResources Updated list of resources
-     * @param added True if resources have been added (resource penalty is applied), false else (no penalty applied)
+     * @param applyPenalty True if resources have been added (resource penalty is applied), false else (no penalty applied)
      */
-    void setResources(Map<ResourceType, Integer> updatedResources, boolean added);
+    void setResources(Map<ResourceType, Integer> updatedResources, boolean applyPenalty);
 
     /**
      * Apply a penalty of specified quantity on every resource update
