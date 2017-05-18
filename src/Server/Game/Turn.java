@@ -1,5 +1,6 @@
 package Server.Game;
 
+import Action.BaseAction;
 import Game.Effects.Effect;
 import Game.Usable.ResourceType;
 import Game.UserObjects.GameUser;
@@ -72,7 +73,11 @@ public class Turn {
         }
 
         // Ask for move to each user
-        currentRound.forEach(this::move);
+        currentRound.forEach(user -> {
+
+            // TODO: create move request and send it using this.move()
+
+        });
 
         // If is last round check for left user, else finalize
         if(roundNumber >= 4 && lastRound.isEmpty())
@@ -96,8 +101,11 @@ public class Turn {
      * Waits for a notification of move performed on current user object
      *
      * @param currentUser Current game user to wait for
+     * @param moveRequest Move request to send to current user
      */
-    private void move(final GameUser currentUser) {
+    private void move(final GameUser currentUser, BaseAction moveRequest) {
+
+        // TODO: send move request throw current user comm link
 
         synchronized (currentUser) {
             try {
@@ -127,7 +135,7 @@ public class Turn {
 
                 // TODO: ask to user if he wants penalty or victory points and go back
 
-                move(user);
+                move(user, /* reuqest */);
 
             }
             else {

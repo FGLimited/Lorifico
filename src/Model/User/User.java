@@ -5,7 +5,7 @@ import Networking.Gson.GsonUtils;
 import Logging.Logger;
 import Networking.CommLink;
 import Server.Game.Match;
-import Server.Game.UserObjects.GameUser;
+import Game.UserObjects.GameUser;
 import com.google.gson.JsonSyntaxException;
 
 /**
@@ -99,6 +99,8 @@ public class User {
      */
     public void setGameUser(GameUser newGameUser) {
         gameUser = newGameUser;
+
+        // TODO: send update to users
     }
 
     /**

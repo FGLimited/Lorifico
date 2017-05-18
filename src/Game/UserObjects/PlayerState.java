@@ -6,7 +6,6 @@ import Game.Effects.Effect;
 import Game.Effects.EffectType;
 import Game.Positions.PositionType;
 import Game.Usable.ResourceType;
-import Networking.CommLink;
 import Server.Game.UserObjects.Domestic;
 import java.util.List;
 import java.util.Map;
@@ -100,9 +99,26 @@ public interface PlayerState extends Cloneable {
      * Get number of owned cards of specified type
      *
      * @param type Card's type
-     * @return Number of cards owned by the user
+     * @return List of cards of requested type
      */
-    int getCardsCount(CardType type);
+    List<Card> getCards(CardType type);
+
+    /**
+     * Set cost bonus for given card type
+     *
+     * @param type Card type to apply bonus to
+     * @param resourceType Type of bonus resource
+     * @param quantity Bonus quantity
+     */
+    void setCostBonus(CardType type, ResourceType resourceType, int quantity);
+
+    /**
+     * Get resource bonus for given card type
+     *
+     * @param type Card type
+     * @return Map of resources types and bonus quantity
+     */
+    Map<ResourceType, Integer> getCostBonus(CardType type);
 
     /**
      * Get user's comm object

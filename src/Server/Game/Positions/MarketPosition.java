@@ -91,6 +91,8 @@ public class MarketPosition implements Position<Cost> {
 
     @Override
     public void free() {
+
+        occupant.setInPosition(false);
         occupant = null;
     }
 

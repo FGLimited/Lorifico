@@ -74,24 +74,6 @@ public class GameTable {
     }
 
     /**
-     * Throw all three dice and return results
-     *
-     * @return Dice throw results
-     */
-    public Map<DomesticColor, Integer> getDiceValue() {
-
-        diceValue.clear();
-        Random die = new Random(System.currentTimeMillis());
-
-        diceValue.put(DomesticColor.Black, die.nextInt(6));
-        diceValue.put(DomesticColor.Orange, die.nextInt(6));
-        diceValue.put(DomesticColor.White, die.nextInt(6));
-        diceValue.put(DomesticColor.Neutral, 0);
-
-        return diceValue;
-    }
-
-    /**
      * Get affordable costs by given user for all positions
      *
      * @param currentUser Current playing user
@@ -125,30 +107,53 @@ public class GameTable {
     }
 
     /**
-     * Set given cards in corresponding towers and update faith effect if specified
-     *
-     * @param newCards New set of cards
-     * @param newFaithEffect Faith effect (if null previous will remain)
-     */
-    public void changeTurn(Map<CardType, List<Card>> newCards, Effect newFaithEffect) {
-
-        newCards.forEach((type, list) ->
-                towers.get(type).forEach(position ->
-                        position.setCard(list.remove(0)))
-        );
-
-        if(newFaithEffect != null)
-            currentFaithEffect = newFaithEffect;
-
-    }
-
-    /**
      * Get current faith effect
      *
      * @return Permanent faith effect
      */
     public Effect getFaithEffect() {
         return currentFaithEffect;
+    }
+
+    /**
+     * Set given cards in corresponding towers, update faith effect if specified
+     * and get dice values for next turn
+     *
+     * @param newCards New set of cards
+     * @param newFaithEffect Faith effect (if null previous will remain)
+     */
+    public Map<DomesticColor, Integer> changeTurn(Map<CardType, List<Card>> newCards, Effect newFaithEffect) {
+
+        // Update cards in tower positions
+        newCards.forEach((type, list) ->
+                towers.get(type).forEach(position ->
+                        position.setCard(list.remove(0)))
+        );
+
+        // Update faith effect if necessary
+        if(newFaithEffect != null)
+            currentFaithEffect = newFaithEffect;
+
+        // Return new dice values
+        return getDiceValue();
+    }
+
+    /**
+     * Throw all three dice and return results
+     *
+     * @return Dice throw results
+     */
+    private Map<DomesticColor, Integer> getDiceValue() {
+
+        diceValue.clear();
+        Random die = new Random(System.currentTimeMillis());
+
+        diceValue.put(DomesticColor.Black, die.nextInt(6));
+        diceValue.put(DomesticColor.Orange, die.nextInt(6));
+        diceValue.put(DomesticColor.White, die.nextInt(6));
+        diceValue.put(DomesticColor.Neutral, 0);
+
+        return diceValue;
     }
 
     /**
@@ -211,7 +216,8 @@ public class GameTable {
                         currentUser.updateUserState(newState);
                     });
 
-        // TODO: send update to all players
+        // TODO: send update to all players here if you want differential update
+        // (else get global update from game table as you wish)
     }
 
     /**

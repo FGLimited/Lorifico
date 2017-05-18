@@ -114,6 +114,8 @@ public class CouncilPosition implements Position<Cost> {
 
     @Override
     public void free() {
+
+        occupant.setInPosition(false);
         occupant = null;
     }
 

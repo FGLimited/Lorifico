@@ -53,7 +53,10 @@ public class GameUser implements Game.UserObjects.GameUser {
 
     @Override
     public void setDomestics(Map<DomesticColor, Integer> newValues) {
+        // Update domestic value
         newValues.forEach((color, value) -> domestics.get(color).setValue(value));
+
+        // TODO: send domestic values update to user (send to this only)
     }
 
     @Override
@@ -74,5 +77,7 @@ public class GameUser implements Game.UserObjects.GameUser {
     @Override
     public void updateUserState(Game.UserObjects.PlayerState newState) {
         currentState = newState;
+
+        // TODO: send update to users (send to all)
     }
 }

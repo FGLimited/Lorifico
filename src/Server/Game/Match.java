@@ -1,9 +1,9 @@
 package Server.Game;
 
 import Game.Effects.Effect;
+import Game.Usable.ResourceType;
 import Game.UserObjects.DomesticColor;
 import Game.UserObjects.FamilyColor;
-import Logging.Logger;
 import Model.User.User;
 import Server.Game.Cards.SplitDeck;
 import Server.Game.Effects.FaithDeck;
@@ -25,8 +25,6 @@ public class Match implements UserHandler {
     private final List<User> users = Collections.synchronizedList(new ArrayList<>());
 
     private final ScheduledExecutorService matchExecutor = Executors.newSingleThreadScheduledExecutor();
-
-    private final ExecutorService playerWaiter = Executors.newSingleThreadExecutor();
 
     private final long startDelay;
 
@@ -80,6 +78,7 @@ public class Match implements UserHandler {
     public void addUser(User newUser) {
         // Add new user to users list
         users.add(newUser);
+        newUser.setMatch(this);
 
         // TODO: send user list to all users
 
@@ -114,11 +113,11 @@ public class Match implements UserHandler {
     }
 
     /**
-     * Initialize game objects for match start and takes care of game execution
+     * Initialize game table, cards deck and game users for all users
+     *
+     * @return List for first round of game
      */
-    private void initGame() {
-
-        // Initialization
+    private List<GameUser> initObjects() {
 
         // Initialize game table and cards deck
         table = new GameTable(users.size());
@@ -128,18 +127,43 @@ public class Match implements UserHandler {
         cardsDeck.shuffle();
 
         // Initialize all users and first round order
-        List<GameUser> roundOrder = new ArrayList<>();
+        List<GameUser> firstRoundOrder = new ArrayList<>();
         FamilyColor[] colors = FamilyColor.values();
 
+        // Initial resources for all users
+        Map<ResourceType, Integer> initialResources = new HashMap<>();
+        initialResources.put(ResourceType.Wood, 2);
+        initialResources.put(ResourceType.Rock, 2);
+        initialResources.put(ResourceType.Slave, 3);
+
+        // Create game user for each user
         for (int i = 0; i < users.size(); i++) {
+            // Get user
             User current = users.get(i);
 
-            current.setGameUser(new Server.Game.UserObjects.GameUser(current.getLink(), colors[i]));
+            // Create new game user for current user
+            GameUser newGameUser = new Server.Game.UserObjects.GameUser(current.getLink(), colors[i]);
 
-            roundOrder.add(current.getGameUser());
+            // Add initial resources
+            newGameUser.getUserState().setResources(initialResources, false);
+
+            // Set new game user
+            current.setGameUser(newGameUser);
+
+            // Add game user to first round order
+            firstRoundOrder.add(current.getGameUser());
         }
 
-        // Initialization end
+        return firstRoundOrder;
+    }
+
+    /**
+     * Initialize game objects for match start and takes care of game execution
+     */
+    private void initGame() {
+
+        // Initialize all users and first round order
+        List<GameUser> roundOrder = initObjects();
 
         // Game execution
 
@@ -152,8 +176,15 @@ public class Match implements UserHandler {
         // Game consists of 6 turns
         for ( ; turnNumber <= 6; turnNumber++) {
 
-            // Put new set of cards in all tower positions and update faith effect
-            table.changeTurn(cardsDeck.getCardPerTurn(turnNumber), faithEffects.get(turnNumber));
+            // Put new set of cards in all tower positions, update faith effect
+            // and get new dice values for current turn
+            Map<DomesticColor, Integer> diceValues = table
+                    .changeTurn(cardsDeck.getCardPerTurn(turnNumber), faithEffects.get(turnNumber));
+
+            // TODO: send all positions update to users
+
+            // Update domestic values for current turn
+            roundOrder.forEach(user -> user.setDomestics(diceValues));
 
             // Initialize new turn object to perform all rounds
             Turn current = new Turn(turnNumber, roundOrder, table, moveTimeout);
@@ -166,6 +197,9 @@ public class Match implements UserHandler {
         endCheck();
     }
 
+    /**
+     * Perform all final calculations for victory points
+     */
     private void endCheck() {
 
     }

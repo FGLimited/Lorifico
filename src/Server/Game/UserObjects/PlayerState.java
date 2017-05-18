@@ -21,6 +21,8 @@ public class PlayerState implements Game.UserObjects.PlayerState {
 
     private final Map<ResourceType, Integer> resourcesPenalty;
 
+    private final Map<CardType, Map<ResourceType, Integer>> resourceBonus = new HashMap<>();
+
     private final Map<EffectType, List<Effect>> effects = new HashMap<>();
 
     private final Map<CardType, List<Card>> cards = new HashMap<>();
@@ -48,8 +50,10 @@ public class PlayerState implements Game.UserObjects.PlayerState {
         for (EffectType type : EffectType.values())
             effects.put(type, new ArrayList<>());
 
-        for (CardType type : CardType.values())
+        for (CardType type : CardType.values()) {
             cards.put(type, new ArrayList<>());
+            resourceBonus.put(type, new HashMap<>(resources));
+        }
 
         this.gameUser = gameUser;
     }
@@ -93,10 +97,11 @@ public class PlayerState implements Game.UserObjects.PlayerState {
     }
 
     @Override
-    public void setResources(Map<ResourceType, Integer> updatedResources, boolean added) {
+    public void setResources(Map<ResourceType, Integer> updatedResources, boolean applyPenalty) {
 
         // Update each resource value (if resource has been added remove penalty)
-        updatedResources.forEach((type, value) -> resources.replace(type, value - (added ? resourcesPenalty.get(type) : 0)));
+        updatedResources.forEach((type, value) ->
+                resources.replace(type, value - (applyPenalty ? resourcesPenalty.get(type) : 0)));
     }
 
     @Override
@@ -139,8 +144,18 @@ public class PlayerState implements Game.UserObjects.PlayerState {
     }
 
     @Override
-    public int getCardsCount(CardType type) {
-        return cards.get(type).size();
+    public List<Card> getCards(CardType type) {
+        return cards.get(type);
+    }
+
+    @Override
+    public void setCostBonus(CardType type, ResourceType resourceType, int quantity) {
+        resourceBonus.get(type).replace(resourceType, quantity);
+    }
+
+    @Override
+    public Map<ResourceType, Integer> getCostBonus(CardType type) {
+        return resourceBonus.get(type);
     }
 
     @Override

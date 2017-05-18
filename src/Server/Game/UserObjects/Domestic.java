@@ -59,7 +59,7 @@ public class Domestic implements HasValue<Integer>, HasType<DomesticColor> {
      *
      * @return True if in position, false else
      */
-    public boolean inPosition() {
+    public boolean isInPosition() {
         return inPosition;
     }
 

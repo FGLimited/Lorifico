@@ -133,6 +133,8 @@ public class ActionPosition implements Position<Effect> {
 
     @Override
     public void free() {
+
+        occupant.setInPosition(false);
         occupant = null;
     }
 }
