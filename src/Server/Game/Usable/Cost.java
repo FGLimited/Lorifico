@@ -23,7 +23,7 @@ public class Cost {
      */
     public Cost(Map<ResourceType, Integer> resources, Integer militaryRequested) {
 
-        requestedResources = resources == null ? new HashMap<>() : resources;
+        requestedResources = resources == null ? new HashMap<>() : UsableHelper.cloneMap(resources);
 
         if(militaryRequested != null)
             this.militaryRequested = militaryRequested > requestedResources.get(ResourceType.MilitaryPoint) ? militaryRequested : resources.get(ResourceType.MilitaryPoint);
@@ -129,12 +129,10 @@ public class Cost {
     public Cost sum(Cost toSum) {
 
         // Clone current instance
-        final Map<ResourceType, Integer> totalResources = requestedResources;
+        final Cost totalCost = new Cost(requestedResources, Math.max(toSum.militaryRequested, militaryRequested));
 
         // Sum resources from other instance
-        UsableHelper.editResources(toSum.requestedResources, totalResources, true);
-
-        final Cost totalCost = new Cost(totalResources, Math.max(toSum.militaryRequested, militaryRequested));
+        UsableHelper.editResources(toSum.requestedResources, totalCost.requestedResources, true);
 
         // Set associated card number if present
         totalCost.setCardNumber(cardNumber != 0 ? cardNumber : toSum.cardNumber);

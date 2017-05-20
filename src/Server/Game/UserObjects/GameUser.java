@@ -71,7 +71,7 @@ public class GameUser implements Game.UserObjects.GameUser {
 
     @Override
     public Game.UserObjects.PlayerState getUserState() {
-        return currentState;
+        return currentState.clone();
     }
 
     @Override

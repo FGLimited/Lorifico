@@ -61,7 +61,7 @@ public class GameTable {
      *
      * @param playersNumber Number of players
      */
-    public GameTable(int playersNumber) {
+    public GameTable(int playersNumber) throws IOException {
 
         try {
             initAll(Files.newInputStream(Paths.get("src/Server/Game/Positions/Serialize/table.json")),
@@ -69,6 +69,7 @@ public class GameTable {
 
         } catch (IOException ioe) {
             Logger.log(Logger.LogLevel.Error, "Can't find standard table setup file.\n" + ioe.getMessage());
+            throw ioe;
         }
 
     }

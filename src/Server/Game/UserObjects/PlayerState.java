@@ -6,7 +6,7 @@ import Game.Effects.Effect;
 import Game.Effects.EffectType;
 import Game.Positions.PositionType;
 import Game.Usable.ResourceType;
-import Networking.CommLink;
+import Server.Game.Usable.UsableHelper;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public class PlayerState implements Game.UserObjects.PlayerState {
 
-    private final Map<ResourceType, Integer> resources = new HashMap<>();
+    private final Map<ResourceType, Integer> resources;
 
     private final Map<ResourceType, Integer> resourcesPenalty;
 
@@ -42,17 +42,19 @@ public class PlayerState implements Game.UserObjects.PlayerState {
      */
     public PlayerState(GameUser gameUser) {
 
+        resources = new HashMap<>();
+
         for (ResourceType type : ResourceType.values())
             resources.put(type, 0);
 
-        resourcesPenalty = new HashMap<>(resources);
+        resourcesPenalty = UsableHelper.cloneMap(resources);
 
         for (EffectType type : EffectType.values())
             effects.put(type, new ArrayList<>());
 
         for (CardType type : CardType.values()) {
             cards.put(type, new ArrayList<>());
-            resourceBonus.put(type, new HashMap<>(resources));
+            resourceBonus.put(type, UsableHelper.cloneMap(resources));
         }
 
         this.gameUser = gameUser;
@@ -65,8 +67,11 @@ public class PlayerState implements Game.UserObjects.PlayerState {
      */
     private PlayerState(PlayerState toClone) {
 
-        resources.putAll(toClone.resources);
-        resourcesPenalty = toClone.resourcesPenalty;
+        resources = UsableHelper.cloneMap(toClone.resources);
+        resourcesPenalty = UsableHelper.cloneMap(toClone.resourcesPenalty);
+        toClone.resourceBonus.forEach((key, resources) ->
+                resourceBonus.put(key, UsableHelper.cloneMap(resources)));
+
         effects.putAll(toClone.effects);
         cards.putAll(toClone.cards);
         gameUser = toClone.gameUser;
@@ -93,7 +98,7 @@ public class PlayerState implements Game.UserObjects.PlayerState {
 
     @Override
     public Map<ResourceType, Integer> getResources() {
-        return new HashMap<>(resources);
+        return UsableHelper.cloneMap(resources);
     }
 
     @Override

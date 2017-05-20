@@ -21,7 +21,7 @@ public class CouncilPosition implements Position<Cost> {
 
     private final int number;
 
-    private final PositionType type = PositionType.Market;
+    private final PositionType type = PositionType.Council;
 
     private volatile transient PositionAggregate parent;
 

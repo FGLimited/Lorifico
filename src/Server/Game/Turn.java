@@ -135,7 +135,7 @@ public class Turn {
 
                 // TODO: ask to user if he wants penalty or victory points and go back
 
-                move(user, /* reuqest */);
+                //move(user, /* reuqest */);
 
             }
             else {
@@ -145,7 +145,8 @@ public class Turn {
 
                 currentState.addEffect(faithEffect);
 
-                faithEffect.apply(currentState);
+                if(faithEffect.canApply(currentState))
+                    faithEffect.apply(currentState);
 
                 user.updateUserState(currentState);
             }

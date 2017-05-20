@@ -18,7 +18,7 @@ public class ActionPosition implements Position<Effect> {
 
     private final int number;
 
-    private final PositionType type = PositionType.Action;
+    private final PositionType type;
 
     private final EffectType effectType;
 
@@ -28,7 +28,15 @@ public class ActionPosition implements Position<Effect> {
 
     private volatile Domestic occupant;
 
+    /**
+     * Initialize an action position (Harvest or Production)
+     *
+     * @param effectType Card effects to activate (Harvest or Production)
+     * @param number Position number
+     * @param domesticPenalty Penalty to apply to domestic value in this position
+     */
     public ActionPosition(EffectType effectType, int number, int domesticPenalty) {
+        this.type = effectType == EffectType.Harvest ? PositionType.HarvestAction : PositionType.ProductionAction;
         this.effectType = effectType;
         this.number = number;
         this.domesticPenalty = domesticPenalty;
