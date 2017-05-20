@@ -145,7 +145,8 @@ public class Turn {
 
                 currentState.addEffect(faithEffect);
 
-                faithEffect.apply(currentState);
+                if(faithEffect.canApply(currentState))
+                    faithEffect.apply(currentState);
 
                 user.updateUserState(currentState);
             }

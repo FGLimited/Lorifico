@@ -4,7 +4,8 @@ package Game.Positions;
  * Created by fiore on 10/05/2017.
  */
 public enum PositionType {
-    Action,
+    HarvestAction,
+    ProductionAction,
     TerritoryTower,
     BuildingTower,
     PersonalityTower,

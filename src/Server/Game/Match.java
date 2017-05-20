@@ -6,7 +6,7 @@ import Game.UserObjects.DomesticColor;
 import Game.UserObjects.FamilyColor;
 import Model.User.User;
 import Server.Game.Cards.SplitDeck;
-import Server.Game.Effects.FaithDeck;
+import Server.Game.Effects.Faith.FaithDeck;
 import Server.Game.UserObjects.GameTable;
 import Game.UserObjects.GameUser;
 import java.util.*;

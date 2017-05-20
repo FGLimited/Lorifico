@@ -40,9 +40,9 @@ public interface Card extends HasType<CardType> {
     List<Effect> getEffects();
 
     /**
-     * Get available costs to pay for this card
+     * Get all costs for this card
      *
-     * @return List of available costs; empty if any is present
+     * @return List of all costs; empty if any is present
      */
     List<Cost> getCosts();
 
