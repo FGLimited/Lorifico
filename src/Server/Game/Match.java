@@ -4,11 +4,13 @@ import Game.Effects.Effect;
 import Game.Usable.ResourceType;
 import Game.UserObjects.DomesticColor;
 import Game.UserObjects.FamilyColor;
+import Logging.Logger;
 import Model.User.User;
 import Server.Game.Cards.SplitDeck;
 import Server.Game.Effects.Faith.FaithDeck;
 import Server.Game.UserObjects.GameTable;
 import Game.UserObjects.GameUser;
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -117,14 +119,16 @@ public class Match implements UserHandler {
      *
      * @return List for first round of game
      */
-    private List<GameUser> initObjects() {
+    private List<GameUser> initObjects() throws IOException {
 
         // Initialize game table and cards deck
         table = new GameTable(users.size());
 
         cardsDeck = new SplitDeck();
-
         cardsDeck.shuffle();
+
+        faithDeck = new FaithDeck();
+        faithDeck.shuffle();
 
         // Initialize all users and first round order
         List<GameUser> firstRoundOrder = new ArrayList<>();
@@ -163,7 +167,21 @@ public class Match implements UserHandler {
     private void initGame() {
 
         // Initialize all users and first round order
-        List<GameUser> roundOrder = initObjects();
+        List<GameUser> roundOrder;
+
+        try {
+
+            roundOrder = initObjects();
+
+        } catch (IOException ioe) {
+            Logger.log(Logger.LogLevel.Error, "IO error during match initialization.\n" +
+                    "Match number: " + matchNumber + "\n" +
+                    ioe.getMessage());
+
+            // TODO: notify all users and exit
+
+            return;
+        }
 
         // Game execution
 

@@ -1,0 +1,198 @@
+{
+  "1": [
+    {
+      "type": "Server.Game.Effects.Faith.ResourcePenaltyEffect",
+      "data": {
+        "type": "Permanent",
+        "resources": {
+          "MilitaryPoint": 1
+        },
+        "isApplied": false
+      }
+    },
+    {
+      "type": "Server.Game.Effects.Faith.ResourcePenaltyEffect",
+      "data": {
+        "type": "Permanent",
+        "resources": {
+          "Gold": 1
+        },
+        "isApplied": false
+      }
+    },
+    {
+      "type": "Server.Game.Effects.Faith.ResourcePenaltyEffect",
+      "data": {
+        "type": "Permanent",
+        "resources": {
+          "Slave": 1
+        },
+        "isApplied": false
+      }
+    },
+    {
+      "type": "Server.Game.Effects.Faith.ResourcePenaltyEffect",
+      "data": {
+        "type": "Permanent",
+        "resources": {
+          "Wood": 1,
+          "Rock": 1
+        },
+        "isApplied": false
+      }
+    },
+    {
+      "type": "Server.Game.Effects.PositionBonusEffect",
+      "data": {
+        "type": "Permanent",
+        "position": "HarvestAction",
+        "value": -3
+      }
+    },
+    {
+      "type": "Server.Game.Effects.PositionBonusEffect",
+      "data": {
+        "type": "Permanent",
+        "position": "ProductionAction",
+        "value": -3
+      }
+    },
+    {
+      "type": "Server.Game.Effects.Faith.DomesticPenaltyEffect",
+      "data": {
+        "type": "Permanent",
+        "penalty": 1
+      }
+    }
+  ],
+  "2": [
+    {
+      "type": "Server.Game.Effects.PositionBonusEffect",
+      "data": {
+        "type": "Permanent",
+        "position": "TerritoryTower",
+        "value": -4
+      }
+    },
+    {
+      "type": "Server.Game.Effects.PositionBonusEffect",
+      "data": {
+        "type": "Permanent",
+        "position": "BuildingTower",
+        "value": -4
+      }
+    },
+    {
+      "type": "Server.Game.Effects.PositionBonusEffect",
+      "data": {
+        "type": "Permanent",
+        "position": "PersonalityTower",
+        "value": -4
+      }
+    },
+    {
+      "type": "Server.Game.Effects.PositionBonusEffect",
+      "data": {
+        "type": "Permanent",
+        "position": "ChallengeTower",
+        "value": -4
+      }
+    },
+    {
+      "type": "Server.Game.Effects.Faith.MarketDenyEffect",
+      "data": {
+        "type": "Permanent",
+        "isApplied": false
+      }
+    },
+    {
+      "type": "Server.Game.Effects.Faith.SlaveValuePenaltyEffect",
+      "data": {
+        "type": "Permanent",
+        "slavePerValue": 2,
+        "isApplied": false
+      }
+    },
+    {
+      "type": "Server.Game.Effects.Faith.JumpFirstRoundEffect",
+      "data": {
+        "type": "Permanent",
+        "applied": false
+      }
+    }
+  ],
+  "3": [
+    {
+      "type": "Server.Game.Effects.Faith.CardRemoveEffect",
+      "data": {
+        "type": "Permanent",
+        "cardType": "Personality"
+      }
+    },
+    {
+      "type": "Server.Game.Effects.Faith.CardRemoveEffect",
+      "data": {
+        "type": "Permanent",
+        "cardType": "Challenge"
+      }
+    },
+    {
+      "type": "Server.Game.Effects.Faith.CardRemoveEffect",
+      "data": {
+        "type": "Permanent",
+        "cardType": "Territory"
+      }
+    },
+    {
+      "type": "Server.Game.Effects.Faith.PointLossEffect",
+      "data": {
+        "type": "Permanent",
+        "requestedResources": {
+          "VictoryPoint": 5
+        },
+        "removedPoints": 1,
+        "isApplied": false
+      }
+    },
+    {
+      "type": "Server.Game.Effects.Faith.PointLossEffect",
+      "data": {
+        "type": "Permanent",
+        "requestedResources": {
+          "MilitaryPoint": 1
+        },
+        "removedPoints": 1,
+        "isApplied": false
+      }
+    },
+    {
+      "type": "Server.Game.Effects.Faith.CardCostPenaltyEffect",
+      "data": {
+        "type": "Permanent",
+        "cardType": "Building",
+        "resourcesType": [
+          "Rock",
+          "Gold",
+          "Slave",
+          "Wood"
+        ],
+        "removedPoints": 1,
+        "isApplied": false
+      }
+    },
+    {
+      "type": "Server.Game.Effects.Faith.PointLossEffect",
+      "data": {
+        "type": "Permanent",
+        "requestedResources": {
+          "Wood": 1,
+          "Slave": 1,
+          "Gold": 1,
+          "Rock": 1
+        },
+        "removedPoints": 1,
+        "isApplied": false
+      }
+    }
+  ]
+}

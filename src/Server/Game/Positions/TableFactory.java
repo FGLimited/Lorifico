@@ -43,11 +43,11 @@ public class TableFactory {
 
         // Harvest positions
         ActionPosition twenty = new ActionPosition(EffectType.Harvest, 20, 0);
-        ActionPosition twntyone = new ActionPosition(EffectType.Harvest, 21, 3);
-        ActionPosition twntytwo = new ActionPosition(EffectType.Harvest, 22, 3);
-        ActionPosition twntythree = new ActionPosition(EffectType.Harvest, 23, 3);
+        ActionPosition twentyone = new ActionPosition(EffectType.Harvest, 21, 3);
+        ActionPosition twentytwo = new ActionPosition(EffectType.Harvest, 22, 3);
+        ActionPosition twentythree = new ActionPosition(EffectType.Harvest, 23, 3);
 
-        List<ActionPosition> harvestAggregate = new ArrayList<>(Arrays.asList(twenty, twntyone, twntytwo, twntythree));
+        List<ActionPosition> harvestAggregate = new ArrayList<>(Arrays.asList(twenty, twentyone, twentytwo, twentythree));
 
         // Production positions
         ActionPosition thirty = new ActionPosition(EffectType.Production, 30, 0);
@@ -58,17 +58,17 @@ public class TableFactory {
         List<ActionPosition> productionAggregate = new ArrayList<>(Arrays.asList(thirty, thirtyone, thirtytwo, thirtythree));
 
         // Market positions
-        MarketPosition fourty = new MarketPosition(40, new ImmediateEffect(Collections.singletonMap(ResourceType.Gold, 5)));
-        MarketPosition fourtyone = new MarketPosition(41, new ImmediateEffect(Collections.singletonMap(ResourceType.Slave, 5)));
+        MarketPosition forty = new MarketPosition(40, new ImmediateEffect(Collections.singletonMap(ResourceType.Gold, 5)));
+        MarketPosition fortyone = new MarketPosition(41, new ImmediateEffect(Collections.singletonMap(ResourceType.Slave, 5)));
 
         HashMap<ResourceType, Integer> marketBonus = new HashMap<>();
         marketBonus.put(ResourceType.Gold, 2);
         marketBonus.put(ResourceType.Favor, 1);
 
-        MarketPosition fourtytwo = new MarketPosition(42, new ImmediateEffect(marketBonus));
-        MarketPosition fourtythree = new MarketPosition(43, new ImmediateEffect(Collections.singletonMap(ResourceType.Favor, 2)));
+        MarketPosition fortytwo = new MarketPosition(42, new ImmediateEffect(marketBonus));
+        MarketPosition fortythree = new MarketPosition(43, new ImmediateEffect(Collections.singletonMap(ResourceType.Favor, 2)));
 
-        List<MarketPosition> marketAggregate = new ArrayList<>(Arrays.asList(fourty, fourtyone, fourtytwo, fourtythree));
+        List<MarketPosition> marketAggregate = new ArrayList<>(Arrays.asList(forty, fortyone, fortytwo, fortythree));
 
         // Council positions
         List<CouncilPosition> councilAggregate = new ArrayList<>();

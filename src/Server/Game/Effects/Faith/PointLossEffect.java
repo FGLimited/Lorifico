@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Created by fiore on 20/05/2017.
  */
-public class PointLoss implements Effect {
+public class PointLossEffect implements Effect {
 
     private final EffectType type = EffectType.Permanent;
 
@@ -25,7 +25,7 @@ public class PointLoss implements Effect {
      * @param requestedResources Map of resources and necessary quantity to love 'removedValue' victory points
      * @param removedValue Victory point loss for each resource present
      */
-    public PointLoss(Map<ResourceType, Integer> requestedResources, int removedValue) {
+    public PointLossEffect(Map<ResourceType, Integer> requestedResources, int removedValue) {
         this.requestedResources = requestedResources;
         removedPoints = removedValue;
     }

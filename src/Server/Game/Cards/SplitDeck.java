@@ -2,6 +2,8 @@ package Server.Game.Cards;
 
 import Game.Cards.*;
 import Game.Cards.Card;
+
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +16,7 @@ public class SplitDeck {
 
     private final Map<Integer, Map<CardType, List<Card>>> cardPerTurn = new HashMap<>();
 
-    public SplitDeck() {
+    public SplitDeck() throws IOException {
 
         // TODO: load all cards from json file
 
