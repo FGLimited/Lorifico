@@ -18,10 +18,10 @@ public class UserInterfaceImplemCLI implements UserInterface {
 
 
     /**
-     * Creates main shell
+     * Creates main shell and asks data to connect to server
      */
     @Override
-    public void init() {
+    public void init(String args[]) {
         try {
             ShellFactory.createConsoleShell("Lorenzo", "Scrivi ?list per conoscere i comandi", new ConnectionPage())
                     .commandLoop();
