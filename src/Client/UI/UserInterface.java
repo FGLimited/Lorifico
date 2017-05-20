@@ -7,7 +7,7 @@ public interface UserInterface {
     /**
      * Used to start gui/cli
      */
-    public void init();
+    public void init(String args[]);
 
     /**
      * Displays a popup in GUI or a text message in CLI
