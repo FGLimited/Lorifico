@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.ToggleButtonGroup?>
-<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.Group?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
-<StackPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="358.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity"
+           minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0"
+           xmlns="http://javafx.com/javafx/8.0.112" fx:controller="Client.UI.GUI.ConnectionPageController">
     <children>
         <Group>
             <children>
-                <VBox alignment="CENTER" prefHeight="326.0" prefWidth="239.0">
+                <VBox alignment="CENTER" prefHeight="361.0" prefWidth="239.0">
                     <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" text="Lorifico" textAlignment="CENTER">
                             <font>
@@ -62,14 +59,17 @@
                   </Label>
                   <HBox alignment="TOP_CENTER" prefHeight="28.0" prefWidth="239.0">
                      <children>
-                        <ToggleButtonGroup minWidth="-Infinity" prefHeight="27.0" prefWidth="155.0" selectionType="SINGLE">
-                           <toggles>
-                              <JFXRadioButton selected="true" text="Socket" />
-                              <JFXRadioButton prefHeight="17.0" prefWidth="75.0" text="RMI" />
-                           </toggles>
-                        </ToggleButtonGroup>
+                         <ChoiceBox fx:id="choiceBox" prefHeight="39.0" prefWidth="149.0"/>
                      </children>
                   </HBox>
+                        <JFXButton mnemonicParsing="false" onAction="#connect" ripplerFill="#b7ff0a" text="Connetti">
+                            <VBox.margin>
+                                <Insets top="20.0"/>
+                            </VBox.margin>
+                            <font>
+                                <Font size="19.0"/>
+                            </font>
+                        </JFXButton>
                     </children>
                 </VBox>
             </children>

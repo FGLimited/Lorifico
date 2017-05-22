@@ -4,6 +4,7 @@
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/lib/cliche-shell-0.9.3.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/cliche-shell-0.9.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cliche-shell-0.9.3.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

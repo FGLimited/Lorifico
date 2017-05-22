@@ -35,6 +35,6 @@ public class Main {
 
         //Create a new user interface, we don't need to save it because Factory will from now on return always the same obj
         UserInterface userInterface = UserInterfaceFactory.getInstance(UserInterfaceFactory.UserInterfaceType.valueOf(cmdIn.toUpperCase()));
-        userInterface.init();
+        userInterface.init(args);
     }
 }

@@ -1,5 +1,6 @@
 package Client.UI.CLI;
 
+import Action.DisplayPopup;
 import Client.UI.Dashboard;
 import Client.UI.GameTable;
 import Client.UI.Login;
@@ -23,7 +24,7 @@ public class UserInterfaceImplemCLI implements UserInterface {
     @Override
     public void init(String args[]) {
         try {
-            ShellFactory.createConsoleShell("Lorenzo", "Scrivi ?list per conoscere i comandi", new ConnectionPage())
+            ShellFactory.createConsoleShell("Lorenzo", "Scrivi ?list per conoscere i comandi", new ConnectionPageController())
                     .commandLoop();
         } catch (IOException e) {
             System.err.println("Unable to start CLI Interface");
@@ -32,7 +33,7 @@ public class UserInterfaceImplemCLI implements UserInterface {
     }
 
     @Override
-    public void displayPopup(String message) {
+    public void displayPopup(DisplayPopup.Level level, String title, String message) {
         System.out.println(message);
     }
 
