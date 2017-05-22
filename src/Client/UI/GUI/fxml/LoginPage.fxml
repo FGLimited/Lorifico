@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity"
+           minHeight="-Infinity" minWidth="-Infinity" prefHeight="413.0" prefWidth="416.0"
+           xmlns="http://javafx.com/javafx/8.0.111" fx:controller="Client.UI.GUI.LoginPageController">
+    <children>
+        <Group>
+            <children>
+                <VBox alignment="CENTER" prefHeight="361.0" prefWidth="347.0">
+                    <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="Lorifico" textAlignment="CENTER">
+                            <font>
+                                <Font size="65.0"/>
+                            </font>
+                        </Label>
+                        <Region prefHeight="31.0" prefWidth="347.0"/>
+                        <Label text="Inserisci le tue credenziali">
+                            <padding>
+                                <Insets right="20.0"/>
+                            </padding>
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                            <VBox.margin>
+                                <Insets bottom="10.0" top="10.0"/>
+                            </VBox.margin>
+                        </Label>
+                        <HBox alignment="TOP_CENTER" prefHeight="37.0" prefWidth="276.0">
+                            <children>
+                                <Label text="Username">
+                                    <font>
+                                        <Font size="23.0"/>
+                                    </font>
+                                    <padding>
+                                        <Insets left="10.0" right="10.0"/>
+                                    </padding>
+                                    <HBox.margin>
+                                        <Insets top="3.0"/>
+                                    </HBox.margin>
+                                </Label>
+                                <JFXTextField fx:id="usernameField" maxWidth="200.0" promptText="Mario Rossi">
+                                    <font>
+                                        <Font size="17.0"/>
+                                    </font>
+                                </JFXTextField>
+                            </children>
+                        </HBox>
+                        <HBox alignment="TOP_CENTER" prefHeight="37.0" prefWidth="276.0">
+                            <children>
+                                <Label text="Password">
+                                    <font>
+                                        <Font size="23.0"/>
+                                    </font>
+                                    <padding>
+                                        <Insets left="10.0" right="10.0"/>
+                                    </padding>
+                                    <HBox.margin>
+                                        <Insets top="3.0"/>
+                                    </HBox.margin>
+                                </Label>
+                                <JFXPasswordField fx:id="passwordField" maxWidth="200.0" text="11111111111">
+                                    <font>
+                                        <Font size="17.0"/>
+                                    </font>
+                                </JFXPasswordField>
+                            </children>
+                            <VBox.margin>
+                                <Insets top="2.0"/>
+                            </VBox.margin>
+                        </HBox>
+                        <HBox alignment="TOP_CENTER" prefHeight="28.0" prefWidth="239.0">
+                            <children>
+                                <CheckBox fx:id="checkBox" mnemonicParsing="false" text="Sono un nuovo utente">
+                                    <HBox.margin>
+                                        <Insets top="15.0"/>
+                                    </HBox.margin>
+                                    <font>
+                                        <Font size="15.0"/>
+                                    </font>
+                                </CheckBox>
+                            </children>
+                        </HBox>
+                        <JFXButton fx:id="submitButton" mnemonicParsing="false" onAction="#onSubmitButton"
+                                   ripplerFill="#b7ff0a" text="Login">
+                            <VBox.margin>
+                                <Insets top="20.0"/>
+                            </VBox.margin>
+                            <font>
+                                <Font size="19.0"/>
+                            </font>
+                        </JFXButton>
+                    </children>
+                </VBox>
+            </children>
+        </Group>
+    </children>
+</StackPane>
