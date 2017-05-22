@@ -6,6 +6,6 @@ package Game.Effects;
 public enum EffectType {
     Immediate,
     Permanent,
-    Harvest,
-    Production
+    Activable,
+    Final
 }
