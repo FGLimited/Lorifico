@@ -2,8 +2,10 @@ package Client;
 
 import Action.BaseAction;
 import Client.Networking.CommFactory;
-import Networking.Gson.GsonUtils;
 import Networking.CommLink;
+import Networking.Gson.GsonUtils;
+
+import java.io.IOException;
 
 /**
  * Created by andrea on 10/05/2017.
@@ -15,13 +17,14 @@ public class CommunicationManager {
     private CommLink commLink;//Link with server
 
     //Initializes Communication with server
-    private CommunicationManager(CommFactory.LinkType commType, String ip, int port){
+    private CommunicationManager(CommFactory.LinkType commType, String ip, int port) throws IOException {
         //Seems not needed at this time of project....
         //System.setProperty("java.security.policy","src/client.policy");
         //System.setSecurityManager(new SecurityManager());
 
         commLink = (new CommFactory()).getLink(ip, port, commType);
-        if(commLink == null) return;
+        if (commLink == null)
+            throw new IOException("Impossibile connettersi al server");
         commLink.setOnMessage((link, message) -> handleMessageIn(message));
 
     }
@@ -30,7 +33,7 @@ public class CommunicationManager {
         return communicationManager;
     }
 
-    public static CommunicationManager getInstance(CommFactory.LinkType commType, String ip, int port) {
+    public static CommunicationManager getInstance(CommFactory.LinkType commType, String ip, int port) throws IOException {
         if (communicationManager == null) communicationManager = new CommunicationManager(commType, ip, port);
         return communicationManager;
     }

@@ -20,7 +20,7 @@ public class LoginPage implements Login, ShellDependent {
      */
     @Override
     public void showLoginPage() {
-        Shell shell = ((UserInterfaceImplemCLI) UserInterfaceFactory.getInstance()).getShell();
+        Shell shell = ((UserInterfaceImplemCLI) UserInterfaceFactory.getInstance()).getShell();//Gets reference to main shell
         try {
             ShellFactory.createSubshell("Login", shell, "Effettua il login o registrati (?list per vedere i comandi)", this)
                     .commandLoop();

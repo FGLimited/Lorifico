@@ -8,10 +8,12 @@ import com.budhash.cliche.Param;
 import com.budhash.cliche.Shell;
 import com.budhash.cliche.ShellDependent;
 
+import java.io.IOException;
+
 /**
  * Created by andrea on 17/05/17.
  */
-public class ConnectionPage implements ShellDependent {
+public class ConnectionPageController implements ShellDependent {
 
 
     @Command(description = "Connessione al server")
@@ -33,10 +35,13 @@ public class ConnectionPage implements ShellDependent {
             return "Il tipo di connessione deve essere " + CommFactory.LinkType.RMI.toString() + " o " + CommFactory.LinkType.SOCKET.toString();
         }
 
-        if (CommunicationManager.getInstance(CommFactory.LinkType.valueOf(type), ip, Integer.valueOf(port)) != null) {
-            UserInterfaceFactory.getInstance().getLogin().showLoginPage();
+        try {
+            CommunicationManager.getInstance(CommFactory.LinkType.valueOf(type), ip, Integer.valueOf(port));
+        } catch (IOException e) {
+            return e.getMessage();
         }
-        return "Riprova.";
+        UserInterfaceFactory.getInstance().getLogin().showLoginPage();
+        return "OK";
     }
 
     @Command(description = "Connessione al default server")
