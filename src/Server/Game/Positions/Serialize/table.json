@@ -1,51 +1,5 @@
 {
   "Towers": {
-    "Territory": [
-      {
-        "number": 1,
-        "type": "TerritoryTower",
-        "positionValue": 1,
-        "cardType": "Territory"
-      },
-      {
-        "number": 2,
-        "type": "TerritoryTower",
-        "positionValue": 3,
-        "cardType": "Territory"
-      },
-      {
-        "number": 3,
-        "type": "TerritoryTower",
-        "immediatePositionEffect": {
-          "type": "Server.Game.Effects.ImmediateEffect",
-          "data": {
-            "type": "Immediate",
-            "resources": {
-              "Wood": 1
-            },
-            "points": {}
-          }
-        },
-        "positionValue": 5,
-        "cardType": "Territory"
-      },
-      {
-        "number": 4,
-        "type": "TerritoryTower",
-        "immediatePositionEffect": {
-          "type": "Server.Game.Effects.ImmediateEffect",
-          "data": {
-            "type": "Immediate",
-            "resources": {
-              "Wood": 2
-            },
-            "points": {}
-          }
-        },
-        "positionValue": 7,
-        "cardType": "Territory"
-      }
-    ],
     "Building": [
       {
         "number": 5,
@@ -68,8 +22,7 @@
             "type": "Immediate",
             "resources": {
               "Rock": 1
-            },
-            "points": {}
+            }
           }
         },
         "positionValue": 5,
@@ -84,8 +37,7 @@
             "type": "Immediate",
             "resources": {
               "Rock": 2
-            },
-            "points": {}
+            }
           }
         },
         "positionValue": 7,
@@ -112,9 +64,8 @@
           "type": "Server.Game.Effects.ImmediateEffect",
           "data": {
             "type": "Immediate",
-            "resources": {},
-            "points": {
-              "Military": 1
+            "resources": {
+              "MilitaryPoint": 1
             }
           }
         },
@@ -128,9 +79,8 @@
           "type": "Server.Game.Effects.ImmediateEffect",
           "data": {
             "type": "Immediate",
-            "resources": {},
-            "points": {
-              "Military": 2
+            "resources": {
+              "MilitaryPoint": 2
             }
           }
         },
@@ -160,8 +110,7 @@
             "type": "Immediate",
             "resources": {
               "Gold": 1
-            },
-            "points": {}
+            }
           }
         },
         "positionValue": 5,
@@ -176,64 +125,99 @@
             "type": "Immediate",
             "resources": {
               "Gold": 2
-            },
-            "points": {}
+            }
           }
         },
         "positionValue": 7,
         "cardType": "Challenge"
+      }
+    ],
+    "Territory": [
+      {
+        "number": 1,
+        "type": "TerritoryTower",
+        "positionValue": 1,
+        "cardType": "Territory"
+      },
+      {
+        "number": 2,
+        "type": "TerritoryTower",
+        "positionValue": 3,
+        "cardType": "Territory"
+      },
+      {
+        "number": 3,
+        "type": "TerritoryTower",
+        "immediatePositionEffect": {
+          "type": "Server.Game.Effects.ImmediateEffect",
+          "data": {
+            "type": "Immediate",
+            "resources": {
+              "Wood": 1
+            }
+          }
+        },
+        "positionValue": 5,
+        "cardType": "Territory"
+      },
+      {
+        "number": 4,
+        "type": "TerritoryTower",
+        "immediatePositionEffect": {
+          "type": "Server.Game.Effects.ImmediateEffect",
+          "data": {
+            "type": "Immediate",
+            "resources": {
+              "Wood": 2
+            }
+          }
+        },
+        "positionValue": 7,
+        "cardType": "Territory"
       }
     ]
   },
   "Harvest": [
     {
       "number": 20,
-      "type": "Action",
-      "effectType": "Harvest",
+      "type": "HarvestAction",
       "domesticPenalty": 0
     },
     {
       "number": 21,
-      "type": "Action",
-      "effectType": "Harvest",
+      "type": "HarvestAction",
       "domesticPenalty": 3
     },
     {
       "number": 22,
-      "type": "Action",
-      "effectType": "Harvest",
+      "type": "HarvestAction",
       "domesticPenalty": 3
     },
     {
       "number": 23,
-      "type": "Action",
-      "effectType": "Harvest",
+      "type": "HarvestAction",
       "domesticPenalty": 3
     }
   ],
   "Production": [
     {
       "number": 30,
-      "type": "Action",
-      "effectType": "Production",
+      "type": "ProductionAction",
       "domesticPenalty": 0
     },
     {
       "number": 31,
-      "type": "Action",
-      "effectType": "Production",
+      "type": "ProductionAction",
       "domesticPenalty": 3
     },
     {
       "number": 32,
-      "type": "Action",
-      "effectType": "Production",
+      "type": "ProductionAction",
       "domesticPenalty": 3
     },
     {
       "number": 33,
-      "type": "Action",
-      "effectType": "Production",
+      "type": "ProductionAction",
       "domesticPenalty": 3
     }
   ],
@@ -247,8 +231,7 @@
           "type": "Immediate",
           "resources": {
             "Gold": 5
-          },
-          "points": {}
+          }
         }
       }
     },
@@ -261,8 +244,7 @@
           "type": "Immediate",
           "resources": {
             "Slave": 5
-          },
-          "points": {}
+          }
         }
       }
     },
@@ -274,10 +256,8 @@
         "data": {
           "type": "Immediate",
           "resources": {
-            "Gold": 2
-          },
-          "points": {
-            "Military": 3
+            "Gold": 2,
+            "Favor": 1
           }
         }
       }
@@ -291,8 +271,7 @@
           "type": "Immediate",
           "resources": {
             "Favor": 2
-          },
-          "points": {}
+          }
         }
       }
     }
@@ -300,7 +279,7 @@
   "Council": [
     {
       "number": 50,
-      "type": "Market",
+      "type": "Council",
       "immediatePositionEffect": {
         "type": "Server.Game.Effects.ImmediateEffect",
         "data": {
@@ -308,14 +287,13 @@
           "resources": {
             "Gold": 1,
             "Favor": 1
-          },
-          "points": {}
+          }
         }
       }
     },
     {
       "number": 51,
-      "type": "Market",
+      "type": "Council",
       "immediatePositionEffect": {
         "type": "Server.Game.Effects.ImmediateEffect",
         "data": {
@@ -323,14 +301,13 @@
           "resources": {
             "Gold": 1,
             "Favor": 1
-          },
-          "points": {}
+          }
         }
       }
     },
     {
       "number": 52,
-      "type": "Market",
+      "type": "Council",
       "immediatePositionEffect": {
         "type": "Server.Game.Effects.ImmediateEffect",
         "data": {
@@ -338,14 +315,13 @@
           "resources": {
             "Gold": 1,
             "Favor": 1
-          },
-          "points": {}
+          }
         }
       }
     },
     {
       "number": 53,
-      "type": "Market",
+      "type": "Council",
       "immediatePositionEffect": {
         "type": "Server.Game.Effects.ImmediateEffect",
         "data": {
@@ -353,8 +329,7 @@
           "resources": {
             "Gold": 1,
             "Favor": 1
-          },
-          "points": {}
+          }
         }
       }
     }

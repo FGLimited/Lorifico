@@ -1,31 +1,34 @@
-package Server.Game.Effects.Faith;
+package Server.Game.Effects;
 
+import Game.Cards.CardType;
 import Game.Effects.Effect;
 import Game.Effects.EffectType;
 import Game.Usable.ResourceType;
 import Game.UserObjects.PlayerState;
-import Server.Game.Usable.UsableHelper;
 import java.util.Map;
 
 /**
- * Created by fiore on 19/05/2017.
+ * Created by fiore on 21/05/2017.
  */
-public class ResourcePenaltyEffect implements Effect {
+public class CostBonusEffect implements Effect {
 
     private final EffectType type = EffectType.Permanent;
 
-    private final Map<ResourceType, Integer> resources;
+    private final CardType cardType;
+
+    private final Map<ResourceType, Integer> bonus;
 
     private volatile boolean isApplied = false;
 
     /**
-     * Apply a permanent penalty to specified resources
-     * Each time a resource is added the specified value is removed
+     * Get resource discount on specified type of card
      *
-     * @param penalties Penalty for resource
+     * @param cardType Card type
+     * @param bonus Resources bonuses
      */
-    public ResourcePenaltyEffect(Map<ResourceType, Integer> penalties) {
-        resources = UsableHelper.cloneMap(penalties);
+    public CostBonusEffect(CardType cardType, Map<ResourceType, Integer> bonus) {
+        this.cardType = cardType;
+        this.bonus = bonus;
     }
 
     @Override
@@ -41,16 +44,12 @@ public class ResourcePenaltyEffect implements Effect {
     @Override
     public void apply(PlayerState currentMove) {
 
-        // If already applied return
-        if(isApplied)
+        if (isApplied)
             return;
 
-        // Add penalties to user state
-        resources.forEach(currentMove::setPenalty);
+        bonus.forEach((resource, quantity) -> currentMove.setCostBonus(cardType, resource, quantity));
 
-        // Set effect applied to avoid multiple execution
         isApplied = true;
-
     }
 
     @Override

@@ -123,7 +123,7 @@ public class GameTable {
      * @param newCards New set of cards
      * @param newFaithEffect Faith effect (if null previous will remain)
      */
-    public Map<DomesticColor, Integer> changeTurn(Map<CardType, List<Card>> newCards, Effect newFaithEffect) {
+    public Map<DomesticColor, Integer> changeTurn(Map<CardType, List<Server.Game.Cards.Card>> newCards, Effect newFaithEffect) {
 
         // Update cards in tower positions
         newCards.forEach((type, list) ->
@@ -238,7 +238,6 @@ public class GameTable {
         final Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Position.class, new MySerializer<Position>())
                 .registerTypeAdapter(Effect.class, new MySerializer<Effect>())
-                .registerTypeAdapter(Card.class, new MySerializer<Card>())
                 .create();
 
         initTowers(gson, completeTable);
@@ -262,9 +261,9 @@ public class GameTable {
         // Initialize all towers
         JsonObject towersJson = tableJson.getAsJsonObject("Towers");
 
-        Type towersHashMapType = new TypeToken<HashMap<CardType, List<TowerPosition>>>(){}.getType();
+        Type towersHashMapType = new TypeToken<Map<CardType, List<TowerPosition>>>(){}.getType();
 
-        HashMap<CardType, List<TowerPosition>> loadedTowers = deserializer
+        Map<CardType, List<TowerPosition>> loadedTowers = deserializer
                 .fromJson(towersJson, towersHashMapType);
 
         // Aggregate positions in towers and add them to global cost positions list

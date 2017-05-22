@@ -24,13 +24,21 @@ public class CardCostPenaltyEffect implements Effect {
 
     private final int removedPoints;
 
+    private volatile boolean isApplied = false;
+
+    /**
+     * Remove specified amount of victory points for each of the specified resources present in
+     * each card cost of given card type
+     *
+     * @param resources Resources to check in card cost
+     * @param pointsToRemove Points to remove for each resource found
+     * @param cardType Type of cards to check
+     */
     public CardCostPenaltyEffect(List<ResourceType> resources, int pointsToRemove, CardType cardType) {
         this.cardType = cardType;
         resourcesType = resources;
         removedPoints = pointsToRemove;
     }
-
-    private volatile boolean isApplied = false;
 
     @Override
     public EffectType getType() {

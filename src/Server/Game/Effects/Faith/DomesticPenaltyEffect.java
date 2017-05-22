@@ -15,6 +15,11 @@ public class DomesticPenaltyEffect implements Effect {
 
     private final int penalty;
 
+    /**
+     * Apply specified value penalty to all non neutral domestics
+     *
+     * @param penalty Penalty value
+     */
     public DomesticPenaltyEffect(int penalty) {
         this.penalty = penalty;
     }

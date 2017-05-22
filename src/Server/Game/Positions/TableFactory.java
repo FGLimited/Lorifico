@@ -2,11 +2,12 @@ package Server.Game.Positions;
 
 import Game.Cards.CardType;
 import Game.Effects.Effect;
-import Game.Effects.EffectType;
 import Game.Positions.Position;
+import Game.Positions.PositionType;
 import Game.Usable.ResourceType;
 import Networking.Gson.MySerializer;
 import Server.Game.Effects.ImmediateEffect;
+import Server.Game.UserObjects.GameTable;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
@@ -19,41 +20,40 @@ import java.util.*;
  */
 public class TableFactory {
 
-    private final Gson gson = new GsonBuilder()
-            .registerTypeAdapter(Position.class, new MySerializer<Position>())
-            .registerTypeAdapter(Effect.class, new MySerializer<Effect>())
-            .create();
-
     public static void main(String[] args) throws IOException {
 
-        JsonObject completeTable = serializeActions(serializeTowers(new JsonObject()));
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .registerTypeAdapter(Position.class, new MySerializer<Position>())
+                .registerTypeAdapter(Effect.class, new MySerializer<Effect>())
+                .create();
 
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonObject completeTable = serializeActions(gson, serializeTowers(gson, new JsonObject()));
 
         String tableJson = gson.toJson(completeTable);
 
-        PrintWriter pw = new PrintWriter("table.json", "UTF-8");
+        PrintWriter pw = new PrintWriter("src/Server/Game/Positions/Serialize/table.json", "UTF-8");
 
         pw.println(tableJson);
 
         pw.close();
     }
 
-    private static JsonObject serializeActions(JsonObject jsonObj) {
+    private static JsonObject serializeActions(Gson gson, JsonObject jsonObj) {
 
         // Harvest positions
-        ActionPosition twenty = new ActionPosition(EffectType.Harvest, 20, 0);
-        ActionPosition twentyone = new ActionPosition(EffectType.Harvest, 21, 3);
-        ActionPosition twentytwo = new ActionPosition(EffectType.Harvest, 22, 3);
-        ActionPosition twentythree = new ActionPosition(EffectType.Harvest, 23, 3);
+        ActionPosition twenty = new ActionPosition(PositionType.HarvestAction, 20, 0);
+        ActionPosition twentyone = new ActionPosition(PositionType.HarvestAction, 21, 3);
+        ActionPosition twentytwo = new ActionPosition(PositionType.HarvestAction, 22, 3);
+        ActionPosition twentythree = new ActionPosition(PositionType.HarvestAction, 23, 3);
 
         List<ActionPosition> harvestAggregate = new ArrayList<>(Arrays.asList(twenty, twentyone, twentytwo, twentythree));
 
         // Production positions
-        ActionPosition thirty = new ActionPosition(EffectType.Production, 30, 0);
-        ActionPosition thirtyone = new ActionPosition(EffectType.Production, 31, 3);
-        ActionPosition thirtytwo = new ActionPosition(EffectType.Production, 32, 3);
-        ActionPosition thirtythree = new ActionPosition(EffectType.Production, 33, 3);
+        ActionPosition thirty = new ActionPosition(PositionType.ProductionAction, 30, 0);
+        ActionPosition thirtyone = new ActionPosition(PositionType.ProductionAction, 31, 3);
+        ActionPosition thirtytwo = new ActionPosition(PositionType.ProductionAction, 32, 3);
+        ActionPosition thirtythree = new ActionPosition(PositionType.ProductionAction, 33, 3);
 
         List<ActionPosition> productionAggregate = new ArrayList<>(Arrays.asList(thirty, thirtyone, thirtytwo, thirtythree));
 
@@ -76,11 +76,6 @@ public class TableFactory {
         for(int i = 0; i < 4; i++) {
             councilAggregate.add(new CouncilPosition(50 + i));
         }
-
-        Gson gson = new GsonBuilder()
-                .registerTypeAdapter(Position.class, new MySerializer<Position>())
-                .registerTypeAdapter(Effect.class, new MySerializer<Effect>())
-                .create();
 
         Type actionPosListType = new TypeToken<List<ActionPosition>>(){}.getType();
         Type marketPosListType = new TypeToken<List<MarketPosition>>(){}.getType();
@@ -107,7 +102,7 @@ public class TableFactory {
         return completeJson;
     }
 
-    private static JsonObject serializeTowers(JsonObject jsonObj) {
+    private static JsonObject serializeTowers(Gson gson, JsonObject jsonObj) {
 
         // Territory tower
         TowerPosition one = new TowerPosition(
@@ -205,34 +200,17 @@ public class TableFactory {
 
         List<TowerPosition> challangeTower = new ArrayList<>(Arrays.asList(thirteen, fourteen, fifteen, sixteen));
 
-        Gson gson = new GsonBuilder()
-                .registerTypeAdapter(Position.class, new MySerializer<Position>())
-                .registerTypeAdapter(Effect.class, new MySerializer<Effect>())
-                .create();
+        Map<CardType, List<TowerPosition>> towers = new HashMap<>();
+        towers.put(CardType.Territory, territoryTower);
+        towers.put(CardType.Building, buildingTower);
+        towers.put(CardType.Personality, personalityTower);
+        towers.put(CardType.Challenge, challangeTower);
 
-        Type posListType = new TypeToken<List<TowerPosition>>(){}.getType();
-
-        String territory = gson.toJson(territoryTower, posListType);
-        JsonArray territoryJson = new JsonParser().parse(territory).getAsJsonArray();
-
-        String building = gson.toJson(buildingTower, posListType);
-        JsonArray buildingJson = new JsonParser().parse(building).getAsJsonArray();
-
-        String personality = gson.toJson(personalityTower, posListType);
-        JsonArray personalityJson = new JsonParser().parse(personality).getAsJsonArray();
-
-        String challange = gson.toJson(challangeTower, posListType);
-        JsonArray challengeJson = new JsonParser().parse(challange).getAsJsonArray();
+        Type towersType = new TypeToken<Map<CardType, List<TowerPosition>>>(){}.getType();
 
         JsonObject completeJson = jsonObj != null ? jsonObj : new JsonObject();
 
-        JsonObject hashTowers = new JsonObject();
-        hashTowers.add("Territory", territoryJson);
-        hashTowers.add("Building", buildingJson);
-        hashTowers.add("Personality", personalityJson);
-        hashTowers.add("Challenge", challengeJson);
-
-        completeJson.add("Towers", hashTowers);
+        completeJson.add("Towers", gson.toJsonTree(towers, towersType));
 
         return completeJson;
     }

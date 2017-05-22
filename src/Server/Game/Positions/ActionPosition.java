@@ -20,8 +20,6 @@ public class ActionPosition implements Position<Effect> {
 
     private final PositionType type;
 
-    private final EffectType effectType;
-
     private final int domesticPenalty;
 
     private volatile PositionAggregate parent;
@@ -31,13 +29,12 @@ public class ActionPosition implements Position<Effect> {
     /**
      * Initialize an action position (Harvest or Production)
      *
-     * @param effectType Card effects to activate (Harvest or Production)
+     * @param positionType Harvest or Production
      * @param number Position number
      * @param domesticPenalty Penalty to apply to domestic value in this position
      */
-    public ActionPosition(EffectType effectType, int number, int domesticPenalty) {
-        this.type = effectType == EffectType.Harvest ? PositionType.HarvestAction : PositionType.ProductionAction;
-        this.effectType = effectType;
+    public ActionPosition(PositionType positionType, int number, int domesticPenalty) {
+        this.type = positionType;
         this.number = number;
         this.domesticPenalty = domesticPenalty;
     }
@@ -74,7 +71,7 @@ public class ActionPosition implements Position<Effect> {
             return Collections.emptyList();
 
         // Return list of activable effects
-        return currentState.getEffects(effectType).parallelStream()
+        return currentState.getEffects(EffectType.Activable).parallelStream()
                 .filter(effect -> effect.canApply(currentState))
                 .collect(Collectors.toList());
     }
