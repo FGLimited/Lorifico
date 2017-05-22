@@ -1,10 +1,7 @@
 package Client.UI.GUI;
 
 import Action.DisplayPopup;
-import Client.UI.Dashboard;
-import Client.UI.GameTable;
-import Client.UI.Login;
-import Client.UI.UserInterface;
+import Client.UI.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
@@ -25,6 +22,9 @@ public class UserInterfaceImplemJFX extends Application implements UserInterface
     private StackPane stackPane;//Every page is inside a stackPane,
     //every page controller should update this reference when loaded.
 
+    private Login login;//Login page controller
+
+
     /**
      * Used to init the stage
      * @param args
@@ -41,8 +41,8 @@ public class UserInterfaceImplemJFX extends Application implements UserInterface
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        this.primaryStage = primaryStage;
-        changeScene("Scegli il server", "fxml/ConnectionPage.fxml", 300, 400, true);
+        ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).setPrimaryStage(primaryStage);///// N.B: JavaFX creates a NEW UserInterfaceImplemJFX obj, we have to reach the original one
+        ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).changeScene("Scegli il server", "fxml/ConnectionPage.fxml", 300, 400, true);
     }
 
     @Override
@@ -67,7 +67,8 @@ public class UserInterfaceImplemJFX extends Application implements UserInterface
 
     @Override
     public Login getLogin() {
-        return null;
+        if (login == null) login = new LoginPageController();
+        return login;
     }
 
     @Override
@@ -94,6 +95,7 @@ public class UserInterfaceImplemJFX extends Application implements UserInterface
             return;
         }
         try {
+            Stage primaryStage = ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).getPrimaryStage();
             primaryStage.setTitle(title);
             Parent root = FXMLLoader.load(getClass().getResource(fxml));
             primaryStage.setScene(new Scene(root, w, h));
@@ -104,11 +106,15 @@ public class UserInterfaceImplemJFX extends Application implements UserInterface
         }
     }
 
-    public Stage getPrimaryStage() {
+    private Stage getPrimaryStage() {
         return primaryStage;
     }
 
-    protected StackPane getStackPane() {
+    private void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
+
+    private StackPane getStackPane() {
         return stackPane;
     }
 

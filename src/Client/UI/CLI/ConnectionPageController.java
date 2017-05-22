@@ -39,6 +39,8 @@ public class ConnectionPageController implements ShellDependent {
             CommunicationManager.getInstance(CommFactory.LinkType.valueOf(type), ip, Integer.valueOf(port));
         } catch (IOException e) {
             return e.getMessage();
+        } catch (NumberFormatException e1) {
+            return "La porta deve essere un numero";
         }
         UserInterfaceFactory.getInstance().getLogin().showLoginPage();
         return "OK";
