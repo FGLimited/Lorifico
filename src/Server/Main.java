@@ -16,14 +16,6 @@ import java.rmi.RemoteException;
 public class Main {
     public static void main(String args[]) {
 
-        final String sqlServerConnString = "jdbc:sqlserver://flow3rhouse.duckdns.org:1433;" +
-                "database=LorenzoDB;" +
-                "user=Lorenzo;" +
-                "password=Lollo57;" +
-                "encrypt=true;" +
-                "trustServerCertificate=true;" +
-                "loginTimeout=10;";
-
         final String mySqlConnString = "jdbc:mysql://flow3rhouse.duckdns.org/LorenzoDB?user=Lollo&password=Lorenzo@";
 
         // Create database instance for users

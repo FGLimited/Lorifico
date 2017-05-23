@@ -82,9 +82,10 @@ public class UserManager implements UserAuthenticator {
         try {
             List<User> updatedUser = database.call("user_update",
                     new Object[] { updateUser.getUsername(),
-                    updateUser.getWins(),
-                    updateUser.getLosts(),
-                    updateUser.getGameTime()},
+                            updateUser.getAvatar(),
+                            updateUser.getWins(),
+                            updateUser.getLosts(),
+                            updateUser.getGameTime()},
                     User.class);
 
             // user_update procedure returns 1 if user has been updated, 0 if user not present
