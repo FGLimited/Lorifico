@@ -15,6 +15,8 @@ public class User {
 
     private final String Username;
 
+    private volatile String Avatar;
+
     private volatile int WinCount;
 
     private volatile int LostCount;
@@ -27,6 +29,15 @@ public class User {
 
     private volatile Match match;
 
+    /**
+     * Create new user instance with specified values
+     *
+     * @param username Username
+     * @param winCount Won games
+     * @param lostCount Lost games
+     * @param gameTime Total game time
+     * @param clientLink Link to client application
+     */
     public User(String username, int winCount, int lostCount, int gameTime, CommLink clientLink) {
         this.Username = username;
         this.WinCount = winCount;
@@ -64,6 +75,10 @@ public class User {
 
     public String getUsername() {
         return Username;
+    }
+
+    public String getAvatar() {
+        return Avatar;
     }
 
     public int getWins() { return WinCount; }
