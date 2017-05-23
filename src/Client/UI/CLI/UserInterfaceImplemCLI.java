@@ -1,10 +1,7 @@
 package Client.UI.CLI;
 
 import Action.DisplayPopup;
-import Client.UI.Dashboard;
-import Client.UI.GameTable;
-import Client.UI.Login;
-import Client.UI.UserInterface;
+import Client.UI.*;
 import com.budhash.cliche.Shell;
 import com.budhash.cliche.ShellFactory;
 
@@ -41,6 +38,16 @@ public class UserInterfaceImplemCLI implements UserInterface {
     public Login getLogin() {
         if (login == null) login = new LoginPage();
         return login;
+    }
+
+    @Override
+    public ChooseAvatar getChooseAvatar() {
+        return null;
+    }
+
+    @Override
+    public Lobby getLobby() {
+        return null;
     }
 
     @Override

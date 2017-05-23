@@ -1,10 +1,6 @@
 package Server.Networking;
 
-import Action.BaseAction;
-import Action.DisplayPopup;
-import Action.LoginOrRegister;
-import Server.Game.UserHandler;
-import Networking.Gson.GsonUtils;
+import Action.*;
 import Logging.Logger;
 import Model.User.User;
 import Model.User.UserAlreadyExistentException;
@@ -12,6 +8,8 @@ import Model.User.UserNotFoundException;
 import Model.User.WrongPasswordException;
 import Model.UserAuthenticator;
 import Networking.CommLink;
+import Networking.Gson.GsonUtils;
+import Server.Game.UserHandler;
 import com.google.gson.JsonSyntaxException;
 
 /**
@@ -122,11 +120,17 @@ public class LogInHandler implements LinkHandler {
 
         Logger.log(Logger.LogLevel.Normal, "User " + authorizedUser.getUsername() + " connected.");
 
-        //TODO: here we should send tons of data about current active stuff etc..
-
         //Send user a message
-        BaseAction popup = new DisplayPopup(DisplayPopup.Level.Normal, "You logged in as " + authorizedUser.getUsername());
+        BaseAction popup = new DisplayPopup(DisplayPopup.Level.Normal, "Benvenuto " + authorizedUser.getUsername());
         link.sendMessage(GsonUtils.toGson(popup));
+
+        //Send User object to connected user
+        BaseAction sendUserObj = new UpdateUserObject(authorizedUser);
+        link.sendMessage(GsonUtils.toGson(sendUserObj));
+
+        //Move user UI to Lobby
+        BaseAction changeView = new ChangeClientView(ChangeClientView.View.LOBBY);
+        link.sendMessage(GsonUtils.toGson(changeView));
 
         // Pass user to user handler
         userHandler.addUser(authorizedUser);

@@ -42,7 +42,7 @@ public class ConnectionPageController implements ShellDependent {
         } catch (NumberFormatException e1) {
             return "La porta deve essere un numero";
         }
-        UserInterfaceFactory.getInstance().getLogin().showLoginPage();
+        UserInterfaceFactory.getInstance().getLogin().showPage();
         return "OK";
     }
 

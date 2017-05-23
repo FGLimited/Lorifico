@@ -5,6 +5,7 @@ package Client;
  */
 
 import Game.UserObjects.GameUser;
+import Logging.Logger;
 import Model.User.User;
 
 /**
@@ -27,7 +28,7 @@ public class Datawarehouse {
      * @return the only instance of Datawarehouse
      */
     public static Datawarehouse getInstance() {
-        if (datawarehouse != null) datawarehouse = new Datawarehouse();
+        if (datawarehouse == null) datawarehouse = new Datawarehouse();
         return datawarehouse;
     }
 
@@ -38,6 +39,7 @@ public class Datawarehouse {
     public void setUser(User user) {
         //observer pattern?
         this.user = user;
+        Logger.log(Logger.LogLevel.Normal, "User received: [" + user.getUsername() + ", ]");
     }
 
     public GameUser getGameUser() {

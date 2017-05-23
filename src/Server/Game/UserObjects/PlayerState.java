@@ -7,6 +7,7 @@ import Game.Effects.EffectType;
 import Game.Positions.PositionType;
 import Game.Usable.ResourceType;
 import Server.Game.Usable.UsableHelper;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +28,7 @@ public class PlayerState implements Game.UserObjects.PlayerState {
 
     private final Map<CardType, List<Card>> cards = new HashMap<>();
 
-    private final GameUser gameUser;
+    private final transient GameUser gameUser;
 
     private volatile Domestic inUseDomestic = null;
 

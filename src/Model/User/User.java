@@ -1,11 +1,11 @@
 package Model.User;
 
 import Action.BaseAction;
-import Networking.Gson.GsonUtils;
+import Game.UserObjects.GameUser;
 import Logging.Logger;
 import Networking.CommLink;
+import Networking.Gson.GsonUtils;
 import Server.Game.Match;
-import Game.UserObjects.GameUser;
 import com.google.gson.JsonSyntaxException;
 
 /**
@@ -21,11 +21,11 @@ public class User {
 
     private volatile int GameTime;
 
-    private volatile CommLink link;
+    private volatile transient CommLink link;
 
-    private volatile GameUser gameUser;
+    private volatile transient GameUser gameUser;
 
-    private volatile Match match;
+    private volatile transient Match match;
 
     public User(String username, int winCount, int lostCount, int gameTime, CommLink clientLink) {
         this.Username = username;
@@ -93,6 +93,15 @@ public class User {
     }
 
     /**
+     * Get associated game user
+     *
+     * @return Game user
+     */
+    public GameUser getGameUser() {
+        return gameUser;
+    }
+
+    /**
      * Set game user on match initialization
      *
      * @param newGameUser Initialized game user
@@ -104,12 +113,12 @@ public class User {
     }
 
     /**
-     * Get associated game user
+     * Get current game match
      *
-     * @return Game user
+     * @return Game match
      */
-    public GameUser getGameUser() {
-        return gameUser;
+    public Match getMatch() {
+        return match;
     }
 
     /**
@@ -119,14 +128,5 @@ public class User {
      */
     public void setMatch(Match newMatch) {
         match = newMatch;
-    }
-
-    /**
-     * Get current game match
-     *
-     * @return Game match
-     */
-    public Match getMatch() {
-        return match;
     }
 }

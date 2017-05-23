@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity"
+           minHeight="-Infinity" minWidth="-Infinity" prefHeight="413.0" prefWidth="416.0"
+           xmlns="http://javafx.com/javafx/8.0.111" fx:controller="Client.UI.GUI.LobbyPageController">
+    <children>
+        <Group>
+            <children>
+                <VBox alignment="CENTER" prefHeight="361.0" prefWidth="347.0">
+                    <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="Lobby" textAlignment="CENTER">
+                            <font>
+                                <Font size="65.0"/>
+                            </font>
+                        </Label>
+                        <Region prefHeight="31.0" prefWidth="347.0"/>
+                        <Label fx:id="playersLabel" text="In attesa di altri giocatori...">
+                            <padding>
+                                <Insets right="20.0"/>
+                            </padding>
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                            <VBox.margin>
+                                <Insets bottom="10.0" top="10.0"/>
+                            </VBox.margin>
+                        </Label>
+                        <Label fx:id="countDownLabel" text="30">
+                            <font>
+                                <Font size="29.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+            </children>
+        </Group>
+    </children>
+</StackPane>
