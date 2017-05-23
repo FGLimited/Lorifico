@@ -49,7 +49,11 @@ public class BonusDomesticEffect implements Effect {
     @Override
     public void apply(PlayerState currentMove) {
 
+        // Set special neutral domestic
         Domestic special = new Domestic(currentMove.getGameUser().getFamilyColor(), DomesticColor.Neutral, value);
+
+        // Set not moved for current user
+        currentMove.getGameUser().setHasMoved(false);
 
         // TODO: set special as in use domestic
 

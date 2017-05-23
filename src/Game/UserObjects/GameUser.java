@@ -37,6 +37,14 @@ public interface GameUser {
      */
     void setDomestics(Map<DomesticColor, Integer> newValues);
 
+    /**
+     * Add permanent penalty value to specified domestic
+     *
+     * @param color Domestic color
+     * @param penalty Penalty value
+     */
+    void setDomesticPenalty(DomesticColor color, int penalty);
+
     void setRoundJump(boolean jumpRound);
 
     boolean getRoundJump();
@@ -54,5 +62,19 @@ public interface GameUser {
      * @param newState New state to update user state
      */
     void updateUserState(PlayerState newState);
+
+    /**
+     * Set true when player has performed his move
+     *
+     * @param hasMoved HasMoved value
+     */
+    void setHasMoved(boolean hasMoved);
+
+    /**
+     * Check if player has moved or not
+     *
+     * @return True if has moved, false else
+     */
+    boolean getHasMoved();
 
 }

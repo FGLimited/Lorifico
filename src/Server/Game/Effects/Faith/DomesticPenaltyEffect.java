@@ -3,8 +3,8 @@ package Server.Game.Effects.Faith;
 import Game.Effects.Effect;
 import Game.Effects.EffectType;
 import Game.UserObjects.DomesticColor;
+import Game.UserObjects.GameUser;
 import Game.UserObjects.PlayerState;
-import Server.Game.UserObjects.Domestic;
 
 /**
  * Created by fiore on 20/05/2017.
@@ -14,6 +14,8 @@ public class DomesticPenaltyEffect implements Effect {
     private final EffectType type = EffectType.Permanent;
 
     private final int penalty;
+
+    private volatile boolean isApplied = false;
 
     /**
      * Apply specified value penalty to all non neutral domestics
@@ -31,17 +33,22 @@ public class DomesticPenaltyEffect implements Effect {
 
     @Override
     public boolean canApply(PlayerState currentMove) {
-        return true;
+        return !isApplied;
     }
 
     @Override
     public void apply(PlayerState currentMove) {
 
-        final Domestic inUse = currentMove.getInUseDomestic();
+        if (isApplied)
+            return;
 
-        if(inUse.getType() != DomesticColor.Neutral)
-            inUse.setValue(inUse.getValue() - penalty);
+        final GameUser user = currentMove.getGameUser();
 
+        user.setDomesticPenalty(DomesticColor.Black, penalty);
+        user.setDomesticPenalty(DomesticColor.Orange, penalty);
+        user.setDomesticPenalty(DomesticColor.White, penalty);
+
+        isApplied = true;
     }
 
     @Override

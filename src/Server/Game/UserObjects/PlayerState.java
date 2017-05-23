@@ -87,6 +87,11 @@ public class PlayerState implements Game.UserObjects.PlayerState {
     }
 
     @Override
+    public void setInUseDomestic(Domestic inUse) {
+        inUseDomestic = inUse;
+    }
+
+    @Override
     public PositionType getCheckingPositionType() {
         return checkingPosition;
     }

@@ -4,6 +4,7 @@ import Game.Effects.Effect;
 import Game.Usable.ResourceType;
 import Game.UserObjects.DomesticColor;
 import Game.UserObjects.FamilyColor;
+import Game.UserObjects.PlayerState;
 import Logging.Logger;
 import Model.User.User;
 import Server.Game.Cards.SplitDeck;
@@ -26,7 +27,7 @@ public class Match implements UserHandler {
 
     private final List<User> users = Collections.synchronizedList(new ArrayList<>());
 
-    private final ScheduledExecutorService matchExecutor = Executors.newSingleThreadScheduledExecutor();
+    private volatile ScheduledExecutorService matchExecutor = Executors.newSingleThreadScheduledExecutor();
 
     private final long startDelay;
 
@@ -85,17 +86,25 @@ public class Match implements UserHandler {
         // TODO: send user list to all users
 
         // When the second users is added start countdown for match start
-        if(users.size() >= 2)
+        if(users.size() >= 2) {
 
-            matchExecutor.shutdownNow();
+            // If another thread is already waiting shut it down
+            if(!matchExecutor.isShutdown()) {
+                matchExecutor.shutdownNow();
 
+                // Create new executor because old one can't be used after shutdown
+                matchExecutor = Executors.newSingleThreadScheduledExecutor();
+            }
+
+            // Schedule new match start
             matchExecutor.schedule(() -> {
 
                 // If there are at least two users the game can start
-                if(users.size() > 1)
+                if (users.size() > 1)
                     initGame();
 
             }, startDelay, TimeUnit.MILLISECONDS);
+        }
 
         // When maximum player
         if(users.size() == 4) {
@@ -112,6 +121,15 @@ public class Match implements UserHandler {
     @Override
     public List<User> getAllUsers() {
         return users;
+    }
+
+    /**
+     * Get current game table if is initialized
+     *
+     * @return Initialized game table or null
+     */
+    public GameTable getTable() {
+        return table;
     }
 
     /**
@@ -149,7 +167,9 @@ public class Match implements UserHandler {
             GameUser newGameUser = new Server.Game.UserObjects.GameUser(current.getLink(), colors[i]);
 
             // Add initial resources
-            newGameUser.getUserState().setResources(initialResources, false);
+            final PlayerState initialState = newGameUser.getUserState();
+            initialState.setResources(initialResources, false);
+            newGameUser.updateUserState(initialState);
 
             // Set new game user
             current.setGameUser(newGameUser);

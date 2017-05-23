@@ -22,6 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Created by fiore on 11/05/2017.
@@ -193,9 +194,13 @@ public class GameTable {
      * @param chosenTs Chosen effects/cost to activate/pay occupying specified position
      * @param type T type of selected Position&lt;T&gt;
      * @param <T> Effect or Cost
+     * @return Updated position
      */
     @SuppressWarnings("unchecked")
-    public <T> void occupy(GameUser currentUser, int positionNumber, List<T> chosenTs, Class<T> type) {
+    public <T> Position occupy(GameUser currentUser, int positionNumber, List<T> chosenTs, Class<T> type) {
+
+        // Updated position reference
+        final AtomicReference<Position> occupiedPosition = new AtomicReference<>(null);
 
         if(type == Effect.class)
             actionPositions.parallelStream()
@@ -205,6 +210,8 @@ public class GameTable {
                         PlayerState newState = pos.occupy(currentUser.getUserState(), (List<Effect>) chosenTs);
 
                         currentUser.updateUserState(newState);
+
+                        occupiedPosition.set(pos);
                     });
 
         if(type == Cost.class)
@@ -215,10 +222,12 @@ public class GameTable {
                         PlayerState newState = pos.occupy(currentUser.getUserState(), (List<Cost>) chosenTs);
 
                         currentUser.updateUserState(newState);
+
+                        occupiedPosition.set(pos);
                     });
 
-        // TODO: send update to all players here if you want differential update
-        // (else get global update from game table as you wish)
+        // Return updated position
+        return occupiedPosition.get();
     }
 
     /**

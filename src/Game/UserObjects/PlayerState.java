@@ -23,6 +23,13 @@ public interface PlayerState extends Cloneable {
     Domestic getInUseDomestic();
 
     /**
+     * Set domestic to use in current round
+     *
+     * @param inUse Chosen domestic
+     */
+    void setInUseDomestic(Domestic inUse);
+
+    /**
      * Get current position type being checked for occupation availability
      *
      * @return Checking position type

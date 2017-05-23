@@ -6,6 +6,7 @@ import Game.Usable.ResourceType;
 import Game.UserObjects.GameUser;
 import Game.UserObjects.PlayerState;
 import Logging.Logger;
+import Networking.CommLink;
 import Server.Game.UserObjects.GameTable;
 import java.util.ArrayList;
 import java.util.List;
@@ -105,7 +106,9 @@ public class Turn {
      */
     private void move(final GameUser currentUser, BaseAction moveRequest) {
 
-        // TODO: send move request throw current user comm link
+        final CommLink userLink = currentUser.getUserLink();
+
+        // TODO: send move request through current user comm link
 
         synchronized (currentUser) {
             try {
@@ -116,6 +119,9 @@ public class Turn {
             }
         }
 
+        if (!currentUser.getHasMoved()) {
+            // TODO: send user timeout message
+        }
     }
 
     /**

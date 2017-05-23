@@ -14,11 +14,15 @@ public class GameUser implements Game.UserObjects.GameUser {
 
     private final Map<DomesticColor, Domestic> domestics = new HashMap<>();
 
+    private final Map<DomesticColor, Integer> penalty = new HashMap<>();
+
     private final CommLink userLink;
 
     private volatile Game.UserObjects.PlayerState currentState;
 
     private volatile boolean roundJump = false;
+
+    private volatile boolean hasMoved = false;
 
     /**
      * Initialize a new game user with player state
@@ -54,9 +58,19 @@ public class GameUser implements Game.UserObjects.GameUser {
     @Override
     public void setDomestics(Map<DomesticColor, Integer> newValues) {
         // Update domestic value
-        newValues.forEach((color, value) -> domestics.get(color).setValue(value));
+        newValues.forEach((color, value) -> {
+            if(penalty.containsKey(color))
+                domestics.get(color).setValue(value - penalty.get(color));
+            else
+                domestics.get(color).setValue(value);
+        });
 
         // TODO: send domestic values update to user (send to this only)
+    }
+
+    @Override
+    public void setDomesticPenalty(DomesticColor color, int value) {
+        penalty.put(color, value);
     }
 
     @Override
@@ -79,5 +93,15 @@ public class GameUser implements Game.UserObjects.GameUser {
         currentState = newState;
 
         // TODO: send update to users (send to all)
+    }
+
+    @Override
+    public void setHasMoved(boolean hasMoved) {
+        this.hasMoved = hasMoved;
+    }
+
+    @Override
+    public boolean getHasMoved() {
+        return hasMoved;
     }
 }
