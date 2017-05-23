@@ -1,7 +1,9 @@
 package Server.Game.UserObjects;
 
-import Game.UserObjects.*;
+import Game.UserObjects.DomesticColor;
+import Game.UserObjects.FamilyColor;
 import Networking.CommLink;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +20,7 @@ public class GameUser implements Game.UserObjects.GameUser {
 
     private final CommLink userLink;
 
-    private volatile Game.UserObjects.PlayerState currentState;
+    private volatile transient Game.UserObjects.PlayerState currentState;
 
     private volatile boolean roundJump = false;
 
