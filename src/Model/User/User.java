@@ -89,6 +89,10 @@ public class User {
 
     public CommLink getLink() { return link; }
 
+    public void setAvatar(String newAvatar) {
+        Avatar = newAvatar;
+    }
+
     public void incrementWins() { WinCount++; }
 
     public void incrementLosts() { LostCount++; }
