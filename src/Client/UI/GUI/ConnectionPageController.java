@@ -53,7 +53,7 @@ public class ConnectionPageController implements Initializable {
                 CommunicationManager.getInstance(choiceBox.getValue(), ipField.getText(), Integer.valueOf(portField.getText()));
 
                 //If everything was ok we can ask user to login (following line is not throwing exceptions)
-                UserInterfaceFactory.getInstance().getLogin().showLoginPage();
+                UserInterfaceFactory.getInstance().getLogin().showPage();
             } catch (IOException | NumberFormatException e) {
                 UserInterfaceFactory.getInstance().displayPopup(DisplayPopup.Level.Error, "Qualcosa non funziona", e.getMessage());
             }

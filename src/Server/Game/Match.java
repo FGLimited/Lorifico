@@ -1,18 +1,24 @@
 package Server.Game;
 
+import Action.BaseAction;
+import Action.SendMatchAttendees;
 import Game.Effects.Effect;
 import Game.Usable.ResourceType;
 import Game.UserObjects.DomesticColor;
 import Game.UserObjects.FamilyColor;
+import Game.UserObjects.GameUser;
 import Logging.Logger;
 import Model.User.User;
+import Networking.Gson.GsonUtils;
 import Server.Game.Cards.SplitDeck;
 import Server.Game.Effects.Faith.FaithDeck;
 import Server.Game.UserObjects.GameTable;
-import Game.UserObjects.GameUser;
+
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -82,7 +88,11 @@ public class Match implements UserHandler {
         users.add(newUser);
         newUser.setMatch(this);
 
-        // TODO: send user list to all users
+        //Send all match users a list container other attendees
+        getAllUsers().forEach(user -> {
+            BaseAction baseAction = new SendMatchAttendees(getAllUsers());
+            user.getLink().sendMessage(GsonUtils.toGson(baseAction));
+        });
 
         // When the second users is added start countdown for match start
         if(users.size() >= 2)

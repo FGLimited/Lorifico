@@ -23,6 +23,7 @@ public class UserInterfaceImplemJFX extends Application implements UserInterface
     //every page controller should update this reference when loaded.
 
     private Login login;//Login page controller
+    private Lobby lobby;//Lobby page controller
 
 
     /**
@@ -42,7 +43,7 @@ public class UserInterfaceImplemJFX extends Application implements UserInterface
     @Override
     public void start(Stage primaryStage) throws Exception {
         ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).setPrimaryStage(primaryStage);///// N.B: JavaFX creates a NEW UserInterfaceImplemJFX obj, we have to reach the original one
-        ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).changeScene("Scegli il server", "fxml/ConnectionPage.fxml", 300, 400, true);
+        ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).changeScene("Scegli il server", "fxml/ConnectionPage.fxml", 300, 400, true, this);
     }
 
     @Override
@@ -72,6 +73,17 @@ public class UserInterfaceImplemJFX extends Application implements UserInterface
     }
 
     @Override
+    public ChooseAvatar getChooseAvatar() {
+        return null;
+    }
+
+    @Override
+    public Lobby getLobby() {
+        if (lobby == null) lobby = new LobbyPageController();
+        return lobby;
+    }
+
+    @Override
     public Dashboard getDashboard() {
         return null;
     }
@@ -89,15 +101,18 @@ public class UserInterfaceImplemJFX extends Application implements UserInterface
      * @param w     New page width
      * @param h     New page height
      */
-    protected void changeScene(String title, String fxml, int w, int h, boolean resizable) {
+    protected void changeScene(String title, String fxml, int w, int h, boolean resizable, Object controller) {
         if (!Platform.isFxApplicationThread()) {
-            Platform.runLater(() -> changeScene(title, fxml, w, h, resizable));
+            Platform.runLater(() -> changeScene(title, fxml, w, h, resizable, controller));
             return;
         }
         try {
-            Stage primaryStage = ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).getPrimaryStage();
+            //Stage primaryStage = ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).getPrimaryStage();
             primaryStage.setTitle(title);
-            Parent root = FXMLLoader.load(getClass().getResource(fxml));
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            Parent root = fxmlLoader.load(getClass().getResource(fxml));
+
+            fxmlLoader.setController(controller);
             primaryStage.setScene(new Scene(root, w, h));
             primaryStage.setResizable(resizable);
             primaryStage.show();

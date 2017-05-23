@@ -1,7 +1,9 @@
 package Server.Game.UserObjects;
 
-import Game.UserObjects.*;
+import Game.UserObjects.DomesticColor;
+import Game.UserObjects.FamilyColor;
 import Networking.CommLink;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,9 +16,9 @@ public class GameUser implements Game.UserObjects.GameUser {
 
     private final Map<DomesticColor, Domestic> domestics = new HashMap<>();
 
-    private final CommLink userLink;
+    private final transient CommLink userLink;
 
-    private volatile Game.UserObjects.PlayerState currentState;
+    private volatile transient Game.UserObjects.PlayerState currentState;
 
     private volatile boolean roundJump = false;
 
@@ -60,13 +62,13 @@ public class GameUser implements Game.UserObjects.GameUser {
     }
 
     @Override
-    public void setRoundJump(boolean jumpRound) {
-        roundJump = jumpRound;
+    public boolean getRoundJump() {
+        return roundJump;
     }
 
     @Override
-    public boolean getRoundJump() {
-        return roundJump;
+    public void setRoundJump(boolean jumpRound) {
+        roundJump = jumpRound;
     }
 
     @Override

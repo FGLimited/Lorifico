@@ -41,8 +41,8 @@ public class LoginPageController implements Client.UI.Login, Initializable {
      * This method changes current shown page to LoginPage's
      */
     @Override
-    public void showLoginPage() {
-        ((UserInterfaceImplemJFX) (UserInterfaceFactory.getInstance())).changeScene("Login", "fxml/LoginPage.fxml", 415, 415, true);
+    public void showPage() {
+        ((UserInterfaceImplemJFX) (UserInterfaceFactory.getInstance())).changeScene("Login", "fxml/LoginPage.fxml", 415, 415, true, this);
     }
 
     @Override
