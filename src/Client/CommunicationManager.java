@@ -2,6 +2,7 @@ package Client;
 
 import Action.BaseAction;
 import Client.Networking.CommFactory;
+import Logging.Logger;
 import Networking.CommLink;
 import Networking.Gson.GsonUtils;
 
@@ -44,6 +45,7 @@ public class CommunicationManager {
      * @param message the serialized message
      */
     private void handleMessageIn(String message) {
+        Logger.log(Logger.LogLevel.Normal, message);
         BaseAction action = GsonUtils.fromGson(message);
         if (Datawarehouse.getInstance() != null) {
             action.doAction(Datawarehouse.getInstance().getUser());

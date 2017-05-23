@@ -6,7 +6,6 @@ import Model.User.User;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -14,6 +13,7 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -22,6 +22,8 @@ import java.util.ResourceBundle;
  */
 public class LobbyPageController implements Lobby, Initializable {
     private Timeline countDownTimeline;
+    private List<User> userList = new ArrayList<>(1);
+    private int timer = 30;
 
     @FXML
     private StackPane root;
@@ -42,44 +44,31 @@ public class LobbyPageController implements Lobby, Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).setStackPane(root);//Updates reference to root stack pane in UserInterface, this way popus will be displayed in this page.
+
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.millis(1000),
+                ae -> decrementCountdown()));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
     }
 
 
     @Override
-    public void setMatchAttendees(List<User> userList) {
-        if (!Platform.isFxApplicationThread()) {
-            Platform.runLater(() -> setMatchAttendees(userList));
-            return;
-        }
-
-        if (userList.size() < 2)
-            if (countDownTimeline != null)
-                countDownTimeline.stop();
-
-        if (playersLabel == null) return;
-
-        playersLabel.setText("Utenti in attesa: ");
-        userList.forEach(user -> {
-            playersLabel.setText(playersLabel.getText() + ", " + user.getUsername());
-        });
+    public synchronized void setMatchAttendees(List<User> userList) {
+        this.userList = userList;
+        restartTimer();
     }
 
     @Override
     public void restartTimer() {
-        if (!Platform.isFxApplicationThread()) {
-            Platform.runLater(() -> restartTimer());
-            return;
-        }
-        if (playersLabel == null) return;
-        countDownTimeline = new Timeline(new KeyFrame(
-                Duration.millis(1000),
-                ae -> decrementCountdown()));
-        countDownTimeline.setCycleCount(Animation.INDEFINITE);
-        countDownTimeline.play();
+        if (countDownTimeline != null)
+            timer = 30;
     }
 
     private void decrementCountdown() {
-        countDownLabel.setText((Integer.valueOf(countDownLabel.getText()) - 1) + "");
+        if (timer > 0 && userList.size() > 1)
+            timer--;
+        countDownLabel.setText(((Integer) timer).toString());
     }
 
 }

@@ -120,10 +120,6 @@ public class LogInHandler implements LinkHandler {
 
         Logger.log(Logger.LogLevel.Normal, "User " + authorizedUser.getUsername() + " connected.");
 
-        //Send user a message
-        BaseAction popup = new DisplayPopup(DisplayPopup.Level.Normal, "Benvenuto " + authorizedUser.getUsername());
-        link.sendMessage(GsonUtils.toGson(popup));
-
         //Send User object to connected user
         BaseAction sendUserObj = new UpdateUserObject(authorizedUser);
         link.sendMessage(GsonUtils.toGson(sendUserObj));
