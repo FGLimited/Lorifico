@@ -2,6 +2,7 @@ package Server.Game.Effects;
 
 import Game.Effects.Effect;
 import Game.Effects.EffectType;
+import Game.Positions.PositionType;
 import Game.Usable.ResourceType;
 import Server.Game.Usable.UsableHelper;
 import Game.UserObjects.PlayerState;
@@ -10,23 +11,27 @@ import java.util.Map;
 /**
  * Created by fiore on 10/05/2017.
  */
-public class HarvestEffect implements Effect {
+public class AddResourcesEffect implements Effect {
 
-    private final EffectType type = EffectType.Harvest;
+    private final EffectType type = EffectType.Activable;
+
+    private final PositionType position;
 
     private final Map<ResourceType, Integer> resources;
 
     private final int activationValue;
 
-    private volatile int cardNumber;
+    private volatile int cardNumber = 0;
 
     /**
-     * Initialize new harvesting effect
+     * Initialize new add resources effect
      *
      * @param resources Resources to add
      * @param activationValue Necessary domestic value for activation
+     * @param positionType Activation position type
      */
-    public HarvestEffect(Map<ResourceType, Integer> resources, int activationValue) {
+    public AddResourcesEffect(Map<ResourceType, Integer> resources, int activationValue, PositionType positionType) {
+        position = positionType;
         this.resources = resources;
         this.activationValue = activationValue;
     }
@@ -38,7 +43,7 @@ public class HarvestEffect implements Effect {
 
     @Override
     public boolean canApply(PlayerState currentMove) {
-        return currentMove.getInUseDomestic().getValue() >= activationValue;
+        return currentMove.getInUseDomestic().getValue() >= activationValue && currentMove.getCheckingPositionType() == position;
     }
 
     @Override

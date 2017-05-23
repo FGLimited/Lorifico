@@ -106,8 +106,13 @@ public class PlayerState implements Game.UserObjects.PlayerState {
     public void setResources(Map<ResourceType, Integer> updatedResources, boolean applyPenalty) {
 
         // Update each resource value (if resource has been added remove penalty)
-        updatedResources.forEach((type, value) ->
-                resources.replace(type, value - (applyPenalty ? resourcesPenalty.get(type) : 0)));
+        updatedResources.forEach((type, value) -> {
+            if (resources.get(type) > value + (applyPenalty ? resourcesPenalty.get(type) : 0))
+                resources.replace(type, value - (applyPenalty ? resourcesPenalty.get(type) : 0));
+
+            if(resources.get(type) < value)
+                resources.replace(type, Integer.valueOf(value));
+        });
     }
 
     @Override
