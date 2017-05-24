@@ -50,6 +50,7 @@ public class LobbyPageController implements Lobby, Initializable {
                 ae -> decrementCountdown()));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+        System.out.println("Started Countdown");
     }
 
 
@@ -60,14 +61,14 @@ public class LobbyPageController implements Lobby, Initializable {
     }
 
     @Override
-    public void restartTimer() {
-        if (countDownTimeline != null)
-            timer = 30;
+    public synchronized void restartTimer() {
+        this.timer = 30;
     }
 
-    private void decrementCountdown() {
-        if (timer > 0 && userList.size() > 1)
+    private synchronized void decrementCountdown() {
+        if (timer > 0 && userList.size() > 1) {
             timer--;
+        }
         countDownLabel.setText(((Integer) timer).toString());
     }
 
