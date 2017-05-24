@@ -36,7 +36,10 @@ public class CardRemoveEffect implements Effect {
     @Override
     public void apply(PlayerState currentMove) {
 
-        currentMove.getCards(cardType).clear();
+        if(cardType == CardType.Challenge)
+            currentMove.getEffects(EffectType.Final).clear();
+        else
+            currentMove.getCards(cardType).clear();
 
     }
 

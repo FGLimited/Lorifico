@@ -135,7 +135,7 @@ public class Turn {
         // turn 2 = 3 points || turn 4 = 4 points || turn 6 = 5 points
         int requestedFaith = number == 2 ? 3 : (number == 4 ? 4 : 5);
 
-        order.forEach(user -> {
+        order.parallelStream().forEach(user -> {
 
             if(user.getUserState().getResources().get(ResourceType.FaithPoint) >= requestedFaith) {
 
@@ -155,6 +155,8 @@ public class Turn {
                     faithEffect.apply(currentState);
 
                 user.updateUserState(currentState);
+
+                // TODO: notify gui to place cube on faith card
             }
 
         });

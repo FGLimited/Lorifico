@@ -4,6 +4,7 @@ import Game.Cards.CardType;
 import Game.Effects.Effect;
 import Game.Usable.ResourceType;
 import Game.UserObjects.PlayerState;
+import Server.Game.GameHelper;
 import Server.Game.Usable.Cost;
 import Server.Game.Usable.UsableHelper;
 import java.util.ArrayList;
@@ -125,7 +126,7 @@ public class Card implements Game.Cards.Card {
      */
     private Cost checkMilitaryPoints(int cardsNumber) {
 
-        final int requiredPoints = CardHelpers.requestedMilitary(cardsNumber);
+        final int requiredPoints = GameHelper.requestedMilitary(cardsNumber);
 
         // Create point cost with required military points
         // No point has to be removed, but they have to be there when buying the card
