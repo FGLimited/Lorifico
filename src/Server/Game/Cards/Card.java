@@ -125,25 +125,7 @@ public class Card implements Game.Cards.Card {
      */
     private Cost checkMilitaryPoints(int cardsNumber) {
 
-        final int requiredPoints;
-
-        // TODO: find better way than a switch
-        switch (cardsNumber) {
-            case 3:
-                requiredPoints = 3;
-                break;
-            case 4:
-                requiredPoints = 7;
-                break;
-            case 5:
-                requiredPoints = 12;
-                break;
-            case 6:
-                requiredPoints = 18;
-                break;
-            default:
-                requiredPoints = 0;
-        }
+        final int requiredPoints = CardHelpers.requestedMilitary(cardsNumber);
 
         // Create point cost with required military points
         // No point has to be removed, but they have to be there when buying the card
