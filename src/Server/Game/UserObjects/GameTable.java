@@ -11,7 +11,6 @@ import Game.UserObjects.PlayerState;
 import Logging.Logger;
 import Networking.Gson.MySerializer;
 import Server.Game.Positions.*;
-import Server.Game.Usable.Cost;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import java.io.FileNotFoundException;
@@ -23,7 +22,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Created by fiore on 11/05/2017.

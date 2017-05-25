@@ -1,49 +1,5 @@
 {
   "Towers": {
-    "Building": [
-      {
-        "number": 5,
-        "type": "BuildingTower",
-        "positionValue": 1,
-        "cardType": "Building"
-      },
-      {
-        "number": 6,
-        "type": "BuildingTower",
-        "positionValue": 3,
-        "cardType": "Building"
-      },
-      {
-        "number": 7,
-        "type": "BuildingTower",
-        "immediatePositionEffect": {
-          "type": "Server.Game.Effects.ImmediateEffect",
-          "data": {
-            "type": "Immediate",
-            "resources": {
-              "Rock": 1
-            }
-          }
-        },
-        "positionValue": 5,
-        "cardType": "Building"
-      },
-      {
-        "number": 8,
-        "type": "BuildingTower",
-        "immediatePositionEffect": {
-          "type": "Server.Game.Effects.ImmediateEffect",
-          "data": {
-            "type": "Immediate",
-            "resources": {
-              "Rock": 2
-            }
-          }
-        },
-        "positionValue": 7,
-        "cardType": "Building"
-      }
-    ],
     "Personality": [
       {
         "number": 9,
@@ -88,48 +44,48 @@
         "cardType": "Personality"
       }
     ],
-    "Challenge": [
+    "Building": [
       {
-        "number": 13,
-        "type": "ChallengeTower",
+        "number": 5,
+        "type": "BuildingTower",
         "positionValue": 1,
-        "cardType": "Challenge"
+        "cardType": "Building"
       },
       {
-        "number": 14,
-        "type": "ChallengeTower",
+        "number": 6,
+        "type": "BuildingTower",
         "positionValue": 3,
-        "cardType": "Challenge"
+        "cardType": "Building"
       },
       {
-        "number": 15,
-        "type": "ChallengeTower",
+        "number": 7,
+        "type": "BuildingTower",
         "immediatePositionEffect": {
           "type": "Server.Game.Effects.ImmediateEffect",
           "data": {
             "type": "Immediate",
             "resources": {
-              "Gold": 1
+              "Rock": 1
             }
           }
         },
         "positionValue": 5,
-        "cardType": "Challenge"
+        "cardType": "Building"
       },
       {
-        "number": 16,
-        "type": "ChallengeTower",
+        "number": 8,
+        "type": "BuildingTower",
         "immediatePositionEffect": {
           "type": "Server.Game.Effects.ImmediateEffect",
           "data": {
             "type": "Immediate",
             "resources": {
-              "Gold": 2
+              "Rock": 2
             }
           }
         },
         "positionValue": 7,
-        "cardType": "Challenge"
+        "cardType": "Building"
       }
     ],
     "Territory": [
@@ -174,6 +130,50 @@
         },
         "positionValue": 7,
         "cardType": "Territory"
+      }
+    ],
+    "Challenge": [
+      {
+        "number": 13,
+        "type": "ChallengeTower",
+        "positionValue": 1,
+        "cardType": "Challenge"
+      },
+      {
+        "number": 14,
+        "type": "ChallengeTower",
+        "positionValue": 3,
+        "cardType": "Challenge"
+      },
+      {
+        "number": 15,
+        "type": "ChallengeTower",
+        "immediatePositionEffect": {
+          "type": "Server.Game.Effects.ImmediateEffect",
+          "data": {
+            "type": "Immediate",
+            "resources": {
+              "Gold": 1
+            }
+          }
+        },
+        "positionValue": 5,
+        "cardType": "Challenge"
+      },
+      {
+        "number": 16,
+        "type": "ChallengeTower",
+        "immediatePositionEffect": {
+          "type": "Server.Game.Effects.ImmediateEffect",
+          "data": {
+            "type": "Immediate",
+            "resources": {
+              "Gold": 2
+            }
+          }
+        },
+        "positionValue": 7,
+        "cardType": "Challenge"
       }
     ]
   },

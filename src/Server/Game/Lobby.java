@@ -28,7 +28,7 @@ public class Lobby implements UserHandler {
         if(firstFreeMatch.isPresent())
             firstFreeMatch.get().addUser(newUser);
         else {
-            Match newMatch = new Match(30, 120);
+            Match newMatch = new Match(30000, 120000);
             newMatch.addUser(newUser);
             matches.add(newMatch);
         }

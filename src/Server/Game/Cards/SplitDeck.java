@@ -66,8 +66,8 @@ public class SplitDeck {
         Map<CardType, List<Card>> currentTurn = new HashMap<>();
 
         // Get requested cards from global map
-        cardPerTurn.get(turnNumber).forEach((type, list) ->
-                currentTurn.put(type, list.subList(turnNumber % 2 == 0 ? 4 : 0, turnNumber % 2 == 0 ? 7 : 3))
+        cardPerTurn.get((turnNumber - 1) % 2 + 1).forEach((type, list) ->
+                currentTurn.put(type, list.subList(turnNumber % 2 == 0 ? 4 : 0, turnNumber % 2 == 0 ? 8 : 4))
         );
 
         return currentTurn;

@@ -134,4 +134,9 @@ public class Card implements Game.Cards.Card {
         // Return cost with requiring necessary points
         return new Cost(Collections.singletonMap(ResourceType.MilitaryPoint, 0), requiredPoints);
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
