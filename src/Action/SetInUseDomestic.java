@@ -1,12 +1,15 @@
 package Action;
 
+import Game.Positions.PositionType;
 import Game.Usable.ResourceType;
-import Game.UserObjects.DomesticColor;
+import Game.UserObjects.Chosable;
 import Game.UserObjects.PlayerState;
 import Model.User.User;
 import Server.Game.UserObjects.Domestic;
 import Game.UserObjects.GameUser;
 import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by fiore on 23/05/2017.
@@ -17,16 +20,24 @@ public class SetInUseDomestic implements BaseAction {
 
     private final int slaves;
 
+    private final List<PositionType> requestedPositions;
+
     /**
      * Choose which domestic to use for current round
      * and how many slaves to use to increment its value
      *
      * @param selectedDomestic Chosen domestic
      * @param slaves Slaves to use
+     * @param requestedPositions Requested positions update (null for all positions)
      */
-    public SetInUseDomestic(Domestic selectedDomestic, int slaves) {
+    public SetInUseDomestic(Domestic selectedDomestic, int slaves, List<PositionType> requestedPositions) {
         this.selectedDomestic = selectedDomestic;
         this.slaves = slaves;
+        this.requestedPositions = requestedPositions;
+    }
+
+    public SetInUseDomestic(Domestic selectedDomestic, int slaves) {
+        this(selectedDomestic, slaves, null);
     }
 
     @Override
@@ -44,7 +55,7 @@ public class SetInUseDomestic implements BaseAction {
         if(selectedDomestic.getType() != null)
             inUse = new Domestic(gameUser.getDomestics().get(selectedDomestic.getType()));
         else
-            inUse = new Domestic(gameUser.getFamilyColor(), DomesticColor.Neutral, selectedDomestic.getValue());
+            inUse = selectedDomestic;
 
         // Calculate slave increment value
         int increment = slaves / currentState.getSlavePerDomesticValue();
@@ -61,11 +72,11 @@ public class SetInUseDomestic implements BaseAction {
         // Update user state with new in use domestic
         gameUser.updateUserState(currentState);
 
-        // Send all positions only if normal domestic is selected
-        // else they have already been sent from BonusDomesticEffect
-        if(selectedDomestic.getType() != null) {
-            // TODO: send positions with cost / effects
-        }
+        // Send requested positions
+        Map<Integer, List<Chosable>> positions = user.getMatch().getTable()
+                .getPositions(gameUser, requestedPositions);
+
+        // TODO: send requested positions to client
 
     }
 }

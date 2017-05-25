@@ -129,7 +129,7 @@ public class TowerPosition implements Position<Cost> {
         List<Cost> totalCosts = Collections.emptyList();
 
         // Add occupation cost to card cost and populate totalCosts list
-        affordableCosts.forEach(cardCost -> totalCosts.add(cardCost.sum(occupiedCost)));
+        affordableCosts.forEach(cardCost -> totalCosts.add(cardCost.sum(occupiedCost, true)));
 
         // Return total costs' list
         return totalCosts;

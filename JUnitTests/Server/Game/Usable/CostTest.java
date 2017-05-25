@@ -35,7 +35,7 @@ public class CostTest {
 
         testCost = new Cost(resources, 5);
 
-        totalCost = testCost.sum(sumCost);
+        totalCost = testCost.sum(sumCost, true);
 
         resources.replace(ResourceType.MilitaryPoint, 5);
 

@@ -1,13 +1,14 @@
 package Server.Game.Usable;
 
 import Game.Usable.ResourceType;
+import Game.UserObjects.Chosable;
 import Game.UserObjects.PlayerState;
 import java.util.*;
 
 /**
  * Created by fiore on 09/05/2017.
  */
-public class Cost {
+public class Cost implements Chosable {
 
     private final Map<ResourceType, Integer> requestedResources;
 
@@ -124,15 +125,16 @@ public class Cost {
      * Sum this cost to the given one
      *
      * @param toSum Cost to sum to current instance
+     * @param subtractSum True if toSum is added, false if is subtracted
      * @return Total resulting cost object
      */
-    public Cost sum(Cost toSum) {
+    public Cost sum(Cost toSum, boolean subtractSum) {
 
         // Clone current instance
         final Cost totalCost = new Cost(requestedResources, Math.max(toSum.militaryRequested, militaryRequested));
 
         // Sum resources from other instance
-        UsableHelper.editResources(toSum.requestedResources, totalCost.requestedResources, true);
+        UsableHelper.editResources(toSum.requestedResources, totalCost.requestedResources, subtractSum);
 
         // Set associated card number if present
         totalCost.setCardNumber(cardNumber != 0 ? cardNumber : toSum.cardNumber);

@@ -1,9 +1,10 @@
 package Server.Game.UserObjects;
 
-import Game.Cards.Card;
 import Game.Cards.CardType;
 import Game.Effects.Effect;
 import Game.Positions.Position;
+import Game.Positions.PositionType;
+import Game.UserObjects.Chosable;
 import Game.UserObjects.DomesticColor;
 import Game.UserObjects.GameUser;
 import Game.UserObjects.PlayerState;
@@ -31,9 +32,7 @@ public class GameTable {
 
     private final Map<CardType, List<TowerPosition>> towers = new HashMap<>();
 
-    private final List<ActionPosition> actionPositions = new ArrayList<>();
-
-    private final transient List<Position<Cost>> costPositions = new ArrayList<>();
+    private final transient Map<Integer, Position> positions = new HashMap<>();
 
     private final List<GameUser> nextTurnOrder = Collections.synchronizedList(new ArrayList<>());
 
@@ -76,36 +75,28 @@ public class GameTable {
     }
 
     /**
-     * Get affordable costs by given user for all positions
+     * Get activable effects/affordable costs of requested positions for given user
      *
-     * @param currentUser Current playing user
-     * @return Map of position number and list of costs for that position
+     * @param currentUser User to check positions for
+     * @param requestedPositions Requested positions (null to get all positions)
+     * @return Map of positions number and activable effects/affordable costs
      */
-    public Map<Integer, List<Cost>> getCosts(GameUser currentUser) {
+    @SuppressWarnings("unchecked")
+    public Map<Integer, List<Chosable>> getPositions(GameUser currentUser, List<PositionType> requestedPositions) {
+        final boolean getAll = requestedPositions == null;
 
-        Map<Integer, List<Cost>> positionCosts = new HashMap<>();
+        Map<Integer, List<Chosable>> choseForPos = new HashMap<>();
 
-        costPositions.forEach(position ->
-                positionCosts.put(position.getNumber(), position.canOccupy(currentUser.getUserState())));
+        positions.values().forEach(pos -> {
+            if(getAll || requestedPositions.contains(pos.getType()))
+                choseForPos.put(pos.getNumber(), pos.canOccupy(currentUser.getUserState()));
+        });
 
-        return positionCosts;
-
+        return choseForPos;
     }
 
-    /**
-     * Get activable effects by given user for action positions
-     *
-     * @param currentUser Current playing user
-     * @return Map of position number and list of activable effects for that position
-     */
-    public Map<Integer, List<Effect>> getEffects(GameUser currentUser) {
-
-        Map<Integer, List<Effect>> positionEffects = new HashMap<>();
-
-        actionPositions.forEach(position ->
-                positionEffects.put(position.getNumber(), position.canOccupy(currentUser.getUserState())));
-
-        return positionEffects;
+    public Map<Integer, List<Chosable>> getPositions(GameUser currentUser) {
+        return getPositions(currentUser, null);
     }
 
     /**
@@ -176,8 +167,7 @@ public class GameTable {
         List<GameUser> newOrder = new ArrayList<>(nextTurnOrder);
 
         // Free all positions
-        actionPositions.forEach(Position::free);
-        costPositions.forEach(Position::free);
+        positions.values().forEach(Position::free);
 
         // Clear council order
         nextTurnOrder.clear();
@@ -192,42 +182,21 @@ public class GameTable {
      * @param currentUser Current user
      * @param positionNumber Number of position to occupy
      * @param chosenTs Chosen effects/cost to activate/pay occupying specified position
-     * @param type T type of selected Position&lt;T&gt;
      * @param <T> Effect or Cost
      * @return Updated position
      */
     @SuppressWarnings("unchecked")
-    public <T> Position occupy(GameUser currentUser, int positionNumber, List<T> chosenTs, Class<T> type) {
+    public <T> Position occupy(GameUser currentUser, int positionNumber, List<T> chosenTs) {
 
         // Updated position reference
-        final AtomicReference<Position> occupiedPosition = new AtomicReference<>(null);
+        final Position requestedPos = positions.get(positionNumber);
 
-        if(type == Effect.class)
-            actionPositions.parallelStream()
-                    .filter(pos -> pos.getNumber() == positionNumber)
-                    .findFirst()
-                    .ifPresent(pos -> {
-                        PlayerState newState = pos.occupy(currentUser.getUserState(), (List<Effect>) chosenTs);
+        PlayerState newState = requestedPos.occupy(currentUser.getUserState(), chosenTs);
 
-                        currentUser.updateUserState(newState);
-
-                        occupiedPosition.set(pos);
-                    });
-
-        if(type == Cost.class)
-            costPositions.parallelStream()
-                    .filter(pos -> pos.getNumber() == positionNumber)
-                    .findFirst()
-                    .ifPresent(pos -> {
-                        PlayerState newState = pos.occupy(currentUser.getUserState(), (List<Cost>) chosenTs);
-
-                        currentUser.updateUserState(newState);
-
-                        occupiedPosition.set(pos);
-                    });
+        currentUser.updateUserState(newState);
 
         // Return updated position
-        return occupiedPosition.get();
+        return requestedPos;
     }
 
     /**
@@ -279,7 +248,7 @@ public class GameTable {
         loadedTowers.forEach((type, list) -> {
             PositionAggregate.aggregate(list);
 
-            costPositions.addAll(list);
+            list.forEach(pos -> positions.put(pos.getNumber(), pos));
         });
 
         towers.putAll(loadedTowers);
@@ -306,10 +275,10 @@ public class GameTable {
         if(playersNumber > 2) {
             PositionAggregate.aggregate(harvestPos);
 
-            actionPositions.addAll(harvestPos);
+            harvestPos.forEach(pos -> positions.put(pos.getNumber(), pos));
         }
         else // Else load first position only
-            actionPositions.add(harvestPos.get(0));
+            positions.put(harvestPos.get(0).getNumber(), harvestPos.get(0));
 
 
         // Load production positions
@@ -322,10 +291,10 @@ public class GameTable {
         if(playersNumber > 2) {
             PositionAggregate.aggregate(productionPos);
 
-            actionPositions.addAll(productionPos);
+            productionPos.forEach(pos -> positions.put(pos.getNumber(), pos));
         }
         else
-            actionPositions.add(productionPos.get(0));
+            positions.put(productionPos.get(0).getNumber(), productionPos.get(0));
     }
 
     /**
@@ -351,8 +320,7 @@ public class GameTable {
 
         PositionAggregate.aggregate(marketPos);
 
-        costPositions.addAll(marketPos);
-
+        marketPos.forEach(pos -> positions.put(pos.getNumber(), pos));
     }
 
     /**
@@ -374,8 +342,7 @@ public class GameTable {
 
         PositionAggregate.aggregate(councilPos);
 
-        costPositions.addAll(councilPos);
-
+        councilPos.forEach(pos -> positions.put(pos.getNumber(), pos));
     }
 
 }

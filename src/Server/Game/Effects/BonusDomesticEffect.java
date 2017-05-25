@@ -10,6 +10,7 @@ import Game.UserObjects.GameUser;
 import Game.UserObjects.PlayerState;
 import Networking.Gson.GsonUtils;
 import Server.Game.UserObjects.Domestic;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,7 +20,7 @@ public class BonusDomesticEffect implements Effect {
 
     private final EffectType type = EffectType.Immediate;
 
-    private final PositionType positionType;
+    private final List<PositionType> positionsType;
 
     private final int value;
 
@@ -29,12 +30,12 @@ public class BonusDomesticEffect implements Effect {
      * Additional placement with special domestic of given value in specified positions
      * If tower positions costBonus is applied to card costs
      *
-     * @param position Type of position to activate
+     * @param positions Type of position to activate (null for all positions)
      * @param domesticValue Value of special domestic
      * @param costBonus Bonus resources for position/card cost
      */
-    public BonusDomesticEffect(PositionType position, int domesticValue, Map<ResourceType, Integer> costBonus) {
-        this.positionType = position;
+    public BonusDomesticEffect(List<PositionType> positions, int domesticValue, Map<ResourceType, Integer> costBonus) {
+        this.positionsType = positions;
         value = domesticValue;
         this.costBonus = costBonus;
     }
@@ -60,8 +61,10 @@ public class BonusDomesticEffect implements Effect {
         // Set not moved for current user
         currentUser.setHasMoved(false);
 
-        // Send special domestic and bonus positions
-        currentUser.getUserLink().sendMessage(GsonUtils.toGson(new BonusDomesticMove(special)));
+        // TODO: find a way to apply costBonus
+
+        // Send special domestic and bonus positions type
+        currentUser.getUserLink().sendMessage(GsonUtils.toGson(new BonusDomesticMove(special, positionsType)));
     }
 
     @Override
