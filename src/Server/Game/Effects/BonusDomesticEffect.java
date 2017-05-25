@@ -1,11 +1,14 @@
 package Server.Game.Effects;
 
+import Action.BonusDomesticMove;
 import Game.Effects.Effect;
 import Game.Effects.EffectType;
 import Game.Positions.PositionType;
 import Game.Usable.ResourceType;
 import Game.UserObjects.DomesticColor;
+import Game.UserObjects.GameUser;
 import Game.UserObjects.PlayerState;
+import Networking.Gson.GsonUtils;
 import Server.Game.UserObjects.Domestic;
 import java.util.Map;
 
@@ -49,16 +52,16 @@ public class BonusDomesticEffect implements Effect {
     @Override
     public void apply(PlayerState currentMove) {
 
+        final GameUser currentUser = currentMove.getGameUser();
+
         // Set special neutral domestic
-        Domestic special = new Domestic(currentMove.getGameUser().getFamilyColor(), DomesticColor.Neutral, value);
+        final Domestic special = new Domestic(currentMove.getGameUser().getFamilyColor(), DomesticColor.Neutral, value);
 
         // Set not moved for current user
-        currentMove.getGameUser().setHasMoved(false);
+        currentUser.setHasMoved(false);
 
-        // TODO: set special as in use domestic
-
-        // TODO: ask user to chose a card/effect from specified tower/action with given value (null positionType means any card from any tower)
-
+        // Send special domestic and bonus positions
+        currentUser.getUserLink().sendMessage(GsonUtils.toGson(new BonusDomesticMove(special)));
     }
 
     @Override

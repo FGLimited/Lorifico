@@ -33,22 +33,27 @@ public class Move<T> implements BaseAction {
     @Override
     public void doAction(User user) {
 
+        // Get current user and player state
         final GameUser gameUser = user.getGameUser();
         final GameTable table = user.getMatch().getTable();
 
+        // If table is null, game hasn't started yet
         if(table == null){
             // TODO: sei un coglione
             return;
         }
 
+        // Set move completed
         gameUser.setHasMoved(true);
 
+        // Occupy selected position (this will activate all card/position effects)
         Position updatedPosition = table.occupy(user.getGameUser(), positionNumber, chosenTs, type);
 
         // TODO: send update to all players here if you want differential update
         // (else get global update from game table as you wish)
 
-        if(!gameUser.getHasMoved()) {
+        // If this was last move notify on gameuser object
+        if(gameUser.getHasMoved()) {
             synchronized (gameUser){
                 gameUser.notify();
             }

@@ -1,17 +1,19 @@
 package Action;
 
+import Game.Usable.ResourceType;
 import Game.UserObjects.DomesticColor;
 import Game.UserObjects.PlayerState;
 import Model.User.User;
 import Server.Game.UserObjects.Domestic;
 import Game.UserObjects.GameUser;
+import java.util.Collections;
 
 /**
  * Created by fiore on 23/05/2017.
  */
 public class SetInUseDomestic implements BaseAction {
 
-    private final DomesticColor color;
+    private final Domestic selectedDomestic;
 
     private final int slaves;
 
@@ -19,11 +21,11 @@ public class SetInUseDomestic implements BaseAction {
      * Choose which domestic to use for current round
      * and how many slaves to use to increment its value
      *
-     * @param color Chosen domestic color
+     * @param selectedDomestic Chosen domestic
      * @param slaves Slaves to use
      */
-    public SetInUseDomestic(DomesticColor color, int slaves) {
-        this.color = color;
+    public SetInUseDomestic(Domestic selectedDomestic, int slaves) {
+        this.selectedDomestic = selectedDomestic;
         this.slaves = slaves;
     }
 
@@ -36,8 +38,13 @@ public class SetInUseDomestic implements BaseAction {
         // Get current player state
         final PlayerState currentState = gameUser.getUserState();
 
-        // Create bound domestic
-        final Domestic inUse = new Domestic(gameUser.getDomestics().get(color));
+        // Create bound domestic or special neutral if necessary
+        final Domestic inUse;
+
+        if(selectedDomestic.getType() != null)
+            inUse = new Domestic(gameUser.getDomestics().get(selectedDomestic.getType()));
+        else
+            inUse = new Domestic(gameUser.getFamilyColor(), DomesticColor.Neutral, selectedDomestic.getValue());
 
         // Calculate slave increment value
         int increment = slaves / currentState.getSlavePerDomesticValue();
@@ -48,10 +55,17 @@ public class SetInUseDomestic implements BaseAction {
         // Set domestic in current state
         currentState.setInUseDomestic(inUse);
 
+        // Decrement slaves value
+        currentState.setResources(Collections.singletonMap(ResourceType.Slave, currentState.getResources().get(ResourceType.Slave) - slaves), false);
+
         // Update user state with new in use domestic
         gameUser.updateUserState(currentState);
 
-        // TODO: send positions with cost / effects
+        // Send all positions only if normal domestic is selected
+        // else they have already been sent from BonusDomesticEffect
+        if(selectedDomestic.getType() != null) {
+            // TODO: send positions with cost / effects
+        }
 
     }
 }

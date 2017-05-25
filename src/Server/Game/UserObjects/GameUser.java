@@ -1,11 +1,16 @@
 package Server.Game.UserObjects;
 
+import Action.ChooseFavor;
+import Game.Usable.ResourceType;
 import Game.UserObjects.DomesticColor;
 import Game.UserObjects.FamilyColor;
 import Networking.CommLink;
+import Networking.Gson.GsonUtils;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by fiore on 16/05/2017.
@@ -24,7 +29,7 @@ public class GameUser implements Game.UserObjects.GameUser {
 
     private volatile boolean roundJump = false;
 
-    private volatile boolean hasMoved = false;
+    private final AtomicInteger moves = new AtomicInteger(0);
 
     /**
      * Initialize a new game user with player state
@@ -94,16 +99,37 @@ public class GameUser implements Game.UserObjects.GameUser {
     public void updateUserState(Game.UserObjects.PlayerState newState) {
         currentState = newState;
 
+        // Get favors added if any
+        final int newFavors = currentState.getResources().get(ResourceType.Favor);
+
+        // Ask user to choose gained favors
+        if(newFavors > 0) {
+
+            // Add new move to wait for
+            setHasMoved(false);
+
+            // Send council favors to client to let him choose
+            getUserLink().sendMessage(GsonUtils.toGson(new ChooseFavor(newFavors)));
+
+            // Reset favors to zero
+            currentState.setResources(Collections.singletonMap(ResourceType.Favor, 0), false);
+        }
+
         // TODO: send update to users (send to all)
     }
 
     @Override
     public void setHasMoved(boolean hasMoved) {
-        this.hasMoved = hasMoved;
+
+        if(!hasMoved)
+            moves.incrementAndGet();
+        else
+            moves.decrementAndGet();
+
     }
 
     @Override
     public boolean getHasMoved() {
-        return hasMoved;
+        return moves.compareAndSet(0,0);
     }
 }

@@ -18,8 +18,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Collections;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by fiore on 24/05/2017.
@@ -33,6 +32,8 @@ public class GameHelper {
     private static final Map<Integer, Integer> faithWayBonus;
 
     private static final Map<Integer, Integer> militaryWayBonus;
+
+    private static List<Effect> councilFavors;
 
     private static final PlayerState initialState;
 
@@ -58,12 +59,14 @@ public class GameHelper {
                 .create();
         Type intintMapType = new TypeToken<Map<Integer, Integer>>(){}.getType();
         Type victorCardsType = new TypeToken<Map<CardType, Map<Integer, Integer>>>(){}.getType();
+        Type favorsType = new TypeToken<ArrayList<Effect>>(){}.getType();
 
         // Load maps from json object
         militaryTerritory = gson.fromJson(cardHelperJson.getAsJsonObject("militaryTerritory"), intintMapType);
         victoryForCards = gson.fromJson(cardHelperJson.getAsJsonObject("victoryForCards"), victorCardsType);
         faithWayBonus = gson.fromJson(cardHelperJson.getAsJsonObject("faithWayBonus"), intintMapType);
         militaryWayBonus = gson.fromJson(cardHelperJson.getAsJsonObject("militaryWayBonus"), intintMapType);
+        councilFavors = gson.fromJson(cardHelperJson.getAsJsonArray("councilFavors"), favorsType);
         initialState = gson.fromJson(cardHelperJson.getAsJsonObject("initialState"), PlayerState.class);
     }
 
@@ -123,6 +126,15 @@ public class GameHelper {
             return militaryWayBonus.get(playerPosition);
 
         return 0;
+    }
+
+    /**
+     * Get list of available council favors
+     *
+     * @return List of effects
+     */
+    public static List<Effect> getCouncilFavors() {
+        return new ArrayList<>(councilFavors);
     }
 
     /**

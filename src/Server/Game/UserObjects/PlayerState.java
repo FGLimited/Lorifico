@@ -7,7 +7,6 @@ import Game.Effects.EffectType;
 import Game.Positions.PositionType;
 import Game.Usable.ResourceType;
 import Server.Game.Usable.UsableHelper;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

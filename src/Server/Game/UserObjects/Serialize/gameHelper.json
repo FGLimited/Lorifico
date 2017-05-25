@@ -43,6 +43,54 @@
     "1": 5,
     "2": 2
   },
+  "councilFavors": [
+    {
+      "type": "Server.Game.Effects.ImmediateEffect",
+      "data": {
+        "type": "Immediate",
+        "resources": {
+          "Wood": 1,
+          "Rock": 1
+        }
+      }
+    },
+    {
+      "type": "Server.Game.Effects.ImmediateEffect",
+      "data": {
+        "type": "Immediate",
+        "resources": {
+          "Slave": 2
+        }
+      }
+    },
+    {
+      "type": "Server.Game.Effects.ImmediateEffect",
+      "data": {
+        "type": "Immediate",
+        "resources": {
+          "Gold": 2
+        }
+      }
+    },
+    {
+      "type": "Server.Game.Effects.ImmediateEffect",
+      "data": {
+        "type": "Immediate",
+        "resources": {
+          "MilitaryPoint": 2
+        }
+      }
+    },
+    {
+      "type": "Server.Game.Effects.ImmediateEffect",
+      "data": {
+        "type": "Immediate",
+        "resources": {
+          "FaithPoint": 1
+        }
+      }
+    }
+  ],
   "initialState": {
     "resources": {
       "Slave": 3,
