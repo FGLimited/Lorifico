@@ -1,5 +1,6 @@
 package Networking;
 
+import Action.BaseAction;
 import java.util.function.BiConsumer;
 
 /**
@@ -12,7 +13,7 @@ public interface CommLink {
      *
      * @param message Message to send
      */
-    void sendMessage(String message);
+    void sendMessage(BaseAction message);
 
     /**
      * Set a callback method to be called on new received message

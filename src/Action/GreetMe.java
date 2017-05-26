@@ -1,6 +1,5 @@
 package Action;
 
-import Networking.Gson.GsonUtils;
 import Model.User.User;
 
 /**
@@ -14,6 +13,6 @@ public class GreetMe implements BaseAction {
     @Override
     public void doAction(User user) {
         BaseAction displayPopup = new DisplayPopup(DisplayPopup.Level.Normal, "Ciao, ti chiami " + user.getUsername());
-        user.getLink().sendMessage(GsonUtils.toGson(displayPopup));
+        user.getLink().sendMessage(displayPopup);
     }
 }

@@ -12,7 +12,6 @@ import Game.UserObjects.GameUser;
 import Game.UserObjects.PlayerState;
 import Logging.Logger;
 import Model.User.User;
-import Networking.Gson.GsonUtils;
 import Server.Game.Cards.SplitDeck;
 import Server.Game.Effects.Faith.FaithDeck;
 import Server.Game.UserObjects.GameTable;
@@ -93,7 +92,7 @@ public class Match implements UserHandler {
         //Send all match users a list container other attendees
         getAllUsers().forEach(user -> {
             BaseAction baseAction = new SendMatchAttendees(getAllUsers());
-            user.getLink().sendMessage(GsonUtils.toGson(baseAction));
+            user.getLink().sendMessage(baseAction);
         });
 
         // When the second users is added start countdown for match start

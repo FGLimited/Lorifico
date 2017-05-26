@@ -1,13 +1,11 @@
 package Model;
 
 import Logging.Logger;
-import Model.User.User;
-import Model.User.UserAlreadyExistentException;
-import Model.User.UserNotFoundException;
-import Model.User.WrongPasswordException;
+import Model.User.*;
 import Server.Networking.SQL.Database;
 import org.jetbrains.annotations.Nullable;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,14 +13,31 @@ import java.util.List;
  */
 public class UserManager implements UserAuthenticator {
 
+    private static volatile UserManager userManager = null;
+
+    public static UserManager getInstance() {
+        return userManager;
+    }
+
+    /**
+     * Initialize global user manager with specified db instance
+     *
+     * @param dbContext Db context for current user manager
+     */
+    public static void init(Database dbContext) {
+        userManager = new UserManager(dbContext);
+    }
+
     private final Database database;
+
+    private final List<String> authenticatedUsers = new ArrayList<>();
 
     /**
      * Initialize user manager on given database instance
      *
      * @param dbContext Database instance to use as user database
      */
-    public UserManager(Database dbContext) {
+    private UserManager(Database dbContext) {
         database = dbContext;
     }
 
@@ -52,10 +67,13 @@ public class UserManager implements UserAuthenticator {
     }
 
     @Override
-    public @Nullable User authenticateUser(String username, String passwordHash) throws UserNotFoundException, WrongPasswordException {
+    public @Nullable User authenticateUser(String username, String passwordHash) throws UserNotFoundException, UserAlreadyLoggedException, WrongPasswordException {
 
         if(!isPresent(username))
             throw new UserNotFoundException("User " + username + " isn't present in the database.");
+
+        if(authenticatedUsers.contains(username))
+            throw new UserAlreadyLoggedException("User" + username + " has already logged on the server.");
 
         try {
             List<User> loggedUser = database.call("user_login", new Object[] { username, passwordHash }, User.class);
@@ -63,6 +81,9 @@ public class UserManager implements UserAuthenticator {
             // If response set is empty return
             if(loggedUser == null || loggedUser.isEmpty())
                 throw new WrongPasswordException("Wrong password for user " + username + ".");
+
+            // Add authenticated user to user list
+            authenticatedUsers.add(loggedUser.get(0).getUsername());
 
             return loggedUser.get(0);
 
@@ -110,6 +131,12 @@ public class UserManager implements UserAuthenticator {
         }
 
         return !isPresent(username);
+    }
+
+    @Override
+    public void disconnectUser(String username) {
+        if(authenticatedUsers.contains(username))
+            authenticatedUsers.remove(username);
     }
 
     /**

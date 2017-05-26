@@ -109,7 +109,7 @@ public class GameUser implements Game.UserObjects.GameUser {
             setHasMoved(false);
 
             // Send council favors to client to let him choose
-            getUserLink().sendMessage(GsonUtils.toGson(new ChooseFavor(newFavors)));
+            getUserLink().sendMessage(new ChooseFavor(newFavors));
 
             // Reset favors to zero
             currentState.setResources(Collections.singletonMap(ResourceType.Favor, 0), false);

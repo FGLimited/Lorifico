@@ -1,9 +1,6 @@
 package Model;
 
-import Model.User.User;
-import Model.User.UserAlreadyExistentException;
-import Model.User.UserNotFoundException;
-import Model.User.WrongPasswordException;
+import Model.User.*;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -28,9 +25,10 @@ public interface UserAuthenticator {
      * @param passwordHash Password hash (MD5)
      * @return User instance if authentication is successful
      * @throws UserNotFoundException If user isn't present in the database
+     * @throws UserAlreadyLoggedException If user has already logged in
      * @throws WrongPasswordException If user is present but authentication wasn't successful
      */
-    @Nullable User authenticateUser(String username, String passwordHash) throws UserNotFoundException, WrongPasswordException;
+    @Nullable User authenticateUser(String username, String passwordHash) throws UserNotFoundException, UserAlreadyLoggedException, WrongPasswordException;
 
     /**
      * Update given user in the database
@@ -48,4 +46,11 @@ public interface UserAuthenticator {
      * @return True if after the call the user isn't present in the database
      */
     boolean deleteUser(String username);
+
+    /**
+     * Disconnect specified user
+     *
+     * @param username Username for user to disconnect
+     */
+    void disconnectUser(String username);
 }

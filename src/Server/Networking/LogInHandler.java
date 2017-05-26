@@ -2,11 +2,9 @@ package Server.Networking;
 
 import Action.*;
 import Logging.Logger;
-import Model.User.User;
-import Model.User.UserAlreadyExistentException;
-import Model.User.UserNotFoundException;
-import Model.User.WrongPasswordException;
+import Model.User.*;
 import Model.UserAuthenticator;
+import Model.UserManager;
 import Networking.CommLink;
 import Networking.Gson.GsonUtils;
 import Server.Game.UserHandler;
@@ -19,11 +17,10 @@ public class LogInHandler implements LinkHandler {
 
     private final UserHandler userHandler;
 
-    private final UserAuthenticator userFactory;
+    private final UserAuthenticator userFactory = UserManager.getInstance();
 
-    public LogInHandler(UserHandler authorizedUserHandler, UserAuthenticator userAuthenticator) {
+    public LogInHandler(UserHandler authorizedUserHandler) {
         userHandler = authorizedUserHandler;
-        userFactory = userAuthenticator;
     }
 
     public void addClientComm(CommLink newLink) {
@@ -48,14 +45,14 @@ public class LogInHandler implements LinkHandler {
             //We only accept registration/login actions:
             if (!(firstReceivedAction instanceof LoginOrRegister)) {//This looks like switch case...
                 BaseAction popup = new DisplayPopup(DisplayPopup.Level.Error, "You first have to login");
-                link.sendMessage(GsonUtils.toGson(popup));
+                link.sendMessage(popup);
                 return;
             }
 
         } catch (JsonSyntaxException e) {
             //Send error to the client
             BaseAction popup = new DisplayPopup(DisplayPopup.Level.Error, "This server accepts only json strings");
-            link.sendMessage(GsonUtils.toGson(popup));
+            link.sendMessage(popup);
             return;
         }
 
@@ -81,7 +78,7 @@ public class LogInHandler implements LinkHandler {
 
             //Send error to the client
             BaseAction popup = new DisplayPopup(DisplayPopup.Level.Error, "User already exists.");
-            link.sendMessage(GsonUtils.toGson(popup));
+            link.sendMessage(popup);
 
             return;
         }
@@ -90,7 +87,7 @@ public class LogInHandler implements LinkHandler {
 
             //Send error to the client
             BaseAction popup = new DisplayPopup(DisplayPopup.Level.Error, "User " + username + " not found.");
-            link.sendMessage(GsonUtils.toGson(popup));
+            link.sendMessage(popup);
 
             return;
         }
@@ -99,9 +96,15 @@ public class LogInHandler implements LinkHandler {
 
             //Send error to the client
             BaseAction popup = new DisplayPopup(DisplayPopup.Level.Error, "Wrong password.");
-            link.sendMessage(GsonUtils.toGson(popup));
+            link.sendMessage(popup);
 
             return;
+        }
+        catch (UserAlreadyLoggedException uale) {
+            Logger.log(Logger.LogLevel.Warning, "User " + username + " attempted multiple login.\n" + uale.getMessage());
+
+            BaseAction popup = new DisplayPopup(DisplayPopup.Level.Error, uale.getMessage());
+            link.sendMessage(popup);
         }
 
         // If user is null log generic error and retry
@@ -110,7 +113,7 @@ public class LogInHandler implements LinkHandler {
 
             //Send generic error to client
             BaseAction popup = new DisplayPopup(DisplayPopup.Level.Error, "Dunno uot appened... Doh!!");
-            link.sendMessage(GsonUtils.toGson(popup));
+            link.sendMessage(popup);
 
             return;
         }
@@ -122,11 +125,11 @@ public class LogInHandler implements LinkHandler {
 
         //Send User object to connected user
         BaseAction sendUserObj = new UpdateUserObject(authorizedUser);
-        link.sendMessage(GsonUtils.toGson(sendUserObj));
+        link.sendMessage(sendUserObj);
 
         //Move user UI to Lobby
         BaseAction changeView = new ChangeClientView(ChangeClientView.View.LOBBY);
-        link.sendMessage(GsonUtils.toGson(changeView));
+        link.sendMessage(changeView);
 
         // Pass user to user handler
         userHandler.addUser(authorizedUser);

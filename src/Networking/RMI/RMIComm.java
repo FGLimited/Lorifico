@@ -1,7 +1,9 @@
 package Networking.RMI;
 
+import Action.BaseAction;
 import Logging.Logger;
 import Networking.CommLink;
+import Networking.Gson.GsonUtils;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.function.BiConsumer;
@@ -32,12 +34,12 @@ public class RMIComm extends UnicastRemoteObject implements CommLink, MessageRec
     }
 
     @Override
-    public void sendMessage(String message) {
-        if(message == null || message.equals(""))
+    public void sendMessage(final BaseAction message) {
+        if(message == null)
             return;
 
         try {
-            postMethod.accept(message);
+            postMethod.accept(GsonUtils.toGson(message));
         } catch (RemoteException re) {
             Logger.log(Logger.LogLevel.Warning, "Can't send message through rmi mailbox.\n" + re.getMessage());
         }
