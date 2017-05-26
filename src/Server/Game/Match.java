@@ -318,6 +318,5 @@ public class Match implements UserHandler {
 
         // Update user state
         user.updateUserState(currentState);
-
     }
 }

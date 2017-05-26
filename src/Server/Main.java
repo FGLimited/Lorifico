@@ -8,13 +8,14 @@ import Server.Networking.LogInHandler;
 import Server.Networking.RMI.RMIAcceptor;
 import Server.Networking.SQL.DBContext;
 import Server.Networking.Socket.SocketAcceptor;
+import java.io.IOException;
 import java.rmi.RemoteException;
 
 /**
  * Created by andrea on 10/05/2017.
  */
 public class Main {
-    public static void main(String args[]) {
+    public static void main(String args[]) throws IOException {
 
         final String mySqlConnString = "jdbc:mysql://flow3rhouse.duckdns.org/LorenzoDB?user=Lollo&password=Lorenzo@";
 
