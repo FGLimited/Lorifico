@@ -7,7 +7,6 @@ import Game.Positions.PositionType;
 import Game.Usable.ResourceType;
 import Networking.Gson.MySerializer;
 import Server.Game.Effects.ImmediateEffect;
-import Server.Game.UserObjects.GameTable;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import java.io.IOException;

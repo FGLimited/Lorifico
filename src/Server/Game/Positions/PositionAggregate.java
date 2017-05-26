@@ -54,14 +54,16 @@ public class PositionAggregate {
      */
     boolean canOccupy(Domestic inUse) {
 
-        // If domestic is neutral can always be placed
+        // If domestic is null or neutral can always be placed
         // else check if a non neutral domestic of the same family is already present
-        return inUse.getType() == DomesticColor.Neutral
+        return inUse.getType() == null
+                || inUse.getType() == DomesticColor.Neutral
                 || positions.parallelStream()
                 .filter(position -> {
                     Domestic current = position.isOccupied();
 
                     return current != null
+                            && current.getType() != null
                             && current.getType() != DomesticColor.Neutral
                             && current.getFamilyColor() == inUse.getFamilyColor();
                 })

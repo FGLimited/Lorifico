@@ -66,8 +66,8 @@ public class SplitDeck {
         Map<CardType, List<Card>> currentTurn = new HashMap<>();
 
         // Get requested cards from global map
-        cardPerTurn.get(turnNumber).forEach((type, list) ->
-                currentTurn.put(type, list.subList(turnNumber % 2 == 0 ? 4 : 0, turnNumber % 2 == 0 ? 7 : 3))
+        cardPerTurn.get((turnNumber - 1) % 2 + 1).forEach((type, list) ->
+                currentTurn.put(type, list.subList(turnNumber % 2 == 0 ? 4 : 0, turnNumber % 2 == 0 ? 8 : 4))
         );
 
         return currentTurn;
@@ -203,7 +203,7 @@ public class SplitDeck {
         Cost twelvecost = new Cost(Collections.singletonMap(ResourceType.MilitaryPoint, 3), 6);
         Card twelve = new Card(CardType.Challenge, Collections.singletonList(twelvecost), Arrays.asList(twelveone, twelvetwo), 84, "Supporto al Re", "");
 
-        Effect thirteenone = new BonusDomesticEffect(PositionType.HarvestAction, 4, null);
+        Effect thirteenone = new BonusDomesticEffect(Collections.singletonList(PositionType.HarvestAction), 4, null);
         Effect thirteentwo = new FinalVictoryPointsEffect(5);
         Cost thirteencost = new Cost(new HashMap<ResourceType, Integer>(){
             {
@@ -246,7 +246,9 @@ public class SplitDeck {
         Card seventeen = new Card(CardType.Challenge, Collections.singletonList(seventeencost), Arrays.asList(seventeenone, seventeentwo), 89, "Ingaggiare Mercenari", "");
 
         Effect eighteenone = new ImmediateEffect(Collections.singletonMap(ResourceType.FaithPoint, 1));
-        Effect eighteentwo = new BonusDomesticEffect(null, 7, null);
+        Effect eighteentwo = new BonusDomesticEffect(Arrays
+                .asList(PositionType.TerritoryTower, PositionType.BuildingTower, PositionType.PersonalityTower, PositionType.ChallengeTower)
+                , 7, null);
         Effect eighteenthree = new FinalVictoryPointsEffect(5);
         Cost eighteencost = new Cost(new HashMap<ResourceType, Integer>(){
             {
@@ -283,7 +285,7 @@ public class SplitDeck {
         Cost twentyonecost = new Cost(Collections.singletonMap(ResourceType.MilitaryPoint, 6), 12);
         Card twentyone = new Card(CardType.Challenge, Collections.singletonList(twentyonecost), Arrays.asList(twentyoneone, twentyonetwo), 93, "Conquista Militare", "");
 
-        Effect twentytwoone = new BonusDomesticEffect(PositionType.ProductionAction, 3, null);
+        Effect twentytwoone = new BonusDomesticEffect(Collections.singletonList(PositionType.ProductionAction), 3, null);
         Effect twentytwotwo = new FinalVictoryPointsEffect(5);
         Cost twentytwocost = new Cost(new HashMap<ResourceType, Integer>(){
             {
@@ -360,16 +362,18 @@ public class SplitDeck {
         Card seven = new Card(CardType.Personality, Collections.singletonList(sevencost), Collections.singletonList(sevenone), 55, "Predicatore", "");
 
         Effect eightone = new ImmediateEffect(Collections.singletonMap(ResourceType.FaithPoint, 1));
-        Effect eighttwo = new BonusDomesticEffect(null, 4, null);
+        Effect eighttwo = new BonusDomesticEffect(Arrays
+                .asList(PositionType.TerritoryTower, PositionType.BuildingTower, PositionType.PersonalityTower, PositionType.ChallengeTower)
+                , 4, null);
         Cost eightcost = new Cost(Collections.singletonMap(ResourceType.Gold, 3));
         Card eight = new Card(CardType.Personality, Collections.singletonList(eightcost), Arrays.asList(eightone, eighttwo), 56, "Badessa", "");
 
-        Effect nineone = new BonusDomesticEffect(PositionType.TerritoryTower, 6, null);
+        Effect nineone = new BonusDomesticEffect(Collections.singletonList(PositionType.TerritoryTower), 6, null);
         Effect ninetwo = new ImmediateEffect(Collections.singletonMap(ResourceType.MilitaryPoint, 2));
         Cost ninecost = new Cost(Collections.singletonMap(ResourceType.Gold, 4));
         Card nine = new Card(CardType.Personality, Collections.singletonList(ninecost), Arrays.asList(nineone, ninetwo), 57, "Capitano", "");
 
-        Effect tenone = new BonusDomesticEffect(PositionType.BuildingTower, 6, new HashMap<ResourceType, Integer>() {
+        Effect tenone = new BonusDomesticEffect(Collections.singletonList(PositionType.BuildingTower), 6, new HashMap<ResourceType, Integer>() {
             {
                 put(ResourceType.Wood, 1);
                 put(ResourceType.Rock, 1);
@@ -378,11 +382,11 @@ public class SplitDeck {
         Cost tencost = new Cost(Collections.singletonMap(ResourceType.Gold, 4));
         Card ten = new Card(CardType.Personality, Collections.singletonList(tencost), Collections.singletonList(tenone), 58, "Architetto", "");
 
-        Effect elevenone = new BonusDomesticEffect(PositionType.PersonalityTower, 6, Collections.singletonMap(ResourceType.Gold, 2));
+        Effect elevenone = new BonusDomesticEffect(Collections.singletonList(PositionType.PersonalityTower), 6, Collections.singletonMap(ResourceType.Gold, 2));
         Cost elevencost = new Cost(Collections.singletonMap(ResourceType.Gold, 3));
         Card eleven = new Card(CardType.Personality, Collections.singletonList(elevencost), Collections.singletonList(elevenone), 59, "Mecenate", "");
 
-        Effect twelveone = new BonusDomesticEffect(PositionType.ChallengeTower, 6, null);
+        Effect twelveone = new BonusDomesticEffect(Collections.singletonList(PositionType.ChallengeTower), 6, null);
         Effect twelvetwo = new ImmediateEffect(Collections.singletonMap(ResourceType.Favor, 1));
         Cost twelvecost = new Cost(Collections.singletonMap(ResourceType.Gold, 4));
         Card twelve = new Card(CardType.Personality, Collections.singletonList(twelvecost), Arrays.asList(twelveone, twelvetwo), 60, "Eroe", "");
@@ -420,12 +424,12 @@ public class SplitDeck {
         Card twenty = new Card(CardType.Personality, Collections.singletonList(twentycost), Collections.singletonList(twentyonee), 68, "Araldo", "");
 
         Effect twentyoneone = new ImmediateEffect(Collections.singletonMap(ResourceType.FaithPoint, 2));
-        Effect twentyonetwo = new BonusDomesticEffect(PositionType.HarvestAction, 4, null);
+        Effect twentyonetwo = new BonusDomesticEffect(Collections.singletonList(PositionType.HarvestAction), 4, null);
         Cost twentyonecost = new Cost(Collections.singletonMap(ResourceType.Gold, 4));
         Card twentyone = new Card(CardType.Personality, Collections.singletonList(twentyonecost), Arrays.asList(twentyoneone, twentyonetwo), 69, "Cardinale", "");
 
         Effect twentytwoone = new ImmediateEffect(Collections.singletonMap(ResourceType.FaithPoint, 1));
-        Effect twentytwotwo = new BonusDomesticEffect(PositionType.ProductionAction, 4, null);
+        Effect twentytwotwo = new BonusDomesticEffect(Collections.singletonList(PositionType.ProductionAction), 4, null);
         Cost twentytwocost = new Cost(Collections.singletonMap(ResourceType.Gold, 5));
         Card twentytwo = new Card(CardType.Personality, Collections.singletonList(twentytwocost), Arrays.asList(twentytwoone, twentytwotwo), 70, "Vescovo", "");
 
@@ -433,10 +437,12 @@ public class SplitDeck {
         Cost twentythreecost = new Cost(Collections.singletonMap(ResourceType.Gold, 5));
         Card twentythree = new Card(CardType.Personality, Collections.singletonList(twentythreecost), Collections.singletonList(twentythreeone), 71, "Generale", "");
 
-        Effect twentyfourone = new BonusDomesticEffect(null, 7, null);
-        Effect twntyfourtwo = new ImmediateEffect(Collections.singletonMap(ResourceType.Favor, 1));
+        Effect twentyfourone = new BonusDomesticEffect(Arrays
+                .asList(PositionType.TerritoryTower, PositionType.BuildingTower, PositionType.PersonalityTower, PositionType.ChallengeTower)
+                , 7, null);
+        Effect twentyfourtwo = new ImmediateEffect(Collections.singletonMap(ResourceType.Favor, 1));
         Cost twentyfourcost = new Cost(Collections.singletonMap(ResourceType.Gold, 6));
-        Card twentyfour = new Card(CardType.Personality, Collections.singletonList(twentyfourcost), Collections.singletonList(twentyfourone), 72, "Ambasciatore", "");
+        Card twentyfour = new Card(CardType.Personality, Collections.singletonList(twentyfourcost), Arrays.asList(twentyfourone, twentyfourtwo), 72, "Ambasciatore", "");
 
         return new HashMap<Integer, List<Card>>() {
             {
