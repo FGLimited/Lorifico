@@ -9,6 +9,7 @@ import Game.UserObjects.DomesticColor;
 import Game.UserObjects.GameUser;
 import Game.UserObjects.PlayerState;
 import Networking.Gson.GsonUtils;
+import Server.Game.Usable.Cost;
 import Server.Game.UserObjects.Domestic;
 import java.util.List;
 import java.util.Map;
@@ -61,10 +62,9 @@ public class BonusDomesticEffect implements Effect {
         // Set not moved for current user
         currentUser.setHasMoved(false);
 
-        // TODO: find a way to apply costBonus
-
         // Send special domestic and bonus positions type
-        currentUser.getUserLink().sendMessage(GsonUtils.toGson(new BonusDomesticMove(special, positionsType)));
+        currentUser.getUserLink()
+                .sendMessage(GsonUtils.toGson(new BonusDomesticMove(special, positionsType, new Cost(costBonus))));
     }
 
     @Override

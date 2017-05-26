@@ -5,8 +5,10 @@ import Game.Usable.ResourceType;
 import Game.UserObjects.Chosable;
 import Game.UserObjects.PlayerState;
 import Model.User.User;
+import Server.Game.Usable.Cost;
 import Server.Game.UserObjects.Domestic;
 import Game.UserObjects.GameUser;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +24,8 @@ public class SetInUseDomestic implements BaseAction {
 
     private final List<PositionType> requestedPositions;
 
+    private final Cost costBonus;
+
     /**
      * Choose which domestic to use for current round
      * and how many slaves to use to increment its value
@@ -29,15 +33,17 @@ public class SetInUseDomestic implements BaseAction {
      * @param selectedDomestic Chosen domestic
      * @param slaves Slaves to use
      * @param requestedPositions Requested positions update (null for all positions)
+     * @param costBonus Bonus to apply to costs returned in next update
      */
-    public SetInUseDomestic(Domestic selectedDomestic, int slaves, List<PositionType> requestedPositions) {
+    public SetInUseDomestic(Domestic selectedDomestic, int slaves, List<PositionType> requestedPositions, Cost costBonus) {
         this.selectedDomestic = selectedDomestic;
         this.slaves = slaves;
         this.requestedPositions = requestedPositions;
+        this.costBonus = costBonus;
     }
 
     public SetInUseDomestic(Domestic selectedDomestic, int slaves) {
-        this(selectedDomestic, slaves, null);
+        this(selectedDomestic, slaves, null, null);
     }
 
     @Override
@@ -75,6 +81,27 @@ public class SetInUseDomestic implements BaseAction {
         // Send requested positions
         Map<Integer, List<Chosable>> positions = user.getMatch().getTable()
                 .getPositions(gameUser, requestedPositions);
+
+        // If a cost bonus is specified apply it to all available costs
+        if(costBonus != null){
+
+            positions.forEach((number, list) -> {
+                // If current list isn't a cost list go ahead
+                if(list.get(0).getClass() != Cost.class)
+                    return;
+
+                // Create new cost list
+                final List<Chosable> costs = new ArrayList<>();
+
+                // Apply bonus to each cost and update new list
+                list.forEach(cost -> costs.add(((Cost)cost).sum(costBonus, false)));
+
+                // Update list in positions map
+                list.clear();
+                list.addAll(costs);
+            });
+
+        }
 
         // TODO: send requested positions to client
 
