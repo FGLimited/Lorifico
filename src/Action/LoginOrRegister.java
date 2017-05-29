@@ -2,6 +2,7 @@ package Action;
 
 import Model.User.User;
 import org.jetbrains.annotations.Nullable;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -13,6 +14,13 @@ public class LoginOrRegister implements BaseAction {
     private String passwordHash;
     private boolean isNewUser = false;
 
+    /**
+     * Used to login or register a new user on server
+     *
+     * @param username
+     * @param password
+     * @param isNewUser
+     */
     public LoginOrRegister(String username, String password, boolean isNewUser) {
         this.username = username;
 
