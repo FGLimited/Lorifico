@@ -8,6 +8,12 @@ public class DisplayPopup implements BaseAction {
     private String message;
     private String title;
 
+    /**
+     * Used to display popup on GUI
+     *
+     * @param level
+     * @param message message to display
+     */
     public DisplayPopup(Level level, String message) {
         this(level, "", message);
     }

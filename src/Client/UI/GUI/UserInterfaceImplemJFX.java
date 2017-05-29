@@ -45,7 +45,7 @@ public class UserInterfaceImplemJFX extends Application implements UserInterface
     @Override
     public void start(Stage primaryStage) throws Exception {
         ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).setPrimaryStage(primaryStage);///// N.B: JavaFX creates a NEW UserInterfaceImplemJFX obj, we have to reach the original one
-        ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).changeScene("Scegli il server", "fxml/ConnectionPage.fxml", 300, 400, true, this);
+        ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).changeScene("Scegli il server", "fxml/ConnectionPage.fxml", 300, 400, true, new ConnectionPageController());
     }
 
     @Override
@@ -118,10 +118,9 @@ public class UserInterfaceImplemJFX extends Application implements UserInterface
         try {
             //Stage primaryStage = ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).getPrimaryStage();
             primaryStage.setTitle(title);
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            Parent root = fxmlLoader.load(getClass().getResource(fxml));
-
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml));
             fxmlLoader.setController(controller);
+            Parent root = fxmlLoader.load();
             primaryStage.setScene(new Scene(root, w, h));
             primaryStage.setResizable(resizable);
             primaryStage.show();
