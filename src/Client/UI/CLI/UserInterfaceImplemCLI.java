@@ -51,6 +51,11 @@ public class UserInterfaceImplemCLI implements UserInterface {
     }
 
     @Override
+    public GameUI getGameUI() {
+        return null;
+    }
+
+    @Override
     public Dashboard getDashboard() {
         return null;
     }

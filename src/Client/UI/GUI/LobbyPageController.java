@@ -38,7 +38,6 @@ public class LobbyPageController implements Lobby, Initializable {
     @Override
     public void showPage() {
         ((UserInterfaceImplemJFX) (UserInterfaceFactory.getInstance())).changeScene("Lobby", "fxml/LobbyPage.fxml", 415, 415, true, this);
-
     }
 
     @Override

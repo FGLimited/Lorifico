@@ -41,13 +41,19 @@ public interface UserInterface {
     public Lobby getLobby();
 
     /**
-     * Gets dashboard controller
+     * Gets game UI controller
+     * @return
+     */
+    public GameUI getGameUI();
+
+    /**
+     * Gets dashboard in game object
      * @return
      */
     public Dashboard getDashboard();
 
     /**
-     * Gets gametable controller
+     * Gets gametable in game object
      * @return
      */
     public GameTable getGameTable();

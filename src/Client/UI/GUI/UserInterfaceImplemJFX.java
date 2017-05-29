@@ -2,6 +2,7 @@ package Client.UI.GUI;
 
 import Action.DisplayPopup;
 import Client.UI.*;
+import Client.UI.GUI.resources.gameComponents.GameTableGroup;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
@@ -24,7 +25,8 @@ public class UserInterfaceImplemJFX extends Application implements UserInterface
 
     private Login login;//Login page controller
     private Lobby lobby;//Lobby page controller
-
+    private GameUI gameUI;//GameUI page controller
+    private GameTable gameTable;//Game table object
 
     /**
      * Used to init the stage
@@ -84,13 +86,20 @@ public class UserInterfaceImplemJFX extends Application implements UserInterface
     }
 
     @Override
+    public GameUI getGameUI() {
+        if (gameUI == null) gameUI = new GameUIController();
+        return gameUI;
+    }
+
+    @Override
     public Dashboard getDashboard() {
         return null;
     }
 
     @Override
     public GameTable getGameTable() {
-        return null;
+        if (gameTable == null) gameTable = new GameTableGroup();
+        return gameTable;
     }
 
     /**
@@ -121,7 +130,7 @@ public class UserInterfaceImplemJFX extends Application implements UserInterface
         }
     }
 
-    private Stage getPrimaryStage() {
+    public Stage getPrimaryStage() {
         return primaryStage;
     }
 
