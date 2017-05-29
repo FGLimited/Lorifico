@@ -1,0 +1,199 @@
+{
+  "militaryTerritory": {
+    "3": 3,
+    "4": 7,
+    "5": 12,
+    "6": 18
+  },
+  "victoryForCards": {
+    "Personality": {
+      "1": 1,
+      "2": 3,
+      "3": 6,
+      "4": 10,
+      "5": 15,
+      "6": 21
+    },
+    "Territory": {
+      "3": 1,
+      "4": 4,
+      "5": 10,
+      "6": 20
+    }
+  },
+  "faithWayBonus": {
+    "0": 0,
+    "1": 1,
+    "2": 2,
+    "3": 3,
+    "4": 4,
+    "5": 5,
+    "6": 7,
+    "7": 9,
+    "8": 11,
+    "9": 13,
+    "10": 15,
+    "11": 17,
+    "12": 19,
+    "13": 22,
+    "14": 25,
+    "15": 30
+  },
+  "militaryWayBonus": {
+    "1": 5,
+    "2": 2
+  },
+  "councilFavors": [
+    {
+      "type": "Server.Game.Effects.ImmediateEffect",
+      "data": {
+        "type": "Immediate",
+        "resources": {
+          "Wood": 1,
+          "Rock": 1
+        }
+      }
+    },
+    {
+      "type": "Server.Game.Effects.ImmediateEffect",
+      "data": {
+        "type": "Immediate",
+        "resources": {
+          "Slave": 2
+        }
+      }
+    },
+    {
+      "type": "Server.Game.Effects.ImmediateEffect",
+      "data": {
+        "type": "Immediate",
+        "resources": {
+          "Gold": 2
+        }
+      }
+    },
+    {
+      "type": "Server.Game.Effects.ImmediateEffect",
+      "data": {
+        "type": "Immediate",
+        "resources": {
+          "MilitaryPoint": 2
+        }
+      }
+    },
+    {
+      "type": "Server.Game.Effects.ImmediateEffect",
+      "data": {
+        "type": "Immediate",
+        "resources": {
+          "FaithPoint": 1
+        }
+      }
+    }
+  ],
+  "initialState": {
+    "resources": {
+      "Slave": 3,
+      "MilitaryPoint": 0,
+      "VictoryPoint": 0,
+      "Favor": 0,
+      "Gold": 5,
+      "Wood": 2,
+      "FaithPoint": 0,
+      "Rock": 2
+    },
+    "resourcesPenalty": {
+      "Slave": 0,
+      "MilitaryPoint": 0,
+      "VictoryPoint": 0,
+      "Favor": 0,
+      "Gold": 0,
+      "Wood": 0,
+      "FaithPoint": 0,
+      "Rock": 0
+    },
+    "resourceBonus": {
+      "Personality": {
+        "Slave": 0,
+        "MilitaryPoint": 0,
+        "VictoryPoint": 0,
+        "Favor": 0,
+        "Gold": 0,
+        "Wood": 0,
+        "FaithPoint": 0,
+        "Rock": 0
+      },
+      "Territory": {
+        "Slave": 0,
+        "MilitaryPoint": 0,
+        "VictoryPoint": 0,
+        "Favor": 0,
+        "Gold": 0,
+        "Wood": 0,
+        "FaithPoint": 0,
+        "Rock": 0
+      },
+      "Building": {
+        "Slave": 0,
+        "MilitaryPoint": 0,
+        "VictoryPoint": 0,
+        "Favor": 0,
+        "Gold": 0,
+        "Wood": 0,
+        "FaithPoint": 0,
+        "Rock": 0
+      },
+      "Challenge": {
+        "Slave": 0,
+        "MilitaryPoint": 0,
+        "VictoryPoint": 0,
+        "Favor": 0,
+        "Gold": 0,
+        "Wood": 0,
+        "FaithPoint": 0,
+        "Rock": 0
+      }
+    },
+    "effects": {
+      "Final": [],
+      "Immediate": [],
+      "Permanent": [],
+      "Activable": [
+        {
+          "type": "Server.Game.Effects.AddResourcesEffect",
+          "data": {
+            "type": "Activable",
+            "position": "HarvestAction",
+            "resources": {
+              "Slave": 1,
+              "Wood": 1,
+              "Rock": 1
+            },
+            "activationValue": 1,
+            "cardNumber": 0
+          }
+        },
+        {
+          "type": "Server.Game.Effects.AddResourcesEffect",
+          "data": {
+            "type": "Activable",
+            "position": "ProductionAction",
+            "resources": {
+              "MilitaryPoint": 1,
+              "Gold": 2
+            },
+            "activationValue": 1,
+            "cardNumber": 0
+          }
+        }
+      ]
+    },
+    "cards": {
+      "Personality": [],
+      "Territory": [],
+      "Building": [],
+      "Challenge": []
+    },
+    "slavePerDomestic": 1
+  }
+}

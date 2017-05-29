@@ -11,8 +11,6 @@ import java.util.List;
  */
 public class Move<T> implements BaseAction {
 
-    private final Class<T> type;
-
     private final List<T> chosenTs;
 
     private final int positionNumber;
@@ -22,33 +20,36 @@ public class Move<T> implements BaseAction {
      *
      * @param positionNumber Position number
      * @param chosenTs Chosen cost / chosen effects to activate
-     * @param tType Type of T (cost / effect)
      */
-    public Move(int positionNumber, List<T> chosenTs, Class<T> tType) {
+    public Move(int positionNumber, List<T> chosenTs) {
         this.positionNumber = positionNumber;
         this.chosenTs = chosenTs;
-        type = tType;
     }
 
     @Override
     public void doAction(User user) {
 
+        // Get current user and player state
         final GameUser gameUser = user.getGameUser();
         final GameTable table = user.getMatch().getTable();
 
+        // If table is null, game hasn't started yet
         if(table == null){
             // TODO: sei un coglione
             return;
         }
 
+        // Set move completed
         gameUser.setHasMoved(true);
 
-        Position updatedPosition = table.occupy(user.getGameUser(), positionNumber, chosenTs, type);
+        // Occupy selected position (this will activate all card/position effects)
+        Position updatedPosition = table.occupy(user.getGameUser(), positionNumber, chosenTs);
 
         // TODO: send update to all players here if you want differential update
         // (else get global update from game table as you wish)
 
-        if(!gameUser.getHasMoved()) {
+        // If this was last move notify on gameuser object
+        if(gameUser.getHasMoved()) {
             synchronized (gameUser){
                 gameUser.notify();
             }

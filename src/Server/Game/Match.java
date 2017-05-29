@@ -2,7 +2,9 @@ package Server.Game;
 
 import Action.BaseAction;
 import Action.SendMatchAttendees;
+import Game.Cards.CardType;
 import Game.Effects.Effect;
+import Game.Effects.EffectType;
 import Game.Usable.ResourceType;
 import Game.UserObjects.DomesticColor;
 import Game.UserObjects.FamilyColor;
@@ -14,7 +16,6 @@ import Networking.Gson.GsonUtils;
 import Server.Game.Cards.SplitDeck;
 import Server.Game.Effects.Faith.FaithDeck;
 import Server.Game.UserObjects.GameTable;
-
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.Executors;
@@ -162,12 +163,6 @@ public class Match implements UserHandler {
         List<GameUser> firstRoundOrder = new ArrayList<>();
         FamilyColor[] colors = FamilyColor.values();
 
-        // Initial resources for all users
-        Map<ResourceType, Integer> initialResources = new HashMap<>();
-        initialResources.put(ResourceType.Wood, 2);
-        initialResources.put(ResourceType.Rock, 2);
-        initialResources.put(ResourceType.Slave, 3);
-
         // Create game user for each user
         for (int i = 0; i < users.size(); i++) {
             // Get user
@@ -176,9 +171,13 @@ public class Match implements UserHandler {
             // Create new game user for current user
             GameUser newGameUser = new Server.Game.UserObjects.GameUser(current.getLink(), colors[i]);
 
-            // Add initial resources
-            final PlayerState initialState = newGameUser.getUserState();
-            initialState.setResources(initialResources, false);
+            // Get initial player state bound to current game user
+            final PlayerState initialState = GameHelper.getInitialPS(newGameUser);
+
+            // Add gold bonus as needed
+            initialState.setResources(Collections.singletonMap(ResourceType.Gold, initialState.getResources().get(ResourceType.Gold) + i), false);
+
+            // Update current state
             newGameUser.updateUserState(initialState);
 
             // Set new game user
@@ -242,13 +241,82 @@ public class Match implements UserHandler {
         }
 
         // Convert all to victory points and determine game winner at the end
-        endCheck();
+        endCheck(roundOrder);
     }
 
     /**
      * Perform all final calculations for victory points
      */
-    private void endCheck() {
+    private void endCheck(List<GameUser> users) {
 
+        // Sort users for military points
+        users.sort(Comparator.comparingInt(a -> a.getUserState().getResources().get(ResourceType.MilitaryPoint)));
+
+        final Map<GameUser, Integer> military = new HashMap<>();
+        military.put(users.get(0), 1);
+
+        for (int i = 1; i < users.size(); i++) {
+
+            final GameUser current = users.get(i);
+            final GameUser previous = users.get(i - 1);
+
+            if(current.getUserState().getResources().get(ResourceType.MilitaryPoint) < previous.getUserState().getResources().get(ResourceType.MilitaryPoint))
+                military.put(current, military.get(previous) + 1);
+
+            military.put(current, military.get(previous));
+        }
+
+        // Convert all to victory points for each user
+        users.forEach(user -> convertToVictory(user, military.get(user)));
+
+        // Order by victory points
+        users.sort(Comparator.comparingInt(user -> user.getUserState().getResources().get(ResourceType.VictoryPoint)));
+
+        // TODO: send classification
+    }
+
+    /**
+     * Convert every left resource or military/faith point to victory points
+     *
+     * @param user User to compute
+     * @param militaryWayPosition Position relative to other users on military track
+     */
+    private void convertToVictory(GameUser user, int militaryWayPosition) {
+
+        // Get current player state
+        final PlayerState currentState = user.getUserState();
+
+        int victoryPoints = 0;
+
+        // Check cards number
+        for (CardType type : CardType.values())
+            victoryPoints += GameHelper.victoryForCards(type, currentState.getCards(type).size());
+
+        // Add military way bonus
+        victoryPoints += GameHelper.getMilitaryBonus(militaryWayPosition);
+
+        final Map<ResourceType, Integer> finalResources = currentState.getResources();
+
+        // Add faith way bonus
+        victoryPoints += GameHelper.getFaithBonus(finalResources.get(ResourceType.FaithPoint));
+
+        // Calculate total resources left and add victory points bonus
+        int totalResourcesLeft = finalResources.get(ResourceType.Wood) + finalResources.get(ResourceType.Rock)
+                + finalResources.get(ResourceType.Gold) + finalResources.get(ResourceType.Slave);
+
+        victoryPoints += totalResourcesLeft / 5;
+
+        // Update victory points
+        finalResources.replace(ResourceType.VictoryPoint, finalResources.get(ResourceType.VictoryPoint) + victoryPoints);
+        currentState.setResources(finalResources, true);
+
+        // Apply all final effects
+        currentState.getEffects(EffectType.Final).forEach(finalEffect -> {
+            if(finalEffect.canApply(user.getUserState()))
+                finalEffect.apply(currentState);
+        });
+
+        // Update user state
+        user.updateUserState(currentState);
     }
 }

@@ -1,12 +1,17 @@
 package Server.Game.Effects;
 
+import Action.BonusDomesticMove;
 import Game.Effects.Effect;
 import Game.Effects.EffectType;
 import Game.Positions.PositionType;
 import Game.Usable.ResourceType;
 import Game.UserObjects.DomesticColor;
+import Game.UserObjects.GameUser;
 import Game.UserObjects.PlayerState;
+import Networking.Gson.GsonUtils;
+import Server.Game.Usable.Cost;
 import Server.Game.UserObjects.Domestic;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,7 +21,7 @@ public class BonusDomesticEffect implements Effect {
 
     private final EffectType type = EffectType.Immediate;
 
-    private final PositionType positionType;
+    private final List<PositionType> positionsType;
 
     private final int value;
 
@@ -26,12 +31,12 @@ public class BonusDomesticEffect implements Effect {
      * Additional placement with special domestic of given value in specified positions
      * If tower positions costBonus is applied to card costs
      *
-     * @param position Type of position to activate
+     * @param positions Type of position to activate (null for all positions)
      * @param domesticValue Value of special domestic
      * @param costBonus Bonus resources for position/card cost
      */
-    public BonusDomesticEffect(PositionType position, int domesticValue, Map<ResourceType, Integer> costBonus) {
-        this.positionType = position;
+    public BonusDomesticEffect(List<PositionType> positions, int domesticValue, Map<ResourceType, Integer> costBonus) {
+        this.positionsType = positions;
         value = domesticValue;
         this.costBonus = costBonus;
     }
@@ -49,16 +54,17 @@ public class BonusDomesticEffect implements Effect {
     @Override
     public void apply(PlayerState currentMove) {
 
+        final GameUser currentUser = currentMove.getGameUser();
+
         // Set special neutral domestic
-        Domestic special = new Domestic(currentMove.getGameUser().getFamilyColor(), DomesticColor.Neutral, value);
+        final Domestic special = new Domestic(currentMove.getGameUser().getFamilyColor(), DomesticColor.Neutral, value);
 
         // Set not moved for current user
-        currentMove.getGameUser().setHasMoved(false);
+        currentUser.setHasMoved(false);
 
-        // TODO: set special as in use domestic
-
-        // TODO: ask user to chose a card/effect from specified tower/action with given value (null positionType means any card from any tower)
-
+        // Send special domestic and bonus positions type
+        currentUser.getUserLink()
+                .sendMessage(GsonUtils.toGson(new BonusDomesticMove(special, positionsType, new Cost(costBonus))));
     }
 
     @Override
