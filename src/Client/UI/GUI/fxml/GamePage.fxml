@@ -6,7 +6,7 @@
 <?import javafx.scene.SubScene?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity"
            minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="780.0"
-           xmlns="http://javafx.com/javafx/8.0.111" fx:controller="Client.UI.GUI.GameUIController">
+           xmlns="http://javafx.com/javafx/8.0.111">
     <children>
         <Group>
             <children>
