@@ -36,18 +36,23 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
 
     @Override
     public void showPage() {
-        ((UserInterfaceImplemJFX) (UserInterfaceFactory.getInstance())).changeScene("Gioca", "fxml/GamePage.fxml", 780, 480, false, this);
+        ((UserInterfaceImplemJFX) (UserInterfaceFactory.getInstance())).changeScene("Gioca", "fxml/GamePage.fxml", 780, 480, true, this);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        cameraGroup = new MyCameraGroup(433, 1128, -500, 64, 0, 0);
+        cameraGroup = new MyCameraGroup(35, 1, 0.0, 270.0, 650.0, -550.);
         world = new Group(cameraGroup);//Create world group containing camera.
 
+        //Setup subscene
         subScene.setDepthTest(DepthTest.ENABLE);
         subScene.setFill(Color.LIGHTBLUE);
         subScene.setCamera(cameraGroup.getCamera());
         subScene.setRoot(world);
+
+        //Make subscene resizable
+        subScene.heightProperty().bind(root.heightProperty());
+        subScene.widthProperty().bind(root.widthProperty());
 
         Group gameTableGroup = (Group) (UserInterfaceFactory.getInstance().getGameTable());
         world.getChildren().add(gameTableGroup);
@@ -103,12 +108,12 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
      * Camera debug
      */
     private void printCamCoords() {
-        System.out.print("xAxisRot=" + cameraGroup.getRotateX().getAngle());
-        System.out.print("yAxisRot=" + cameraGroup.getRotateY().getAngle());
-        System.out.print("ZAxisRot=" + cameraGroup.getRotateZ().getAngle());
-        System.out.print("XPos=" + cameraGroup.getTranslate().getX());
-        System.out.print("YPos=" + cameraGroup.getTranslate().getY());
-        System.out.print("ZPos=" + cameraGroup.getTranslate().getZ());
+        System.out.print("Camera: " + cameraGroup.getRotateX().getAngle());
+        System.out.print(", " + cameraGroup.getRotateY().getAngle());
+        System.out.print(", " + cameraGroup.getRotateZ().getAngle());
+        System.out.print(", " + cameraGroup.getTranslate().getX());
+        System.out.print(", " + cameraGroup.getTranslate().getY());
+        System.out.print(", " + cameraGroup.getTranslate().getZ());
         System.out.println();
     }
 

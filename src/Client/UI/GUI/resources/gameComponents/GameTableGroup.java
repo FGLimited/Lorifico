@@ -11,7 +11,7 @@ import javafx.scene.transform.Translate;
 
 public class GameTableGroup extends Group implements GameTable {
     //Constants
-    private static final String IMAGE_URL = "Client/UI/GUI/resources/images/gameTableLQ.png";
+    private static final String IMAGE_URL = "Client/UI/GUI/resources/images/gameTable.png";
 
     private static final double IMAGE_WIDTH = 850;
     private static final double IMAGE_HEIGHT = 433;

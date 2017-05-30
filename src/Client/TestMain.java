@@ -18,7 +18,7 @@ public class TestMain {
             public void run() {
                 userInterface.getGameUI().showPage();
             }
-        }, 2, TimeUnit.SECONDS);
+        }, 1, TimeUnit.SECONDS);
 
         userInterface.init(args);
 

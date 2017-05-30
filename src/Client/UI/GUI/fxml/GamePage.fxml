@@ -10,8 +10,7 @@
     <children>
         <Group>
             <children>
-                <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                      prefWidth="0.0">
+                <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                     <children>
                         <AnchorPane prefHeight="48.0" prefWidth="748.0">
                             <children>
