@@ -95,7 +95,7 @@ public class MyCameraGroup extends Group {
      * This enum stores camera fixed position to look at different pieces of game
      */
     public enum CameraPosition {
-        GAMETABLE(41, 0, 0, 269, 653, -438),
+        GAMETABLE(38.66666666666666, -0.3333333333333144, 0.0, 424.33333333333326, 1089.999999999999, -882.000000000000),
         TOWERS(0, 0, 0, 0, 0, 0),
         BOARD(0, 0, 0, 0, 0, 0);
 

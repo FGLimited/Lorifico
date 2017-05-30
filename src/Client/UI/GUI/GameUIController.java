@@ -57,6 +57,8 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
         Group gameTableGroup = (Group) (UserInterfaceFactory.getInstance().getGameTable());
         world.getChildren().add(gameTableGroup);
 
+        cameraGroup.setView(MyCameraGroup.CameraPosition.GAMETABLE);
+
         camMouseDrag();
     }
 

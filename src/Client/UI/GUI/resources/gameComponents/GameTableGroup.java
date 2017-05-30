@@ -9,57 +9,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Translate;
 
+
 public class GameTableGroup extends Group implements GameTable {
     //Constants
-    private static final String IMAGE_URL = "Client/UI/GUI/resources/images/gameTable.png";
+    private static final String TABLE_IMAGE_URL = "Client/UI/GUI/resources/images/gameTable/gameTable.png";
+    private static final String COVERINGS_BASE_URL = "Client/UI/GUI/resources/images/gameTable";
 
     private static final double IMAGE_WIDTH = 850;
-    private static final double IMAGE_HEIGHT = 433;
-
-    //Local Objs
-    private StackPane stackPane;
-    private Rectangle rectangle;
-    private Pane pane;
-
-    //Trasformations
-    private Translate translate;
-
-    /**
-     * Creates a new plane showing game table
-     *
-     * @param xPos
-     * @param yPos
-     * @param zPos
-     */
-    public GameTableGroup(double xPos, double yPos, double zPos) {
-        super();
-        /*
-         * We need a rectangle to limit drag n' drop movements to this plane
-         * http://gamedev.stackexchange.com/questions/72924/how-do-i-add-an-image-inside-a-rectangle-or-a-circle-in-javafx
-         * btw i modified it a bit...
-         * */
-
-        stackPane = new StackPane();
-        rectangle = new Rectangle(IMAGE_WIDTH, IMAGE_HEIGHT);
-        pane = new Pane();
-        rectangle.setFill(Color.TRANSPARENT);
-
-        pane.setStyle("-fx-background-image: url(\"" + IMAGE_URL + "\");\n" +
-                "    -fx-background-repeat: no-repeat;\n" +
-                "    -fx-background-size: contain;");
-
-        stackPane.getChildren().addAll(pane, rectangle);
-        rectangle.widthProperty().bind(stackPane.prefWidthProperty());
-        rectangle.heightProperty().bind(stackPane.prefHeightProperty());
-        stackPane.setPrefSize(IMAGE_WIDTH, IMAGE_HEIGHT);
-
-        /*  </copied part> **/
-
-        translate = new Translate(xPos, yPos, zPos);
-        getChildren().add(stackPane);
-        this.getTransforms().add(translate);
-
-    }
+    private static final double IMAGE_HEIGHT = 694;
+    private int i = 0;
 
     /**
      * Creates a new plane showing game table
@@ -68,7 +26,69 @@ public class GameTableGroup extends Group implements GameTable {
         this(0, 0, 0);
     }
 
-    public Rectangle getRectangle() {
-        return rectangle;
+    /**
+     * Creates a new plane showing game table at given position
+     *
+     * @param xPos
+     * @param yPos
+     * @param zPos
+     */
+    public GameTableGroup(double xPos, double yPos, double zPos) {
+        super();
+        //Place Table
+        getChildren().add(createImageBox(TABLE_IMAGE_URL, IMAGE_WIDTH, IMAGE_HEIGHT, xPos, yPos, zPos));
+
+        //Place Coverings
+        getChildren().add(createImageBox(COVERINGS_BASE_URL + "/covering1.png", 95, 100, 685, 460, 0));
+
+        //Apply Transforms
+        getTransforms().add(new Translate(xPos, yPos, zPos));
+
+    }
+
+
+    /**
+     * Creates a new stackpane containing a rectangle filled with passed image
+     *
+     * @param url    image used to fill rectangle
+     * @param width  image w
+     * @param height image h
+     * @param xPos
+     * @param yPos
+     * @param zPos
+     * @return
+     */
+    private StackPane createImageBox(String url, double width, double height, double xPos, double yPos, double zPos) {
+        StackPane stackPane = new StackPane();
+        Rectangle rectangle = new Rectangle(width, height);
+        Pane pane = new Pane();
+
+        rectangle.setFill(Color.TRANSPARENT);
+
+        /**
+         i++;
+         if (i>1) {
+         rectangle.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
+         ColorAdjust colorAdjust = new ColorAdjust();
+         colorAdjust.setContrast(0.1);
+         colorAdjust.setHue(-0.05);
+         colorAdjust.setBrightness(0.2);
+         colorAdjust.setSaturation(0.3);
+         pane.setEffect(colorAdjust);
+         });
+         }
+         **/
+        
+        pane.setStyle("-fx-background-image: url(\"" + url + "\");\n" +
+                "    -fx-background-repeat: no-repeat;\n" +
+                "    -fx-background-size: contain;");
+
+
+        stackPane.getChildren().addAll(pane, rectangle);
+        rectangle.widthProperty().bind(stackPane.prefWidthProperty());
+        rectangle.heightProperty().bind(stackPane.prefHeightProperty());
+        stackPane.setPrefSize(width, height);
+        stackPane.getTransforms().add(new Translate(xPos, yPos, zPos));
+        return stackPane;
     }
 }
