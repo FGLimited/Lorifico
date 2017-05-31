@@ -2,11 +2,9 @@ package Server.Game.Positions;
 
 import Game.Effects.Effect;
 import Game.Effects.EffectType;
-import Game.Positions.Position;
 import Game.Positions.PositionType;
 import Game.UserObjects.PlayerState;
 import Server.Game.UserObjects.Domestic;
-import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,17 +12,9 @@ import java.util.stream.Collectors;
 /**
  * Created by fiore on 11/05/2017.
  */
-public class ActionPosition implements Position<Effect> {
-
-    private final int number;
-
-    private final PositionType type;
+public class ActionPosition extends Position<Effect> {
 
     private final int domesticPenalty;
-
-    private volatile PositionAggregate parent;
-
-    private volatile Domestic occupant;
 
     /**
      * Initialize an action position (Harvest or Production)
@@ -34,30 +24,8 @@ public class ActionPosition implements Position<Effect> {
      * @param domesticPenalty Penalty to apply to domestic value in this position
      */
     public ActionPosition(PositionType positionType, int number, int domesticPenalty) {
-        this.type = positionType;
-        this.number = number;
+        super(positionType, number);
         this.domesticPenalty = domesticPenalty;
-    }
-
-    @Override
-    public int compareTo(Position other) {
-        return number - other.getNumber();
-    }
-
-    @Override
-    public void setAggregate(PositionAggregate parent) {
-        if(this.parent == null)
-            this.parent = parent;
-    }
-
-    @Override
-    public PositionType getType() {
-        return type;
-    }
-
-    @Override
-    public int getNumber() {
-        return number;
     }
 
     @Override
@@ -76,6 +44,20 @@ public class ActionPosition implements Position<Effect> {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public PlayerState occupy(PlayerState currentState, List<Effect> chosenTs) {
+        super.occupy(currentState, chosenTs);
+
+        // Apply position effects and permanent effects
+        applyEffects(currentState);
+
+        // Apply all chosen effects to current state
+        chosenTs.forEach(effect -> effect.apply(currentState));
+
+        // Return updated state
+        return currentState;
+    }
+
     /**
      * Apply position penalty and player permanent effects to current state
      *
@@ -90,56 +72,11 @@ public class ActionPosition implements Position<Effect> {
         inUse.setValue(inUse.getValue() - domesticPenalty);
 
         // Set current position type
-        currentState.setCheckingPositionType(type);
+        currentState.setCheckingPositionType(this.getType());
 
         // Apply all permanent effects
         currentState.getEffects(EffectType.Permanent)
                 .forEach(effect -> effect.apply(currentState));
     }
 
-    @Override
-    public PlayerState occupy(PlayerState currentState, Effect chosenT) {
-
-        // Apply position effects and permanent effects
-        applyEffects(currentState);
-
-        // Set in use domestic as occupant
-        occupant = currentState.getInUseDomestic();
-
-        occupant.setInPosition(true);
-
-        // Apply selected effect to current state
-        chosenT.apply(currentState);
-
-        // Return updated state
-        return currentState;
-    }
-
-    @Override
-    public PlayerState occupy(PlayerState currentState, List<Effect> chosenTs) {
-
-        // Apply position effects and permanent effects
-        applyEffects(currentState);
-
-        // Set in use domestic as occupant
-        occupant = currentState.getInUseDomestic();
-
-        // Apply all chosen effects to current state
-        chosenTs.forEach(effect -> effect.apply(currentState));
-
-        // Return updated state
-        return currentState;
-    }
-
-    @Override
-    public @Nullable Domestic isOccupied() {
-        return occupant;
-    }
-
-    @Override
-    public void free() {
-
-        occupant.setInPosition(false);
-        occupant = null;
-    }
 }

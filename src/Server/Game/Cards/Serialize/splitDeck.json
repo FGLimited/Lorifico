@@ -20,22 +20,24 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 5
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 25,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.CardResourceEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "cardType": "Building",
               "resource": "Gold",
               "quantity": 1,
-              "value": 5,
-              "cardNumber": 25
+              "type": "Activable",
+              "cardNumber": 25,
+              "activationValue": 5
             }
           }
         ]
@@ -59,22 +61,24 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 5
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 26,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.CardResourceEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "cardType": "Territory",
               "resource": "Gold",
               "quantity": 1,
-              "value": 5,
-              "cardNumber": 26
+              "type": "Activable",
+              "cardNumber": 26,
+              "activationValue": 5
             }
           }
         ]
@@ -98,22 +102,24 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 6
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 27,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.CardResourceEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "cardType": "Challenge",
               "resource": "VictoryPoint",
               "quantity": 1,
-              "value": 6,
-              "cardNumber": 27
+              "type": "Activable",
+              "cardNumber": 27,
+              "activationValue": 6
             }
           }
         ]
@@ -137,22 +143,24 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 6
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 28,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.CardResourceEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "cardType": "Personality",
               "resource": "VictoryPoint",
               "quantity": 1,
-              "value": 6,
-              "cardNumber": 28
+              "type": "Activable",
+              "cardNumber": 28,
+              "activationValue": 6
             }
           }
         ]
@@ -176,16 +184,17 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 3
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 29,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.TransformResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "requested": {
                 "Wood": 1
@@ -193,14 +202,14 @@
               "toAdd": {
                 "Gold": 3
               },
-              "value": 4,
-              "cardNumber": 29
+              "type": "Activable",
+              "cardNumber": 29,
+              "activationValue": 4
             }
           },
           {
             "type": "Server.Game.Effects.TransformResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "requested": {
                 "Wood": 2
@@ -208,8 +217,9 @@
               "toAdd": {
                 "Gold": 5
               },
-              "value": 4,
-              "cardNumber": 29
+              "type": "Activable",
+              "cardNumber": 29,
+              "activationValue": 4
             }
           }
         ]
@@ -233,16 +243,17 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 2
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 30,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.TransformResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "requested": {
                 "Rock": 1
@@ -250,14 +261,14 @@
               "toAdd": {
                 "Gold": 3
               },
-              "value": 3,
-              "cardNumber": 30
+              "type": "Activable",
+              "cardNumber": 30,
+              "activationValue": 3
             }
           },
           {
             "type": "Server.Game.Effects.TransformResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "requested": {
                 "Rock": 2
@@ -265,8 +276,9 @@
               "toAdd": {
                 "Gold": 5
               },
-              "value": 3,
-              "cardNumber": 30
+              "type": "Activable",
+              "cardNumber": 30,
+              "activationValue": 3
             }
           }
         ]
@@ -289,16 +301,17 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "FaithPoint": 1
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 31,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.TransformResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "requested": {
                 "Gold": 1
@@ -306,8 +319,9 @@
               "toAdd": {
                 "FaithPoint": 1
               },
-              "value": 2,
-              "cardNumber": 31
+              "type": "Activable",
+              "cardNumber": 31,
+              "activationValue": 2
             }
           }
         ]
@@ -330,16 +344,17 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 1
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 32,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.TransformResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "requested": {
                 "Gold": 1
@@ -347,8 +362,293 @@
               "toAdd": {
                 "Favor": 1
               },
-              "value": 1,
-              "cardNumber": 32
+              "type": "Activable",
+              "cardNumber": 32,
+              "activationValue": 1
+            }
+          }
+        ]
+      }
+    ],
+    "Personality": [
+      {
+        "number": 49,
+        "name": "Condottiero",
+        "description": "",
+        "type": "Personality",
+        "costs": [
+          {
+            "requestedResources": {
+              "Gold": 2
+            },
+            "militaryRequested": 0,
+            "cardNumber": 49
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.ImmediateEffect",
+            "data": {
+              "resources": {
+                "MilitaryPoint": 3
+              },
+              "type": "Immediate",
+              "cardNumber": 49,
+              "activationValue": 0
+            }
+          },
+          {
+            "type": "Server.Game.Effects.PositionBonusEffect",
+            "data": {
+              "position": "TerritoryTower",
+              "value": 2,
+              "type": "Permanent",
+              "cardNumber": 49,
+              "activationValue": 0
+            }
+          }
+        ]
+      },
+      {
+        "number": 50,
+        "name": "Costruttore",
+        "description": "",
+        "type": "Personality",
+        "costs": [
+          {
+            "requestedResources": {
+              "Gold": 4
+            },
+            "militaryRequested": 0,
+            "cardNumber": 50
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.PositionBonusEffect",
+            "data": {
+              "position": "BuildingTower",
+              "value": 2,
+              "type": "Permanent",
+              "cardNumber": 50,
+              "activationValue": 0
+            }
+          },
+          {
+            "type": "Server.Game.Effects.CostBonusEffect",
+            "data": {
+              "cardType": "Building",
+              "bonus": {
+                "Rock": 1,
+                "Wood": 1
+              },
+              "isApplied": false,
+              "type": "Permanent",
+              "cardNumber": 50,
+              "activationValue": 0
+            }
+          }
+        ]
+      },
+      {
+        "number": 51,
+        "name": "Dama",
+        "description": "",
+        "type": "Personality",
+        "costs": [
+          {
+            "requestedResources": {
+              "Gold": 4
+            },
+            "militaryRequested": 0,
+            "cardNumber": 51
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.PositionBonusEffect",
+            "data": {
+              "position": "PersonalityTower",
+              "value": 2,
+              "type": "Permanent",
+              "cardNumber": 51,
+              "activationValue": 0
+            }
+          },
+          {
+            "type": "Server.Game.Effects.CostBonusEffect",
+            "data": {
+              "cardType": "Personality",
+              "bonus": {
+                "Gold": 1
+              },
+              "isApplied": false,
+              "type": "Permanent",
+              "cardNumber": 51,
+              "activationValue": 0
+            }
+          }
+        ]
+      },
+      {
+        "number": 52,
+        "name": "Cavaliere",
+        "description": "",
+        "type": "Personality",
+        "costs": [
+          {
+            "requestedResources": {
+              "Gold": 2
+            },
+            "militaryRequested": 0,
+            "cardNumber": 52
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.ImmediateEffect",
+            "data": {
+              "resources": {
+                "Favor": 1
+              },
+              "type": "Immediate",
+              "cardNumber": 52,
+              "activationValue": 0
+            }
+          },
+          {
+            "type": "Server.Game.Effects.PositionBonusEffect",
+            "data": {
+              "position": "ChallengeTower",
+              "value": 2,
+              "type": "Permanent",
+              "cardNumber": 52,
+              "activationValue": 0
+            }
+          }
+        ]
+      },
+      {
+        "number": 53,
+        "name": "Contadino",
+        "description": "",
+        "type": "Personality",
+        "costs": [
+          {
+            "requestedResources": {
+              "Gold": 3
+            },
+            "militaryRequested": 0,
+            "cardNumber": 53
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.PositionBonusEffect",
+            "data": {
+              "position": "HarvestAction",
+              "value": 2,
+              "type": "Permanent",
+              "cardNumber": 53,
+              "activationValue": 0
+            }
+          }
+        ]
+      },
+      {
+        "number": 54,
+        "name": "Artigiano",
+        "description": "",
+        "type": "Personality",
+        "costs": [
+          {
+            "requestedResources": {
+              "Gold": 3
+            },
+            "militaryRequested": 0,
+            "cardNumber": 54
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.PositionBonusEffect",
+            "data": {
+              "position": "ProductionAction",
+              "value": 2,
+              "type": "Permanent",
+              "cardNumber": 54,
+              "activationValue": 0
+            }
+          }
+        ]
+      },
+      {
+        "number": 55,
+        "name": "Predicatore",
+        "description": "",
+        "type": "Personality",
+        "costs": [
+          {
+            "requestedResources": {
+              "Gold": 2
+            },
+            "militaryRequested": 0,
+            "cardNumber": 55
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.ImmediateEffect",
+            "data": {
+              "resources": {
+                "FaithPoint": 4
+              },
+              "type": "Immediate",
+              "cardNumber": 55,
+              "activationValue": 0
+            }
+          }
+        ]
+      },
+      {
+        "number": 56,
+        "name": "Badessa",
+        "description": "",
+        "type": "Personality",
+        "costs": [
+          {
+            "requestedResources": {
+              "Gold": 3
+            },
+            "militaryRequested": 0,
+            "cardNumber": 56
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.ImmediateEffect",
+            "data": {
+              "resources": {
+                "FaithPoint": 1
+              },
+              "type": "Immediate",
+              "cardNumber": 56,
+              "activationValue": 0
+            }
+          },
+          {
+            "type": "Server.Game.Effects.BonusDomesticEffect",
+            "data": {
+              "positionsType": [
+                "TerritoryTower",
+                "BuildingTower",
+                "PersonalityTower",
+                "ChallengeTower"
+              ],
+              "value": 4,
+              "type": "Immediate",
+              "cardNumber": 56,
+              "activationValue": 0
             }
           }
         ]
@@ -373,17 +673,21 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "MilitaryPoint": 5
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 73,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.FinalVictoryPointsEffect",
             "data": {
+              "quantity": 4,
               "type": "Final",
-              "quantity": 4
+              "cardNumber": 73,
+              "activationValue": 0
             }
           }
         ]
@@ -408,17 +712,21 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "FaithPoint": 1
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 74,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.FinalVictoryPointsEffect",
             "data": {
+              "quantity": 5,
               "type": "Final",
-              "quantity": 5
+              "cardNumber": 74,
+              "activationValue": 0
             }
           }
         ]
@@ -441,18 +749,22 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
-                "MilitaryPoint": 2,
-                "Favor": 1
-              }
+                "Favor": 1,
+                "MilitaryPoint": 2
+              },
+              "type": "Immediate",
+              "cardNumber": 75,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.FinalVictoryPointsEffect",
             "data": {
+              "quantity": 3,
               "type": "Final",
-              "quantity": 3
+              "cardNumber": 75,
+              "activationValue": 0
             }
           }
         ]
@@ -476,17 +788,21 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "Favor": 2
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 76,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.FinalVictoryPointsEffect",
             "data": {
+              "quantity": 4,
               "type": "Final",
-              "quantity": 4
+              "cardNumber": 76,
+              "activationValue": 0
             }
           }
         ]
@@ -509,17 +825,21 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "Gold": 3
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 77,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.FinalVictoryPointsEffect",
             "data": {
+              "quantity": 5,
               "type": "Final",
-              "quantity": 5
+              "cardNumber": 77,
+              "activationValue": 0
             }
           }
         ]
@@ -542,17 +862,21 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "Slave": 4
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 78,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.FinalVictoryPointsEffect",
             "data": {
+              "quantity": 4,
               "type": "Final",
-              "quantity": 4
+              "cardNumber": 78,
+              "activationValue": 0
             }
           }
         ]
@@ -575,17 +899,21 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "FaithPoint": 2
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 79,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.FinalVictoryPointsEffect",
             "data": {
+              "quantity": 5,
               "type": "Final",
-              "quantity": 5
+              "cardNumber": 79,
+              "activationValue": 0
             }
           }
         ]
@@ -617,17 +945,21 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "FaithPoint": 3
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 80,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.FinalVictoryPointsEffect",
             "data": {
+              "quantity": 1,
               "type": "Final",
-              "quantity": 1
+              "cardNumber": 80,
+              "activationValue": 0
             }
           }
         ]
@@ -650,13 +982,13 @@
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "HarvestAction",
               "resources": {
                 "Gold": 1
               },
-              "activationValue": 1,
-              "cardNumber": 1
+              "type": "Activable",
+              "cardNumber": 1,
+              "activationValue": 1
             }
           }
         ]
@@ -677,22 +1009,24 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "Wood": 1
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 2,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "HarvestAction",
               "resources": {
                 "Wood": 1
               },
-              "activationValue": 2,
-              "cardNumber": 2
+              "type": "Activable",
+              "cardNumber": 2,
+              "activationValue": 2
             }
           }
         ]
@@ -713,14 +1047,14 @@
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "HarvestAction",
               "resources": {
                 "Slave": 1,
                 "Gold": 1
               },
-              "activationValue": 3,
-              "cardNumber": 3
+              "type": "Activable",
+              "cardNumber": 3,
+              "activationValue": 3
             }
           }
         ]
@@ -741,22 +1075,24 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "Rock": 2
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 4,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "HarvestAction",
               "resources": {
                 "Rock": 2
               },
-              "activationValue": 4,
-              "cardNumber": 4
+              "type": "Activable",
+              "cardNumber": 4,
+              "activationValue": 4
             }
           }
         ]
@@ -777,22 +1113,24 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "Wood": 1
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 5,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "HarvestAction",
               "resources": {
                 "Wood": 3
               },
-              "activationValue": 5,
-              "cardNumber": 5
+              "type": "Activable",
+              "cardNumber": 5,
+              "activationValue": 5
             }
           }
         ]
@@ -813,24 +1151,26 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
-                "MilitaryPoint": 2,
-                "Slave": 1
-              }
+                "Slave": 1,
+                "MilitaryPoint": 2
+              },
+              "type": "Immediate",
+              "cardNumber": 6,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "HarvestAction",
               "resources": {
-                "FaithPoint": 1,
-                "Rock": 1
+                "Rock": 1,
+                "FaithPoint": 1
               },
-              "activationValue": 6,
-              "cardNumber": 6
+              "type": "Activable",
+              "cardNumber": 6,
+              "activationValue": 6
             }
           }
         ]
@@ -851,14 +1191,14 @@
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "HarvestAction",
               "resources": {
                 "Rock": 1,
                 "MilitaryPoint": 2
               },
-              "activationValue": 5,
-              "cardNumber": 7
+              "type": "Activable",
+              "cardNumber": 7,
+              "activationValue": 5
             }
           }
         ]
@@ -879,274 +1219,24 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "Gold": 3
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 8,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
+              "position": "HarvestAction",
+              "resources": {
+                "Favor": 1
+              },
               "type": "Activable",
-              "position": "HarvestAction",
-              "resources": {
-                "Favor": 1
-              },
-              "activationValue": 6,
-              "cardNumber": 8
-            }
-          }
-        ]
-      }
-    ],
-    "Personality": [
-      {
-        "number": 49,
-        "name": "Condottiero",
-        "description": "",
-        "type": "Personality",
-        "costs": [
-          {
-            "requestedResources": {
-              "Gold": 2
-            },
-            "militaryRequested": 0,
-            "cardNumber": 49
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.ImmediateEffect",
-            "data": {
-              "type": "Immediate",
-              "resources": {
-                "MilitaryPoint": 3
-              }
-            }
-          },
-          {
-            "type": "Server.Game.Effects.PositionBonusEffect",
-            "data": {
-              "type": "Permanent",
-              "position": "TerritoryTower",
-              "value": 2
-            }
-          }
-        ]
-      },
-      {
-        "number": 50,
-        "name": "Costruttore",
-        "description": "",
-        "type": "Personality",
-        "costs": [
-          {
-            "requestedResources": {
-              "Gold": 4
-            },
-            "militaryRequested": 0,
-            "cardNumber": 50
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.PositionBonusEffect",
-            "data": {
-              "type": "Permanent",
-              "position": "BuildingTower",
-              "value": 2
-            }
-          },
-          {
-            "type": "Server.Game.Effects.CostBonusEffect",
-            "data": {
-              "type": "Permanent",
-              "cardType": "Building",
-              "bonus": {
-                "Rock": 1,
-                "Wood": 1
-              },
-              "isApplied": false
-            }
-          }
-        ]
-      },
-      {
-        "number": 51,
-        "name": "Dama",
-        "description": "",
-        "type": "Personality",
-        "costs": [
-          {
-            "requestedResources": {
-              "Gold": 4
-            },
-            "militaryRequested": 0,
-            "cardNumber": 51
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.PositionBonusEffect",
-            "data": {
-              "type": "Permanent",
-              "position": "PersonalityTower",
-              "value": 2
-            }
-          },
-          {
-            "type": "Server.Game.Effects.CostBonusEffect",
-            "data": {
-              "type": "Permanent",
-              "cardType": "Personality",
-              "bonus": {
-                "Gold": 1
-              },
-              "isApplied": false
-            }
-          }
-        ]
-      },
-      {
-        "number": 52,
-        "name": "Cavaliere",
-        "description": "",
-        "type": "Personality",
-        "costs": [
-          {
-            "requestedResources": {
-              "Gold": 2
-            },
-            "militaryRequested": 0,
-            "cardNumber": 52
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.ImmediateEffect",
-            "data": {
-              "type": "Immediate",
-              "resources": {
-                "Favor": 1
-              }
-            }
-          },
-          {
-            "type": "Server.Game.Effects.PositionBonusEffect",
-            "data": {
-              "type": "Permanent",
-              "position": "ChallengeTower",
-              "value": 2
-            }
-          }
-        ]
-      },
-      {
-        "number": 53,
-        "name": "Contadino",
-        "description": "",
-        "type": "Personality",
-        "costs": [
-          {
-            "requestedResources": {
-              "Gold": 3
-            },
-            "militaryRequested": 0,
-            "cardNumber": 53
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.PositionBonusEffect",
-            "data": {
-              "type": "Permanent",
-              "position": "HarvestAction",
-              "value": 2
-            }
-          }
-        ]
-      },
-      {
-        "number": 54,
-        "name": "Artigiano",
-        "description": "",
-        "type": "Personality",
-        "costs": [
-          {
-            "requestedResources": {
-              "Gold": 3
-            },
-            "militaryRequested": 0,
-            "cardNumber": 54
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.PositionBonusEffect",
-            "data": {
-              "type": "Permanent",
-              "position": "ProductionAction",
-              "value": 2
-            }
-          }
-        ]
-      },
-      {
-        "number": 55,
-        "name": "Predicatore",
-        "description": "",
-        "type": "Personality",
-        "costs": [
-          {
-            "requestedResources": {
-              "Gold": 2
-            },
-            "militaryRequested": 0,
-            "cardNumber": 55
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.ImmediateEffect",
-            "data": {
-              "type": "Immediate",
-              "resources": {
-                "FaithPoint": 4
-              }
-            }
-          }
-        ]
-      },
-      {
-        "number": 56,
-        "name": "Badessa",
-        "description": "",
-        "type": "Personality",
-        "costs": [
-          {
-            "requestedResources": {
-              "Gold": 3
-            },
-            "militaryRequested": 0,
-            "cardNumber": 56
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.ImmediateEffect",
-            "data": {
-              "type": "Immediate",
-              "resources": {
-                "FaithPoint": 1
-              }
-            }
-          },
-          {
-            "type": "Server.Game.Effects.BonusDomesticEffect",
-            "data": {
-              "type": "Immediate",
-              "value": 4
+              "cardNumber": 8,
+              "activationValue": 6
             }
           }
         ]
@@ -1174,16 +1264,17 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 3
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 33,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.TransformResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "requested": {
                 "Gold": 3
@@ -1192,8 +1283,9 @@
                 "Rock": 2,
                 "Wood": 2
               },
-              "value": 3,
-              "cardNumber": 33
+              "type": "Activable",
+              "cardNumber": 33,
+              "activationValue": 3
             }
           }
         ]
@@ -1216,16 +1308,17 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 4
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 34,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.TransformResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "requested": {
                 "Gold": 1
@@ -1233,14 +1326,14 @@
               "toAdd": {
                 "VictoryPoint": 3
               },
-              "value": 3,
-              "cardNumber": 34
+              "type": "Activable",
+              "cardNumber": 34,
+              "activationValue": 3
             }
           },
           {
             "type": "Server.Game.Effects.TransformResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "requested": {
                 "Gold": 2
@@ -1248,8 +1341,9 @@
               "toAdd": {
                 "VictoryPoint": 5
               },
-              "value": 3,
-              "cardNumber": 34
+              "type": "Activable",
+              "cardNumber": 34,
+              "activationValue": 3
             }
           }
         ]
@@ -1272,16 +1366,17 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 5
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 35,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.TransformResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "requested": {
                 "Wood": 1
@@ -1289,14 +1384,14 @@
               "toAdd": {
                 "VictoryPoint": 3
               },
-              "value": 4,
-              "cardNumber": 35
+              "type": "Activable",
+              "cardNumber": 35,
+              "activationValue": 4
             }
           },
           {
             "type": "Server.Game.Effects.TransformResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "requested": {
                 "Wood": 3
@@ -1304,8 +1399,9 @@
               "toAdd": {
                 "VictoryPoint": 7
               },
-              "value": 4,
-              "cardNumber": 35
+              "type": "Activable",
+              "cardNumber": 35,
+              "activationValue": 4
             }
           }
         ]
@@ -1328,16 +1424,17 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 6
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 36,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.TransformResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "requested": {
                 "Rock": 1
@@ -1345,14 +1442,14 @@
               "toAdd": {
                 "VictoryPoint": 3
               },
-              "value": 5,
-              "cardNumber": 36
+              "type": "Activable",
+              "cardNumber": 36,
+              "activationValue": 5
             }
           },
           {
             "type": "Server.Game.Effects.TransformResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "requested": {
                 "Rock": 3
@@ -1360,8 +1457,9 @@
               "toAdd": {
                 "VictoryPoint": 7
               },
-              "value": 5,
-              "cardNumber": 36
+              "type": "Activable",
+              "cardNumber": 36,
+              "activationValue": 5
             }
           }
         ]
@@ -1385,16 +1483,17 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 4
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 37,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.TransformResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "requested": {
                 "Rock": 1,
@@ -1404,8 +1503,9 @@
               "toAdd": {
                 "VictoryPoint": 6
               },
-              "value": 4,
-              "cardNumber": 37
+              "type": "Activable",
+              "cardNumber": 37,
+              "activationValue": 4
             }
           }
         ]
@@ -1428,17 +1528,18 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 2,
                 "FaithPoint": 1
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 38,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.TransformResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "requested": {
                 "FaithPoint": 1
@@ -1447,8 +1548,9 @@
                 "VictoryPoint": 2,
                 "Gold": 2
               },
-              "value": 2,
-              "cardNumber": 38
+              "type": "Activable",
+              "cardNumber": 38,
+              "activationValue": 2
             }
           }
         ]
@@ -1472,16 +1574,17 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 3
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 39,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.TransformResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "requested": {
                 "Slave": 1
@@ -1489,8 +1592,9 @@
               "toAdd": {
                 "MilitaryPoint": 3
               },
-              "value": 1,
-              "cardNumber": 39
+              "type": "Activable",
+              "cardNumber": 39,
+              "activationValue": 1
             }
           }
         ]
@@ -1515,23 +1619,282 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 8
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 40,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "resources": {
                 "VictoryPoint": 2,
                 "MilitaryPoint": 2
               },
-              "activationValue": 6,
-              "cardNumber": 40
+              "type": "Activable",
+              "cardNumber": 40,
+              "activationValue": 6
+            }
+          }
+        ]
+      }
+    ],
+    "Personality": [
+      {
+        "number": 57,
+        "name": "Capitano",
+        "description": "",
+        "type": "Personality",
+        "costs": [
+          {
+            "requestedResources": {
+              "Gold": 4
+            },
+            "militaryRequested": 0,
+            "cardNumber": 57
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.BonusDomesticEffect",
+            "data": {
+              "positionsType": [
+                "TerritoryTower"
+              ],
+              "value": 6,
+              "type": "Immediate",
+              "cardNumber": 57,
+              "activationValue": 0
+            }
+          },
+          {
+            "type": "Server.Game.Effects.ImmediateEffect",
+            "data": {
+              "resources": {
+                "MilitaryPoint": 2
+              },
+              "type": "Immediate",
+              "cardNumber": 57,
+              "activationValue": 0
+            }
+          }
+        ]
+      },
+      {
+        "number": 58,
+        "name": "Architetto",
+        "description": "",
+        "type": "Personality",
+        "costs": [
+          {
+            "requestedResources": {
+              "Gold": 4
+            },
+            "militaryRequested": 0,
+            "cardNumber": 58
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.BonusDomesticEffect",
+            "data": {
+              "positionsType": [
+                "BuildingTower"
+              ],
+              "value": 6,
+              "costBonus": {
+                "Rock": 1,
+                "Wood": 1
+              },
+              "type": "Immediate",
+              "cardNumber": 58,
+              "activationValue": 0
+            }
+          }
+        ]
+      },
+      {
+        "number": 59,
+        "name": "Mecenate",
+        "description": "",
+        "type": "Personality",
+        "costs": [
+          {
+            "requestedResources": {
+              "Gold": 3
+            },
+            "militaryRequested": 0,
+            "cardNumber": 59
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.BonusDomesticEffect",
+            "data": {
+              "positionsType": [
+                "PersonalityTower"
+              ],
+              "value": 6,
+              "costBonus": {
+                "Gold": 2
+              },
+              "type": "Immediate",
+              "cardNumber": 59,
+              "activationValue": 0
+            }
+          }
+        ]
+      },
+      {
+        "number": 60,
+        "name": "Eroe",
+        "description": "",
+        "type": "Personality",
+        "costs": [
+          {
+            "requestedResources": {
+              "Gold": 4
+            },
+            "militaryRequested": 0,
+            "cardNumber": 60
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.BonusDomesticEffect",
+            "data": {
+              "positionsType": [
+                "ChallengeTower"
+              ],
+              "value": 6,
+              "type": "Immediate",
+              "cardNumber": 60,
+              "activationValue": 0
+            }
+          },
+          {
+            "type": "Server.Game.Effects.ImmediateEffect",
+            "data": {
+              "resources": {
+                "Favor": 1
+              },
+              "type": "Immediate",
+              "cardNumber": 60,
+              "activationValue": 0
+            }
+          }
+        ]
+      },
+      {
+        "number": 61,
+        "name": "Fattore",
+        "description": "",
+        "type": "Personality",
+        "costs": [
+          {
+            "requestedResources": {
+              "Gold": 4
+            },
+            "militaryRequested": 0,
+            "cardNumber": 61
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.PositionBonusEffect",
+            "data": {
+              "position": "HarvestAction",
+              "value": 3,
+              "type": "Permanent",
+              "cardNumber": 61,
+              "activationValue": 0
+            }
+          }
+        ]
+      },
+      {
+        "number": 62,
+        "name": "Studioso",
+        "description": "",
+        "type": "Personality",
+        "costs": [
+          {
+            "requestedResources": {
+              "Gold": 4
+            },
+            "militaryRequested": 0,
+            "cardNumber": 62
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.PositionBonusEffect",
+            "data": {
+              "position": "ProductionAction",
+              "value": 3,
+              "type": "Permanent",
+              "cardNumber": 62,
+              "activationValue": 0
+            }
+          }
+        ]
+      },
+      {
+        "number": 63,
+        "name": "Messo Papale",
+        "description": "",
+        "type": "Personality",
+        "costs": [
+          {
+            "requestedResources": {
+              "Gold": 5
+            },
+            "militaryRequested": 0,
+            "cardNumber": 63
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.ImmediateEffect",
+            "data": {
+              "resources": {
+                "FaithPoint": 3
+              },
+              "type": "Immediate",
+              "cardNumber": 63,
+              "activationValue": 0
+            }
+          }
+        ]
+      },
+      {
+        "number": 64,
+        "name": "Messo Reale",
+        "description": "",
+        "type": "Personality",
+        "costs": [
+          {
+            "requestedResources": {
+              "Gold": 5
+            },
+            "militaryRequested": 0,
+            "cardNumber": 64
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.ImmediateEffect",
+            "data": {
+              "resources": {
+                "Favor": 3
+              },
+              "type": "Immediate",
+              "cardNumber": 64,
+              "activationValue": 0
             }
           }
         ]
@@ -1556,17 +1919,21 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "MilitaryPoint": 6
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 81,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.FinalVictoryPointsEffect",
             "data": {
+              "quantity": 5,
               "type": "Final",
-              "quantity": 5
+              "cardNumber": 81,
+              "activationValue": 0
             }
           }
         ]
@@ -1591,17 +1958,21 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "FaithPoint": 2
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 82,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.FinalVictoryPointsEffect",
             "data": {
+              "quantity": 6,
               "type": "Final",
-              "quantity": 6
+              "cardNumber": 82,
+              "activationValue": 0
             }
           }
         ]
@@ -1624,18 +1995,22 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
-                "MilitaryPoint": 3,
-                "Favor": 1
-              }
+                "Favor": 1,
+                "MilitaryPoint": 3
+              },
+              "type": "Immediate",
+              "cardNumber": 83,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.FinalVictoryPointsEffect",
             "data": {
+              "quantity": 2,
               "type": "Final",
-              "quantity": 2
+              "cardNumber": 83,
+              "activationValue": 0
             }
           }
         ]
@@ -1658,18 +2033,22 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "Favor": 1,
                 "Gold": 5
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 84,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.FinalVictoryPointsEffect",
             "data": {
+              "quantity": 3,
               "type": "Final",
-              "quantity": 3
+              "cardNumber": 84,
+              "activationValue": 0
             }
           }
         ]
@@ -1693,16 +2072,22 @@
           {
             "type": "Server.Game.Effects.BonusDomesticEffect",
             "data": {
+              "positionsType": [
+                "HarvestAction"
+              ],
+              "value": 4,
               "type": "Immediate",
-              "positionType": "HarvestAction",
-              "value": 4
+              "cardNumber": 85,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.FinalVictoryPointsEffect",
             "data": {
+              "quantity": 5,
               "type": "Final",
-              "quantity": 5
+              "cardNumber": 85,
+              "activationValue": 0
             }
           }
         ]
@@ -1725,17 +2110,21 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "Slave": 5
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 86,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.FinalVictoryPointsEffect",
             "data": {
+              "quantity": 4,
               "type": "Final",
-              "quantity": 4
+              "cardNumber": 86,
+              "activationValue": 0
             }
           }
         ]
@@ -1758,18 +2147,22 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "FaithPoint": 1,
                 "Gold": 5
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 87,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.FinalVictoryPointsEffect",
             "data": {
+              "quantity": 5,
               "type": "Final",
-              "quantity": 5
+              "cardNumber": 87,
+              "activationValue": 0
             }
           }
         ]
@@ -1801,17 +2194,21 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "FaithPoint": 3
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 88,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.FinalVictoryPointsEffect",
             "data": {
+              "quantity": 4,
               "type": "Final",
-              "quantity": 4
+              "cardNumber": 88,
+              "activationValue": 0
             }
           }
         ]
@@ -1834,22 +2231,24 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "Gold": 1
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 9,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "HarvestAction",
               "resources": {
                 "Gold": 2
               },
-              "activationValue": 1,
-              "cardNumber": 9
+              "type": "Activable",
+              "cardNumber": 9,
+              "activationValue": 1
             }
           }
         ]
@@ -1870,23 +2269,25 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "Slave": 1
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 10,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "HarvestAction",
               "resources": {
-                "MilitaryPoint": 1,
-                "Wood": 2
+                "Wood": 2,
+                "MilitaryPoint": 1
               },
-              "activationValue": 3,
-              "cardNumber": 10
+              "type": "Activable",
+              "cardNumber": 10,
+              "activationValue": 3
             }
           }
         ]
@@ -1907,24 +2308,26 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "Rock": 1,
                 "Slave": 2
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 11,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "HarvestAction",
               "resources": {
                 "Rock": 2,
                 "Slave": 1
               },
-              "activationValue": 4,
-              "cardNumber": 11
+              "type": "Activable",
+              "cardNumber": 11,
+              "activationValue": 4
             }
           }
         ]
@@ -1945,22 +2348,24 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "Wood": 1
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 12,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "HarvestAction",
               "resources": {
                 "Rock": 3
               },
-              "activationValue": 3,
-              "cardNumber": 12
+              "type": "Activable",
+              "cardNumber": 12,
+              "activationValue": 3
             }
           }
         ]
@@ -1981,24 +2386,26 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "Wood": 1,
                 "Slave": 2
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 13,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "HarvestAction",
               "resources": {
                 "Wood": 2,
                 "Gold": 1
               },
-              "activationValue": 4,
-              "cardNumber": 13
+              "type": "Activable",
+              "cardNumber": 13,
+              "activationValue": 4
             }
           }
         ]
@@ -2019,22 +2426,24 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "FaithPoint": 1
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 14,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "HarvestAction",
               "resources": {
                 "FaithPoint": 1
               },
-              "activationValue": 2,
-              "cardNumber": 14
+              "type": "Activable",
+              "cardNumber": 14,
+              "activationValue": 2
             }
           }
         ]
@@ -2055,14 +2464,14 @@
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "HarvestAction",
               "resources": {
-                "MilitaryPoint": 2,
-                "Slave": 2
+                "Slave": 2,
+                "MilitaryPoint": 2
               },
-              "activationValue": 5,
-              "cardNumber": 15
+              "type": "Activable",
+              "cardNumber": 15,
+              "activationValue": 5
             }
           }
         ]
@@ -2083,253 +2492,26 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "Gold": 4
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 16,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "HarvestAction",
               "resources": {
                 "Rock": 1,
                 "Wood": 2,
                 "Gold": 1
               },
-              "activationValue": 6,
-              "cardNumber": 16
-            }
-          }
-        ]
-      }
-    ],
-    "Personality": [
-      {
-        "number": 57,
-        "name": "Capitano",
-        "description": "",
-        "type": "Personality",
-        "costs": [
-          {
-            "requestedResources": {
-              "Gold": 4
-            },
-            "militaryRequested": 0,
-            "cardNumber": 57
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.BonusDomesticEffect",
-            "data": {
-              "type": "Immediate",
-              "positionType": "TerritoryTower",
-              "value": 6
-            }
-          },
-          {
-            "type": "Server.Game.Effects.ImmediateEffect",
-            "data": {
-              "type": "Immediate",
-              "resources": {
-                "MilitaryPoint": 2
-              }
-            }
-          }
-        ]
-      },
-      {
-        "number": 58,
-        "name": "Architetto",
-        "description": "",
-        "type": "Personality",
-        "costs": [
-          {
-            "requestedResources": {
-              "Gold": 4
-            },
-            "militaryRequested": 0,
-            "cardNumber": 58
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.BonusDomesticEffect",
-            "data": {
-              "type": "Immediate",
-              "positionType": "BuildingTower",
-              "value": 6,
-              "costBonus": {
-                "Rock": 1,
-                "Wood": 1
-              }
-            }
-          }
-        ]
-      },
-      {
-        "number": 59,
-        "name": "Mecenate",
-        "description": "",
-        "type": "Personality",
-        "costs": [
-          {
-            "requestedResources": {
-              "Gold": 3
-            },
-            "militaryRequested": 0,
-            "cardNumber": 59
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.BonusDomesticEffect",
-            "data": {
-              "type": "Immediate",
-              "positionType": "PersonalityTower",
-              "value": 6,
-              "costBonus": {
-                "Gold": 2
-              }
-            }
-          }
-        ]
-      },
-      {
-        "number": 60,
-        "name": "Eroe",
-        "description": "",
-        "type": "Personality",
-        "costs": [
-          {
-            "requestedResources": {
-              "Gold": 4
-            },
-            "militaryRequested": 0,
-            "cardNumber": 60
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.BonusDomesticEffect",
-            "data": {
-              "type": "Immediate",
-              "positionType": "ChallengeTower",
-              "value": 6
-            }
-          },
-          {
-            "type": "Server.Game.Effects.ImmediateEffect",
-            "data": {
-              "type": "Immediate",
-              "resources": {
-                "Favor": 1
-              }
-            }
-          }
-        ]
-      },
-      {
-        "number": 61,
-        "name": "Fattore",
-        "description": "",
-        "type": "Personality",
-        "costs": [
-          {
-            "requestedResources": {
-              "Gold": 4
-            },
-            "militaryRequested": 0,
-            "cardNumber": 61
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.PositionBonusEffect",
-            "data": {
-              "type": "Permanent",
-              "position": "HarvestAction",
-              "value": 3
-            }
-          }
-        ]
-      },
-      {
-        "number": 62,
-        "name": "Studioso",
-        "description": "",
-        "type": "Personality",
-        "costs": [
-          {
-            "requestedResources": {
-              "Gold": 4
-            },
-            "militaryRequested": 0,
-            "cardNumber": 62
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.PositionBonusEffect",
-            "data": {
-              "type": "Permanent",
-              "position": "ProductionAction",
-              "value": 3
-            }
-          }
-        ]
-      },
-      {
-        "number": 63,
-        "name": "Messo Papale",
-        "description": "",
-        "type": "Personality",
-        "costs": [
-          {
-            "requestedResources": {
-              "Gold": 5
-            },
-            "militaryRequested": 0,
-            "cardNumber": 63
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.ImmediateEffect",
-            "data": {
-              "type": "Immediate",
-              "resources": {
-                "FaithPoint": 3
-              }
-            }
-          }
-        ]
-      },
-      {
-        "number": 64,
-        "name": "Messo Reale",
-        "description": "",
-        "type": "Personality",
-        "costs": [
-          {
-            "requestedResources": {
-              "Gold": 5
-            },
-            "militaryRequested": 0,
-            "cardNumber": 64
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.ImmediateEffect",
-            "data": {
-              "type": "Immediate",
-              "resources": {
-                "Favor": 3
-              }
+              "type": "Activable",
+              "cardNumber": 16,
+              "activationValue": 6
             }
           }
         ]
@@ -2358,22 +2540,24 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 7
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 41,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "resources": {
                 "Gold": 5
               },
-              "activationValue": 2,
-              "cardNumber": 41
+              "type": "Activable",
+              "cardNumber": 41,
+              "activationValue": 2
             }
           }
         ]
@@ -2397,16 +2581,17 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 8
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 42,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.TransformResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "requested": {
                 "Gold": 4
@@ -2415,8 +2600,9 @@
                 "Rock": 3,
                 "Wood": 3
               },
-              "value": 4,
-              "cardNumber": 42
+              "type": "Activable",
+              "cardNumber": 42,
+              "activationValue": 4
             }
           }
         ]
@@ -2441,22 +2627,24 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 10
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 43,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "resources": {
                 "VictoryPoint": 3
               },
-              "activationValue": 1,
-              "cardNumber": 43
+              "type": "Activable",
+              "cardNumber": 43,
+              "activationValue": 1
             }
           }
         ]
@@ -2481,23 +2669,25 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 9
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 44,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "resources": {
-                "VictoryPoint": 2,
-                "Favor": 1
+                "Favor": 1,
+                "VictoryPoint": 2
               },
-              "activationValue": 5,
-              "cardNumber": 44
+              "type": "Activable",
+              "cardNumber": 44,
+              "activationValue": 5
             }
           }
         ]
@@ -2522,16 +2712,17 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 9
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 45,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.TransformResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "requested": {
                 "Gold": 1
@@ -2540,8 +2731,9 @@
                 "VictoryPoint": 4,
                 "Slave": 2
               },
-              "value": 6,
-              "cardNumber": 45
+              "type": "Activable",
+              "cardNumber": 45,
+              "activationValue": 6
             }
           }
         ]
@@ -2565,17 +2757,18 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 5,
                 "FaithPoint": 1
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 46,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.TransformResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "requested": {
                 "Wood": 1
@@ -2583,8 +2776,9 @@
               "toAdd": {
                 "FaithPoint": 2
               },
-              "value": 1,
-              "cardNumber": 46
+              "type": "Activable",
+              "cardNumber": 46,
+              "activationValue": 1
             }
           }
         ]
@@ -2609,16 +2803,17 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 7
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 47,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.TransformResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "requested": {
                 "Slave": 1
@@ -2627,8 +2822,9 @@
                 "VictoryPoint": 1,
                 "MilitaryPoint": 3
               },
-              "value": 3,
-              "cardNumber": 47
+              "type": "Activable",
+              "cardNumber": 47,
+              "activationValue": 3
             }
           }
         ]
@@ -2652,23 +2848,291 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 7,
                 "FaithPoint": 3
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 48,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "ProductionAction",
               "resources": {
                 "VictoryPoint": 1
               },
-              "activationValue": 2,
-              "cardNumber": 48
+              "type": "Activable",
+              "cardNumber": 48,
+              "activationValue": 2
+            }
+          }
+        ]
+      }
+    ],
+    "Personality": [
+      {
+        "number": 65,
+        "name": "Nobile",
+        "description": "",
+        "type": "Personality",
+        "costs": [
+          {
+            "requestedResources": {
+              "Gold": 6
+            },
+            "militaryRequested": 0,
+            "cardNumber": 65
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.CardResourceEffect",
+            "data": {
+              "cardType": "Territory",
+              "resource": "VictoryPoint",
+              "quantity": 2,
+              "type": "Immediate",
+              "cardNumber": 65,
+              "activationValue": 0
+            }
+          }
+        ]
+      },
+      {
+        "number": 66,
+        "name": "Governatore",
+        "description": "",
+        "type": "Personality",
+        "costs": [
+          {
+            "requestedResources": {
+              "Gold": 6
+            },
+            "militaryRequested": 0,
+            "cardNumber": 66
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.CardResourceEffect",
+            "data": {
+              "cardType": "Building",
+              "resource": "VictoryPoint",
+              "quantity": 2,
+              "type": "Immediate",
+              "cardNumber": 66,
+              "activationValue": 0
+            }
+          }
+        ]
+      },
+      {
+        "number": 67,
+        "name": "Cortigiana",
+        "description": "",
+        "type": "Personality",
+        "costs": [
+          {
+            "requestedResources": {
+              "Gold": 7
+            },
+            "militaryRequested": 0,
+            "cardNumber": 67
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.CardResourceEffect",
+            "data": {
+              "cardType": "Personality",
+              "resource": "VictoryPoint",
+              "quantity": 2,
+              "type": "Immediate",
+              "cardNumber": 67,
+              "activationValue": 0
+            }
+          }
+        ]
+      },
+      {
+        "number": 68,
+        "name": "Araldo",
+        "description": "",
+        "type": "Personality",
+        "costs": [
+          {
+            "requestedResources": {
+              "Gold": 6
+            },
+            "militaryRequested": 0,
+            "cardNumber": 68
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.CardResourceEffect",
+            "data": {
+              "cardType": "Challenge",
+              "resource": "VictoryPoint",
+              "quantity": 2,
+              "type": "Immediate",
+              "cardNumber": 68,
+              "activationValue": 0
+            }
+          }
+        ]
+      },
+      {
+        "number": 69,
+        "name": "Cardinale",
+        "description": "",
+        "type": "Personality",
+        "costs": [
+          {
+            "requestedResources": {
+              "Gold": 4
+            },
+            "militaryRequested": 0,
+            "cardNumber": 69
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.ImmediateEffect",
+            "data": {
+              "resources": {
+                "FaithPoint": 2
+              },
+              "type": "Immediate",
+              "cardNumber": 69,
+              "activationValue": 0
+            }
+          },
+          {
+            "type": "Server.Game.Effects.BonusDomesticEffect",
+            "data": {
+              "positionsType": [
+                "HarvestAction"
+              ],
+              "value": 4,
+              "type": "Immediate",
+              "cardNumber": 69,
+              "activationValue": 0
+            }
+          }
+        ]
+      },
+      {
+        "number": 70,
+        "name": "Vescovo",
+        "description": "",
+        "type": "Personality",
+        "costs": [
+          {
+            "requestedResources": {
+              "Gold": 5
+            },
+            "militaryRequested": 0,
+            "cardNumber": 70
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.ImmediateEffect",
+            "data": {
+              "resources": {
+                "FaithPoint": 1
+              },
+              "type": "Immediate",
+              "cardNumber": 70,
+              "activationValue": 0
+            }
+          },
+          {
+            "type": "Server.Game.Effects.BonusDomesticEffect",
+            "data": {
+              "positionsType": [
+                "ProductionAction"
+              ],
+              "value": 4,
+              "type": "Immediate",
+              "cardNumber": 70,
+              "activationValue": 0
+            }
+          }
+        ]
+      },
+      {
+        "number": 71,
+        "name": "Generale",
+        "description": "",
+        "type": "Personality",
+        "costs": [
+          {
+            "requestedResources": {
+              "Gold": 5
+            },
+            "militaryRequested": 0,
+            "cardNumber": 71
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.ResourceResourceEffect",
+            "data": {
+              "fromResource": "MilitaryPoint",
+              "fromQuantity": 2,
+              "toResource": "VictoryPoint",
+              "toQuantity": 1,
+              "type": "Immediate",
+              "cardNumber": 71,
+              "activationValue": 0
+            }
+          }
+        ]
+      },
+      {
+        "number": 72,
+        "name": "Ambasciatore",
+        "description": "",
+        "type": "Personality",
+        "costs": [
+          {
+            "requestedResources": {
+              "Gold": 6
+            },
+            "militaryRequested": 0,
+            "cardNumber": 72
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.BonusDomesticEffect",
+            "data": {
+              "positionsType": [
+                "TerritoryTower",
+                "BuildingTower",
+                "PersonalityTower",
+                "ChallengeTower"
+              ],
+              "value": 7,
+              "type": "Immediate",
+              "cardNumber": 72,
+              "activationValue": 0
+            }
+          },
+          {
+            "type": "Server.Game.Effects.ImmediateEffect",
+            "data": {
+              "resources": {
+                "Favor": 1
+              },
+              "type": "Immediate",
+              "cardNumber": 72,
+              "activationValue": 0
             }
           }
         ]
@@ -2693,17 +3157,21 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "MilitaryPoint": 7
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 89,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.FinalVictoryPointsEffect",
             "data": {
+              "quantity": 6,
               "type": "Final",
-              "quantity": 6
+              "cardNumber": 89,
+              "activationValue": 0
             }
           }
         ]
@@ -2728,24 +3196,36 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "FaithPoint": 1
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 90,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.BonusDomesticEffect",
             "data": {
+              "positionsType": [
+                "TerritoryTower",
+                "BuildingTower",
+                "PersonalityTower",
+                "ChallengeTower"
+              ],
+              "value": 7,
               "type": "Immediate",
-              "value": 7
+              "cardNumber": 90,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.FinalVictoryPointsEffect",
             "data": {
+              "quantity": 5,
               "type": "Final",
-              "quantity": 5
+              "cardNumber": 90,
+              "activationValue": 0
             }
           }
         ]
@@ -2768,18 +3248,22 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
-                "MilitaryPoint": 4,
-                "Favor": 1
-              }
+                "Favor": 1,
+                "MilitaryPoint": 4
+              },
+              "type": "Immediate",
+              "cardNumber": 91,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.FinalVictoryPointsEffect",
             "data": {
+              "quantity": 4,
               "type": "Final",
-              "quantity": 4
+              "cardNumber": 91,
+              "activationValue": 0
             }
           }
         ]
@@ -2802,17 +3286,21 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "FaithPoint": 3
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 92,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.FinalVictoryPointsEffect",
             "data": {
+              "quantity": 3,
               "type": "Final",
-              "quantity": 3
+              "cardNumber": 92,
+              "activationValue": 0
             }
           }
         ]
@@ -2835,19 +3323,23 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "Rock": 3,
                 "Wood": 3,
                 "Gold": 3
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 93,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.FinalVictoryPointsEffect",
             "data": {
+              "quantity": 7,
               "type": "Final",
-              "quantity": 7
+              "cardNumber": 93,
+              "activationValue": 0
             }
           }
         ]
@@ -2871,16 +3363,22 @@
           {
             "type": "Server.Game.Effects.BonusDomesticEffect",
             "data": {
+              "positionsType": [
+                "ProductionAction"
+              ],
+              "value": 3,
               "type": "Immediate",
-              "positionType": "ProductionAction",
-              "value": 3
+              "cardNumber": 94,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.FinalVictoryPointsEffect",
             "data": {
+              "quantity": 5,
               "type": "Final",
-              "quantity": 5
+              "cardNumber": 94,
+              "activationValue": 0
             }
           }
         ]
@@ -2903,17 +3401,21 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "FaithPoint": 4
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 95,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.FinalVictoryPointsEffect",
             "data": {
+              "quantity": 8,
               "type": "Final",
-              "quantity": 8
+              "cardNumber": 95,
+              "activationValue": 0
             }
           }
         ]
@@ -2945,17 +3447,21 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "FaithPoint": 2
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 96,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.FinalVictoryPointsEffect",
             "data": {
+              "quantity": 10,
               "type": "Final",
-              "quantity": 10
+              "cardNumber": 96,
+              "activationValue": 0
             }
           }
         ]
@@ -2978,23 +3484,25 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "Slave": 1,
                 "Gold": 1
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 17,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "HarvestAction",
               "resources": {
                 "Gold": 3
               },
-              "activationValue": 1,
-              "cardNumber": 17
+              "type": "Activable",
+              "cardNumber": 17,
+              "activationValue": 1
             }
           }
         ]
@@ -3015,24 +3523,26 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 1,
                 "Wood": 1
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 18,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "HarvestAction",
               "resources": {
                 "VictoryPoint": 2,
                 "Wood": 2
               },
-              "activationValue": 3,
-              "cardNumber": 18
+              "type": "Activable",
+              "cardNumber": 18,
+              "activationValue": 3
             }
           }
         ]
@@ -3053,23 +3563,25 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "MilitaryPoint": 2
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 19,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "HarvestAction",
               "resources": {
                 "VictoryPoint": 4,
                 "Wood": 1
               },
-              "activationValue": 5,
-              "cardNumber": 19
+              "type": "Activable",
+              "cardNumber": 19,
+              "activationValue": 5
             }
           }
         ]
@@ -3090,23 +3602,25 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 3
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 20,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "HarvestAction",
               "resources": {
                 "VictoryPoint": 1,
                 "Rock": 2
               },
-              "activationValue": 2,
-              "cardNumber": 20
+              "type": "Activable",
+              "cardNumber": 20,
+              "activationValue": 2
             }
           }
         ]
@@ -3127,24 +3641,26 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
-                "Rock": 1,
-                "Favor": 1
-              }
+                "Favor": 1,
+                "Rock": 1
+              },
+              "type": "Immediate",
+              "cardNumber": 21,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "HarvestAction",
               "resources": {
                 "VictoryPoint": 4,
                 "Rock": 1
               },
-              "activationValue": 6,
-              "cardNumber": 21
+              "type": "Activable",
+              "cardNumber": 21,
+              "activationValue": 6
             }
           }
         ]
@@ -3165,23 +3681,25 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "FaithPoint": 1
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 22,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "HarvestAction",
               "resources": {
                 "FaithPoint": 1,
                 "Gold": 1
               },
-              "activationValue": 1,
-              "cardNumber": 22
+              "type": "Activable",
+              "cardNumber": 22,
+              "activationValue": 1
             }
           }
         ]
@@ -3202,24 +3720,26 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
                 "VictoryPoint": 2,
                 "Gold": 2
-              }
+              },
+              "type": "Immediate",
+              "cardNumber": 23,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "HarvestAction",
               "resources": {
-                "MilitaryPoint": 3,
-                "Slave": 1
+                "Slave": 1,
+                "MilitaryPoint": 3
               },
-              "activationValue": 4,
-              "cardNumber": 23
+              "type": "Activable",
+              "cardNumber": 23,
+              "activationValue": 4
             }
           }
         ]
@@ -3240,257 +3760,26 @@
           {
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
-              "type": "Immediate",
               "resources": {
-                "MilitaryPoint": 2,
-                "Slave": 1
-              }
+                "Slave": 1,
+                "MilitaryPoint": 2
+              },
+              "type": "Immediate",
+              "cardNumber": 24,
+              "activationValue": 0
             }
           },
           {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
-              "type": "Activable",
               "position": "HarvestAction",
               "resources": {
-                "MilitaryPoint": 1,
-                "Slave": 2
+                "Slave": 2,
+                "MilitaryPoint": 1
               },
-              "activationValue": 2,
-              "cardNumber": 24
-            }
-          }
-        ]
-      }
-    ],
-    "Personality": [
-      {
-        "number": 65,
-        "name": "Nobile",
-        "description": "",
-        "type": "Personality",
-        "costs": [
-          {
-            "requestedResources": {
-              "Gold": 6
-            },
-            "militaryRequested": 0,
-            "cardNumber": 65
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.CardResourceEffect",
-            "data": {
-              "type": "Immediate",
-              "cardType": "Territory",
-              "resource": "VictoryPoint",
-              "quantity": 2,
-              "value": 0,
-              "cardNumber": 65
-            }
-          }
-        ]
-      },
-      {
-        "number": 66,
-        "name": "Governatore",
-        "description": "",
-        "type": "Personality",
-        "costs": [
-          {
-            "requestedResources": {
-              "Gold": 6
-            },
-            "militaryRequested": 0,
-            "cardNumber": 66
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.CardResourceEffect",
-            "data": {
-              "type": "Immediate",
-              "cardType": "Building",
-              "resource": "VictoryPoint",
-              "quantity": 2,
-              "value": 0,
-              "cardNumber": 66
-            }
-          }
-        ]
-      },
-      {
-        "number": 67,
-        "name": "Cortigiana",
-        "description": "",
-        "type": "Personality",
-        "costs": [
-          {
-            "requestedResources": {
-              "Gold": 7
-            },
-            "militaryRequested": 0,
-            "cardNumber": 67
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.CardResourceEffect",
-            "data": {
-              "type": "Immediate",
-              "cardType": "Personality",
-              "resource": "VictoryPoint",
-              "quantity": 2,
-              "value": 0,
-              "cardNumber": 67
-            }
-          }
-        ]
-      },
-      {
-        "number": 68,
-        "name": "Araldo",
-        "description": "",
-        "type": "Personality",
-        "costs": [
-          {
-            "requestedResources": {
-              "Gold": 6
-            },
-            "militaryRequested": 0,
-            "cardNumber": 68
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.CardResourceEffect",
-            "data": {
-              "type": "Immediate",
-              "cardType": "Challenge",
-              "resource": "VictoryPoint",
-              "quantity": 2,
-              "value": 0,
-              "cardNumber": 68
-            }
-          }
-        ]
-      },
-      {
-        "number": 69,
-        "name": "Cardinale",
-        "description": "",
-        "type": "Personality",
-        "costs": [
-          {
-            "requestedResources": {
-              "Gold": 4
-            },
-            "militaryRequested": 0,
-            "cardNumber": 69
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.ImmediateEffect",
-            "data": {
-              "type": "Immediate",
-              "resources": {
-                "FaithPoint": 2
-              }
-            }
-          },
-          {
-            "type": "Server.Game.Effects.BonusDomesticEffect",
-            "data": {
-              "type": "Immediate",
-              "positionType": "HarvestAction",
-              "value": 4
-            }
-          }
-        ]
-      },
-      {
-        "number": 70,
-        "name": "Vescovo",
-        "description": "",
-        "type": "Personality",
-        "costs": [
-          {
-            "requestedResources": {
-              "Gold": 5
-            },
-            "militaryRequested": 0,
-            "cardNumber": 70
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.ImmediateEffect",
-            "data": {
-              "type": "Immediate",
-              "resources": {
-                "FaithPoint": 1
-              }
-            }
-          },
-          {
-            "type": "Server.Game.Effects.BonusDomesticEffect",
-            "data": {
-              "type": "Immediate",
-              "positionType": "ProductionAction",
-              "value": 4
-            }
-          }
-        ]
-      },
-      {
-        "number": 71,
-        "name": "Generale",
-        "description": "",
-        "type": "Personality",
-        "costs": [
-          {
-            "requestedResources": {
-              "Gold": 5
-            },
-            "militaryRequested": 0,
-            "cardNumber": 71
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.ResourceResourceEffect",
-            "data": {
-              "type": "Immediate",
-              "fromResource": "MilitaryPoint",
-              "fromQuantity": 2,
-              "toResource": "VictoryPoint",
-              "toQuantity": 1
-            }
-          }
-        ]
-      },
-      {
-        "number": 72,
-        "name": "Ambasciatore",
-        "description": "",
-        "type": "Personality",
-        "costs": [
-          {
-            "requestedResources": {
-              "Gold": 6
-            },
-            "militaryRequested": 0,
-            "cardNumber": 72
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.BonusDomesticEffect",
-            "data": {
-              "type": "Immediate",
-              "value": 7
+              "type": "Activable",
+              "cardNumber": 24,
+              "activationValue": 2
             }
           }
         ]

@@ -3,27 +3,17 @@ package Server.Game.Positions;
 import Game.Cards.Card;
 import Game.Cards.CardType;
 import Game.Effects.EffectType;
-import Game.Positions.Position;
-import Game.Positions.PositionType;
-import Server.Game.UserObjects.Domestic;
 import Game.UserObjects.PlayerState;
 import Server.Game.Usable.Cost;
 import Game.Effects.Effect;
 import Game.Usable.ResourceType;
-import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * Created by fiore on 10/05/2017.
  */
-public class TowerPosition implements Position<Cost> {
-
-    private final int number;
-
-    private final PositionType type;
-
-    private transient volatile PositionAggregate tower;
+public class TowerPosition extends Position<Cost> {
 
     private final Effect immediatePositionEffect;
 
@@ -32,8 +22,6 @@ public class TowerPosition implements Position<Cost> {
     private final CardType cardType;
 
     private volatile Card currentCard;
-
-    private volatile Domestic occupant;
 
     /**
      * Initialize a new tower position
@@ -44,16 +32,10 @@ public class TowerPosition implements Position<Cost> {
      * @param number Position id number
      */
     public TowerPosition(Effect immediateEffect, int value, CardType cardType, int number) {
-        this.number = number;
-        type = cardType.PositionType;
+        super(cardType.PositionType, number);
         immediatePositionEffect = immediateEffect;
         positionValue = value;
         this.cardType = cardType;
-    }
-
-    @Override
-    public int compareTo(Position other) {
-        return number - other.getNumber();
     }
 
     /**
@@ -80,11 +62,6 @@ public class TowerPosition implements Position<Cost> {
     }
 
     @Override
-    public int getNumber() {
-        return number;
-    }
-
-    @Override
     public List<Cost> canOccupy(PlayerState currentState) {
 
         // Apply user permanent effects to his current state
@@ -97,13 +74,13 @@ public class TowerPosition implements Position<Cost> {
         if(occupant != null
                 || currentCard == null
                 || currentState.getInUseDomestic().getValue() < positionValue
-                || !tower.canOccupy(currentState.getInUseDomestic()))
+                || !parent.canOccupy(currentState.getInUseDomestic()))
             return Collections.emptyList();
 
         final Cost occupiedCost;
 
         // If tower is already occupied add 3 gold units cost
-        if(tower.isOccupied()) {
+        if(parent.isOccupied()) {
 
             // Initialize cost with 3 gold units request
             occupiedCost = new Cost(Collections.singletonMap(ResourceType.Gold, 3));
@@ -143,7 +120,7 @@ public class TowerPosition implements Position<Cost> {
     private void applyEffets(PlayerState currentState) {
 
         // Set current position type
-        currentState.setCheckingPositionType(type);
+        currentState.setCheckingPositionType(this.getType());
 
         // Apply all permanent effects
         currentState.getEffects(EffectType.Permanent)
@@ -151,18 +128,14 @@ public class TowerPosition implements Position<Cost> {
     }
 
     @Override
-    public PlayerState occupy(PlayerState currentState, Cost chosenCost) {
+    public PlayerState occupy(PlayerState currentState, List<Cost> chosenCosts) {
+        super.occupy(currentState, chosenCosts);
 
         // Apply user permanent effects to his current state
         applyEffets(currentState);
 
         // Apply position and card cost chosen
-        chosenCost.apply(currentState);
-
-        // Update position state
-        occupant = currentState.getInUseDomestic();
-
-        occupant.setInPosition(true);
+        chosenCosts.get(0).apply(currentState);
 
         // Apply position immediate effect
         if(immediatePositionEffect != null)
@@ -178,31 +151,4 @@ public class TowerPosition implements Position<Cost> {
         return currentState;
     }
 
-    @Override
-    public PlayerState occupy(PlayerState currentState, List<Cost> chosenCosts) {
-        return occupy(currentState, chosenCosts.get(0));
-    }
-
-    @Override
-    public @Nullable Domestic isOccupied() {
-        return occupant;
-    }
-
-    @Override
-    public void free() {
-
-        occupant.setInPosition(false);
-        occupant = null;
-    }
-
-    @Override
-    public void setAggregate(PositionAggregate parent) {
-        if(tower == null)
-            tower = parent;
-    }
-
-    @Override
-    public PositionType getType() {
-        return type;
-    }
 }

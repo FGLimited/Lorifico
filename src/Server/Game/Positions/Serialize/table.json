@@ -1,337 +1,369 @@
 {
   "Towers": {
-    "Personality": [
+    "Territory": [
       {
-        "number": 9,
-        "type": "PersonalityTower",
         "positionValue": 1,
-        "cardType": "Personality"
+        "cardType": "Territory",
+        "type": "TerritoryTower",
+        "number": 1
       },
       {
-        "number": 10,
-        "type": "PersonalityTower",
         "positionValue": 3,
-        "cardType": "Personality"
+        "cardType": "Territory",
+        "type": "TerritoryTower",
+        "number": 2
       },
       {
-        "number": 11,
-        "type": "PersonalityTower",
         "immediatePositionEffect": {
           "type": "Server.Game.Effects.ImmediateEffect",
           "data": {
-            "type": "Immediate",
             "resources": {
-              "MilitaryPoint": 1
-            }
+              "Wood": 1
+            },
+            "type": "Immediate",
+            "cardNumber": 0,
+            "activationValue": 0
           }
         },
         "positionValue": 5,
-        "cardType": "Personality"
+        "cardType": "Territory",
+        "type": "TerritoryTower",
+        "number": 3
       },
       {
-        "number": 12,
-        "type": "PersonalityTower",
         "immediatePositionEffect": {
           "type": "Server.Game.Effects.ImmediateEffect",
           "data": {
-            "type": "Immediate",
             "resources": {
-              "MilitaryPoint": 2
-            }
+              "Wood": 2
+            },
+            "type": "Immediate",
+            "cardNumber": 0,
+            "activationValue": 0
           }
         },
         "positionValue": 7,
-        "cardType": "Personality"
+        "cardType": "Territory",
+        "type": "TerritoryTower",
+        "number": 4
       }
     ],
     "Building": [
       {
-        "number": 5,
-        "type": "BuildingTower",
         "positionValue": 1,
-        "cardType": "Building"
+        "cardType": "Building",
+        "type": "BuildingTower",
+        "number": 5
       },
       {
-        "number": 6,
-        "type": "BuildingTower",
         "positionValue": 3,
-        "cardType": "Building"
+        "cardType": "Building",
+        "type": "BuildingTower",
+        "number": 6
       },
       {
-        "number": 7,
-        "type": "BuildingTower",
         "immediatePositionEffect": {
           "type": "Server.Game.Effects.ImmediateEffect",
           "data": {
-            "type": "Immediate",
             "resources": {
               "Rock": 1
-            }
+            },
+            "type": "Immediate",
+            "cardNumber": 0,
+            "activationValue": 0
           }
         },
         "positionValue": 5,
-        "cardType": "Building"
+        "cardType": "Building",
+        "type": "BuildingTower",
+        "number": 7
       },
       {
-        "number": 8,
-        "type": "BuildingTower",
         "immediatePositionEffect": {
           "type": "Server.Game.Effects.ImmediateEffect",
           "data": {
-            "type": "Immediate",
             "resources": {
               "Rock": 2
-            }
+            },
+            "type": "Immediate",
+            "cardNumber": 0,
+            "activationValue": 0
           }
         },
         "positionValue": 7,
-        "cardType": "Building"
+        "cardType": "Building",
+        "type": "BuildingTower",
+        "number": 8
       }
     ],
-    "Territory": [
+    "Personality": [
       {
-        "number": 1,
-        "type": "TerritoryTower",
         "positionValue": 1,
-        "cardType": "Territory"
+        "cardType": "Personality",
+        "type": "PersonalityTower",
+        "number": 9
       },
       {
-        "number": 2,
-        "type": "TerritoryTower",
         "positionValue": 3,
-        "cardType": "Territory"
+        "cardType": "Personality",
+        "type": "PersonalityTower",
+        "number": 10
       },
       {
-        "number": 3,
-        "type": "TerritoryTower",
         "immediatePositionEffect": {
           "type": "Server.Game.Effects.ImmediateEffect",
           "data": {
-            "type": "Immediate",
             "resources": {
-              "Wood": 1
-            }
+              "MilitaryPoint": 1
+            },
+            "type": "Immediate",
+            "cardNumber": 0,
+            "activationValue": 0
           }
         },
         "positionValue": 5,
-        "cardType": "Territory"
+        "cardType": "Personality",
+        "type": "PersonalityTower",
+        "number": 11
       },
       {
-        "number": 4,
-        "type": "TerritoryTower",
         "immediatePositionEffect": {
           "type": "Server.Game.Effects.ImmediateEffect",
           "data": {
-            "type": "Immediate",
             "resources": {
-              "Wood": 2
-            }
+              "MilitaryPoint": 2
+            },
+            "type": "Immediate",
+            "cardNumber": 0,
+            "activationValue": 0
           }
         },
         "positionValue": 7,
-        "cardType": "Territory"
+        "cardType": "Personality",
+        "type": "PersonalityTower",
+        "number": 12
       }
     ],
     "Challenge": [
       {
-        "number": 13,
-        "type": "ChallengeTower",
         "positionValue": 1,
-        "cardType": "Challenge"
+        "cardType": "Challenge",
+        "type": "ChallengeTower",
+        "number": 13
       },
       {
-        "number": 14,
-        "type": "ChallengeTower",
         "positionValue": 3,
-        "cardType": "Challenge"
+        "cardType": "Challenge",
+        "type": "ChallengeTower",
+        "number": 14
       },
       {
-        "number": 15,
-        "type": "ChallengeTower",
         "immediatePositionEffect": {
           "type": "Server.Game.Effects.ImmediateEffect",
           "data": {
-            "type": "Immediate",
             "resources": {
               "Gold": 1
-            }
+            },
+            "type": "Immediate",
+            "cardNumber": 0,
+            "activationValue": 0
           }
         },
         "positionValue": 5,
-        "cardType": "Challenge"
+        "cardType": "Challenge",
+        "type": "ChallengeTower",
+        "number": 15
       },
       {
-        "number": 16,
-        "type": "ChallengeTower",
         "immediatePositionEffect": {
           "type": "Server.Game.Effects.ImmediateEffect",
           "data": {
-            "type": "Immediate",
             "resources": {
               "Gold": 2
-            }
+            },
+            "type": "Immediate",
+            "cardNumber": 0,
+            "activationValue": 0
           }
         },
         "positionValue": 7,
-        "cardType": "Challenge"
+        "cardType": "Challenge",
+        "type": "ChallengeTower",
+        "number": 16
       }
     ]
   },
   "Harvest": [
     {
-      "number": 20,
+      "domesticPenalty": 0,
       "type": "HarvestAction",
-      "domesticPenalty": 0
+      "number": 20
     },
     {
-      "number": 21,
+      "domesticPenalty": 3,
       "type": "HarvestAction",
-      "domesticPenalty": 3
+      "number": 21
     },
     {
-      "number": 22,
+      "domesticPenalty": 3,
       "type": "HarvestAction",
-      "domesticPenalty": 3
+      "number": 22
     },
     {
-      "number": 23,
+      "domesticPenalty": 3,
       "type": "HarvestAction",
-      "domesticPenalty": 3
+      "number": 23
     }
   ],
   "Production": [
     {
-      "number": 30,
+      "domesticPenalty": 0,
       "type": "ProductionAction",
-      "domesticPenalty": 0
+      "number": 30
     },
     {
-      "number": 31,
+      "domesticPenalty": 3,
       "type": "ProductionAction",
-      "domesticPenalty": 3
+      "number": 31
     },
     {
-      "number": 32,
+      "domesticPenalty": 3,
       "type": "ProductionAction",
-      "domesticPenalty": 3
+      "number": 32
     },
     {
-      "number": 33,
+      "domesticPenalty": 3,
       "type": "ProductionAction",
-      "domesticPenalty": 3
+      "number": 33
     }
   ],
   "Market": [
     {
-      "number": 40,
-      "type": "Market",
       "immediatePositionEffect": {
         "type": "Server.Game.Effects.ImmediateEffect",
         "data": {
-          "type": "Immediate",
           "resources": {
             "Gold": 5
-          }
+          },
+          "type": "Immediate",
+          "cardNumber": 0,
+          "activationValue": 0
         }
-      }
+      },
+      "type": "Market",
+      "number": 40
     },
     {
-      "number": 41,
-      "type": "Market",
       "immediatePositionEffect": {
         "type": "Server.Game.Effects.ImmediateEffect",
         "data": {
-          "type": "Immediate",
           "resources": {
             "Slave": 5
-          }
+          },
+          "type": "Immediate",
+          "cardNumber": 0,
+          "activationValue": 0
         }
-      }
+      },
+      "type": "Market",
+      "number": 41
     },
     {
-      "number": 42,
-      "type": "Market",
       "immediatePositionEffect": {
         "type": "Server.Game.Effects.ImmediateEffect",
         "data": {
-          "type": "Immediate",
           "resources": {
-            "Gold": 2,
-            "MilitaryPoint": 3
-          }
+            "MilitaryPoint": 3,
+            "Gold": 2
+          },
+          "type": "Immediate",
+          "cardNumber": 0,
+          "activationValue": 0
         }
-      }
+      },
+      "type": "Market",
+      "number": 42
     },
     {
-      "number": 43,
-      "type": "Market",
       "immediatePositionEffect": {
         "type": "Server.Game.Effects.ImmediateEffect",
         "data": {
-          "type": "Immediate",
           "resources": {
             "Favor": 2
-          }
+          },
+          "type": "Immediate",
+          "cardNumber": 0,
+          "activationValue": 0
         }
-      }
+      },
+      "type": "Market",
+      "number": 43
     }
   ],
   "Council": [
     {
-      "number": 50,
-      "type": "Council",
       "immediatePositionEffect": {
         "type": "Server.Game.Effects.ImmediateEffect",
         "data": {
-          "type": "Immediate",
           "resources": {
-            "Gold": 1,
-            "Favor": 1
-          }
+            "Favor": 1,
+            "Gold": 1
+          },
+          "type": "Immediate",
+          "cardNumber": 0,
+          "activationValue": 0
         }
-      }
+      },
+      "type": "Council",
+      "number": 50
     },
     {
-      "number": 51,
-      "type": "Council",
       "immediatePositionEffect": {
         "type": "Server.Game.Effects.ImmediateEffect",
         "data": {
-          "type": "Immediate",
           "resources": {
-            "Gold": 1,
-            "Favor": 1
-          }
+            "Favor": 1,
+            "Gold": 1
+          },
+          "type": "Immediate",
+          "cardNumber": 0,
+          "activationValue": 0
         }
-      }
+      },
+      "type": "Council",
+      "number": 51
     },
     {
-      "number": 52,
-      "type": "Council",
       "immediatePositionEffect": {
         "type": "Server.Game.Effects.ImmediateEffect",
         "data": {
-          "type": "Immediate",
           "resources": {
-            "Gold": 1,
-            "Favor": 1
-          }
+            "Favor": 1,
+            "Gold": 1
+          },
+          "type": "Immediate",
+          "cardNumber": 0,
+          "activationValue": 0
         }
-      }
+      },
+      "type": "Council",
+      "number": 52
     },
     {
-      "number": 53,
-      "type": "Council",
       "immediatePositionEffect": {
         "type": "Server.Game.Effects.ImmediateEffect",
         "data": {
-          "type": "Immediate",
           "resources": {
-            "Gold": 1,
-            "Favor": 1
-          }
+            "Favor": 1,
+            "Gold": 1
+          },
+          "type": "Immediate",
+          "cardNumber": 0,
+          "activationValue": 0
         }
-      }
+      },
+      "type": "Council",
+      "number": 53
     }
   ]
 }
