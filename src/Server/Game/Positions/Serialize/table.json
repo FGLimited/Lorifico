@@ -257,7 +257,7 @@
           "type": "Immediate",
           "resources": {
             "Gold": 2,
-            "Favor": 1
+            "MilitaryPoint": 3
           }
         }
       }

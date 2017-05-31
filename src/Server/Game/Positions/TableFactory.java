@@ -62,7 +62,7 @@ public class TableFactory {
 
         HashMap<ResourceType, Integer> marketBonus = new HashMap<>();
         marketBonus.put(ResourceType.Gold, 2);
-        marketBonus.put(ResourceType.Favor, 1);
+        marketBonus.put(ResourceType.MilitaryPoint, 3);
 
         MarketPosition fortytwo = new MarketPosition(42, new ImmediateEffect(marketBonus));
         MarketPosition fortythree = new MarketPosition(43, new ImmediateEffect(Collections.singletonMap(ResourceType.Favor, 2)));
