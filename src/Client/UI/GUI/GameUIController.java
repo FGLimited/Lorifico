@@ -1,6 +1,6 @@
 package Client.UI.GUI;
 
-import Action.DisplayPopup;
+import Client.UI.GUI.resources.gameComponents.GameTablePlace;
 import Client.UI.GUI.resources.gameComponents.MyCameraGroup;
 import Client.UI.UserInterfaceFactory;
 import javafx.fxml.FXML;
@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.transform.Translate;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -60,8 +61,8 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
         Group gameTableGroup = (Group) (UserInterfaceFactory.getInstance().getGameTable());
         world.getChildren().add(gameTableGroup);
 
-        cameraGroup.setView(MyCameraGroup.CameraPosition.GAMETABLE);
-        UserInterfaceFactory.getInstance().displayPopup(DisplayPopup.Level.Warning, "Titolone", "Messaggione");
+        //cameraGroup.setView(MyCameraGroup.CameraPosition.GAMETABLE);
+        //UserInterfaceFactory.getInstance().displayPopup(DisplayPopup.Level.Warning, "Titolone", "Messaggione");
 
         camMouseDrag();
     }
@@ -107,6 +108,11 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
                 cameraGroup.getTranslate().setZ(cameraGroup.getTranslate().getZ() + mouseDeltaY * MULTIPLIER);
                 printCamCoords();
             }
+            if (me.isShiftDown()) {//Se è premuto il tasto DX altero la posizione Z
+                GameTablePlace.last.getTranslate().setX(GameTablePlace.last.getTranslate().getX() + mouseDeltaX * MULTIPLIER);
+                GameTablePlace.last.getTranslate().setY(GameTablePlace.last.getTranslate().getY() + mouseDeltaY * MULTIPLIER);
+                printStackPCoords(GameTablePlace.last.getTranslate());
+            }
         });
     }
 
@@ -120,6 +126,12 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
         System.out.print(", " + cameraGroup.getTranslate().getX());
         System.out.print(", " + cameraGroup.getTranslate().getY());
         System.out.print(", " + cameraGroup.getTranslate().getZ());
+        System.out.println();
+    }
+
+    private void printStackPCoords(Translate transform) {
+        System.out.print("StackPane: " + transform.getX());
+        System.out.print(", " + transform.getY());
         System.out.println();
     }
 

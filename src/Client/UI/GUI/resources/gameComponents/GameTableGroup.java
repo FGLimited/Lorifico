@@ -3,20 +3,15 @@ package Client.UI.GUI.resources.gameComponents;
 
 import Client.UI.GameTable;
 import javafx.scene.Group;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Translate;
 
 
 public class GameTableGroup extends Group implements GameTable {
     //Constants
     private static final String TABLE_IMAGE_URL = "Client/UI/GUI/resources/images/gameTable/gameTable.png";
-    private static final String COVERINGS_BASE_URL = "Client/UI/GUI/resources/images/gameTable";
 
     private static final double IMAGE_WIDTH = 850;
     private static final double IMAGE_HEIGHT = 694;
@@ -42,7 +37,19 @@ public class GameTableGroup extends Group implements GameTable {
         getChildren().add(createImageBox(TABLE_IMAGE_URL, IMAGE_WIDTH, IMAGE_HEIGHT, xPos, yPos, zPos));
 
         //Place Coverings
-        getChildren().add(createImageBox(COVERINGS_BASE_URL + "/covering1.png", 95, 100, 685, 460, 5));
+
+
+        getChildren().add(new GameTablePlace(50, 4, 430, 78.5, 135, 57));
+        getChildren().add(new GameTablePlace(42, 1, true, 90, 105, 680.5, 455.5, 684, 462, 43, 40));
+        getChildren().add(new GameTablePlace(43, 1, true, 91.17, 108.2, 748.5, 520, 751.5, 531.5, 43, 40));
+        getChildren().add(new GameTablePlace(41, 1, 595.5, 437, 43, 40));
+        getChildren().add(new GameTablePlace(40, 1, 501.5, 436.5, 43, 40));
+        getChildren().add(new GameTablePlace(30, 1, 7.5, 461.5, 43, 40));
+        getChildren().add(new GameTablePlace(20, 1, 8, 584, 43, 40));
+
+
+        getChildren().add(new GameTablePlace(21, 3, true, 226, 111.8, 116.5, 575.5, 130.5, 587, 100, 35));
+        getChildren().add(new GameTablePlace(31, 3, true, 224, 105.7, 116, 457, 130, 465, 100, 35));
 
         //Apply Transforms
         getTransforms().add(new Translate(xPos, yPos, zPos));
@@ -63,36 +70,13 @@ public class GameTableGroup extends Group implements GameTable {
      */
     private StackPane createImageBox(String url, double width, double height, double xPos, double yPos, double zPos) {
         StackPane stackPane = new StackPane();
-        Rectangle rectangle = new Rectangle(width, height);
-        rectangle.setFill(Color.RED);
 
-
-        Image image = new Image(url, true);
+        Image image = new Image(url);
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(height);
         imageView.setFitWidth(width);
 
-
-        i++;
-        if (i == 2) {
-            imageView.setOpacity(0.4);
-            imageView.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
-                ColorAdjust colorAdjust = new ColorAdjust();
-                colorAdjust.setContrast(0.1);
-                colorAdjust.setHue(-0.05);
-                colorAdjust.setBrightness(0.5);
-                colorAdjust.setSaturation(0.3);
-                imageView.setEffect(colorAdjust);
-            });
-            imageView.addEventHandler(MouseEvent.MOUSE_EXITED, event -> {
-                imageView.setEffect(null);
-            });
-        }
-
-
         stackPane.getChildren().add(imageView);
-        rectangle.widthProperty().bind(stackPane.prefWidthProperty());
-        rectangle.heightProperty().bind(stackPane.prefHeightProperty());
         stackPane.setPrefSize(width, height);
         stackPane.getTransforms().add(new Translate(xPos, yPos, zPos));
         return stackPane;

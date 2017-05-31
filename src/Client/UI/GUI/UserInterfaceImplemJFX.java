@@ -45,6 +45,7 @@ public class UserInterfaceImplemJFX extends Application implements UserInterface
     @Override
     public void start(Stage primaryStage) throws Exception {
         ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).setPrimaryStage(primaryStage);///// N.B: JavaFX creates a NEW UserInterfaceImplemJFX obj, we have to reach the original one
+        primaryStage.setOnCloseRequest(e -> Platform.exit());
         ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).changeScene("Scegli il server", "fxml/ConnectionPage.fxml", 300, 400, true, new ConnectionPageController());
     }
 
