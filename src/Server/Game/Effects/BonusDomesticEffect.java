@@ -1,14 +1,12 @@
 package Server.Game.Effects;
 
 import Action.BonusDomesticMove;
-import Game.Effects.Effect;
 import Game.Effects.EffectType;
 import Game.Positions.PositionType;
 import Game.Usable.ResourceType;
 import Game.UserObjects.DomesticColor;
 import Game.UserObjects.GameUser;
 import Game.UserObjects.PlayerState;
-import Networking.Gson.GsonUtils;
 import Server.Game.Usable.Cost;
 import Server.Game.UserObjects.Domestic;
 import java.util.List;
@@ -17,9 +15,7 @@ import java.util.Map;
 /**
  * Created by fiore on 21/05/2017.
  */
-public class BonusDomesticEffect implements Effect {
-
-    private final EffectType type = EffectType.Immediate;
+public class BonusDomesticEffect extends Effect {
 
     private final List<PositionType> positionsType;
 
@@ -36,14 +32,10 @@ public class BonusDomesticEffect implements Effect {
      * @param costBonus Bonus resources for position/card cost
      */
     public BonusDomesticEffect(List<PositionType> positions, int domesticValue, Map<ResourceType, Integer> costBonus) {
+        super(EffectType.Immediate, 0);
         this.positionsType = positions;
         value = domesticValue;
         this.costBonus = costBonus;
-    }
-
-    @Override
-    public EffectType getType() {
-        return type;
     }
 
     @Override
@@ -65,20 +57,5 @@ public class BonusDomesticEffect implements Effect {
         // Send special domestic and bonus positions type
         currentUser.getUserLink()
                 .sendMessage(new BonusDomesticMove(special, positionsType, new Cost(costBonus)));
-    }
-
-    @Override
-    public int getActivationValue() {
-        return 0;
-    }
-
-    @Override
-    public int getCardNumber() {
-        return 0;
-    }
-
-    @Override
-    public void setCardNumber(int cardNumber) {
-
     }
 }

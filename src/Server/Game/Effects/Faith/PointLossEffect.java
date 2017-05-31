@@ -1,6 +1,6 @@
 package Server.Game.Effects.Faith;
 
-import Game.Effects.Effect;
+import Server.Game.Effects.Effect;
 import Game.Effects.EffectType;
 import Game.Usable.ResourceType;
 import Game.UserObjects.PlayerState;
@@ -9,9 +9,7 @@ import java.util.Map;
 /**
  * Created by fiore on 20/05/2017.
  */
-public class PointLossEffect implements Effect {
-
-    private final EffectType type = EffectType.Permanent;
+public class PointLossEffect extends Effect {
 
     private final Map<ResourceType, Integer> requestedResources;
 
@@ -20,19 +18,15 @@ public class PointLossEffect implements Effect {
     private volatile boolean isApplied = false;
 
     /**
-     * Remove 'removedValue' victory points for each quantity of of specified resources in player state
+     * Remove 'removedValue' victory points for each quantity of specified resources in player state
      *
      * @param requestedResources Map of resources and necessary quantity to love 'removedValue' victory points
      * @param removedValue Victory point loss for each resource present
      */
     public PointLossEffect(Map<ResourceType, Integer> requestedResources, int removedValue) {
+        super(EffectType.Permanent, 0);
         this.requestedResources = requestedResources;
         removedPoints = removedValue;
-    }
-
-    @Override
-    public EffectType getType() {
-        return type;
     }
 
     @Override
@@ -53,7 +47,7 @@ public class PointLossEffect implements Effect {
         int pointsToRemove = 0;
 
         for (Map.Entry<ResourceType, Integer> resource: requestedResources.entrySet())
-            pointsToRemove += (currentResources.get(resource.getKey()) / resource.getValue()) * pointsToRemove;
+            pointsToRemove += (currentResources.get(resource.getKey()) / resource.getValue()) * removedPoints;
 
 
         // Remove victory points
@@ -65,18 +59,4 @@ public class PointLossEffect implements Effect {
         isApplied = true;
     }
 
-    @Override
-    public int getActivationValue() {
-        return 0;
-    }
-
-    @Override
-    public int getCardNumber() {
-        return 0;
-    }
-
-    @Override
-    public void setCardNumber(int cardNumber) {
-
-    }
 }

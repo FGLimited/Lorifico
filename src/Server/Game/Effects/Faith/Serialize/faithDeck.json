@@ -3,65 +3,80 @@
     {
       "type": "Server.Game.Effects.Faith.ResourcePenaltyEffect",
       "data": {
-        "type": "Permanent",
         "resources": {
           "MilitaryPoint": 1
         },
-        "isApplied": false
+        "isApplied": false,
+        "type": "Permanent",
+        "cardNumber": 1,
+        "activationValue": 0
       }
     },
     {
       "type": "Server.Game.Effects.Faith.ResourcePenaltyEffect",
       "data": {
-        "type": "Permanent",
         "resources": {
           "Gold": 1
         },
-        "isApplied": false
+        "isApplied": false,
+        "type": "Permanent",
+        "cardNumber": 2,
+        "activationValue": 0
       }
     },
     {
       "type": "Server.Game.Effects.Faith.ResourcePenaltyEffect",
       "data": {
-        "type": "Permanent",
         "resources": {
           "Slave": 1
         },
-        "isApplied": false
+        "isApplied": false,
+        "type": "Permanent",
+        "cardNumber": 3,
+        "activationValue": 0
       }
     },
     {
       "type": "Server.Game.Effects.Faith.ResourcePenaltyEffect",
       "data": {
-        "type": "Permanent",
         "resources": {
           "Wood": 1,
           "Rock": 1
         },
-        "isApplied": false
+        "isApplied": false,
+        "type": "Permanent",
+        "cardNumber": 4,
+        "activationValue": 0
       }
     },
     {
       "type": "Server.Game.Effects.PositionBonusEffect",
       "data": {
-        "type": "Permanent",
         "position": "HarvestAction",
-        "value": -3
+        "value": -3,
+        "type": "Permanent",
+        "cardNumber": 5,
+        "activationValue": 0
       }
     },
     {
       "type": "Server.Game.Effects.PositionBonusEffect",
       "data": {
-        "type": "Permanent",
         "position": "ProductionAction",
-        "value": -3
+        "value": -3,
+        "type": "Permanent",
+        "cardNumber": 6,
+        "activationValue": 0
       }
     },
     {
       "type": "Server.Game.Effects.Faith.DomesticPenaltyEffect",
       "data": {
+        "penalty": 1,
+        "isApplied": false,
         "type": "Permanent",
-        "penalty": 1
+        "cardNumber": 7,
+        "activationValue": 0
       }
     }
   ],
@@ -69,55 +84,69 @@
     {
       "type": "Server.Game.Effects.PositionBonusEffect",
       "data": {
-        "type": "Permanent",
         "position": "TerritoryTower",
-        "value": -4
+        "value": -4,
+        "type": "Permanent",
+        "cardNumber": 8,
+        "activationValue": 0
       }
     },
     {
       "type": "Server.Game.Effects.PositionBonusEffect",
       "data": {
-        "type": "Permanent",
         "position": "BuildingTower",
-        "value": -4
+        "value": -4,
+        "type": "Permanent",
+        "cardNumber": 9,
+        "activationValue": 0
       }
     },
     {
       "type": "Server.Game.Effects.PositionBonusEffect",
       "data": {
-        "type": "Permanent",
         "position": "PersonalityTower",
-        "value": -4
+        "value": -4,
+        "type": "Permanent",
+        "cardNumber": 10,
+        "activationValue": 0
       }
     },
     {
       "type": "Server.Game.Effects.PositionBonusEffect",
       "data": {
-        "type": "Permanent",
         "position": "ChallengeTower",
-        "value": -4
+        "value": -4,
+        "type": "Permanent",
+        "cardNumber": 11,
+        "activationValue": 0
       }
     },
     {
       "type": "Server.Game.Effects.Faith.MarketDenyEffect",
       "data": {
+        "isApplied": false,
         "type": "Permanent",
-        "isApplied": false
+        "cardNumber": 12,
+        "activationValue": 0
       }
     },
     {
       "type": "Server.Game.Effects.Faith.SlaveValuePenaltyEffect",
       "data": {
-        "type": "Permanent",
         "slavePerValue": 2,
-        "isApplied": false
+        "isApplied": false,
+        "type": "Permanent",
+        "cardNumber": 13,
+        "activationValue": 0
       }
     },
     {
       "type": "Server.Game.Effects.Faith.JumpFirstRoundEffect",
       "data": {
+        "applied": false,
         "type": "Permanent",
-        "applied": false
+        "cardNumber": 14,
+        "activationValue": 0
       }
     }
   ],
@@ -125,50 +154,59 @@
     {
       "type": "Server.Game.Effects.Faith.CardRemoveEffect",
       "data": {
+        "cardType": "Personality",
         "type": "Permanent",
-        "cardType": "Personality"
+        "cardNumber": 15,
+        "activationValue": 0
       }
     },
     {
       "type": "Server.Game.Effects.Faith.CardRemoveEffect",
       "data": {
+        "cardType": "Challenge",
         "type": "Permanent",
-        "cardType": "Challenge"
+        "cardNumber": 16,
+        "activationValue": 0
       }
     },
     {
       "type": "Server.Game.Effects.Faith.CardRemoveEffect",
       "data": {
+        "cardType": "Territory",
         "type": "Permanent",
-        "cardType": "Territory"
+        "cardNumber": 17,
+        "activationValue": 0
       }
     },
     {
       "type": "Server.Game.Effects.Faith.PointLossEffect",
       "data": {
-        "type": "Permanent",
         "requestedResources": {
           "VictoryPoint": 5
         },
         "removedPoints": 1,
-        "isApplied": false
+        "isApplied": false,
+        "type": "Permanent",
+        "cardNumber": 18,
+        "activationValue": 0
       }
     },
     {
       "type": "Server.Game.Effects.Faith.PointLossEffect",
       "data": {
-        "type": "Permanent",
         "requestedResources": {
           "MilitaryPoint": 1
         },
         "removedPoints": 1,
-        "isApplied": false
+        "isApplied": false,
+        "type": "Permanent",
+        "cardNumber": 19,
+        "activationValue": 0
       }
     },
     {
       "type": "Server.Game.Effects.Faith.CardCostPenaltyEffect",
       "data": {
-        "type": "Permanent",
         "cardType": "Building",
         "resourcesType": [
           "Rock",
@@ -177,21 +215,26 @@
           "Wood"
         ],
         "removedPoints": 1,
-        "isApplied": false
+        "isApplied": false,
+        "type": "Permanent",
+        "cardNumber": 20,
+        "activationValue": 0
       }
     },
     {
       "type": "Server.Game.Effects.Faith.PointLossEffect",
       "data": {
-        "type": "Permanent",
         "requestedResources": {
           "Wood": 1,
-          "Slave": 1,
           "Gold": 1,
-          "Rock": 1
+          "Rock": 1,
+          "Slave": 1
         },
         "removedPoints": 1,
-        "isApplied": false
+        "isApplied": false,
+        "type": "Permanent",
+        "cardNumber": 21,
+        "activationValue": 0
       }
     }
   ]

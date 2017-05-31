@@ -1,6 +1,5 @@
 package Server.Game.Effects;
 
-import Game.Effects.Effect;
 import Game.Effects.EffectType;
 import Game.Positions.PositionType;
 import Game.Usable.ResourceType;
@@ -11,17 +10,11 @@ import java.util.Map;
 /**
  * Created by fiore on 10/05/2017.
  */
-public class AddResourcesEffect implements Effect {
-
-    private final EffectType type = EffectType.Activable;
+public class AddResourcesEffect extends Effect {
 
     private final PositionType position;
 
     private final Map<ResourceType, Integer> resources;
-
-    private final int activationValue;
-
-    private volatile int cardNumber = 0;
 
     /**
      * Initialize new add resources effect
@@ -31,14 +24,9 @@ public class AddResourcesEffect implements Effect {
      * @param positionType Activation position type
      */
     public AddResourcesEffect(Map<ResourceType, Integer> resources, int activationValue, PositionType positionType) {
+        super(EffectType.Activable, activationValue);
         position = positionType;
         this.resources = resources;
-        this.activationValue = activationValue;
-    }
-
-    @Override
-    public EffectType getType() {
-        return type;
     }
 
     @Override
@@ -58,18 +46,4 @@ public class AddResourcesEffect implements Effect {
         currentMove.setResources(currentResources, true);
     }
 
-    @Override
-    public int getActivationValue() {
-        return activationValue;
-    }
-
-    @Override
-    public int getCardNumber() {
-        return cardNumber;
-    }
-
-    @Override
-    public void setCardNumber(int cardNumber) {
-        this.cardNumber = cardNumber;
-    }
 }

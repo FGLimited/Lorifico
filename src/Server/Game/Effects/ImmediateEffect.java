@@ -1,6 +1,5 @@
 package Server.Game.Effects;
 
-import Game.Effects.Effect;
 import Game.Effects.EffectType;
 import Game.Usable.ResourceType;
 import Server.Game.Usable.UsableHelper;
@@ -11,9 +10,7 @@ import java.util.Map;
 /**
  * Created by fiore on 11/05/2017.
  */
-public class ImmediateEffect implements Effect {
-
-    private final EffectType type = EffectType.Immediate;
+public class ImmediateEffect extends Effect {
 
     private final Map<ResourceType, Integer> resources;
 
@@ -23,6 +20,7 @@ public class ImmediateEffect implements Effect {
      * @param resources Resource to add on effect activation
      */
     public ImmediateEffect(Map<ResourceType, Integer> resources) {
+        super(EffectType.Immediate, 0);
         this.resources = resources == null ? new HashMap<>() : resources;
     }
 
@@ -44,25 +42,4 @@ public class ImmediateEffect implements Effect {
         currentMove.setResources(currentResources, true);
     }
 
-    @Override
-    public int getActivationValue() {
-        return 0;
-    }
-
-    @Override
-    public int getCardNumber() {
-
-        // Immediate effects don't need to be associated with cards
-        return 0;
-    }
-
-    @Override
-    public void setCardNumber(int cardNumber) {
-        // Immediate effects don't need to be associated with cards
-    }
-
-    @Override
-    public EffectType getType() {
-        return type;
-    }
 }

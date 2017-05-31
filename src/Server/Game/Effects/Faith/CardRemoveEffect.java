@@ -1,16 +1,14 @@
 package Server.Game.Effects.Faith;
 
 import Game.Cards.CardType;
-import Game.Effects.Effect;
+import Server.Game.Effects.Effect;
 import Game.Effects.EffectType;
 import Game.UserObjects.PlayerState;
 
 /**
  * Created by fiore on 20/05/2017.
  */
-public class CardRemoveEffect implements Effect {
-
-    private final EffectType type = EffectType.Permanent;
+public class CardRemoveEffect extends Effect {
 
     private final CardType cardType;
 
@@ -20,12 +18,8 @@ public class CardRemoveEffect implements Effect {
      * @param cardToRemove Card type to be removed
      */
     public CardRemoveEffect(CardType cardToRemove) {
+        super(EffectType.Permanent, 0);
         cardType = cardToRemove;
-    }
-
-    @Override
-    public EffectType getType() {
-        return type;
     }
 
     @Override
@@ -43,18 +37,4 @@ public class CardRemoveEffect implements Effect {
 
     }
 
-    @Override
-    public int getActivationValue() {
-        return 0;
-    }
-
-    @Override
-    public int getCardNumber() {
-        return 0;
-    }
-
-    @Override
-    public void setCardNumber(int cardNumber) {
-
-    }
 }

@@ -1,6 +1,5 @@
 package Server.Game.Effects;
 
-import Game.Effects.Effect;
 import Game.Effects.EffectType;
 import Game.Usable.ResourceType;
 import Game.UserObjects.PlayerState;
@@ -9,9 +8,7 @@ import java.util.Map;
 /**
  * Created by fiore on 22/05/2017.
  */
-public class FinalVictoryPointsEffect implements Effect {
-
-    private final EffectType type = EffectType.Final;
+public class FinalVictoryPointsEffect extends Effect {
 
     private final int quantity;
 
@@ -21,12 +18,8 @@ public class FinalVictoryPointsEffect implements Effect {
      * @param quantity Victory points to add
      */
     public FinalVictoryPointsEffect(int quantity) {
+        super(EffectType.Final, 0);
         this.quantity = quantity;
-    }
-
-    @Override
-    public EffectType getType() {
-        return type;
     }
 
     @Override
@@ -42,21 +35,6 @@ public class FinalVictoryPointsEffect implements Effect {
         currentResources.replace(ResourceType.VictoryPoint, currentResources.get(ResourceType.VictoryPoint) + quantity);
 
         currentMove.setResources(currentResources, true);
-
     }
 
-    @Override
-    public int getActivationValue() {
-        return 0;
-    }
-
-    @Override
-    public int getCardNumber() {
-        return 0;
-    }
-
-    @Override
-    public void setCardNumber(int cardNumber) {
-
-    }
 }

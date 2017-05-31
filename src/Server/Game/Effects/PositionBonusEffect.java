@@ -1,6 +1,5 @@
 package Server.Game.Effects;
 
-import Game.Effects.Effect;
 import Game.Effects.EffectType;
 import Game.Positions.PositionType;
 import Game.UserObjects.PlayerState;
@@ -9,9 +8,7 @@ import Server.Game.UserObjects.Domestic;
 /**
  * Created by fiore on 19/05/2017.
  */
-public class PositionBonusEffect implements Effect {
-
-    private final EffectType type = EffectType.Permanent;
+public class PositionBonusEffect extends Effect {
 
     private final PositionType position;
 
@@ -24,13 +21,9 @@ public class PositionBonusEffect implements Effect {
      * @param bonusValue Bonus/penalty to apply to domestic value
      */
     public PositionBonusEffect(PositionType positionType, int bonusValue) {
+        super(EffectType.Permanent, 0);
         position = positionType;
         value = bonusValue;
-    }
-
-    @Override
-    public EffectType getType() {
-        return type;
     }
 
     @Override
@@ -49,18 +42,4 @@ public class PositionBonusEffect implements Effect {
         inUse.setValue(inUse.getValue() + value);
     }
 
-    @Override
-    public int getActivationValue() {
-        return 0;
-    }
-
-    @Override
-    public int getCardNumber() {
-        return 0;
-    }
-
-    @Override
-    public void setCardNumber(int cardNumber) {
-
-    }
 }

@@ -1,6 +1,5 @@
 package Server.Game.Effects;
 
-import Game.Effects.Effect;
 import Game.Effects.EffectType;
 import Game.Positions.PositionType;
 import Game.Usable.ResourceType;
@@ -11,19 +10,13 @@ import java.util.Map;
 /**
  * Created by fiore on 21/05/2017.
  */
-public class TransformResourcesEffect implements Effect {
-
-    private final EffectType type = EffectType.Activable;
+public class TransformResourcesEffect extends Effect {
 
     private final PositionType position = PositionType.ProductionAction;
 
     private final Map<ResourceType, Integer> requested;
 
     private final Map<ResourceType, Integer> toAdd;
-
-    private final int value;
-
-    private volatile int cardNumber = 0;
 
     /**
      * Transform specified resources
@@ -33,19 +26,14 @@ public class TransformResourcesEffect implements Effect {
      * @param activationValue Activation domestic value
      */
     public TransformResourcesEffect(Map<ResourceType, Integer> requested, Map<ResourceType, Integer> toAdd, int activationValue) {
+        super(EffectType.Activable, activationValue);
         this.requested = requested;
         this.toAdd = toAdd;
-        value = activationValue;
-    }
-
-    @Override
-    public EffectType getType() {
-        return type;
     }
 
     @Override
     public boolean canApply(PlayerState currentMove) {
-        return currentMove.getInUseDomestic().getValue() >= value && currentMove.getCheckingPositionType() == position;
+        return currentMove.getInUseDomestic().getValue() >= activationValue && currentMove.getCheckingPositionType() == position;
     }
 
     @Override
@@ -59,18 +47,4 @@ public class TransformResourcesEffect implements Effect {
         currentMove.setResources(currentResources, true);
     }
 
-    @Override
-    public int getActivationValue() {
-        return value;
-    }
-
-    @Override
-    public int getCardNumber() {
-        return cardNumber;
-    }
-
-    @Override
-    public void setCardNumber(int cardNumber) {
-        this.cardNumber = cardNumber;
-    }
 }

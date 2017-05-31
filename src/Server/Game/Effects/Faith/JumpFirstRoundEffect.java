@@ -1,21 +1,18 @@
 package Server.Game.Effects.Faith;
 
-import Game.Effects.Effect;
+import Server.Game.Effects.Effect;
 import Game.Effects.EffectType;
 import Game.UserObjects.PlayerState;
 
 /**
  * Created by fiore on 17/05/2017.
  */
-public class JumpFirstRoundEffect implements Effect {
-
-    private final EffectType type = EffectType.Permanent;
+public class JumpFirstRoundEffect extends Effect {
 
     private volatile boolean applied = false;
 
-    @Override
-    public EffectType getType() {
-        return type;
+    public JumpFirstRoundEffect() {
+        super(EffectType.Permanent, 0);
     }
 
     @Override
@@ -32,21 +29,6 @@ public class JumpFirstRoundEffect implements Effect {
         currentMove.getGameUser().setRoundJump(true);
 
         applied = true;
-
     }
 
-    @Override
-    public int getActivationValue() {
-        return 0;
-    }
-
-    @Override
-    public int getCardNumber() {
-        return 0;
-    }
-
-    @Override
-    public void setCardNumber(int cardNumber) {
-
-    }
 }

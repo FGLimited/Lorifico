@@ -124,6 +124,14 @@ public class FaithDeck {
         faithDeck.put(2, secondDeck);
         faithDeck.put(3, thirdDeck);
 
+        int i = 1;
+
+        for(int j = 1; j <= 3; j++)
+            for(Effect e : faithDeck.get(j)) {
+                e.setCardNumber(i);
+                i++;
+            }
+
 
         Type deckType = new TypeToken<Map<Integer, List<Effect>>>(){}.getType();
 

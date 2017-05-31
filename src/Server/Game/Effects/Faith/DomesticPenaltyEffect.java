@@ -1,6 +1,6 @@
 package Server.Game.Effects.Faith;
 
-import Game.Effects.Effect;
+import Server.Game.Effects.Effect;
 import Game.Effects.EffectType;
 import Game.UserObjects.DomesticColor;
 import Game.UserObjects.GameUser;
@@ -9,9 +9,7 @@ import Game.UserObjects.PlayerState;
 /**
  * Created by fiore on 20/05/2017.
  */
-public class DomesticPenaltyEffect implements Effect {
-
-    private final EffectType type = EffectType.Permanent;
+public class DomesticPenaltyEffect extends Effect {
 
     private final int penalty;
 
@@ -23,12 +21,8 @@ public class DomesticPenaltyEffect implements Effect {
      * @param penalty Penalty value
      */
     public DomesticPenaltyEffect(int penalty) {
+        super(EffectType.Permanent, 0);
         this.penalty = penalty;
-    }
-
-    @Override
-    public EffectType getType() {
-        return type;
     }
 
     @Override
@@ -51,18 +45,4 @@ public class DomesticPenaltyEffect implements Effect {
         isApplied = true;
     }
 
-    @Override
-    public int getActivationValue() {
-        return 0;
-    }
-
-    @Override
-    public int getCardNumber() {
-        return 0;
-    }
-
-    @Override
-    public void setCardNumber(int cardNumber) {
-
-    }
 }

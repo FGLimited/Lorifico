@@ -1,7 +1,7 @@
 package Server.Game.Effects.Faith;
 
 import Game.Cards.CardType;
-import Game.Effects.Effect;
+import Server.Game.Effects.Effect;
 import Game.Effects.EffectType;
 import Game.Usable.ResourceType;
 import Game.UserObjects.PlayerState;
@@ -14,9 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Created by fiore on 20/05/2017.
  */
-public class CardCostPenaltyEffect implements Effect {
-
-    private final EffectType type = EffectType.Permanent;
+public class CardCostPenaltyEffect extends Effect {
 
     private final CardType cardType;
 
@@ -35,14 +33,10 @@ public class CardCostPenaltyEffect implements Effect {
      * @param cardType Type of cards to check
      */
     public CardCostPenaltyEffect(List<ResourceType> resources, int pointsToRemove, CardType cardType) {
+        super(EffectType.Permanent, 0);
         this.cardType = cardType;
         resourcesType = resources;
         removedPoints = pointsToRemove;
-    }
-
-    @Override
-    public EffectType getType() {
-        return type;
     }
 
     @Override
@@ -83,21 +77,6 @@ public class CardCostPenaltyEffect implements Effect {
         currentMove.setResources(currentResources, false);
 
         isApplied = true;
-
-    }
-
-    @Override
-    public int getActivationValue() {
-        return 0;
-    }
-
-    @Override
-    public int getCardNumber() {
-        return 0;
-    }
-
-    @Override
-    public void setCardNumber(int cardNumber) {
 
     }
 }
