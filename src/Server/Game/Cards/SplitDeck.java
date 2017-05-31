@@ -29,21 +29,25 @@ public class SplitDeck {
     /**
      * Initialize a new deck of cards
      *
+     * @param fileName Json file to load deck from
      * @throws IOException If standard deck json file isn't found
      */
-    public SplitDeck() throws IOException {
+    public SplitDeck(final String fileName) throws IOException {
 
         InputStream splitDeckJson = Files
-                .newInputStream(Paths.get("src/Server/Game/Cards/Serialize/splitDeck.json"));
+                .newInputStream(Paths.get(fileName));
 
         Type splitDeckType = new TypeToken<Map<Integer, Map<CardType, List<Card>>>>(){}.getType();
 
         Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
                 .registerTypeAdapter(Effect.class, new MySerializer<Effect>())
                 .create();
 
         cardPerTurn = gson.fromJson(new InputStreamReader(splitDeckJson), splitDeckType);
+    }
+
+    public SplitDeck() throws IOException {
+        this("src/Server/Game/Cards/Serialize/splitDeck.json");
     }
 
     /**
@@ -102,7 +106,7 @@ public class SplitDeck {
 
     }
 
-    public static Map<Integer, List<Card>> challengeCards() {
+    private static Map<Integer, List<Card>> challengeCards() {
 
         Effect oneone = new ImmediateEffect(Collections.singletonMap(ResourceType.MilitaryPoint, 5));
         Effect onetwo = new FinalVictoryPointsEffect(4);
@@ -321,7 +325,7 @@ public class SplitDeck {
         };
     }
 
-    public static Map<Integer, List<Card>> personalityCards() {
+    private static Map<Integer, List<Card>> personalityCards() {
 
         Effect oneone = new ImmediateEffect(Collections.singletonMap(ResourceType.MilitaryPoint, 3));
         Effect onetwo = new PositionBonusEffect(PositionType.TerritoryTower, 2);
@@ -453,7 +457,7 @@ public class SplitDeck {
         };
     }
 
-    public static Map<Integer, List<Card>> buildingCards() {
+    private static Map<Integer, List<Card>> buildingCards() {
 
         Effect oneone = new ImmediateEffect(Collections.singletonMap(ResourceType.VictoryPoint, 5));
         Effect onetwo = new CardResourceEffect(CardType.Building, ResourceType.Gold, 1, 5, PositionType.ProductionAction);
@@ -743,7 +747,7 @@ public class SplitDeck {
         };
     }
 
-    public static Map<Integer, List<Card>> territoryCards() {
+    private static Map<Integer, List<Card>> territoryCards() {
 
         List<Cost> free = Collections.singletonList(new Cost(null));
 

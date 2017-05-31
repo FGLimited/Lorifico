@@ -2,15 +2,19 @@ package Action;
 
 import Model.User.User;
 import Model.UserManager;
+import Server.Game.Match;
 
 /**
- * Created by fiore on 26/05/2017.
+ * Sent from client to server to disconnect the user completely
  */
 public class ServerDisconnect implements BaseAction {
     @Override
     public void doAction(User user) {
 
-        // TODO: abort match if necessary
+        // Abort current match if initialized
+        final Match currentMatch = user.getMatch();
+        if(currentMatch != null)
+            currentMatch.abort(user);
 
         UserManager.getInstance().disconnectUser(user.getUsername());
     }

@@ -35,6 +35,8 @@ public class Match implements UserHandler {
 
     private volatile ScheduledExecutorService matchExecutor = Executors.newSingleThreadScheduledExecutor();
 
+    private volatile boolean isStarted = false;
+
     private final long startDelay;
 
     private final long moveTimeout;
@@ -65,7 +67,7 @@ public class Match implements UserHandler {
      * @return True if match is running, false if players are still waiting
      */
     public boolean isStarted() {
-        return false;
+        return isStarted;
     }
 
     /**
@@ -79,12 +81,16 @@ public class Match implements UserHandler {
 
     /**
      * Abort match without saving current status
+     *
+     * @param leftUser User who left the game
      */
-    public void abort() {
+    public void abort(User leftUser) {
         matchExecutor.shutdownNow();
+
+        // TODO: notify all users of game end because of a user left
     }
 
-    public void addUser(User newUser) {
+    public synchronized void addUser(User newUser) {
         // Add new user to users list
         users.add(newUser);
         newUser.setMatch(this);
@@ -118,6 +124,7 @@ public class Match implements UserHandler {
 
         // When maximum player
         if(users.size() == 4) {
+            isStarted = true;
 
             // Stop countdown
             matchExecutor.shutdownNow();
@@ -193,6 +200,8 @@ public class Match implements UserHandler {
      * Initialize game objects for match start and takes care of game execution
      */
     private void initGame() {
+
+        isStarted = true;
 
         // Initialize all users and first round order
         List<GameUser> roundOrder;
