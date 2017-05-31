@@ -1,7 +1,9 @@
 package Networking.Socket;
 
+import Action.BaseAction;
 import Logging.Logger;
 import Networking.CommLink;
+import Networking.Gson.GsonUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,20 +13,25 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.BiConsumer;
-
 import static Logging.Logger.LogLevel;
+
 /**
  * Created by fiore on 10/05/2017.
  */
 public class SocketComm implements CommLink {
 
     private final Socket socket;
+
     // Listener thread for incoming messages on socket
     private final ExecutorService postman = Executors.newSingleThreadExecutor();
+
     // Executor thread for message handling
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
+
     private PrintWriter out;
+
     private BufferedReader in;
+
     // Message handling callback for every message received
     private volatile BiConsumer<CommLink, String> onMessage;
 
@@ -76,11 +83,11 @@ public class SocketComm implements CommLink {
     }
 
     @Override
-    public void sendMessage(final String message) {
-        if(message == null || message.equals(""))
+    public void sendMessage(final BaseAction message) {
+        if(message == null)
             return;
 
-        out.println(message);
+        out.println(GsonUtils.toGson(message));
     }
 
     @Override

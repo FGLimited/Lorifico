@@ -64,7 +64,7 @@ public class BonusDomesticEffect implements Effect {
 
         // Send special domestic and bonus positions type
         currentUser.getUserLink()
-                .sendMessage(GsonUtils.toGson(new BonusDomesticMove(special, positionsType, new Cost(costBonus))));
+                .sendMessage(new BonusDomesticMove(special, positionsType, new Cost(costBonus)));
     }
 
     @Override

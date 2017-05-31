@@ -5,7 +5,6 @@ import Client.Networking.CommFactory;
 import Logging.Logger;
 import Networking.CommLink;
 import Networking.Gson.GsonUtils;
-
 import java.io.IOException;
 
 /**
@@ -60,6 +59,6 @@ public class CommunicationManager {
      * @param baseAction action to send
      */
     public void sendMessage(BaseAction baseAction) {
-        commLink.sendMessage(GsonUtils.toGson(baseAction));
+        commLink.sendMessage(baseAction);
     }
 }

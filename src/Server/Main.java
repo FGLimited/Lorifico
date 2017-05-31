@@ -22,11 +22,11 @@ public class Main {
         // Create database instance for users
         DBContext db = new DBContext(mySqlConnString);
 
-        // Create user manager instance
-        UserManager userManager = new UserManager(db);
+        // Initialize user manager
+        UserManager.init(db);
 
         // Initialize login handler
-        LogInHandler loginHandler = new LogInHandler(new Lobby(), userManager);
+        LogInHandler loginHandler = new LogInHandler(new Lobby());
 
         // Initialize connection handler with multiple connection providers
         ConnectionHandler connHandler = new ConnectionHandler();

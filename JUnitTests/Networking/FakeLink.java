@@ -1,5 +1,7 @@
 package Networking;
 
+import Action.BaseAction;
+
 import java.util.function.BiConsumer;
 
 /**
@@ -7,7 +9,7 @@ import java.util.function.BiConsumer;
  */
 public class FakeLink implements CommLink {
     @Override
-    public void sendMessage(String message) {
+    public void sendMessage(BaseAction message) {
 
     }
 
