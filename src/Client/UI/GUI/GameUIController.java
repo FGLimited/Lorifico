@@ -1,5 +1,6 @@
 package Client.UI.GUI;
 
+import Action.DisplayPopup;
 import Client.UI.GUI.resources.gameComponents.MyCameraGroup;
 import Client.UI.UserInterfaceFactory;
 import javafx.fxml.FXML;
@@ -41,6 +42,8 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).setStackPane(root);//Updates reference to root stack pane in UserInterface, this way popus will be displayed in this page.
+
         cameraGroup = new MyCameraGroup(35, 1, 0.0, 270.0, 650.0, -550.);
         world = new Group(cameraGroup);//Create world group containing camera.
 
@@ -58,6 +61,7 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
         world.getChildren().add(gameTableGroup);
 
         cameraGroup.setView(MyCameraGroup.CameraPosition.GAMETABLE);
+        UserInterfaceFactory.getInstance().displayPopup(DisplayPopup.Level.Warning, "Titolone", "Messaggione");
 
         camMouseDrag();
     }

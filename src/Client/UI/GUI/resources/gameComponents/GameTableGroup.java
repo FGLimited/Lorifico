@@ -3,7 +3,10 @@ package Client.UI.GUI.resources.gameComponents;
 
 import Client.UI.GameTable;
 import javafx.scene.Group;
-import javafx.scene.layout.Pane;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -39,7 +42,7 @@ public class GameTableGroup extends Group implements GameTable {
         getChildren().add(createImageBox(TABLE_IMAGE_URL, IMAGE_WIDTH, IMAGE_HEIGHT, xPos, yPos, zPos));
 
         //Place Coverings
-        getChildren().add(createImageBox(COVERINGS_BASE_URL + "/covering1.png", 95, 100, 685, 460, 0));
+        getChildren().add(createImageBox(COVERINGS_BASE_URL + "/covering1.png", 95, 100, 685, 460, 5));
 
         //Apply Transforms
         getTransforms().add(new Translate(xPos, yPos, zPos));
@@ -61,30 +64,33 @@ public class GameTableGroup extends Group implements GameTable {
     private StackPane createImageBox(String url, double width, double height, double xPos, double yPos, double zPos) {
         StackPane stackPane = new StackPane();
         Rectangle rectangle = new Rectangle(width, height);
-        Pane pane = new Pane();
-
-        rectangle.setFill(Color.TRANSPARENT);
-
-        /**
-         i++;
-         if (i>1) {
-         rectangle.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
-         ColorAdjust colorAdjust = new ColorAdjust();
-         colorAdjust.setContrast(0.1);
-         colorAdjust.setHue(-0.05);
-         colorAdjust.setBrightness(0.2);
-         colorAdjust.setSaturation(0.3);
-         pane.setEffect(colorAdjust);
-         });
-         }
-         **/
-        
-        pane.setStyle("-fx-background-image: url(\"" + url + "\");\n" +
-                "    -fx-background-repeat: no-repeat;\n" +
-                "    -fx-background-size: contain;");
+        rectangle.setFill(Color.RED);
 
 
-        stackPane.getChildren().addAll(pane, rectangle);
+        Image image = new Image(url, true);
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(height);
+        imageView.setFitWidth(width);
+
+
+        i++;
+        if (i == 2) {
+            imageView.setOpacity(0.4);
+            imageView.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
+                ColorAdjust colorAdjust = new ColorAdjust();
+                colorAdjust.setContrast(0.1);
+                colorAdjust.setHue(-0.05);
+                colorAdjust.setBrightness(0.5);
+                colorAdjust.setSaturation(0.3);
+                imageView.setEffect(colorAdjust);
+            });
+            imageView.addEventHandler(MouseEvent.MOUSE_EXITED, event -> {
+                imageView.setEffect(null);
+            });
+        }
+
+
+        stackPane.getChildren().add(imageView);
         rectangle.widthProperty().bind(stackPane.prefWidthProperty());
         rectangle.heightProperty().bind(stackPane.prefHeightProperty());
         stackPane.setPrefSize(width, height);
