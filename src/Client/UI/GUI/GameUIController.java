@@ -1,6 +1,6 @@
 package Client.UI.GUI;
 
-import Client.UI.GUI.resources.gameComponents.GameTablePlace;
+import Client.UI.GUI.resources.gameComponents.Dice;
 import Client.UI.GUI.resources.gameComponents.MyCameraGroup;
 import Client.UI.UserInterfaceFactory;
 import javafx.fxml.FXML;
@@ -61,7 +61,7 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
         Group gameTableGroup = (Group) (UserInterfaceFactory.getInstance().getGameTable());
         world.getChildren().add(gameTableGroup);
 
-        //cameraGroup.setView(MyCameraGroup.CameraPosition.GAMETABLE);
+        cameraGroup.setView(MyCameraGroup.CameraPosition.GAMETABLE);
         //UserInterfaceFactory.getInstance().displayPopup(DisplayPopup.Level.Warning, "Titolone", "Messaggione");
 
         camMouseDrag();
@@ -109,9 +109,10 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
                 printCamCoords();
             }
             if (me.isShiftDown()) {//Se è premuto il tasto DX altero la posizione Z
-                GameTablePlace.last.getTranslate().setX(GameTablePlace.last.getTranslate().getX() + mouseDeltaX * MULTIPLIER);
-                GameTablePlace.last.getTranslate().setY(GameTablePlace.last.getTranslate().getY() + mouseDeltaY * MULTIPLIER);
-                printStackPCoords(GameTablePlace.last.getTranslate());
+                Translate translate = Dice.last.getTranslate();
+                translate.setX(translate.getX() + mouseDeltaX * MULTIPLIER);
+                translate.setY(translate.getY() + mouseDeltaY * MULTIPLIER);
+                printStackPCoords(translate);
             }
         });
     }
@@ -130,7 +131,7 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
     }
 
     private void printStackPCoords(Translate transform) {
-        System.out.print("StackPane: " + transform.getX());
+        System.out.print("ObjCoord: " + transform.getX());
         System.out.print(", " + transform.getY());
         System.out.println();
     }

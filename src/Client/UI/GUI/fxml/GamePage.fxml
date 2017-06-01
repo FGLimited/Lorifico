@@ -18,7 +18,7 @@
                                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit"/>
                             </children>
                         </AnchorPane>
-                        <SubScene fx:id="subScene" depthTest="ENABLE" height="366.0" width="775.0">
+                        <SubScene fx:id="subScene" depthTest="ENABLE" depthBuffer="true" height="366.0" width="775.0">
                             <root>
                                 <Region/>
                             </root>

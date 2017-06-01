@@ -3,7 +3,6 @@ package Client.UI.GUI.resources.gameComponents;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
@@ -13,10 +12,8 @@ import javafx.scene.transform.Translate;
  * Created by andrea on 31/05/17.
  */
 public class GameTablePlace extends StackPane {
-    //DEBUG:
-    public static GameTablePlace last;
     private final String COVERINGS_BASE_URL = "Client/UI/GUI/resources/images/gameTable";
-    private final int Z_POS = 2;
+    private final int Z_POS = -1;
     private Translate translate;
 
     /**
@@ -40,7 +37,6 @@ public class GameTablePlace extends StackPane {
         } else {
             createClickableRegion(xRegionPos, yRegionPos, Z_POS, radiusX, radiusY);
         }
-        this.last = this;
     }
 
     /**
@@ -54,7 +50,6 @@ public class GameTablePlace extends StackPane {
      */
     protected GameTablePlace(int id, int capacity, double xRegionPos, double yRegionPos, double radiusX, double radiusY) {
         createClickableRegion(xRegionPos, yRegionPos, Z_POS, radiusX, radiusY);
-        this.last = this;
     }
 
 
@@ -101,7 +96,9 @@ public class GameTablePlace extends StackPane {
         getTransforms().add(translate);
 
         //We highlight it when mouse is over it
-        ellipse.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
+
+
+        ellipse.setOnMouseEntered(event -> {
             ColorAdjust colorAdjust = new ColorAdjust();
             colorAdjust.setContrast(0.1);
             colorAdjust.setHue(-0.05);
@@ -111,7 +108,7 @@ public class GameTablePlace extends StackPane {
             ellipse.setOpacity(0.35);
         });
 
-        ellipse.addEventHandler(MouseEvent.MOUSE_EXITED, event -> {
+        ellipse.setOnMouseExited(event -> {
             ellipse.setEffect(null);
             ellipse.setOpacity(0);
         });
