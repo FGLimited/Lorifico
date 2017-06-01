@@ -35,7 +35,7 @@ public class Move<T> implements BaseAction {
 
         // If table is null, game hasn't started yet
         if(table == null){
-            // TODO: sei un coglione
+            // TODO: scantot
             return;
         }
 
@@ -45,10 +45,13 @@ public class Move<T> implements BaseAction {
         // Occupy selected position (this will activate all card/position effects)
         Position updatedPosition = table.occupy(user.getGameUser(), positionNumber, chosenTs);
 
-        // TODO: send update to all players here if you want differential update
-        // (else get global update from game table as you wish)
+        // Create position update message
+        BaseAction updateMessage = new UpdatePosition(updatedPosition.getNumber(), updatedPosition.isOccupied());
 
-        // If this was last move notify on gameuser object
+        // Send update to all users in this match
+        user.getMatch().sendAll(updateMessage);
+
+        // If this was last move notify on gameUser object
         if(gameUser.getHasMoved()) {
             synchronized (gameUser){
                 gameUser.notify();

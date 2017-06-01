@@ -9,9 +9,7 @@ import java.util.Optional;
 /**
  * Created by fiore on 10/05/2017.
  */
-public class Lobby implements UserHandler {
-
-    private final List<User> users = Collections.synchronizedList(new ArrayList<>());
+public class Lobby extends UserHandler {
 
     private final List<Match> matches = Collections.synchronizedList(new ArrayList<>());
 
@@ -32,11 +30,6 @@ public class Lobby implements UserHandler {
             newMatch.addUser(newUser);
             matches.add(newMatch);
         }
-    }
-
-    @Override
-    public List<User> getAllUsers() {
-        return users;
     }
 
     public List<Match> getAllMatches() {

@@ -71,7 +71,7 @@ public abstract class Position<T> implements Game.Positions.Position<T> {
     }
 
     @Override
-    public int compareTo(@NotNull Game.Positions.Position o) {
-        return number - o.getNumber();
+    public boolean equals(Object o) {
+        return o instanceof Position && number == ((Position)o).getNumber();
     }
 }

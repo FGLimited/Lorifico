@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by fiore on 10/05/2017.
  */
-public interface Position<T> extends HasType<PositionType>, Comparable<Position> {
+public interface Position<T> extends HasType<PositionType> {
 
     /**
      * Get position number
@@ -65,5 +65,14 @@ public interface Position<T> extends HasType<PositionType>, Comparable<Position>
      * @param parent Parent container
      */
     void setAggregate(PositionAggregate parent);
+
+    /**
+     * Check position number only
+     *
+     * @param o Position to be compared
+     * @return True if positions have same number, false else
+     */
+    @Override
+    boolean equals(Object o);
 
 }

@@ -8,14 +8,9 @@ import Networking.Gson.MySerializer;
 import Server.Game.UserObjects.PlayerState;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.Field;
-import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -25,49 +20,42 @@ import java.util.*;
  */
 public class GameHelper {
 
-    private static final Map<Integer, Integer> militaryTerritory;
+    private final Map<Integer, Integer> militaryTerritory = null;
 
-    private static final Map<CardType, Map<Integer, Integer>> victoryForCards;
+    private final Map<CardType, Map<Integer, Integer>> victoryForCards = null;
 
-    private static final Map<Integer, Integer> faithWayBonus;
+    private final Map<Integer, Integer> faithWayBonus = null;
 
-    private static final Map<Integer, Integer> militaryWayBonus;
+    private final Map<Integer, Integer> militaryWayBonus = null;
 
-    private static List<Effect> councilFavors;
+    private List<Effect> councilFavors;
 
-    private static final PlayerState initialState;
+    private final PlayerState initialState = null;
+
+    private static GameHelper gameHelper = null;
+
+    public static GameHelper getInstance() {
+        return gameHelper;
+    }
 
     static {
 
         // Try loading cardHelper.json file from application resources
-        InputStream jsonInputStream;
+        BufferedReader jsonInputStream;
 
         try {
-            jsonInputStream = Files.newInputStream(Paths.get("src/Server/Game/UserObjects/Serialize/gameHelper.json"));
+            jsonInputStream = Files.newBufferedReader(Paths.get("src/Server/Game/UserObjects/Serialize/gameHelper.json"));
         } catch (IOException ioe) {
             Logger.log(Logger.LogLevel.Error, "Can't load card helper.\n" + ioe.getMessage());
             throw new RuntimeException("Application file not found!");
         }
 
-        // Read json object from file
-        JsonObject cardHelperJson = new JsonParser()
-                .parse(new InputStreamReader(jsonInputStream))
-                .getAsJsonObject();
-
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Effect.class, new MySerializer<Effect>())
                 .create();
-        Type intintMapType = new TypeToken<Map<Integer, Integer>>(){}.getType();
-        Type victorCardsType = new TypeToken<Map<CardType, Map<Integer, Integer>>>(){}.getType();
-        Type favorsType = new TypeToken<ArrayList<Effect>>(){}.getType();
 
-        // Load maps from json object
-        militaryTerritory = gson.fromJson(cardHelperJson.getAsJsonObject("militaryTerritory"), intintMapType);
-        victoryForCards = gson.fromJson(cardHelperJson.getAsJsonObject("victoryForCards"), victorCardsType);
-        faithWayBonus = gson.fromJson(cardHelperJson.getAsJsonObject("faithWayBonus"), intintMapType);
-        militaryWayBonus = gson.fromJson(cardHelperJson.getAsJsonObject("militaryWayBonus"), intintMapType);
-        councilFavors = gson.fromJson(cardHelperJson.getAsJsonArray("councilFavors"), favorsType);
-        initialState = gson.fromJson(cardHelperJson.getAsJsonObject("initialState"), PlayerState.class);
+        gameHelper = gson.fromJson(jsonInputStream, GameHelper.class);
+
     }
 
     /**
@@ -76,7 +64,7 @@ public class GameHelper {
      * @param numberOfCards Number of territory cards
      * @return Requested military points number
      */
-    public static int requestedMilitary(int numberOfCards) {
+    public int requestedMilitary(int numberOfCards) {
         if(!militaryTerritory.containsKey(numberOfCards))
             return Collections.max(militaryTerritory.values());
 
@@ -90,7 +78,7 @@ public class GameHelper {
      * @param numberOfCards Number of owned cards
      * @return Victory points to add
      */
-    public static int victoryForCards(CardType cardType, int numberOfCards) {
+    public int victoryForCards(CardType cardType, int numberOfCards) {
 
         if(victoryForCards.containsKey(cardType) && numberOfCards > 2) {
 
@@ -111,7 +99,7 @@ public class GameHelper {
      * @param faithPoints Number of faith points
      * @return Victory points bonus
      */
-    public static int getFaithBonus(int faithPoints) {
+    public int getFaithBonus(int faithPoints) {
         return faithWayBonus.get(faithPoints);
     }
 
@@ -121,7 +109,7 @@ public class GameHelper {
      * @param playerPosition Placement relative to other players on military way
      * @return Victory points bonus
      */
-    public static int getMilitaryBonus(int playerPosition) {
+    public int getMilitaryBonus(int playerPosition) {
         if(militaryWayBonus.containsKey(playerPosition))
             return militaryWayBonus.get(playerPosition);
 
@@ -133,7 +121,7 @@ public class GameHelper {
      *
      * @return List of effects
      */
-    public static List<Effect> getCouncilFavors() {
+    public List<Effect> getCouncilFavors() {
         return new ArrayList<>(councilFavors);
     }
 
@@ -143,7 +131,7 @@ public class GameHelper {
      * @param boundUser User to bind to new player state
      * @return Player state initialized for game start
      */
-    public static Game.UserObjects.PlayerState getInitialPS(GameUser boundUser) {
+    public Game.UserObjects.PlayerState getInitialPS(GameUser boundUser) {
         final PlayerState newState = (PlayerState) initialState.clone();
 
         try {

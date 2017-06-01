@@ -1,6 +1,5 @@
 package Server.Game;
 
-import Action.BaseAction;
 import Action.SendMatchAttendees;
 import Game.Cards.CardType;
 import Game.Effects.Effect;
@@ -25,13 +24,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Created by fiore on 10/05/2017.
  */
-public class Match implements UserHandler {
+public class Match extends UserHandler {
 
     private static AtomicInteger matchCounter = new AtomicInteger(0);
 
     private final int matchNumber = matchCounter.getAndIncrement();
-
-    private final List<User> users = Collections.synchronizedList(new ArrayList<>());
 
     private volatile ScheduledExecutorService matchExecutor = Executors.newSingleThreadScheduledExecutor();
 
@@ -96,10 +93,7 @@ public class Match implements UserHandler {
         newUser.setMatch(this);
 
         //Send all match users a list container other attendees
-        getAllUsers().forEach(user -> {
-            BaseAction baseAction = new SendMatchAttendees(getAllUsers());
-            user.getLink().sendMessage(baseAction);
-        });
+        sendAll(new SendMatchAttendees(users));
 
         // When the second users is added start countdown for match start
         if(users.size() >= 2) {
@@ -135,11 +129,6 @@ public class Match implements UserHandler {
 
     }
 
-    @Override
-    public List<User> getAllUsers() {
-        return users;
-    }
-
     /**
      * Get current game table if is initialized
      *
@@ -157,7 +146,7 @@ public class Match implements UserHandler {
     private List<GameUser> initObjects() throws IOException {
 
         // Initialize game table and cards deck
-        table = new GameTable(users.size());
+        table = GameTable.load(users.size());
 
         cardsDeck = new SplitDeck();
         cardsDeck.shuffle();
@@ -178,7 +167,7 @@ public class Match implements UserHandler {
             GameUser newGameUser = new Server.Game.UserObjects.GameUser(current.getLink(), colors[i]);
 
             // Get initial player state bound to current game user
-            final PlayerState initialState = GameHelper.getInitialPS(newGameUser);
+            final PlayerState initialState = GameHelper.getInstance().getInitialPS(newGameUser);
 
             // Add gold bonus as needed
             initialState.setResources(Collections.singletonMap(ResourceType.Gold, initialState.getResources().get(ResourceType.Gold) + i), false);
@@ -298,15 +287,15 @@ public class Match implements UserHandler {
 
         // Check cards number
         for (CardType type : CardType.values())
-            victoryPoints += GameHelper.victoryForCards(type, currentState.getCards(type).size());
+            victoryPoints += GameHelper.getInstance().victoryForCards(type, currentState.getCards(type).size());
 
         // Add military way bonus
-        victoryPoints += GameHelper.getMilitaryBonus(militaryWayPosition);
+        victoryPoints += GameHelper.getInstance().getMilitaryBonus(militaryWayPosition);
 
         final Map<ResourceType, Integer> finalResources = currentState.getResources();
 
         // Add faith way bonus
-        victoryPoints += GameHelper.getFaithBonus(finalResources.get(ResourceType.FaithPoint));
+        victoryPoints += GameHelper.getInstance().getFaithBonus(finalResources.get(ResourceType.FaithPoint));
 
         // Calculate total resources left and add victory points bonus
         int totalResourcesLeft = finalResources.get(ResourceType.Wood) + finalResources.get(ResourceType.Rock)

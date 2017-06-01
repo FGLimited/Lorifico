@@ -2,7 +2,6 @@ package Server.Game.Positions;
 
 import Game.Cards.CardType;
 import Game.Effects.Effect;
-import Game.Positions.Position;
 import Game.Positions.PositionType;
 import Game.Usable.ResourceType;
 import Networking.Gson.MySerializer;
@@ -40,63 +39,39 @@ public class TableFactory {
 
     private static JsonObject serializeActions(Gson gson, JsonObject jsonObj) {
 
-        // Harvest positions
-        ActionPosition twenty = new ActionPosition(PositionType.HarvestAction, 20, 0);
-        ActionPosition twentyone = new ActionPosition(PositionType.HarvestAction, 21, 3);
-        ActionPosition twentytwo = new ActionPosition(PositionType.HarvestAction, 22, 3);
-        ActionPosition twentythree = new ActionPosition(PositionType.HarvestAction, 23, 3);
+        final Map<Integer, Server.Game.Positions.Position> positions = new HashMap<>();
 
-        List<ActionPosition> harvestAggregate = new ArrayList<>(Arrays.asList(twenty, twentyone, twentytwo, twentythree));
+        // Harvest positions
+        positions.put(20, new ActionPosition(PositionType.HarvestAction, 20, 0));
+        positions.put(21, new ActionPosition(PositionType.HarvestAction, 21, 3));
+        positions.put(22, new ActionPosition(PositionType.HarvestAction, 22, 3));
+        positions.put(23, new ActionPosition(PositionType.HarvestAction, 23, 3));
 
         // Production positions
-        ActionPosition thirty = new ActionPosition(PositionType.ProductionAction, 30, 0);
-        ActionPosition thirtyone = new ActionPosition(PositionType.ProductionAction, 31, 3);
-        ActionPosition thirtytwo = new ActionPosition(PositionType.ProductionAction, 32, 3);
-        ActionPosition thirtythree = new ActionPosition(PositionType.ProductionAction, 33, 3);
-
-        List<ActionPosition> productionAggregate = new ArrayList<>(Arrays.asList(thirty, thirtyone, thirtytwo, thirtythree));
+        positions.put(30, new ActionPosition(PositionType.ProductionAction, 30, 0));
+        positions.put(31, new ActionPosition(PositionType.ProductionAction, 31, 3));
+        positions.put(32, new ActionPosition(PositionType.ProductionAction, 32, 3));
+        positions.put(33, new ActionPosition(PositionType.ProductionAction, 33, 3));
 
         // Market positions
-        MarketPosition forty = new MarketPosition(40, new ImmediateEffect(Collections.singletonMap(ResourceType.Gold, 5)));
-        MarketPosition fortyone = new MarketPosition(41, new ImmediateEffect(Collections.singletonMap(ResourceType.Slave, 5)));
-
-        HashMap<ResourceType, Integer> marketBonus = new HashMap<>();
-        marketBonus.put(ResourceType.Gold, 2);
-        marketBonus.put(ResourceType.MilitaryPoint, 3);
-
-        MarketPosition fortytwo = new MarketPosition(42, new ImmediateEffect(marketBonus));
-        MarketPosition fortythree = new MarketPosition(43, new ImmediateEffect(Collections.singletonMap(ResourceType.Favor, 2)));
-
-        List<MarketPosition> marketAggregate = new ArrayList<>(Arrays.asList(forty, fortyone, fortytwo, fortythree));
-
-        // Council positions
-        List<CouncilPosition> councilAggregate = new ArrayList<>();
+        positions.put(40, new MarketPosition(40, new ImmediateEffect(Collections.singletonMap(ResourceType.Gold, 5))));
+        positions.put(41, new MarketPosition(41, new ImmediateEffect(Collections.singletonMap(ResourceType.Slave, 5))));
+        positions.put(42, new MarketPosition(42, new ImmediateEffect(new HashMap<ResourceType, Integer>() {
+            {
+                put(ResourceType.Gold, 2);
+                put(ResourceType.MilitaryPoint, 3);
+            }
+        })));
+        positions.put(43, new MarketPosition(43, new ImmediateEffect(Collections.singletonMap(ResourceType.Favor, 2))));
 
         for(int i = 0; i < 4; i++) {
-            councilAggregate.add(new CouncilPosition(50 + i));
+            positions.put(50 + i, new CouncilPosition(50 + i));
         }
 
-        Type actionPosListType = new TypeToken<List<ActionPosition>>(){}.getType();
-        Type marketPosListType = new TypeToken<List<MarketPosition>>(){}.getType();
-        Type councilPosListType = new TypeToken<List<CouncilPosition>>(){}.getType();
-
-        String harvest = gson.toJson(harvestAggregate, actionPosListType);
-        JsonArray harvestJson = new JsonParser().parse(harvest).getAsJsonArray();
-
-        String production = gson.toJson(productionAggregate, actionPosListType);
-        JsonArray productionJson = new JsonParser().parse(production).getAsJsonArray();
-
-        String market = gson.toJson(marketAggregate, marketPosListType);
-        JsonArray marketJson = new JsonParser().parse(market).getAsJsonArray();
-
-        String council = gson.toJson(councilAggregate, councilPosListType);
-        JsonArray councilJson = new JsonParser().parse(council).getAsJsonArray();
+        Type posListType = new TypeToken<Map<Integer, Server.Game.Positions.Position>>(){}.getType();
 
         JsonObject completeJson = jsonObj != null ? jsonObj : new JsonObject();
-        completeJson.add("Harvest", harvestJson);
-        completeJson.add("Production", productionJson);
-        completeJson.add("Market", marketJson);
-        completeJson.add("Council", councilJson);
+        completeJson.add("positions", gson.toJsonTree(positions, posListType));
 
         return completeJson;
     }
@@ -209,7 +184,7 @@ public class TableFactory {
 
         JsonObject completeJson = jsonObj != null ? jsonObj : new JsonObject();
 
-        completeJson.add("Towers", gson.toJsonTree(towers, towersType));
+        completeJson.add("towers", gson.toJsonTree(towers, towersType));
 
         return completeJson;
     }

@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class ChooseFavor implements BaseAction {
 
-    private final List<Effect> councilFavors = GameHelper.getCouncilFavors();
+    private final List<Effect> councilFavors = GameHelper.getInstance().getCouncilFavors();
 
     private final int differentFavors;
 

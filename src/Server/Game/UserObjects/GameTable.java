@@ -2,7 +2,7 @@ package Server.Game.UserObjects;
 
 import Game.Cards.CardType;
 import Game.Effects.Effect;
-import Game.Positions.Position;
+import Server.Game.Positions.Position;
 import Game.Positions.PositionType;
 import Game.UserObjects.Chosable;
 import Game.UserObjects.DomesticColor;
@@ -12,12 +12,8 @@ import Logging.Logger;
 import Networking.Gson.MySerializer;
 import Server.Game.Positions.*;
 import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,7 +26,7 @@ public class GameTable {
 
     private final Map<CardType, List<TowerPosition>> towers = new HashMap<>();
 
-    private final transient Map<Integer, Position> positions = new HashMap<>();
+    private final Map<Integer, Position> positions = new HashMap<>();
 
     private final List<GameUser> nextTurnOrder = Collections.synchronizedList(new ArrayList<>());
 
@@ -39,37 +35,81 @@ public class GameTable {
     private volatile Effect currentFaithEffect = null;
 
     /**
-     * Initialize a new game table for the specified number of players
+     * Load game table object from specified input json and correct number of positions for specified player's number
      *
-     * @param playersNumber Players in game
-     * @param jsonSetupFile Json initialization file path
+     * @param jsonSetupFile Setup file
+     * @param players Number of players
+     * @return Initialized game table
+     * @throws IOException If setup file isn't found
      */
-    public GameTable(int playersNumber, String jsonSetupFile) throws IOException {
+    public static GameTable load(String jsonSetupFile, int players) throws IOException {
 
         Path jsonSetupPath = Paths.get(jsonSetupFile);
 
         if(Files.notExists(jsonSetupPath))
             throw new FileNotFoundException("File doesn't exists!");
 
-        initAll(Files.newInputStream(jsonSetupPath), playersNumber);
+        // Initialize json deserializer
+        final Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Position.class, new MySerializer<Position>())
+                .registerTypeAdapter(Effect.class, new MySerializer<Effect>())
+                .create();
+
+        final GameTable table = gson.fromJson(Files.newBufferedReader(jsonSetupPath), GameTable.class);
+
+        // Initialize aggregates map to empty
+        final Map<PositionType, List<Position>> aggregates = new HashMap<>();
+        for(PositionType type : PositionType.values())
+            aggregates.put(type, new ArrayList<>());
+
+        // Add all tower positions to global list
+        table.towers.values().forEach(tower -> tower.forEach(position -> table.positions.put(position.getNumber(), position)));
+
+        // Remove addition harvest and production positions if two players only
+        if(players < 3) {
+            Position singleHarvest = table.positions.get(20);
+            Position singleProduction = table.positions.get(30);
+
+            final Set<Integer> numbers = new HashSet<>(table.positions.keySet());
+
+            for (Integer i : numbers) {
+
+                PositionType current = table.positions.get(i).getType();
+
+                if(current == PositionType.ProductionAction
+                        || current == PositionType.HarvestAction)
+                    table.positions.remove(i);
+            }
+
+            table.positions.put(20, singleHarvest);
+            table.positions.put(30, singleProduction);
+        }
+
+        // Remove additional market positions if less than four players
+        if(players < 4) {
+            table.positions.remove(42);
+            table.positions.remove(43);
+        }
+
+        // Populate aggregates map
+        table.positions.forEach((number, position) -> aggregates.get(position.getType()).add(position));
+
+        // Create position aggregates
+        aggregates.values().forEach(PositionAggregate::aggregate);
+
+        // Set order list to update in council positions
+        aggregates.get(PositionType.Council).forEach(position -> ((CouncilPosition)position).setOrderList(table.nextTurnOrder));
+
+        return table;
     }
 
-    /**
-     * Initialize standard game table object
-     *
-     * @param playersNumber Number of players
-     */
-    public GameTable(int playersNumber) throws IOException {
-
+    public static GameTable load(int players) throws IOException {
         try {
-            initAll(Files.newInputStream(Paths.get("src/Server/Game/Positions/Serialize/table.json")),
-                    playersNumber);
-
+            return load("src/Server/Game/Positions/Serialize/table.json", players);
         } catch (IOException ioe) {
             Logger.log(Logger.LogLevel.Error, "Can't find standard table setup file.\n" + ioe.getMessage());
             throw ioe;
         }
-
     }
 
     /**
@@ -91,10 +131,6 @@ public class GameTable {
         });
 
         return choseForPos;
-    }
-
-    public Map<Integer, List<Chosable>> getPositions(GameUser currentUser) {
-        return getPositions(currentUser, null);
     }
 
     /**
@@ -195,152 +231,6 @@ public class GameTable {
 
         // Return updated position
         return requestedPos;
-    }
-
-    /**
-     * Load json table from given input stream and initialize current object
-     *
-     * @param jsonTableStream Json file stream
-     * @param playersNumber Number of players
-     */
-    private void initAll(InputStream jsonTableStream, int playersNumber) {
-
-        // Read table setup from json file
-        JsonObject completeTable = new JsonParser()
-                .parse(new InputStreamReader(jsonTableStream))
-                .getAsJsonObject();
-
-        // Initialize json deserializer
-        final Gson gson = new GsonBuilder()
-                .registerTypeAdapter(Position.class, new MySerializer<Position>())
-                .registerTypeAdapter(Effect.class, new MySerializer<Effect>())
-                .create();
-
-        initTowers(gson, completeTable);
-
-        initActions(gson, completeTable, playersNumber);
-
-        initMarket(gson, completeTable, playersNumber);
-
-        initCouncil(gson, completeTable);
-
-    }
-
-    /**
-     * Load towers hash map from json table object
-     *
-     * @param deserializer Gson deserializer correctly initialized
-     * @param tableJson Table json object
-     */
-    private void initTowers(Gson deserializer, JsonObject tableJson) {
-
-        // Initialize all towers
-        JsonObject towersJson = tableJson.getAsJsonObject("Towers");
-
-        Type towersHashMapType = new TypeToken<Map<CardType, List<TowerPosition>>>(){}.getType();
-
-        Map<CardType, List<TowerPosition>> loadedTowers = deserializer
-                .fromJson(towersJson, towersHashMapType);
-
-        // Aggregate positions in towers and add them to global cost positions list
-        loadedTowers.forEach((type, list) -> {
-            PositionAggregate.aggregate(list);
-
-            list.forEach(pos -> positions.put(pos.getNumber(), pos));
-        });
-
-        towers.putAll(loadedTowers);
-    }
-
-    /**
-     * Initialize harvest and production positions accordingly to players' number
-     *
-     * @param deserializer Gson initialized object
-     * @param tableJson Table json object
-     * @param playersNumber Number of players
-     */
-    private void initActions(Gson deserializer, JsonObject tableJson, int playersNumber) {
-
-        Type actionPosListType = new TypeToken<List<ActionPosition>>(){}.getType();
-
-        // Load harvest positions
-        JsonArray harvestPosList = tableJson.getAsJsonArray("Harvest");
-
-        List<ActionPosition> harvestPos = deserializer
-                .fromJson(harvestPosList, actionPosListType);
-
-        // If more than two players load all positions
-        if(playersNumber > 2) {
-            PositionAggregate.aggregate(harvestPos);
-
-            harvestPos.forEach(pos -> positions.put(pos.getNumber(), pos));
-        }
-        else // Else load first position only
-            positions.put(harvestPos.get(0).getNumber(), harvestPos.get(0));
-
-
-        // Load production positions
-        JsonArray productionPosList = tableJson.getAsJsonArray("Production");
-
-        List<ActionPosition> productionPos = deserializer
-                .fromJson(productionPosList, actionPosListType);
-
-        // Same as above
-        if(playersNumber > 2) {
-            PositionAggregate.aggregate(productionPos);
-
-            productionPos.forEach(pos -> positions.put(pos.getNumber(), pos));
-        }
-        else
-            positions.put(productionPos.get(0).getNumber(), productionPos.get(0));
-    }
-
-    /**
-     * Initialize market positions accordingly to players' number
-     *
-     * @param deserializer Gson initialized object
-     * @param tableJson Table json object
-     * @param playersNumber Number of players
-     */
-    private void initMarket(Gson deserializer, JsonObject tableJson, int playersNumber) {
-
-        // Load market positions
-        JsonArray marketPosList = tableJson.getAsJsonArray("Market");
-
-        List<MarketPosition> marketPos = deserializer
-                .fromJson(marketPosList, new TypeToken<List<MarketPosition>>(){}.getType());
-
-        // If less than four players remove last two market positions
-        if(playersNumber < 4) {
-            marketPos.remove(2);
-            marketPos.remove(2);
-        }
-
-        PositionAggregate.aggregate(marketPos);
-
-        marketPos.forEach(pos -> positions.put(pos.getNumber(), pos));
-    }
-
-    /**
-     * Initialize council positions
-     *
-     * @param deserializer Gson initialized object
-     * @param tableJson Table json object
-     */
-    private void initCouncil(Gson deserializer, JsonObject tableJson) {
-
-        // Load council positions
-        JsonArray councilPosList = tableJson.getAsJsonArray("Council");
-
-        List<CouncilPosition> councilPos = deserializer
-                .fromJson(councilPosList, new TypeToken<List<CouncilPosition>>(){}.getType());
-
-        // Set next turn order list to be updated with sequence of displacement of domestic in council positions
-        councilPos.forEach(position -> position.setOrderList(nextTurnOrder));
-
-        PositionAggregate.aggregate(councilPos);
-
-        councilPos.forEach(pos -> positions.put(pos.getNumber(), pos));
     }
 
 }

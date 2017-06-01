@@ -126,7 +126,7 @@ public class Card implements Game.Cards.Card {
      */
     private Cost checkMilitaryPoints(int cardsNumber) {
 
-        final int requiredPoints = GameHelper.requestedMilitary(cardsNumber);
+        final int requiredPoints = GameHelper.getInstance().requestedMilitary(cardsNumber);
 
         // Create point cost with required military points
         // No point has to be removed, but they have to be there when buying the card
