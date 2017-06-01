@@ -23,7 +23,7 @@ public class PlayerState implements Game.UserObjects.PlayerState {
 
     private final Map<CardType, Map<ResourceType, Integer>> resourceBonus = new HashMap<>();
 
-    private final Map<EffectType, List<Effect>> effects = new HashMap<>();
+    private final transient Map<EffectType, List<Effect>> effects = new HashMap<>();
 
     private final Map<CardType, List<Card>> cards = new HashMap<>();
 
@@ -31,7 +31,7 @@ public class PlayerState implements Game.UserObjects.PlayerState {
 
     private volatile Domestic inUseDomestic = null;
 
-    private volatile PositionType checkingPosition = null;
+    private volatile transient PositionType checkingPosition = null;
 
     private volatile int slavePerDomestic = 1;
 

@@ -1,6 +1,8 @@
 package Server.Game.UserObjects;
 
 import Game.UserObjects.*;
+import Model.FakeUser;
+import Model.User.User;
 import Networking.FakeLink;
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,7 +20,7 @@ public class GameUserTest {
     @Before
     public void before() {
 
-        testUser = new GameUser(new FakeLink(), FamilyColor.Green);
+        testUser = new GameUser(new FakeUser(new FakeLink()), FamilyColor.Green);
 
         Map<DomesticColor, Integer> values = new HashMap<>();
         values.put(DomesticColor.Black, 5);

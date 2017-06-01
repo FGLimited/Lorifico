@@ -1,12 +1,13 @@
 package Server.Game.UserObjects;
 
 import Action.ChooseFavor;
+import Action.DiceDomesticUpdate;
+import Action.PlayerStateUpdate;
 import Game.Usable.ResourceType;
 import Game.UserObjects.DomesticColor;
 import Game.UserObjects.FamilyColor;
+import Model.User.User;
 import Networking.CommLink;
-import Networking.Gson.GsonUtils;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,28 +24,26 @@ public class GameUser implements Game.UserObjects.GameUser {
 
     private final Map<DomesticColor, Integer> penalty = new HashMap<>();
 
-    private final CommLink userLink;
+    private final transient User user;
 
     private volatile transient Game.UserObjects.PlayerState currentState;
 
     private volatile boolean roundJump = false;
 
-    private final AtomicInteger moves = new AtomicInteger(0);
+    private final transient AtomicInteger moves = new AtomicInteger(0);
 
     /**
      * Initialize a new game user with player state
      *
-     * @param userLink User comm link
+     * @param user User object
      * @param familyColor Family color for this user
      */
-    public GameUser(CommLink userLink, FamilyColor familyColor) {
+    public GameUser(User user, FamilyColor familyColor) {
         this.familyColor = familyColor;
-        this.userLink = userLink;
+        this.user = user;
 
         for (DomesticColor color : DomesticColor.values())
             domestics.put(color, new Domestic(familyColor, color, 0));
-
-        currentState = new Server.Game.UserObjects.PlayerState(this);
     }
 
     @Override
@@ -54,7 +53,7 @@ public class GameUser implements Game.UserObjects.GameUser {
 
     @Override
     public CommLink getUserLink() {
-        return userLink;
+        return user.getLink();
     }
 
     @Override
@@ -72,7 +71,9 @@ public class GameUser implements Game.UserObjects.GameUser {
                 domestics.get(color).setValue(value);
         });
 
-        // TODO: send domestic values update to user (send to this only)
+        // Send update to all users
+        if(user.getMatch() != null)
+            user.getMatch().sendAll(new DiceDomesticUpdate(user.getUsername(), newValues, domestics));
     }
 
     @Override
@@ -115,7 +116,9 @@ public class GameUser implements Game.UserObjects.GameUser {
             currentState.setResources(Collections.singletonMap(ResourceType.Favor, 0), false);
         }
 
-        // TODO: send update to users (send to all)
+        // Send update to all users
+        if(user.getMatch() != null)
+            user.getMatch().sendAll(new PlayerStateUpdate(user.getUsername(), currentState));
     }
 
     @Override

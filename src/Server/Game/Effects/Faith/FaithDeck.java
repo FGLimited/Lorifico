@@ -37,7 +37,6 @@ public class FaithDeck {
                 .newInputStream(Paths.get("src/Server/Game/Effects/Faith/Serialize/faithDeck.json"));
 
         faithEffects = gson.fromJson(new InputStreamReader(faithDeckJson), deckType);
-
     }
 
     /**

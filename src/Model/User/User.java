@@ -1,6 +1,7 @@
 package Model.User;
 
 import Action.BaseAction;
+import Action.GameUserUpdate;
 import Game.UserObjects.GameUser;
 import Logging.Logger;
 import Networking.CommLink;
@@ -128,7 +129,9 @@ public class User {
     public void setGameUser(GameUser newGameUser) {
         gameUser = newGameUser;
 
-        // TODO: send update to users
+        // Send update to client
+        if(match != null)
+            match.sendAll(new GameUserUpdate(Username, gameUser));
     }
 
     /**

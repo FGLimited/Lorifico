@@ -1,5 +1,6 @@
 package Server.Game.UserObjects;
 
+import Action.TowersUpdate;
 import Game.Cards.CardType;
 import Game.Effects.Effect;
 import Server.Game.Positions.Position;
@@ -144,12 +145,12 @@ public class GameTable {
 
     /**
      * Set given cards in corresponding towers, update faith effect if specified
-     * and get dice values for next turn
      *
      * @param newCards New set of cards
      * @param newFaithEffect Faith effect (if null previous will remain)
+     * @return Update message with new card associated with tower positions
      */
-    public Map<DomesticColor, Integer> changeTurn(Map<CardType, List<Server.Game.Cards.Card>> newCards, Effect newFaithEffect) {
+    public TowersUpdate changeTurn(Map<CardType, List<Server.Game.Cards.Card>> newCards, Effect newFaithEffect) {
 
         // Update cards in tower positions
         newCards.forEach((type, list) ->
@@ -161,8 +162,8 @@ public class GameTable {
         if(newFaithEffect != null)
             currentFaithEffect = newFaithEffect;
 
-        // Return new dice values
-        return getDiceValue();
+        // Return towers card update
+        return new TowersUpdate(towers);
     }
 
     /**
@@ -170,7 +171,7 @@ public class GameTable {
      *
      * @return Dice throw results
      */
-    private Map<DomesticColor, Integer> getDiceValue() {
+    public Map<DomesticColor, Integer> getDiceValue() {
 
         diceValue.clear();
         Random die = new Random(System.currentTimeMillis());

@@ -2,6 +2,7 @@ package Server.Game;
 
 import Game.Cards.CardType;
 import Game.Effects.Effect;
+import Game.Usable.ResourceType;
 import Game.UserObjects.GameUser;
 import Logging.Logger;
 import Networking.Gson.MySerializer;
@@ -28,7 +29,7 @@ public class GameHelper {
 
     private final Map<Integer, Integer> militaryWayBonus = null;
 
-    private List<Effect> councilFavors;
+    private final List<Effect> councilFavors = null;
 
     private final PlayerState initialState = null;
 
@@ -131,8 +132,12 @@ public class GameHelper {
      * @param boundUser User to bind to new player state
      * @return Player state initialized for game start
      */
-    public Game.UserObjects.PlayerState getInitialPS(GameUser boundUser) {
+    public Game.UserObjects.PlayerState getInitialPS(GameUser boundUser, int bonusGold) {
         final PlayerState newState = (PlayerState) initialState.clone();
+
+        bonusGold = newState.getResources().get(ResourceType.Gold) + bonusGold;
+
+        newState.setResources(Collections.singletonMap(ResourceType.Gold, bonusGold), false);
 
         try {
             Field gameUser = PlayerState.class.getDeclaredField("gameUser");

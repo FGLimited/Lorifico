@@ -1,6 +1,8 @@
 package Networking.Gson;
 
 import Action.BaseAction;
+import Server.Game.Effects.Effect;
+import Server.Game.Positions.Position;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -14,7 +16,10 @@ public class GsonUtils {
 
     //Creates gson builder
     private static void createGson() {
-        gson = new GsonBuilder().registerTypeAdapter(BaseAction.class, new MySerializer<BaseAction>())
+        gson = new GsonBuilder()
+                .registerTypeAdapter(BaseAction.class, new MySerializer<BaseAction>())
+                .registerTypeAdapter(Effect.class, new MySerializer<Effect>())
+                .registerTypeAdapter(Position.class, new MySerializer<Position>())
                 .create();//Gson Builder to serialize communication
     }
 

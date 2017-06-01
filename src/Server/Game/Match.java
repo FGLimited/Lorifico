@@ -1,6 +1,8 @@
 package Server.Game;
 
+import Action.FaithCardsUpdate;
 import Action.SendMatchAttendees;
+import Action.TowersUpdate;
 import Game.Cards.CardType;
 import Game.Effects.Effect;
 import Game.Effects.EffectType;
@@ -164,19 +166,16 @@ public class Match extends UserHandler {
             User current = users.get(i);
 
             // Create new game user for current user
-            GameUser newGameUser = new Server.Game.UserObjects.GameUser(current.getLink(), colors[i]);
+            final GameUser newGameUser = new Server.Game.UserObjects.GameUser(current, colors[i]);
+
+            // Set new game user (this will send update to all clients)
+            current.setGameUser(newGameUser);
 
             // Get initial player state bound to current game user
-            final PlayerState initialState = GameHelper.getInstance().getInitialPS(newGameUser);
+            final PlayerState initialState = GameHelper.getInstance().getInitialPS(newGameUser, i);
 
-            // Add gold bonus as needed
-            initialState.setResources(Collections.singletonMap(ResourceType.Gold, initialState.getResources().get(ResourceType.Gold) + i), false);
-
-            // Update current state
+            // Update current state (this will send update to all clients)
             newGameUser.updateUserState(initialState);
-
-            // Set new game user
-            current.setGameUser(newGameUser);
 
             // Add game user to first round order
             firstRoundOrder.add(current.getGameUser());
@@ -213,19 +212,23 @@ public class Match extends UserHandler {
 
         int turnNumber = 1;
 
-        Map<Integer, Effect> faithEffects = faithDeck.getFaithEffect();
+        // Get faith cards for this game
+        final Map<Integer, Effect> faithEffects = faithDeck.getFaithEffect();
 
-        // TODO: send faith effects to all users
+        // Send faith cards to all clients
+        sendAll(new FaithCardsUpdate(faithEffects));
 
         // Game consists of 6 turns
         for ( ; turnNumber <= 6; turnNumber++) {
 
-            // Put new set of cards in all tower positions, update faith effect
-            // and get new dice values for current turn
-            Map<DomesticColor, Integer> diceValues = table
-                    .changeTurn(cardsDeck.getCardPerTurn(turnNumber), faithEffects.get(turnNumber));
+            // Update cards in tower positions for next turn
+            final TowersUpdate cardUpdate = table.changeTurn(cardsDeck.getCardPerTurn(turnNumber), faithEffects.get(turnNumber));
 
-            // TODO: send all positions update to users
+            // Send card update to all clients
+            sendAll(cardUpdate);
+
+            // Throw dice for this turn
+            final Map<DomesticColor, Integer> diceValues = table.getDiceValue();
 
             // Update domestic values for current turn
             roundOrder.forEach(user -> user.setDomestics(diceValues));
