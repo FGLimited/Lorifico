@@ -1,7 +1,7 @@
 package Client.UI.GUI;
 
-import Client.UI.GUI.resources.gameComponents.CylindricalPawn;
 import Client.UI.GUI.resources.gameComponents.MyCameraGroup;
+import Client.UI.GUI.resources.gameComponents.TowerLabel;
 import Client.UI.UserInterfaceFactory;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -109,11 +109,18 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
                 printCamCoords();
             }
             if (me.isShiftDown()) {//Placing purpose
-                Translate translate = CylindricalPawn.last.getTranslate();
+                Translate translate = TowerLabel.last.getTranslate();
                 translate.setX(translate.getX() + mouseDeltaX * MULTIPLIER);
                 translate.setY(translate.getY() + mouseDeltaY * MULTIPLIER);
                 printStackPCoords(translate);
             }
+            /*
+            if (me.isPrimaryButtonDown()) {//Placing purpose
+                Translate translate = TowerLabel.last.getTranslate();
+                translate.setZ(translate.getZ() + mouseDeltaY * MULTIPLIER);
+                printStackPCoords(translate);
+            }
+            */
         });
     }
 
@@ -133,6 +140,7 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
     private void printStackPCoords(Translate transform) {
         System.out.print("ObjCoord: " + transform.getX());
         System.out.print(", " + transform.getY());
+        System.out.print(", " + transform.getZ());
         System.out.println();
     }
 

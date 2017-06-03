@@ -17,7 +17,7 @@ public class GameTablePlace extends StackPane {
     private Translate translate;
 
     /**
-     * Creates a gameTablePlace that could be covered
+     * Creates a gameTablePlace that could be covered or be click-able.
      *
      * @param id
      * @param isCovered
