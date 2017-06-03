@@ -12,7 +12,7 @@ import java.util.Map;
  * Created by andrea on 01/06/17.
  */
 public class FaithRoad extends Group {
-    private final double STEP_IN_PIXEL = 51.8;//Single step in pixels to move a pawn
+    private final double STEP_IN_PIXEL = 46;//Single step in pixels to move a pawn
     private Map<FamilyColor, FaithCylindricalPawn> map = new HashMap<FamilyColor, FaithCylindricalPawn>();
     private Integer[] occupantsFaithPosition = new Integer[16];
 
@@ -28,20 +28,11 @@ public class FaithRoad extends Group {
         map.put(FamilyColor.Yellow, new FaithCylindricalPawn(Color.YELLOW, 0, occupantsFaithPosition, 0, 0));
         map.put(FamilyColor.Red, new FaithCylindricalPawn(Color.RED, 0, occupantsFaithPosition, 0, 0));
 
+        //Attach pawns to FaithRoad
+        map.forEach(((familyColor, cylindricalPawn) -> getChildren().add(cylindricalPawn)));
+
         //Attach faith road to game table
         getTransforms().add(new Translate(34, 368, 0));
-
-
-        //Debug
-        map.forEach(((familyColor, cylindricalPawn) -> {
-            getChildren().add(cylindricalPawn);
-
-            cylindricalPawn.setOnMouseClicked(event -> {
-                this.moveToPosition(familyColor, cylindricalPawn.getFaithPosition() + 1);
-            });
-
-        }));
-
     }
 
     /**
@@ -85,19 +76,31 @@ public class FaithRoad extends Group {
          */
         public void setFaithPosition(int faithPosition) {
             occupantsFaithPosition[this.faithPosition]--;//We removed or pawn from a position
-            //map.forEach(((familyColor, faithCylindricalPawn) -> ));
-
-
             if (occupantsFaithPosition[faithPosition] == null) occupantsFaithPosition[faithPosition] = 0;
             this.faithPosition = faithPosition;
-            animateToPosition(STEP_IN_PIXEL * (double) faithPosition, 0, occupantsFaithPosition[faithPosition]);
+            this.stackPosition = occupantsFaithPosition[faithPosition];
+            animateToPosition(faithPosition, 0, stackPosition);
             occupantsFaithPosition[faithPosition]++;//We just placed our pawn in this position.
         }
 
-        public int getStackPosition() {
-            return stackPosition;
+        /**
+         * Adjusts movements coords
+         *
+         * @param xPos
+         * @param yPos
+         * @param stackPosition
+         */
+        @Override
+        public void animateToPosition(double xPos, double yPos, int stackPosition) {
+            System.out.println("-->" + xPos);
+            if (xPos <= 2) {
+                xPos = STEP_IN_PIXEL * (double) faithPosition;
+            } else if (xPos > 2 && xPos <= 5) {
+                xPos = 150 + 77 * (faithPosition - 3);
+            } else {//xPos >= 6
+                xPos = 361 + STEP_IN_PIXEL * (faithPosition - 6);
+            }
+            super.animateToPosition(xPos, yPos, stackPosition);
         }
-
-
     }
 }
