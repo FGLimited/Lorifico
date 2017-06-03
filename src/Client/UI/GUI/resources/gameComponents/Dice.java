@@ -19,7 +19,7 @@ public class Dice extends Abstract3dsComponent {
 
 
     public Dice(DiceType diceType) {
-        load3ds(diceType.getPath(), diceType.getxPos(), diceType.getyPos(), -30, 270, 0, -90, 0.8, 0.8, 0.8);
+        load3ds(diceType.getPath(), diceType.getxPos(), diceType.getyPos(), -20, 270, 0, -90, 0.5, 0.5, 0.5);
 
         //Add rotations used to change dice number:
         rotateX = new Rotate(0, Rotate.X_AXIS);
@@ -97,9 +97,9 @@ public class Dice extends Abstract3dsComponent {
      * Data structure used to keep info about dices files path and in game position
      */
     public enum DiceType {
-        BLACK(521.5, 638.5, "blackDice"),
-        WHITE(620, 663, "whiteDice"),
-        ORANGE(715, 663, "orangeDice");
+        BLACK(523.5, 637.5, "blackDice"),
+        WHITE(623, 637.5, "whiteDice"),
+        ORANGE(718, 637.5, "orangeDice");
 
         private static final String BASE_URL = "/Client/UI/GUI/resources/3D";
 

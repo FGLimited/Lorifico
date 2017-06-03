@@ -52,6 +52,9 @@ public class GameTableGroup extends Group implements GameTable {
         getChildren().add(new Dice(Dice.DiceType.ORANGE));
         getChildren().add(new Dice(Dice.DiceType.BLACK));
 
+        //Load cylindric pawn
+        getChildren().add(new FaithRoad());
+
         //Apply Transforms
         getTransforms().add(new Translate(xPos, yPos, zPos));
 

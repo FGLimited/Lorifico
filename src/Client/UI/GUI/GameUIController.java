@@ -1,6 +1,6 @@
 package Client.UI.GUI;
 
-import Client.UI.GUI.resources.gameComponents.Dice;
+import Client.UI.GUI.resources.gameComponents.CylindricalPawn;
 import Client.UI.GUI.resources.gameComponents.MyCameraGroup;
 import Client.UI.UserInterfaceFactory;
 import javafx.fxml.FXML;
@@ -50,7 +50,7 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
 
         //Setup subscene
         subScene.setDepthTest(DepthTest.ENABLE);
-        subScene.setFill(Color.LIGHTBLUE);
+        subScene.setFill(Color.valueOf("8cb22a"));
         subScene.setCamera(cameraGroup.getCamera());
         subScene.setRoot(world);
 
@@ -61,7 +61,7 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
         Group gameTableGroup = (Group) (UserInterfaceFactory.getInstance().getGameTable());
         world.getChildren().add(gameTableGroup);
 
-        cameraGroup.setView(MyCameraGroup.CameraPosition.GAMETABLE);
+        //cameraGroup.setView(MyCameraGroup.CameraPosition.GAMETABLE);
         //UserInterfaceFactory.getInstance().displayPopup(DisplayPopup.Level.Warning, "Titolone", "Messaggione");
 
         camMouseDrag();
@@ -108,8 +108,8 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
                 cameraGroup.getTranslate().setZ(cameraGroup.getTranslate().getZ() + mouseDeltaY * MULTIPLIER);
                 printCamCoords();
             }
-            if (me.isShiftDown()) {//Se è premuto il tasto DX altero la posizione Z
-                Translate translate = Dice.last.getTranslate();
+            if (me.isShiftDown()) {//Placing purpose
+                Translate translate = CylindricalPawn.last.getTranslate();
                 translate.setX(translate.getX() + mouseDeltaX * MULTIPLIER);
                 translate.setY(translate.getY() + mouseDeltaY * MULTIPLIER);
                 printStackPCoords(translate);
