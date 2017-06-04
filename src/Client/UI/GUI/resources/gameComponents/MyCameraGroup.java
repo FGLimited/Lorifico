@@ -14,8 +14,8 @@ import javafx.util.Duration;
  */
 public class MyCameraGroup extends Group {
     //Costants:
-    private static final double CAMERA_NEAR_CLIP = 0.1;
-    private static final double CAMERA_FAR_CLIP = 10000.0;
+    private static final double CAMERA_NEAR_CLIP = 10;
+    private static final double CAMERA_FAR_CLIP = 2000.0;
 
     //Rotations / Translations
     private Rotate rotateX, rotateY, rotateZ;
@@ -79,7 +79,7 @@ public class MyCameraGroup extends Group {
      */
     public void setView(CameraPosition cameraPosition) {
         timeline = new Timeline(
-                new KeyFrame(Duration.seconds(5),
+                new KeyFrame(Duration.seconds(3),
                         new KeyValue(getRotateX().angleProperty(), cameraPosition.getxAxisRot()),
                         new KeyValue(getRotateY().angleProperty(), cameraPosition.getyAxisRot()),
                         new KeyValue(getRotateZ().angleProperty(), cameraPosition.getzAxisRot()),
@@ -95,9 +95,8 @@ public class MyCameraGroup extends Group {
      * This enum stores camera fixed position to look at different pieces of game
      */
     public enum CameraPosition {
-        GAMETABLE(38.66666666666666, -0.3333333333333144, 0.0, 424.33333333333326, 1089.999999999999, -882.000000000000),
-        TOWERS(0, 0, 0, 0, 0, 0),
-        BOARD(0, 0, 0, 0, 0, 0);
+        GAMETABLE(41.0, 2.5, 0.0, 364.0, 1125.0, -896.0),
+        TOWERS(82.0, -9.5, 0.0, 572.5, 924.5, -358.5);
 
         private double xAxisRot;
         private double yAxisRot;

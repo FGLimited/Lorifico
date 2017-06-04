@@ -9,7 +9,7 @@ public class Tower extends Abstract3dsComponent {
 
     public Tower(TowerType towerType) {
         this.towerType = towerType;
-        load3ds(towerType.getPath(), towerType.getxPos(), towerType.getyPos(), -5, 90, 90, 0, 1, 1, 1);
+        load3ds(towerType.getPath(), towerType.getxPos(), towerType.getyPos(), -1, 90, 90, 0, 1, 1, 1);
 
         getChildren().add(new TowerLabel(this, TowerLabel.TowerLevel.LEVEL0));
         getChildren().add(new TowerLabel(this, TowerLabel.TowerLevel.LEVEL1));
@@ -24,10 +24,10 @@ public class Tower extends Abstract3dsComponent {
     }
 
     public enum TowerType {
-        GREEN("green", 30, 27),
-        BLUE("blue", 0, 0),
-        YELLOW("yellow", 0, 0),
-        PURPLE("purple", 0, 0);
+        GREEN("green", 30, -21),
+        BLUE("blue", 231.5, -21),
+        YELLOW("yellow", 420.5, -21),
+        PURPLE("purple", 626, -21);
 
         private static final String BASE_URL = "/Client/UI/GUI/resources/3D";
         private String path;

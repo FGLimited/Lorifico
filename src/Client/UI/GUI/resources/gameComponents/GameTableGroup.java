@@ -56,8 +56,10 @@ public class GameTableGroup extends Group implements GameTable {
         getChildren().add(new FaithRoad());
 
         //Load towers
-        Tower greenTower = new Tower(Tower.TowerType.GREEN);
-        getChildren().add(greenTower);
+        getChildren().add(new Tower(Tower.TowerType.GREEN));
+        getChildren().add(new Tower(Tower.TowerType.BLUE));
+        getChildren().add(new Tower(Tower.TowerType.YELLOW));
+        getChildren().add(new Tower(Tower.TowerType.PURPLE));
 
         //Apply Transforms
         getTransforms().add(new Translate(xPos, yPos, zPos));

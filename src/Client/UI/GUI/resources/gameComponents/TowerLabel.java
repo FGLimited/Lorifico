@@ -40,10 +40,10 @@ public class TowerLabel extends AbstractImageComponent {
      */
     public enum TowerLevel {
         //aumentando valori: x verso destra, y verso player, z verso giu
-        LEVEL0(0, -163.5, 65, -295),
-        LEVEL1(1, -163.5, 65, -398),
-        LEVEL2(2, -163.5, 65, -502),
-        LEVEL3(3, -163.5, 65, -607);
+        LEVEL0(0, -107, 69.5, -295),
+        LEVEL1(1, -107, 69.5, -398),
+        LEVEL2(2, -107, 69.5, -502),
+        LEVEL3(3, -107, 69.5, -607);
 
         private int level;
         private double xPos, yPos, zPos;

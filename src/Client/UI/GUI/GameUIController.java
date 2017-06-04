@@ -1,8 +1,10 @@
 package Client.UI.GUI;
 
 import Client.UI.GUI.resources.gameComponents.MyCameraGroup;
-import Client.UI.GUI.resources.gameComponents.TowerLabel;
+import Client.UI.GUI.resources.gameComponents.Tower;
 import Client.UI.UserInterfaceFactory;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.DepthTest;
@@ -12,6 +14,7 @@ import javafx.scene.SubScene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Translate;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -61,7 +64,13 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
         Group gameTableGroup = (Group) (UserInterfaceFactory.getInstance().getGameTable());
         world.getChildren().add(gameTableGroup);
 
-        //cameraGroup.setView(MyCameraGroup.CameraPosition.GAMETABLE);
+        cameraGroup.setView(MyCameraGroup.CameraPosition.GAMETABLE);
+
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.millis(5000),
+                ae -> cameraGroup.setView(MyCameraGroup.CameraPosition.TOWERS)));
+        timeline.play();
+
         //UserInterfaceFactory.getInstance().displayPopup(DisplayPopup.Level.Warning, "Titolone", "Messaggione");
 
         camMouseDrag();
@@ -109,7 +118,7 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
                 printCamCoords();
             }
             if (me.isShiftDown()) {//Placing purpose
-                Translate translate = TowerLabel.last.getTranslate();
+                Translate translate = Tower.last.getTranslate();
                 translate.setX(translate.getX() + mouseDeltaX * MULTIPLIER);
                 translate.setY(translate.getY() + mouseDeltaY * MULTIPLIER);
                 printStackPCoords(translate);
