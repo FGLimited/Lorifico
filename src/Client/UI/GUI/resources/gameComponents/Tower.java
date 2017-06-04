@@ -11,18 +11,32 @@ public class Tower extends Abstract3dsComponent {
         this.towerType = towerType;
         load3ds(towerType.getPath(), towerType.getxPos(), towerType.getyPos(), -1, 90, 90, 0, 1, 1, 1);
 
-        getChildren().add(new TowerLabel(this, TowerLabel.TowerLevel.LEVEL0));
-        getChildren().add(new TowerLabel(this, TowerLabel.TowerLevel.LEVEL1));
-        getChildren().add(new TowerLabel(this, TowerLabel.TowerLevel.LEVEL2));
-        getChildren().add(new TowerLabel(this, TowerLabel.TowerLevel.LEVEL3));
+        //Add lables to each level
+        for (TowerLabel.TowerLevel towerLevel : TowerLabel.TowerLevel.values()) {
+            getChildren().add(new TowerLabel(this, towerLevel));
+        }
 
         last = this;//debug purpose
+    }
+
+    /**
+     * Adds specified card to this tower at indicated level starting from zero.
+     *
+     * @param number
+     * @param floorLevel
+     */
+    public void showCard(int number, int floorLevel) {
+        getChildren().add(GameCard.getCard(number));
+        GameCard.getCard(number).setTowerLevelPosition(floorLevel);
     }
 
     public TowerType getTowerType() {
         return towerType;
     }
 
+    /**
+     * Enum used to store infos about towers
+     */
     public enum TowerType {
         GREEN("green", 30, -21),
         BLUE("blue", 231.5, -21),

@@ -96,7 +96,7 @@ public class MyCameraGroup extends Group {
      */
     public enum CameraPosition {
         GAMETABLE(41.0, 2.5, 0.0, 364.0, 1125.0, -896.0),
-        TOWERS(82.0, -9.5, 0.0, 572.5, 924.5, -358.5);
+        TOWERS(82.0, -9.5, 0.0, 590.5, 994.5, -386.0);
 
         private double xAxisRot;
         private double yAxisRot;

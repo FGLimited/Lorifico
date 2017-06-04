@@ -92,7 +92,6 @@ public class FaithRoad extends Group {
          */
         @Override
         public void animateToPosition(double xPos, double yPos, int stackPosition) {
-            System.out.println("-->" + xPos);
             if (xPos <= 2) {
                 xPos = STEP_IN_PIXEL * (double) faithPosition;
             } else if (xPos > 2 && xPos <= 5) {

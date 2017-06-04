@@ -33,4 +33,5 @@ public abstract class AbstractImageComponent extends Group {
     public Translate getTranslate() {
         return translate;
     }
+
 }
