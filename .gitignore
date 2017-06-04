@@ -10,3 +10,7 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+!/lib/JFX3DModelImporters_EA_2014-02-09/jim3dsModelImporterJFX.jar
+.idea/kotlinc.xml
+.idea/workspace.xml
+out/

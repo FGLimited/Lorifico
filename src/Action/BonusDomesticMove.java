@@ -4,6 +4,7 @@ import Game.Positions.PositionType;
 import Model.User.User;
 import Server.Game.Usable.Cost;
 import Server.Game.UserObjects.Domestic;
+
 import java.util.List;
 
 /**
@@ -41,7 +42,7 @@ public class BonusDomesticMove implements BaseAction {
 
         BaseAction setSpecialDomestic = new SetInUseDomestic(specialDomestic, slaves, bonusPositions, bonusCost);
 
-        // TODO: send in use domestic to server
+        // TODO: send setSpecialDomestic to server
         // (a position update will be sent back as in normal domestic selection mode)
 
     }

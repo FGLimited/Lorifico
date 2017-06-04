@@ -2,6 +2,7 @@ package Client.UI.GUI;
 
 import Action.DisplayPopup;
 import Client.UI.*;
+import Client.UI.GUI.resources.gameComponents.GameTableGroup;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
@@ -24,7 +25,8 @@ public class UserInterfaceImplemJFX extends Application implements UserInterface
 
     private Login login;//Login page controller
     private Lobby lobby;//Lobby page controller
-
+    private GameUI gameUI;//GameUI page controller
+    private GameTable gameTable;//Game table object
 
     /**
      * Used to init the stage
@@ -43,6 +45,7 @@ public class UserInterfaceImplemJFX extends Application implements UserInterface
     @Override
     public void start(Stage primaryStage) throws Exception {
         ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).setPrimaryStage(primaryStage);///// N.B: JavaFX creates a NEW UserInterfaceImplemJFX obj, we have to reach the original one
+        primaryStage.setOnCloseRequest(e -> Platform.exit());
         ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).changeScene("Scegli il server", "fxml/ConnectionPage.fxml", 300, 400, true, new ConnectionPageController());
     }
 
@@ -84,13 +87,20 @@ public class UserInterfaceImplemJFX extends Application implements UserInterface
     }
 
     @Override
+    public GameUI getGameUI() {
+        if (gameUI == null) gameUI = new GameUIController();
+        return gameUI;
+    }
+
+    @Override
     public Dashboard getDashboard() {
         return null;
     }
 
     @Override
     public GameTable getGameTable() {
-        return null;
+        if (gameTable == null) gameTable = new GameTableGroup();
+        return gameTable;
     }
 
     /**
@@ -120,7 +130,7 @@ public class UserInterfaceImplemJFX extends Application implements UserInterface
         }
     }
 
-    private Stage getPrimaryStage() {
+    public Stage getPrimaryStage() {
         return primaryStage;
     }
 
