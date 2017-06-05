@@ -2,6 +2,9 @@ package Client.UI.GUI.resources.gameComponents;
 
 
 import Client.UI.GameTable;
+import Game.UserObjects.DomesticColor;
+import Game.UserObjects.FamilyColor;
+import Server.Game.UserObjects.Domestic;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -62,6 +65,9 @@ public class GameTableGroup extends Group implements GameTable {
         for (int i = 1; i <= 16; i++) {
             towerBlock.loadCard(i, i);
         }
+
+        //Load test domestic
+        getChildren().add(new Domestic3D(new Domestic(FamilyColor.Blue, DomesticColor.Orange, 3), 3));
 
         //Apply Transforms
         getTransforms().add(new Translate(xPos, yPos, zPos));

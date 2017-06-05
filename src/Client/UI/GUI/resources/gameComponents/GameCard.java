@@ -73,6 +73,7 @@ public class GameCard extends AbstractImageComponent {
      * @param level
      */
     public void setTowerLevelPosition(int level) {
+        //Places card on top of tower
         initialY = 64.5;
         getTranslate().setX(-115);
         getTranslate().setY(initialY);
