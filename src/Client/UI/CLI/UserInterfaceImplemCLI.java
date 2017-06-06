@@ -56,7 +56,7 @@ public class UserInterfaceImplemCLI implements UserInterface {
     }
 
     @Override
-    public Dashboard getDashboard() {
+    public Punchboard getPunchboard() {
         return null;
     }
 

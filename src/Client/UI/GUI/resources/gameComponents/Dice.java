@@ -10,7 +10,6 @@ import java.util.Random;
  * Created by andrea on 01/06/17.
  */
 public class Dice extends Abstract3dsComponent {
-    public static Dice last;
     Timeline timeline;
     Rotate rotateX;
     Rotate rotateY;
@@ -37,12 +36,6 @@ public class Dice extends Abstract3dsComponent {
         diceNumbers[5] = new DiceNumber(180, 0, 0);
         diceNumbers[6] = new DiceNumber(0, 90, 0);
 
-        last = this;
-
-        Random random = new Random();
-        setOnMouseClicked(event -> {
-            setNumber(random.nextInt(6) + 1);
-        });
 
     }
 

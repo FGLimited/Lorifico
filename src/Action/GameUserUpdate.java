@@ -1,5 +1,6 @@
 package Action;
 
+import Client.Datawarehouse;
 import Game.UserObjects.GameUser;
 import Model.User.User;
 
@@ -17,6 +18,6 @@ public class GameUserUpdate extends UserSpecific implements BaseAction {
 
     @Override
     public void doAction(User user) {
-        // TODO: update game user of user with specified username
+        Datawarehouse.getInstance().setGameUser(getUsername(), updatedUser);
     }
 }

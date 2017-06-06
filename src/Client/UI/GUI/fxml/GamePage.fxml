@@ -19,5 +19,22 @@
                 <HBox layoutX="81.0" layoutY="6.0" prefHeight="34.0" prefWidth="194.0"/>
             </children>
         </AnchorPane>
+        <AnchorPane maxHeight="50.0" maxWidth="1.7976931348623157E308" opacity="0.9" prefHeight="33.0" prefWidth="780.0"
+                    style="-fx-background-color: bisque;" StackPane.alignment="BOTTOM_CENTER">
+            <children>
+                <HBox layoutX="14.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                      prefHeight="58.0" prefWidth="276.0" AnchorPane.leftAnchor="20.0">
+                    <children>
+                        <Label text="Test"/>
+                    </children>
+                </HBox>
+                <HBox layoutX="490.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                      prefHeight="58.0" prefWidth="276.0" AnchorPane.rightAnchor="20.0">
+                    <children>
+                        <Label text="Test"/>
+                    </children>
+                </HBox>
+            </children>
+        </AnchorPane>
     </children>
 </StackPane>

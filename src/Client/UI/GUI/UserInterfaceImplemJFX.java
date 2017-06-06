@@ -93,7 +93,7 @@ public class UserInterfaceImplemJFX extends Application implements UserInterface
     }
 
     @Override
-    public Dashboard getDashboard() {
+    public Punchboard getPunchboard() {
         return null;
     }
 

@@ -1,7 +1,9 @@
 package Client.UI.GUI;
 
-import Client.UI.GUI.resources.gameComponents.GameCard;
-import Client.UI.GUI.resources.gameComponents.MyCameraGroup;
+import Client.UI.DiceController;
+import Client.UI.FaithRoadController;
+import Client.UI.GUI.resources.gameComponents.*;
+import Client.UI.TowersController;
 import Client.UI.UserInterfaceFactory;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,6 +24,10 @@ import java.util.ResourceBundle;
 public class GameUIController implements Client.UI.GameUI, Initializable {
     private MyCameraGroup cameraGroup;//Group containing camera
     private Group world;//World group
+
+    private DiceBlock diceBlock;//Block containing dice
+    private TowersBlock towersBlock;//Block containing towers
+    private FaithRoadBlock faithRoadBlock;//Block containing faith road.
 
     @FXML
     private StackPane root;
@@ -45,7 +51,7 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).setStackPane(root);//Updates reference to root stack pane in UserInterface, this way popus will be displayed in this page.
 
-        cameraGroup = new MyCameraGroup(35, 1, 0.0, 270.0, 650.0, -550.);
+        cameraGroup = new MyCameraGroup(0, 0, 0.0, 270.0, 650.0, -550.);
         world = new Group(cameraGroup);//Create world group containing camera.
 
         //Setup subscene
@@ -58,11 +64,40 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
         subScene.heightProperty().bind(root.heightProperty());
         subScene.widthProperty().bind(root.widthProperty());
 
-
+        //Load GameTable
         Group gameTableGroup = (Group) (UserInterfaceFactory.getInstance().getGameTable());
+
+        //Load Dice
+        diceBlock = new DiceBlock();
+        gameTableGroup.getChildren().add(diceBlock);
+
+        //Load towers
+        towersBlock = new TowersBlock();
+        gameTableGroup.getChildren().add(towersBlock);
+
+        //Load FaithRoadBlock
+        faithRoadBlock = new FaithRoadBlock();
+        gameTableGroup.getChildren().add(faithRoadBlock);
+
+        //At least add gameTable to world.
         world.getChildren().add(gameTableGroup);
 
         camMouseDrag();
+    }
+
+    @Override
+    public TowersController getTowersController() {
+        return towersBlock;
+    }
+
+    @Override
+    public DiceController getDiceController() {
+        return diceBlock;
+    }
+
+    @Override
+    public FaithRoadController getFaithController() {
+        return faithRoadBlock;
     }
 
     /**
@@ -142,4 +177,7 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
         System.out.println();
     }
 
+    public MyCameraGroup getCameraGroup() {
+        return cameraGroup;
+    }
 }

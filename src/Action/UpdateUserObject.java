@@ -15,6 +15,6 @@ public class UpdateUserObject implements BaseAction {
 
     @Override
     public void doAction(User user) {
-        Datawarehouse.getInstance().setUser(userRemote);
+        Datawarehouse.getInstance().setMyUser(userRemote);
     }
 }

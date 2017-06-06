@@ -5,4 +5,10 @@ package Client.UI;
  */
 public interface GameUI {
     void showPage();
+
+    TowersController getTowersController();
+
+    DiceController getDiceController();
+
+    FaithRoadController getFaithController();
 }
