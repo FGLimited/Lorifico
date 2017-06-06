@@ -70,7 +70,6 @@ public class CommunicationManager {
 
         //if current user is not specified
         action.doAction(null);
-
     }
 
     /**

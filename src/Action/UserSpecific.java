@@ -16,7 +16,7 @@ public abstract class UserSpecific {
      *
      * @return Requested user's username
      */
-    String getUsername() {
+    public String getUsername() {
         return username;
     }
 

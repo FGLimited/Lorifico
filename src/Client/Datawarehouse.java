@@ -5,6 +5,7 @@ package Client;
  */
 
 import Game.UserObjects.GameUser;
+import Game.UserObjects.PlayerState;
 import Logging.Logger;
 import Model.User.User;
 
@@ -20,6 +21,7 @@ public class Datawarehouse {
     private User myUser;
     private String myUsername;
     private Map<String, GameUser> gameUserMap = new HashMap<>();
+    private Map<String, PlayerState> playerStateMap = new HashMap<>();
 
     private Datawarehouse() {
     }
@@ -39,7 +41,7 @@ public class Datawarehouse {
     }
 
     /**
-     * Sets current myUser remote User object
+     * Sets current player's User object.
      *
      * @param user
      */
@@ -47,16 +49,6 @@ public class Datawarehouse {
         this.myUser = user;
         this.myUsername = user.getUsername();
         Logger.log(Logger.LogLevel.Normal, "MyUser received: [" + user.getUsername() + ", ]");
-    }
-
-    /**
-     * Returns true if this is current myUser's username
-     *
-     * @param username
-     * @return
-     */
-    public boolean isMe(String username) {
-        return username.equals(myUsername);
     }
 
     /**
@@ -69,16 +61,30 @@ public class Datawarehouse {
     }
 
     /**
-     * Retrieves myGameUser
+     * Retrieves playerState of specified myUser
      *
+     * @param username
      * @return
      */
-    public GameUser getMyGameUser() {
-        return this.getGameUser(getMyUsername());
+    public PlayerState getPlayerState(String username) {
+        return playerStateMap.get(username);
     }
 
     /**
-     * Retrieves gameUser's of specified myUser
+     * Updates playerState of specified username
+     * @param username
+     * @param playerState
+     */
+    public void setPlayerState(String username, PlayerState playerState) {
+        if (playerStateMap.containsKey(username)) {
+            playerStateMap.replace(username, playerState);
+        } else {
+            playerStateMap.put(username, playerState);
+        }
+    }
+
+    /**
+     * Retrieves gameUser of specified myUser
      *
      * @param username
      * @return
@@ -87,6 +93,12 @@ public class Datawarehouse {
         return gameUserMap.get(username);
     }
 
+    /**
+     * Updates gameUser of specified username
+     *
+     * @param username
+     * @param gameUser
+     */
     public void setGameUser(String username, GameUser gameUser) {
         if (gameUserMap.containsKey(username)) {
             gameUserMap.replace(username, gameUser);

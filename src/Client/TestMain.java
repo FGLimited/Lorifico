@@ -1,5 +1,7 @@
 package Client;
 
+import Client.UI.GUI.GameUIController;
+import Client.UI.GUI.resources.gameComponents.MyCameraGroup;
 import Client.UI.UserInterface;
 import Client.UI.UserInterfaceFactory;
 import com.budhash.cliche.Command;
@@ -18,7 +20,6 @@ public class TestMain {
 
 
     public static void main(String[] args) {
-
         UserInterface userInterface = UserInterfaceFactory.getInstance(UserInterfaceFactory.UserInterfaceType.JAVAFX);
 
 
@@ -51,9 +52,18 @@ public class TestMain {
         private UserInterface userInterface = UserInterfaceFactory.getInstance();
 
         @Command
-        public String showGUI() {
-            userInterface.getGameUI().showPage();
+        public String showTower() {
+            GameUIController gameUIController = (GameUIController) UserInterfaceFactory.getInstance().getGameUI();
+            gameUIController.getCameraGroup().setView(MyCameraGroup.CameraPosition.TOWERS);
             return "OK";
+        }
+
+        @Command
+        public String showGameTable() {
+            GameUIController gameUIController = (GameUIController) UserInterfaceFactory.getInstance().getGameUI();
+            gameUIController.getCameraGroup().setView(MyCameraGroup.CameraPosition.GAMETABLE);
+            return "OK";
+
         }
 
         public void cliSetShell(Shell theShell) {
@@ -63,6 +73,5 @@ public class TestMain {
         public Shell getShell() {
             return shell;
         }
-
     }
 }

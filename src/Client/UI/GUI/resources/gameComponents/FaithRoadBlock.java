@@ -1,5 +1,6 @@
 package Client.UI.GUI.resources.gameComponents;
 
+import Client.UI.FaithRoadController;
 import Game.UserObjects.FamilyColor;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
@@ -11,7 +12,7 @@ import java.util.Map;
 /**
  * Created by andrea on 01/06/17.
  */
-public class FaithRoad extends Group {
+public class FaithRoadBlock extends Group implements FaithRoadController {
     private final double STEP_IN_PIXEL = 46;//Single step in pixels to move a pawn
     private Map<FamilyColor, FaithCylindricalPawn> map = new HashMap<FamilyColor, FaithCylindricalPawn>();
     private Integer[] occupantsFaithPosition = new Integer[16];
@@ -19,7 +20,7 @@ public class FaithRoad extends Group {
     /**
      * Creates a new faith road and places it on the map
      */
-    public FaithRoad() {
+    public FaithRoadBlock() {
 
         //Creates single Cylindrical Pawn
         occupantsFaithPosition[0] = 0;//At the beginning of time there are 0 pawns in 0 position
@@ -28,7 +29,7 @@ public class FaithRoad extends Group {
         map.put(FamilyColor.Yellow, new FaithCylindricalPawn(Color.YELLOW, 0, occupantsFaithPosition, 0, 0));
         map.put(FamilyColor.Red, new FaithCylindricalPawn(Color.RED, 0, occupantsFaithPosition, 0, 0));
 
-        //Attach pawns to FaithRoad
+        //Attach pawns to FaithRoadBlock
         map.forEach(((familyColor, cylindricalPawn) -> getChildren().add(cylindricalPawn)));
 
         //Attach faith road to game table

@@ -50,22 +50,6 @@ public class GameTableGroup extends Group implements GameTable {
         getChildren().add(new GameTablePlace(21, 3, false, 226, 111.8, 116.5, 575.5, 130.5, 587, 100, 35));
         getChildren().add(new GameTablePlace(31, 3, false, 224, 105.7, 116, 457, 130, 465, 100, 35));
 
-        //Load dices
-        getChildren().add(new Dice(Dice.DiceType.WHITE));
-        getChildren().add(new Dice(Dice.DiceType.ORANGE));
-        getChildren().add(new Dice(Dice.DiceType.BLACK));
-
-        //Load FaithRoad
-        getChildren().add(new FaithRoad());
-
-        //Load towers
-        TowerBlock towerBlock = new TowerBlock();
-        getChildren().add(towerBlock);
-
-        for (int i = 1; i <= 16; i++) {
-            towerBlock.loadCard(i, i);
-        }
-
         //Load test domestic
         getChildren().add(new Domestic3D(new Domestic(FamilyColor.Blue, DomesticColor.Orange, 3), 3));
 
