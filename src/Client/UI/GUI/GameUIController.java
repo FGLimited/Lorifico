@@ -2,7 +2,10 @@ package Client.UI.GUI;
 
 import Client.UI.DiceController;
 import Client.UI.FaithRoadController;
-import Client.UI.GUI.resources.gameComponents.*;
+import Client.UI.GUI.resources.gameComponents.DiceBlock;
+import Client.UI.GUI.resources.gameComponents.FaithBlock;
+import Client.UI.GUI.resources.gameComponents.MyCameraGroup;
+import Client.UI.GUI.resources.gameComponents.TowersBlock;
 import Client.UI.TowersController;
 import Client.UI.UserInterfaceFactory;
 import javafx.fxml.FXML;
@@ -13,7 +16,6 @@ import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.transform.Translate;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,7 +29,7 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
 
     private DiceBlock diceBlock;//Block containing dice
     private TowersBlock towersBlock;//Block containing towers
-    private FaithRoadBlock faithRoadBlock;//Block containing faith road.
+    private FaithBlock faithBlock;//Block containing faith road.
 
     @FXML
     private StackPane root;
@@ -75,9 +77,9 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
         towersBlock = new TowersBlock();
         gameTableGroup.getChildren().add(towersBlock);
 
-        //Load FaithRoadBlock
-        faithRoadBlock = new FaithRoadBlock();
-        gameTableGroup.getChildren().add(faithRoadBlock);
+        //Load FaithBlock
+        faithBlock = new FaithBlock();
+        gameTableGroup.getChildren().add(faithBlock);
 
         //At least add gameTable to world.
         world.getChildren().add(gameTableGroup);
@@ -97,7 +99,7 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
 
     @Override
     public FaithRoadController getFaithController() {
-        return faithRoadBlock;
+        return faithBlock;
     }
 
     /**
@@ -141,18 +143,22 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
                 cameraGroup.getTranslate().setZ(cameraGroup.getTranslate().getZ() + mouseDeltaY * MULTIPLIER);
                 printCamCoords();
             }
+
+            /*
             if (me.isShiftDown()) {//Placing purpose
-                Translate translate = GameCard.last.getTranslate();
+                Translate translate = FaithCard.last.getTranslate();
                 translate.setX(translate.getX() + mouseDeltaX * MULTIPLIER);
                 translate.setY(translate.getY() + mouseDeltaY * MULTIPLIER);
                 printStackPCoords(translate);
             }
+
 
             if (me.isPrimaryButtonDown()) {//Placing purpose
                 Translate translate = GameCard.last.getTranslate();
                 translate.setZ(translate.getZ() + mouseDeltaY * MULTIPLIER);
                 printStackPCoords(translate);
             }
+            */
 
         });
     }
@@ -170,12 +176,14 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
         System.out.println();
     }
 
+    /*
     private void printStackPCoords(Translate transform) {
         System.out.print("ObjCoord: " + transform.getX());
         System.out.print(", " + transform.getY());
         System.out.print(", " + transform.getZ());
         System.out.println();
     }
+    */
 
     public MyCameraGroup getCameraGroup() {
         return cameraGroup;

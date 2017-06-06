@@ -2,6 +2,7 @@ package Action;
 
 import Client.Datawarehouse;
 import Game.UserObjects.GameUser;
+import Logging.Logger;
 import Model.User.User;
 
 /**
@@ -19,5 +20,6 @@ public class GameUserUpdate extends UserSpecific implements BaseAction {
     @Override
     public void doAction(User user) {
         Datawarehouse.getInstance().setGameUser(getUsername(), updatedUser);
+        Logger.log(Logger.LogLevel.Normal, "Remote GameUser received for " + getUsername());
     }
 }

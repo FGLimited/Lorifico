@@ -4,6 +4,7 @@ import Logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.transform.Rotate;
@@ -81,6 +82,11 @@ public class MyCameraGroup extends Group {
      * @param cameraPosition
      */
     public void setView(CameraPosition cameraPosition) {
+        if (!Platform.isFxApplicationThread()) {
+            Platform.runLater(() -> setView(cameraPosition));
+            return;
+        }
+
         timeline = new Timeline(
                 new KeyFrame(Duration.seconds(3),
                         new KeyValue(getRotateX().angleProperty(), cameraPosition.getxAxisRot()),

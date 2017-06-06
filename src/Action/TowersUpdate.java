@@ -1,8 +1,11 @@
 package Action;
 
+import Client.UI.UserInterface;
+import Client.UI.UserInterfaceFactory;
 import Game.Cards.CardType;
 import Model.User.User;
 import Server.Game.Positions.TowerPosition;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +30,13 @@ public class TowersUpdate implements BaseAction {
 
     @Override
     public void doAction(User user) {
-        // TODO: update cards in all towers positions
-        // TODO: free all positions (all means all towers, market, council, harvest and production positions)
+        UserInterface userInterface = UserInterfaceFactory.getInstance();
+
+        //Remove old stuff from previous turn
+        userInterface.getGameUI().getTowersController().removeAllCardsFromTowers();
+        userInterface.getGameTable().freeAllPositions();//Frees all position from gameTable removing all domestics
+
+        //Add stuff of new turn
+        cardPerPosition.forEach(((cardNumber, gamePosition) -> userInterface.getGameUI().getTowersController().showCardOnTowers(gamePosition, cardNumber)));
     }
 }

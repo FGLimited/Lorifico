@@ -4,6 +4,7 @@ import Client.UI.GUI.GameUIController;
 import Client.UI.GUI.resources.gameComponents.MyCameraGroup;
 import Client.UI.UserInterface;
 import Client.UI.UserInterfaceFactory;
+import Game.UserObjects.FamilyColor;
 import com.budhash.cliche.Command;
 import com.budhash.cliche.Shell;
 import com.budhash.cliche.ShellDependent;
@@ -15,6 +16,8 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Created by andrea on 10/05/2017.
+ *
+ * This main is used for testing purpose only
  */
 public class TestMain {
 
@@ -63,7 +66,46 @@ public class TestMain {
             GameUIController gameUIController = (GameUIController) UserInterfaceFactory.getInstance().getGameUI();
             gameUIController.getCameraGroup().setView(MyCameraGroup.CameraPosition.GAMETABLE);
             return "OK";
+        }
 
+        @Command
+        public String setDice(int one, int two, int three) {
+            userInterface.getGameUI().getDiceController().setNumbers(one, two, three);
+            return "OK";
+        }
+
+        @Command
+        public String setFaithPosition(String familyColor, int value) {
+            String laGenteCheProgrammaInCSharpSiMeritaDiStareMaleAvreiPotutoUsareUnUpperCaseInveceNo =
+                    familyColor.substring(0, 1).toUpperCase() + familyColor.substring(1);
+            FamilyColor enumFamilyColor = FamilyColor.valueOf(laGenteCheProgrammaInCSharpSiMeritaDiStareMaleAvreiPotutoUsareUnUpperCaseInveceNo);
+
+            userInterface.getGameUI().getFaithController().moveToPosition(enumFamilyColor, value);
+            return "OK";
+        }
+
+        @Command
+        public String setFaithCards(int first, int second, int third) {
+            userInterface.getGameUI().getFaithController().showFaithCards(first, second, third);
+            return "OK";
+        }
+
+        @Command
+        public String showCard(int position, int cardid) {
+            userInterface.getGameUI().getTowersController().showCardOnTowers(position, cardid);
+            return "OK";
+        }
+
+        @Command
+        public String removeAllCards() {
+            userInterface.getGameUI().getTowersController().removeAllCardsFromTowers();
+            return "OK";
+        }
+
+        @Command
+        public String removeCard(int cardNumber) {
+            userInterface.getGameUI().getTowersController().removeCardFromTower(cardNumber);
+            return "OK";
         }
 
         public void cliSetShell(Shell theShell) {

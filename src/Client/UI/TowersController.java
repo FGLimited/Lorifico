@@ -17,5 +17,10 @@ public interface TowersController {
      *
      * @param cardNumber
      */
-    void hideCardFromTower(int cardNumber);
+    void removeCardFromTower(int cardNumber);
+
+    /**
+     * Removes all cards from tower
+     */
+    void removeAllCardsFromTowers();
 }

@@ -4,7 +4,6 @@ package Client.UI.GUI.resources.gameComponents;
  * Created by andrea on 03/06/17.
  */
 public class Tower extends Abstract3dsComponent {
-    public static Tower last;
     private TowerType towerType;
 
     public Tower(TowerType towerType) {
@@ -15,8 +14,6 @@ public class Tower extends Abstract3dsComponent {
         for (TowerLabel.TowerLevel towerLevel : TowerLabel.TowerLevel.values()) {
             getChildren().add(new TowerLabel(this, towerLevel));
         }
-
-        last = this;//debug purpose
     }
 
     /**
@@ -26,12 +23,38 @@ public class Tower extends Abstract3dsComponent {
      * @param floorLevel
      */
     public void showCard(int number, int floorLevel) {
-        getChildren().add(GameCard.getCard(number));
+        //Add card only if it's not already present.
+        if (!getChildren().contains(GameCard.getCard(number))) {
+            getChildren().add(GameCard.getCard(number));
+        }
         GameCard.getCard(number).setTowerLevelPosition(floorLevel);
     }
 
     public TowerType getTowerType() {
         return towerType;
+    }
+
+    /**
+     * Removes passed card from this tower
+     *
+     * @param cardNumber card to remove
+     */
+    public void removeCard(int cardNumber) {
+        //if we have this card, we'll remove it
+        if (getChildren().contains(GameCard.getCard(cardNumber))) {
+            //Animates card to floor and removes it from container
+            GameCard.getCard(cardNumber).moveCardToFloorThenRemoveFromGroup(this);
+        }
+    }
+
+    /**
+     * Removes every card from this tower
+     */
+    public void removeAllCards() {
+        getChildren().forEach(node -> {
+            if (node instanceof GameCard)
+                ((GameCard) (node)).moveCardToFloorThenRemoveFromGroup(this);
+        });
     }
 
     /**

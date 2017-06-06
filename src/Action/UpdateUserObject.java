@@ -1,6 +1,7 @@
 package Action;
 
 import Client.Datawarehouse;
+import Logging.Logger;
 import Model.User.User;
 
 /**
@@ -16,5 +17,6 @@ public class UpdateUserObject implements BaseAction {
     @Override
     public void doAction(User user) {
         Datawarehouse.getInstance().setMyUser(userRemote);
+        Logger.log(Logger.LogLevel.Normal, "Remote user received");
     }
 }
