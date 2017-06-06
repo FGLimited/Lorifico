@@ -30,6 +30,8 @@ public class GameUser implements Game.UserObjects.GameUser {
 
     private volatile boolean roundJump = false;
 
+    private volatile boolean churchSupport = false;
+
     private final transient AtomicInteger moves = new AtomicInteger(0);
 
     /**
@@ -134,5 +136,15 @@ public class GameUser implements Game.UserObjects.GameUser {
     @Override
     public boolean getHasMoved() {
         return moves.compareAndSet(0,0);
+    }
+
+    @Override
+    public boolean getChurchSupport() {
+        return churchSupport;
+    }
+
+    @Override
+    public void setChurchSupport(boolean supportChurch) {
+        churchSupport = supportChurch;
     }
 }

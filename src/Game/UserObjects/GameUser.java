@@ -77,4 +77,18 @@ public interface GameUser {
      */
     boolean getHasMoved();
 
+    /**
+     * Get church support intentions of this user
+     *
+     * @return True if wants to support the church, false else
+     */
+    boolean getChurchSupport();
+
+    /**
+     * Set church support intentions
+     *
+     * @param supportChurch True to support church, false else
+     */
+    void setChurchSupport(boolean supportChurch);
+
 }

@@ -5,7 +5,7 @@ import Game.Cards.CardType;
 import Game.Effects.Effect;
 import Server.Game.Positions.Position;
 import Game.Positions.PositionType;
-import Game.UserObjects.Chosable;
+import Game.UserObjects.Choosable;
 import Game.UserObjects.DomesticColor;
 import Game.UserObjects.GameUser;
 import Game.UserObjects.PlayerState;
@@ -121,10 +121,10 @@ public class GameTable {
      * @return Map of positions number and activable effects/affordable costs
      */
     @SuppressWarnings("unchecked")
-    public Map<Integer, List<Chosable>> getPositions(GameUser currentUser, List<PositionType> requestedPositions) {
+    public Map<Integer, List<Choosable>> getPositions(GameUser currentUser, List<PositionType> requestedPositions) {
         final boolean getAll = requestedPositions == null;
 
-        Map<Integer, List<Chosable>> choseForPos = new HashMap<>();
+        Map<Integer, List<Choosable>> choseForPos = new HashMap<>();
 
         positions.values().forEach(pos -> {
             if(getAll || requestedPositions.contains(pos.getType()))

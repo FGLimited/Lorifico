@@ -1,14 +1,14 @@
 package Server.Game.Usable;
 
 import Game.Usable.ResourceType;
-import Game.UserObjects.Chosable;
+import Game.UserObjects.Choosable;
 import Game.UserObjects.PlayerState;
 import java.util.*;
 
 /**
  * Created by fiore on 09/05/2017.
  */
-public class Cost implements Chosable {
+public class Cost implements Choosable {
 
     private final Map<ResourceType, Integer> requestedResources;
 

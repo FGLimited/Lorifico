@@ -1,13 +1,13 @@
 package Game.Effects;
 
 import Game.HasType;
-import Game.UserObjects.Chosable;
+import Game.UserObjects.Choosable;
 import Game.UserObjects.PlayerState;
 
 /**
  * Created by fiore on 10/05/2017.
  */
-public interface Effect extends HasType<EffectType>, Chosable {
+public interface Effect extends HasType<EffectType>, Choosable {
 
     /**
      * Check if this effect can be activated placing in use domestic in correct position

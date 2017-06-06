@@ -1,6 +1,6 @@
 package Server.Game;
 
-import Action.BaseAction;
+import Action.*;
 import Game.Effects.Effect;
 import Game.Usable.ResourceType;
 import Game.UserObjects.GameUser;
@@ -9,6 +9,7 @@ import Logging.Logger;
 import Networking.CommLink;
 import Server.Game.UserObjects.GameTable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -74,11 +75,7 @@ public class Turn {
         }
 
         // Ask for move to each user
-        currentRound.forEach(user -> {
-
-            // TODO: create move request and send it using this.move()
-
-        });
+        currentRound.forEach(user -> move(user, new MoveRequest()));
 
         // If is last round check for left user, else finalize
         if(roundNumber >= 4 && lastRound.isEmpty())
@@ -108,8 +105,12 @@ public class Turn {
 
         final CommLink userLink = currentUser.getUserLink();
 
-        // TODO: send move request through current user comm link
+        currentUser.setHasMoved(false);
 
+        // Ask user to perform a move
+        userLink.sendMessage(moveRequest);
+
+        // Wait for user move until timeout
         synchronized (currentUser) {
             try {
                 currentUser.wait(timeout);
@@ -119,9 +120,8 @@ public class Turn {
             }
         }
 
-        if (!currentUser.getHasMoved()) {
-            // TODO: send user timeout message
-        }
+        // If user hasn't moved after timeout send timeout message and go ahead
+        userLink.sendMessage(new MoveEnd(!currentUser.getHasMoved()));
     }
 
     /**
@@ -137,28 +137,47 @@ public class Turn {
 
         order.parallelStream().forEach(user -> {
 
-            if(user.getUserState().getResources().get(ResourceType.FaithPoint) >= requestedFaith) {
+            // Get current player state
+            final PlayerState currentState = user.getUserState();
 
-                // TODO: ask to user if he wants penalty or victory points and go back
+            // Get current faith points number
+            final int faithPoints = currentState.getResources().get(ResourceType.FaithPoint);
 
-                //move(user, /* reuqest */);
+            if(faithPoints >= requestedFaith) {
 
+                // ask to user if he wants penalty or victory points and go back
+                move(user, new FaithRoadRequest());
+            }
+
+
+            if(user.getChurchSupport()) {
+                // Get victory points for current faith road position
+                final int victoryPoints = GameHelper.getInstance().getFaithBonus(faithPoints);
+
+                // Update current player state
+                currentState.setResources(
+                        Collections.singletonMap(ResourceType.VictoryPoint,
+                                currentState.getResources().get(ResourceType.VictoryPoint) + victoryPoints),
+                        true);
             }
             else {
-                final PlayerState currentState = user.getUserState();
 
-                Effect faithEffect = table.getFaithEffect();
+                // Get faith penalty for current turn
+                final Effect faithEffect = table.getFaithEffect();
 
+                // Add penalty to user list
                 currentState.addEffect(faithEffect);
 
+                // Apply penalty if possible
                 if(faithEffect.canApply(currentState))
                     faithEffect.apply(currentState);
 
-                user.updateUserState(currentState);
-
-                // TODO: notify gui to place cube on faith card
+                // Notify client to put penalty cube on current faith card
+                user.getUserLink().sendMessage(new FaithPenaltyApplied(number / 2));
             }
 
+            // Update player state with new changes
+            user.updateUserState(currentState);
         });
 
     }

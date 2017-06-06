@@ -2,7 +2,7 @@ package Action;
 
 import Game.Positions.PositionType;
 import Game.Usable.ResourceType;
-import Game.UserObjects.Chosable;
+import Game.UserObjects.Choosable;
 import Game.UserObjects.PlayerState;
 import Model.User.User;
 import Server.Game.Usable.Cost;
@@ -79,7 +79,7 @@ public class SetInUseDomestic implements BaseAction {
         gameUser.updateUserState(currentState);
 
         // Send requested positions
-        Map<Integer, List<Chosable>> positions = user.getMatch().getTable()
+        Map<Integer, List<Choosable>> positions = user.getMatch().getTable()
                 .getPositions(gameUser, requestedPositions);
 
         // If a cost bonus is specified apply it to all available costs
@@ -91,7 +91,7 @@ public class SetInUseDomestic implements BaseAction {
                     return;
 
                 // Create new cost list
-                final List<Chosable> costs = new ArrayList<>();
+                final List<Choosable> costs = new ArrayList<>();
 
                 // Apply bonus to each cost and update new list
                 list.forEach(cost -> costs.add(((Cost)cost).sum(costBonus, false)));
@@ -103,7 +103,9 @@ public class SetInUseDomestic implements BaseAction {
 
         }
 
-        // TODO: send requested positions to client
+        // Send choosable for requested positions back to client
+        user.getLink().sendMessage(new PositionChoosables(user.getMatch().getTable()
+                .getPositions(gameUser, requestedPositions)));
 
     }
 }
