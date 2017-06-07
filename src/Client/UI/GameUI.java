@@ -11,4 +11,6 @@ public interface GameUI {
     DiceController getDiceController();
 
     FaithRoadController getFaithController();
+
+    RoundOrderController getRoundOrderController();
 }

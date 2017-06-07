@@ -5,12 +5,11 @@ import Client.UI.GUI.resources.gameComponents.MyCameraGroup;
 import Client.UI.UserInterface;
 import Client.UI.UserInterfaceFactory;
 import Game.UserObjects.FamilyColor;
-import com.budhash.cliche.Command;
-import com.budhash.cliche.Shell;
-import com.budhash.cliche.ShellDependent;
-import com.budhash.cliche.ShellFactory;
+import com.budhash.cliche.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -75,9 +74,9 @@ public class TestMain {
         }
 
         @Command
-        public String setFaithPosition(String familyColor, int value) {
+        public String setFaithPosition(@Param(name = "familyColor") String familyColor, @Param(name = "posizione") int value) {
             String laGenteCheProgrammaInCSharpSiMeritaDiStareMaleAvreiPotutoUsareUnUpperCaseInveceNo =
-                    familyColor.substring(0, 1).toUpperCase() + familyColor.substring(1);
+                    familyColor.substring(0, 1).toUpperCase() + familyColor.substring(1).toLowerCase();
             FamilyColor enumFamilyColor = FamilyColor.valueOf(laGenteCheProgrammaInCSharpSiMeritaDiStareMaleAvreiPotutoUsareUnUpperCaseInveceNo);
 
             userInterface.getGameUI().getFaithController().moveToPosition(enumFamilyColor, value);
@@ -85,13 +84,13 @@ public class TestMain {
         }
 
         @Command
-        public String setFaithCards(int first, int second, int third) {
+        public String setFaithCards(@Param(name = "CardID") int first, @Param(name = "CardID") int second, @Param(name = "CardID") int third) {
             userInterface.getGameUI().getFaithController().showFaithCards(first, second, third);
             return "OK";
         }
 
         @Command
-        public String showCard(int position, int cardid) {
+        public String showCard(@Param(name = "Posizione") int position, @Param(name = "CardID") int cardid) {
             userInterface.getGameUI().getTowersController().showCardOnTowers(position, cardid);
             return "OK";
         }
@@ -105,6 +104,30 @@ public class TestMain {
         @Command
         public String removeCard(int cardNumber) {
             userInterface.getGameUI().getTowersController().removeCardFromTower(cardNumber);
+            return "OK";
+        }
+
+        @Command
+        public String setRoundOrder() {
+            List<FamilyColor> roundOrder = new ArrayList<FamilyColor>() {{
+                add(FamilyColor.Green);
+                add(FamilyColor.Red);
+            }};
+            UserInterfaceFactory.getInstance().getGameUI().getRoundOrderController().setGameOrder(roundOrder);
+
+            return "OK";
+        }
+
+        @Command
+        public String setAnotherRoundOrder() {
+            List<FamilyColor> roundOrder = new ArrayList<FamilyColor>() {{
+                add(FamilyColor.Yellow);
+                add(FamilyColor.Red);
+                add(FamilyColor.Green);
+                add(FamilyColor.Blue);
+            }};
+            UserInterfaceFactory.getInstance().getGameUI().getRoundOrderController().setGameOrder(roundOrder);
+
             return "OK";
         }
 
