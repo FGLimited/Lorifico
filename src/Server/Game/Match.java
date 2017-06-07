@@ -16,6 +16,7 @@ import Server.Game.Effects.Faith.FaithDeck;
 import Server.Game.UserObjects.GameTable;
 import Server.Game.UserObjects.GameUser;
 import Server.Game.UserObjects.PlayerState;
+
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.Executors;
@@ -31,15 +32,10 @@ public class Match extends UserHandler {
     private static AtomicInteger matchCounter = new AtomicInteger(0);
 
     private final int matchNumber = matchCounter.getAndIncrement();
-
-    private volatile ScheduledExecutorService matchExecutor = Executors.newSingleThreadScheduledExecutor();
-
-    private volatile boolean isStarted = false;
-
     private final long startDelay;
-
     private final long moveTimeout;
-
+    private volatile ScheduledExecutorService matchExecutor = Executors.newSingleThreadScheduledExecutor();
+    private volatile boolean isStarted = false;
     private volatile GameTable table;
 
     private volatile SplitDeck cardsDeck;
@@ -67,6 +63,31 @@ public class Match extends UserHandler {
      */
     public boolean isStarted() {
         return isStarted;
+    }
+
+    /**
+     * Start current match if possible
+     */
+    public void start() {
+
+        // Check if match is already started
+        if(isStarted)
+            return;
+
+        // Check if there are almost two users
+        if(users.size() < 2)
+            return;
+
+        // Set start flag
+        isStarted = true;
+
+        // Stop countdown
+        matchExecutor.shutdownNow();
+
+        matchExecutor = Executors.newSingleThreadScheduledExecutor();
+
+        // Start game
+        matchExecutor.execute(this::initGame);
     }
 
     /**
@@ -120,13 +141,7 @@ public class Match extends UserHandler {
 
         // When maximum player
         if(users.size() == 4) {
-            isStarted = true;
-
-            // Stop countdown
-            matchExecutor.shutdownNow();
-
-            // Start game immediately
-            matchExecutor.execute(this::initGame);
+            start();
         }
 
     }

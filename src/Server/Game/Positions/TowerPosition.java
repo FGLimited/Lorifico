@@ -39,6 +39,15 @@ public class TowerPosition extends Position<Cost> {
     }
 
     /**
+     * Gson constructor
+     */
+    private TowerPosition() {
+        immediatePositionEffect = null;
+        positionValue = 0;
+        cardType = null;
+    }
+
+    /**
      * Get position card type
      *
      * @return Position card type

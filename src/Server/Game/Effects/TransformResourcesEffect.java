@@ -31,6 +31,14 @@ public class TransformResourcesEffect extends Effect {
         this.toAdd = toAdd;
     }
 
+    /**
+     * Gson constructor
+     */
+    private TransformResourcesEffect() {
+        requested = null;
+        toAdd = null;
+    }
+
     @Override
     public boolean canApply(PlayerState currentMove) {
         return currentMove.getInUseDomestic().getValue() >= activationValue && currentMove.getCheckingPositionType() == position;

@@ -4,8 +4,6 @@ package Client.UI.GUI.resources.gameComponents;
  * Created by andrea on 06/06/17.
  */
 public class FaithCard extends AbstractImageComponent {
-    public static FaithCard last;
-
     public FaithCard(int number) {
         //From server notation to client's:
         int turn = (number - 1) / 7 + 1;

@@ -28,6 +28,13 @@ public class ActionPosition extends Position<Effect> {
         this.domesticPenalty = domesticPenalty;
     }
 
+    /**
+     * Gson constructor
+     */
+    private ActionPosition() {
+        domesticPenalty = 0;
+    }
+
     @Override
     public List<Effect> canOccupy(PlayerState currentState) {
 

@@ -29,6 +29,14 @@ public class CostBonusEffect extends Effect {
         this.bonus = bonus;
     }
 
+    /**
+     * Gson constructor
+     */
+    private CostBonusEffect() {
+        cardType = null;
+        bonus = null;
+    }
+
     @Override
     public boolean canApply(PlayerState currentMove) {
         return !isApplied;

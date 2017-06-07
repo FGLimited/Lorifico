@@ -1,7 +1,12 @@
 package Client.UI.GUI.resources.gameComponents;
 
+import Client.Datawarehouse;
 import Client.UI.FaithRoadController;
+import Client.UI.PlayerStateObserver;
+import Game.Usable.ResourceType;
 import Game.UserObjects.FamilyColor;
+import Game.UserObjects.PlayerState;
+import Logging.Logger;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
@@ -13,7 +18,7 @@ import java.util.Map;
 /**
  * Created by andrea on 01/06/17.
  */
-public class FaithBlock extends Group implements FaithRoadController {
+public class FaithBlock extends Group implements FaithRoadController, PlayerStateObserver {
     private final double STEP_IN_PIXEL = 46;//Single step in pixels to move a pawn
     private Map<FamilyColor, FaithCylindricalPawn> map = new HashMap<FamilyColor, FaithCylindricalPawn>();
     private Integer[] occupantsFaithPosition = new Integer[16];
@@ -29,11 +34,15 @@ public class FaithBlock extends Group implements FaithRoadController {
         map.put(FamilyColor.Yellow, new FaithCylindricalPawn(Color.YELLOW, 0, occupantsFaithPosition, 0, 0));
         map.put(FamilyColor.Red, new FaithCylindricalPawn(Color.RED, 0, occupantsFaithPosition, 0, 0));
 
+        //we created faith
         //Attach pawns to FaithBlock
         map.forEach(((familyColor, cylindricalPawn) -> getChildren().add(cylindricalPawn)));
 
         //Attach faith road to game table
         getTransforms().add(new Translate(34, 368, 0));
+
+        //Say Datawarehouse we are interested in playerstate
+        Datawarehouse.getInstance().registerPlayerStateObserver(this);
     }
 
     /**
@@ -59,13 +68,35 @@ public class FaithBlock extends Group implements FaithRoadController {
     }
 
     /**
+     * Call received when PlayerState is updated
+     *
+     * @param playerState
+     * @param username
+     */
+    @Override
+    public void onPlayerStateUpdate(PlayerState playerState, String username) {
+        //If we received my playerState, update faithPosition
+        Logger.log(Logger.LogLevel.Normal, "FaithBlock just received a new PlayerState");
+
+        //Get received user's faithPosition and color
+        int faithPosition = playerState.getResources().get(ResourceType.FaithPoint);
+        FamilyColor familyColor = Datawarehouse.getInstance().getFamilyColor(username);
+
+        if (familyColor != null) {
+            moveToPosition(familyColor, faithPosition);
+        } else {
+            Logger.log(Logger.LogLevel.Error, "FaithBlock: I don't know my familyColor");
+        }
+
+    }
+
+    /**
      * Moves a cylindrical pawn to given faith position.
      *
      * @param familyColor family color to move
      * @param position position to go to
      */
-    @Override
-    public void moveToPosition(FamilyColor familyColor, int position) throws IndexOutOfBoundsException {
+    private void moveToPosition(FamilyColor familyColor, int position) throws IndexOutOfBoundsException {
         if (!Platform.isFxApplicationThread()) {
             Platform.runLater(() -> moveToPosition(familyColor, position));
             return;
@@ -87,11 +118,12 @@ public class FaithBlock extends Group implements FaithRoadController {
         private Integer[] occupantsFaithPosition;//Reference to array used to keep a counter of pawns in every position
 
         public FaithCylindricalPawn(Color color, int faithPosition, Integer[] occupantsFaithPosition, double xPos, double yPos) {
-            super(color, xPos, yPos, occupantsFaithPosition[faithPosition]);
-            this.stackPosition = occupantsFaithPosition[faithPosition];
-            this.faithPosition = faithPosition;
-            this.occupantsFaithPosition = occupantsFaithPosition;
-            occupantsFaithPosition[faithPosition]++;
+            super(color, xPos, yPos, -1);
+
+            //initially pawns are placed off screen
+            this.stackPosition = -1;
+            this.faithPosition = -1;
+            this.occupantsFaithPosition = occupantsFaithPosition;//set reference to occupantsArray
         }
 
         public int getFaithPosition() {
@@ -99,12 +131,17 @@ public class FaithBlock extends Group implements FaithRoadController {
         }
 
         /**
-         * Updates pawn position
+         * Sets pawn position, calculates x,y pos and calls animation
          *
          * @param faithPosition desired pawn position
          */
         public void setFaithPosition(int faithPosition) {
-            occupantsFaithPosition[this.faithPosition]--;//We removed or pawn from a position
+            if (faithPosition == this.faithPosition) return; //We are not moving
+
+            //If it was placed on table we have to decrement occupants of his position
+            if (this.stackPosition >= 0)
+                occupantsFaithPosition[this.faithPosition]--;//We removed or pawn from a position
+
             if (occupantsFaithPosition[faithPosition] == null) occupantsFaithPosition[faithPosition] = 0;
             this.faithPosition = faithPosition;
             this.stackPosition = occupantsFaithPosition[faithPosition];

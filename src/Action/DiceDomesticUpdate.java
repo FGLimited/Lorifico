@@ -1,8 +1,11 @@
 package Action;
 
+import Client.Datawarehouse;
+import Client.UI.UserInterfaceFactory;
 import Game.UserObjects.DomesticColor;
 import Model.User.User;
 import Server.Game.UserObjects.Domestic;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +26,12 @@ public class DiceDomesticUpdate extends UserSpecific implements BaseAction {
 
     @Override
     public void doAction(User user) {
-        // TODO: update dice value on game table
+
+        //Update dices only once (when my username is received)
+        if (Datawarehouse.getInstance().getMyUsername().equals(getUsername())) {
+            UserInterfaceFactory.getInstance().getGameUI().getDiceController().setNumbers(diceValues.get(DomesticColor.Black),
+                    diceValues.get(DomesticColor.White), diceValues.get(DomesticColor.Orange));
+        }
 
         // TODO: update user domestic value (dice and domestic values could be different)
     }

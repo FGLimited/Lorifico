@@ -26,6 +26,14 @@ public class PositionBonusEffect extends Effect {
         value = bonusValue;
     }
 
+    /**
+     * Gson constructor
+     */
+    private PositionBonusEffect() {
+        position = null;
+        value = 0;
+    }
+
     @Override
     public boolean canApply(PlayerState currentMove) {
 

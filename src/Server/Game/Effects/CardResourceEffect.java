@@ -52,6 +52,16 @@ public class CardResourceEffect extends Effect {
         this.quantity = quantity;
     }
 
+    /**
+     * Gson constructor
+     */
+    public CardResourceEffect() {
+        position = null;
+        cardType = null;
+        resource = null;
+        quantity = 0;
+    }
+
     @Override
     public boolean canApply(PlayerState currentMove) {
         return position == null || (currentMove.getInUseDomestic().getValue() >= activationValue && currentMove.getCheckingPositionType() == position);

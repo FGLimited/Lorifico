@@ -4,12 +4,16 @@ package Client;
  * Created by andrea on 10/05/17.
  */
 
+import Client.UI.PlayerStateObserver;
+import Game.UserObjects.FamilyColor;
 import Game.UserObjects.GameUser;
 import Game.UserObjects.PlayerState;
 import Logging.Logger;
 import Model.User.User;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,6 +27,9 @@ public class Datawarehouse {
     private Map<String, GameUser> gameUserMap = new HashMap<>();
     private Map<String, PlayerState> playerStateMap = new HashMap<>();
 
+    //ArrayList of playerstate observers
+    private List<PlayerStateObserver> playerStateObserverList = new ArrayList();
+
     private Datawarehouse() {
     }
 
@@ -34,6 +41,17 @@ public class Datawarehouse {
     public static Datawarehouse getInstance() {
         if (datawarehouse == null) datawarehouse = new Datawarehouse();
         return datawarehouse;
+    }
+
+    /**
+     * Registers a new playerState Observer
+     *
+     * @param playerStateObserver
+     */
+    public void registerPlayerStateObserver(PlayerStateObserver playerStateObserver) {
+        if (!playerStateObserverList.contains(playerStateObserver)) {
+            playerStateObserverList.add(playerStateObserver);
+        }
     }
 
     public User getMyUser() {
@@ -61,6 +79,16 @@ public class Datawarehouse {
     }
 
     /**
+     * Retrieves familyColor of specified user
+     *
+     * @param username user to retrieve familyc
+     * @return familycolor
+     */
+    public FamilyColor getFamilyColor(String username) {
+        return getGameUser(username).getFamilyColor();
+    }
+
+    /**
      * Retrieves playerState of specified myUser
      *
      * @param username
@@ -81,6 +109,9 @@ public class Datawarehouse {
         } else {
             playerStateMap.put(username, playerState);
         }
+
+        //notify observers
+        playerStateObserverList.forEach((playerStateObserver -> playerStateObserver.onPlayerStateUpdate(playerState, username)));
     }
 
     /**

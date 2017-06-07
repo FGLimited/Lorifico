@@ -37,6 +37,13 @@ public class CouncilPosition extends Position<Cost> {
     }
 
     /**
+     * Gson constructor
+     */
+    private CouncilPosition() {
+        immediatePositionEffect = null;
+    }
+
+    /**
      * Set list to update with order of domestic placement to define next turn playing order
      *
      * @param nextTurnOrder Next turn playing order list

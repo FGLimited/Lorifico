@@ -109,7 +109,8 @@ public class User {
         link = newLink;
 
         // When a message is received on comm link the user relative callback is called
-        link.setOnMessage((link, message) -> messageHandler(message));
+        if(link != null)
+            link.setOnMessage((link, message) -> messageHandler(message));
     }
 
     /**

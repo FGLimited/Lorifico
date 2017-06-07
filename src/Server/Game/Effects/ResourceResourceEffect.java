@@ -26,6 +26,16 @@ public class ResourceResourceEffect extends Effect {
         this.toQuantity = toQuantity;
     }
 
+    /**
+     * Gson constructor
+     */
+    private ResourceResourceEffect() {
+        fromResource = null;
+        fromQuantity = 0;
+        toResource = null;
+        toQuantity = 0;
+    }
+
     @Override
     public boolean canApply(PlayerState currentMove) {
         return true;

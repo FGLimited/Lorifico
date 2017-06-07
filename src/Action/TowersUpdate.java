@@ -37,6 +37,8 @@ public class TowersUpdate implements BaseAction {
         userInterface.getGameTable().freeAllPositions();//Frees all position from gameTable removing all domestics
 
         //Add stuff of new turn
-        cardPerPosition.forEach(((cardNumber, gamePosition) -> userInterface.getGameUI().getTowersController().showCardOnTowers(gamePosition, cardNumber)));
+        cardPerPosition.forEach(((gamePosition, cardNumber) -> userInterface.getGameUI().getTowersController().showCardOnTowers(gamePosition, cardNumber)));
+
+        //Move view to towers, it's time to buy
     }
 }

@@ -1,21 +1,17 @@
 package Client.UI.GUI;
 
-import Client.UI.DiceController;
-import Client.UI.FaithRoadController;
-import Client.UI.GUI.resources.gameComponents.DiceBlock;
-import Client.UI.GUI.resources.gameComponents.FaithBlock;
-import Client.UI.GUI.resources.gameComponents.MyCameraGroup;
-import Client.UI.GUI.resources.gameComponents.TowersBlock;
-import Client.UI.TowersController;
-import Client.UI.UserInterfaceFactory;
+import Client.UI.*;
+import Client.UI.GUI.resources.gameComponents.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.DepthTest;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.transform.Translate;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,12 +26,17 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
     private DiceBlock diceBlock;//Block containing dice
     private TowersBlock towersBlock;//Block containing towers
     private FaithBlock faithBlock;//Block containing faith road.
+    private RoundOrderPawnsBlock roundOrderPawnsBlock;//Block containing pawns showing turnments order.
 
     @FXML
     private StackPane root;
 
     @FXML
     private SubScene subScene;
+
+    @FXML
+    private HBox playersHBox;
+
     //Temp variables for moving objs
     private double mousePosX;
     private double mousePosY;
@@ -53,7 +54,7 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).setStackPane(root);//Updates reference to root stack pane in UserInterface, this way popus will be displayed in this page.
 
-        cameraGroup = new MyCameraGroup(0, 0, 0.0, 270.0, 650.0, -550.);
+        cameraGroup = new MyCameraGroup(63.0, 0, 0, 435.5, 1258.5, -605.0);
         world = new Group(cameraGroup);//Create world group containing camera.
 
         //Setup subscene
@@ -81,10 +82,18 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
         faithBlock = new FaithBlock();
         gameTableGroup.getChildren().add(faithBlock);
 
+        //Load turnments pawn block
+        roundOrderPawnsBlock = new RoundOrderPawnsBlock();
+        gameTableGroup.getChildren().add(roundOrderPawnsBlock);
+
         //At least add gameTable to world.
         world.getChildren().add(gameTableGroup);
 
         camMouseDrag();
+
+        synchronized (this) {
+            notifyAll();//Say world we are ready to show this awesome GUI
+        }
     }
 
     @Override
@@ -100,6 +109,11 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
     @Override
     public FaithRoadController getFaithController() {
         return faithBlock;
+    }
+
+    @Override
+    public RoundOrderController getRoundOrderController() {
+        return roundOrderPawnsBlock;
     }
 
     /**
@@ -144,9 +158,9 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
                 printCamCoords();
             }
 
-            /*
+
             if (me.isShiftDown()) {//Placing purpose
-                Translate translate = FaithCard.last.getTranslate();
+                Translate translate = CylindricalPawn.last.getTranslate();
                 translate.setX(translate.getX() + mouseDeltaX * MULTIPLIER);
                 translate.setY(translate.getY() + mouseDeltaY * MULTIPLIER);
                 printStackPCoords(translate);
@@ -154,11 +168,11 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
 
 
             if (me.isPrimaryButtonDown()) {//Placing purpose
-                Translate translate = GameCard.last.getTranslate();
+                Translate translate = CylindricalPawn.last.getTranslate();
                 translate.setZ(translate.getZ() + mouseDeltaY * MULTIPLIER);
                 printStackPCoords(translate);
             }
-            */
+
 
         });
     }
@@ -176,14 +190,14 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
         System.out.println();
     }
 
-    /*
+
     private void printStackPCoords(Translate transform) {
         System.out.print("ObjCoord: " + transform.getX());
         System.out.print(", " + transform.getY());
         System.out.print(", " + transform.getZ());
         System.out.println();
     }
-    */
+
 
     public MyCameraGroup getCameraGroup() {
         return cameraGroup;

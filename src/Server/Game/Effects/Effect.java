@@ -18,6 +18,11 @@ public abstract class Effect implements Game.Effects.Effect {
         this.activationValue = activationValue;
     }
 
+    protected Effect() {
+        type = null;
+        activationValue = 0;
+    }
+
     @Override
     public EffectType getType() {
         return type;
