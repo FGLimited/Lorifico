@@ -16,6 +16,7 @@ import Server.Game.Effects.Faith.FaithDeck;
 import Server.Game.UserObjects.GameTable;
 import Server.Game.UserObjects.GameUser;
 import Server.Game.UserObjects.PlayerState;
+
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.Executors;
@@ -31,15 +32,10 @@ public class Match extends UserHandler {
     private static AtomicInteger matchCounter = new AtomicInteger(0);
 
     private final int matchNumber = matchCounter.getAndIncrement();
-
-    private volatile ScheduledExecutorService matchExecutor = Executors.newSingleThreadScheduledExecutor();
-
-    private volatile boolean isStarted = false;
-
     private final long startDelay;
-
     private final long moveTimeout;
-
+    private volatile ScheduledExecutorService matchExecutor = Executors.newSingleThreadScheduledExecutor();
+    private volatile boolean isStarted = false;
     private volatile GameTable table;
 
     private volatile SplitDeck cardsDeck;
@@ -87,6 +83,8 @@ public class Match extends UserHandler {
 
         // Stop countdown
         matchExecutor.shutdownNow();
+
+        matchExecutor = Executors.newSingleThreadScheduledExecutor();
 
         // Start game
         matchExecutor.execute(this::initGame);

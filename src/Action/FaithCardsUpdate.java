@@ -4,7 +4,6 @@ import Client.UI.UserInterfaceFactory;
 import Game.Effects.Effect;
 import Model.User.User;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**

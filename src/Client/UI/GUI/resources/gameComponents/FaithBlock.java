@@ -76,18 +76,18 @@ public class FaithBlock extends Group implements FaithRoadController, PlayerStat
     @Override
     public void onPlayerStateUpdate(PlayerState playerState, String username) {
         //If we received my playerState, update faithPosition
-        if (Datawarehouse.getInstance().getMyUsername().equals(username)) {
+        Logger.log(Logger.LogLevel.Normal, "FaithBlock just received a new PlayerState");
 
-            //Get my faithPosition and color
-            int faithPosition = playerState.getResources().get(ResourceType.FaithPoint);
-            FamilyColor familyColor = Datawarehouse.getInstance().getFamilyColor(username);
+        //Get received user's faithPosition and color
+        int faithPosition = playerState.getResources().get(ResourceType.FaithPoint);
+        FamilyColor familyColor = Datawarehouse.getInstance().getFamilyColor(username);
 
-            if (familyColor != null) {
-                moveToPosition(familyColor, faithPosition);
-            } else {
-                Logger.log(Logger.LogLevel.Error, "FAITHPOSITION: I don't know my familyColor");
-            }
+        if (familyColor != null) {
+            moveToPosition(familyColor, faithPosition);
+        } else {
+            Logger.log(Logger.LogLevel.Error, "FaithBlock: I don't know my familyColor");
         }
+
     }
 
     /**
