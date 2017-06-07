@@ -1,6 +1,6 @@
 package Action;
 
-import Game.UserObjects.GameUser;
+import Server.Game.UserObjects.GameUser;
 import Model.User.User;
 
 /**
@@ -18,7 +18,7 @@ public class FaithRoadChoice implements BaseAction {
     public void doAction(User user) {
 
         // Get current game user
-        final GameUser currentUser = user.getGameUser();
+        final GameUser currentUser = (GameUser) user.getGameUser();
 
         // Set user choice received from client
         currentUser.setChurchSupport(churchSupport);

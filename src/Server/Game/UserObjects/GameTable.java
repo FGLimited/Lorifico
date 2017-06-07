@@ -7,8 +7,6 @@ import Server.Game.Positions.Position;
 import Game.Positions.PositionType;
 import Game.UserObjects.Choosable;
 import Game.UserObjects.DomesticColor;
-import Game.UserObjects.GameUser;
-import Game.UserObjects.PlayerState;
 import Logging.Logger;
 import Networking.Gson.MySerializer;
 import Server.Game.Positions.*;
@@ -176,9 +174,9 @@ public class GameTable {
         diceValue.clear();
         Random die = new Random(System.currentTimeMillis());
 
-        diceValue.put(DomesticColor.Black, die.nextInt(6));
-        diceValue.put(DomesticColor.Orange, die.nextInt(6));
-        diceValue.put(DomesticColor.White, die.nextInt(6));
+        diceValue.put(DomesticColor.Black, die.nextInt(6) + 1);
+        diceValue.put(DomesticColor.Orange, die.nextInt(6) + 1);
+        diceValue.put(DomesticColor.White, die.nextInt(6) + 1);
         diceValue.put(DomesticColor.Neutral, 0);
 
         return diceValue;
@@ -199,7 +197,7 @@ public class GameTable {
         nextTurnOrder.addAll(currentOrder);
 
         // Create new order list
-        List<GameUser> newOrder = new ArrayList<>(nextTurnOrder);
+        final List<GameUser> newOrder = new ArrayList<>(nextTurnOrder);
 
         // Free all positions
         positions.values().forEach(Position::free);
@@ -226,7 +224,7 @@ public class GameTable {
         // Updated position reference
         final Position requestedPos = positions.get(positionNumber);
 
-        PlayerState newState = requestedPos.occupy(currentUser.getUserState(), chosenTs);
+        PlayerState newState = (PlayerState) requestedPos.occupy(currentUser.getUserState(), chosenTs);
 
         currentUser.updateUserState(newState);
 

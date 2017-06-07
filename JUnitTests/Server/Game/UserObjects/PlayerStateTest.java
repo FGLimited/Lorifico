@@ -3,6 +3,9 @@ package Server.Game.UserObjects;
 import Game.Cards.CardType;
 import Game.Positions.PositionType;
 import Game.Usable.ResourceType;
+import Game.UserObjects.*;
+import Model.FakeUser;
+import Networking.FakeLink;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,10 +19,12 @@ public class PlayerStateTest {
 
     private PlayerState playerState;
 
+    private GameUser gameUser = new GameUser(new FakeUser(new FakeLink()), FamilyColor.Green);
+
     @Before
     public void before() {
 
-        playerState = new Server.Game.UserObjects.PlayerState(null);
+        playerState = new Server.Game.UserObjects.PlayerState(gameUser);
 
         Map<ResourceType, Integer> resources = new HashMap<>();
         resources.put(ResourceType.Wood, 3);
@@ -33,6 +38,8 @@ public class PlayerStateTest {
         playerState.setCostBonus(CardType.Personality, ResourceType.Gold, 2);
 
         playerState.setCheckingPositionType(PositionType.TerritoryTower);
+
+        playerState.setInUseDomestic(new Domestic(gameUser.getFamilyColor(), DomesticColor.Orange, 5));
 
     }
 
@@ -56,7 +63,23 @@ public class PlayerStateTest {
     }
 
     @Test
-    public void checkingPosition() {
+    public void getGameUser() {
+        Assert.assertEquals(gameUser, playerState.getGameUser());
+    }
+
+    @Test
+    public void getCheckingPosition() {
         Assert.assertEquals(PositionType.TerritoryTower, playerState.getCheckingPositionType());
+    }
+
+    @Test
+    public void getInUseDomestic() {
+
+        final Domestic inUse = playerState.getInUseDomestic();
+
+        Assert.assertEquals(FamilyColor.Green, inUse.getFamilyColor());
+        Assert.assertEquals(DomesticColor.Orange, inUse.getType());
+        Assert.assertEquals(5, inUse.getValue().intValue());
+
     }
 }

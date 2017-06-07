@@ -24,9 +24,12 @@ public class CostTest {
     @Before
     public void before() {
 
-        Map<ResourceType, Integer> resources = new HashMap<>();
-        resources.put(ResourceType.Wood, 3);
-        resources.put(ResourceType.Rock, 2);
+        final Map<ResourceType, Integer> resources = new HashMap<ResourceType, Integer>(){
+            {
+                put(ResourceType.Wood, 3);
+                put(ResourceType.Rock, 2);
+            }
+        };
 
         sumCost = new Cost(resources);
 
@@ -44,9 +47,9 @@ public class CostTest {
     }
 
     @Test
-    public void selfCheck() throws Exception {
+    public void getResources() throws Exception {
 
-        Map<ResourceType, Integer> resources = testCost.getResources();
+        final Map<ResourceType, Integer> resources = testCost.getResources();
 
         Assert.assertEquals(3, resources.get(ResourceType.Wood).intValue());
         Assert.assertEquals(2, resources.get(ResourceType.Rock).intValue());
@@ -83,7 +86,7 @@ public class CostTest {
     @Test
     public void sum() throws Exception {
 
-        Map<ResourceType, Integer> total = totalCost.getResources();
+        final Map<ResourceType, Integer> total = totalCost.getResources();
 
         Assert.assertEquals(6, total.get(ResourceType.Wood).intValue());
         Assert.assertEquals(4, total.get(ResourceType.Rock).intValue());

@@ -2,8 +2,9 @@ package Server.Game.UserObjects;
 
 import Game.UserObjects.*;
 import Model.FakeUser;
-import Model.User.User;
+import Networking.CommLink;
 import Networking.FakeLink;
+import Server.Game.GameHelper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,43 +16,80 @@ import java.util.Map;
  */
 public class GameUserTest {
 
-    private Game.UserObjects.GameUser testUser;
+    private GameUser testUser;
+
+    private final CommLink link = new FakeLink();
 
     @Before
     public void before() {
 
-        testUser = new GameUser(new FakeUser(new FakeLink()), FamilyColor.Green);
+        testUser = new GameUser(new FakeUser(link), FamilyColor.Green);
 
-        Map<DomesticColor, Integer> values = new HashMap<>();
-        values.put(DomesticColor.Black, 5);
-        values.put(DomesticColor.Orange, 3);
-        values.put(DomesticColor.White, 2);
-        values.put(DomesticColor.Neutral, 0);
+        final PlayerState userState = GameHelper.getInstance().getInitialPS(testUser, 0);
+        testUser.updateUserState(userState);
+
+        final Map<DomesticColor, Integer> values = new HashMap<DomesticColor, Integer>() {
+            {
+                put(DomesticColor.Black, 5);
+                put(DomesticColor.Orange, 3);
+                put(DomesticColor.White, 2);
+                put(DomesticColor.Neutral, 57);
+            }
+        };
+
+        testUser.setDomesticPenalty(DomesticColor.Black, 1);
 
         testUser.setDomestics(values);
 
         testUser.setRoundJump(true);
+
+        testUser.setHasMoved(false);
+        testUser.setHasMoved(false);
+
+        testUser.setChurchSupport(true);
     }
 
     @Test
-    public void selfCheck()  {
+    public void getUserLink() {
+        Assert.assertEquals(link, testUser.getUserLink());
+    }
 
-        Map<DomesticColor, Domestic> values = testUser.getDomestics();
+    @Test
+    public void getDomestics()  {
 
-        Assert.assertEquals(5, values.get(DomesticColor.Black).getValue().intValue());
+        final Map<DomesticColor, Domestic> values = testUser.getDomestics();
+
+        Assert.assertEquals(4, values.get(DomesticColor.Black).getValue().intValue());
         Assert.assertEquals(3, values.get(DomesticColor.Orange).getValue().intValue());
         Assert.assertEquals(2, values.get(DomesticColor.White).getValue().intValue());
         Assert.assertEquals(0, values.get(DomesticColor.Neutral).getValue().intValue());
-
-
-        Assert.assertEquals(true, testUser.getRoundJump());
     }
 
     @Test
-    public void userStateCheck() {
-
-        Assert.assertNotSame(testUser.getUserState(), testUser.getUserState());
-
+    public void getRoundJump() {
+        Assert.assertTrue(testUser.getRoundJump());
     }
 
+    @Test
+    public void getUserState() {
+        Assert.assertNotSame(testUser.getUserState(), testUser.getUserState());
+    }
+
+    @Test
+    public void getHasMoved() {
+        Assert.assertFalse(testUser.getHasMoved());
+
+        testUser.setHasMoved(true);
+
+        Assert.assertFalse(testUser.getHasMoved());
+
+        testUser.setHasMoved(true);
+
+        Assert.assertTrue(testUser.getHasMoved());
+    }
+
+    @Test
+    public void getChurchSupport() {
+        Assert.assertTrue(testUser.getChurchSupport());
+    }
 }

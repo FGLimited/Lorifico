@@ -1,5 +1,282 @@
 {
   "1": {
+    "Territory": [
+      {
+        "number": 1,
+        "name": "Avamposto Commerciale",
+        "description": "",
+        "type": "Territory",
+        "costs": [
+          {
+            "requestedResources": {},
+            "militaryRequested": 0,
+            "cardNumber": 24
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.AddResourcesEffect",
+            "data": {
+              "position": "HarvestAction",
+              "resources": {
+                "Gold": 1
+              },
+              "type": "Activable",
+              "cardNumber": 1,
+              "activationValue": 1
+            }
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "name": "Bosco",
+        "description": "",
+        "type": "Territory",
+        "costs": [
+          {
+            "requestedResources": {},
+            "militaryRequested": 0,
+            "cardNumber": 24
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.ImmediateEffect",
+            "data": {
+              "resources": {
+                "Wood": 1
+              },
+              "type": "Immediate",
+              "cardNumber": 2,
+              "activationValue": 0
+            }
+          },
+          {
+            "type": "Server.Game.Effects.AddResourcesEffect",
+            "data": {
+              "position": "HarvestAction",
+              "resources": {
+                "Wood": 1
+              },
+              "type": "Activable",
+              "cardNumber": 2,
+              "activationValue": 2
+            }
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "name": "Borgo",
+        "description": "",
+        "type": "Territory",
+        "costs": [
+          {
+            "requestedResources": {},
+            "militaryRequested": 0,
+            "cardNumber": 24
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.AddResourcesEffect",
+            "data": {
+              "position": "HarvestAction",
+              "resources": {
+                "Slave": 1,
+                "Gold": 1
+              },
+              "type": "Activable",
+              "cardNumber": 3,
+              "activationValue": 3
+            }
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "name": "Cava di Ghiaia",
+        "description": "",
+        "type": "Territory",
+        "costs": [
+          {
+            "requestedResources": {},
+            "militaryRequested": 0,
+            "cardNumber": 24
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.ImmediateEffect",
+            "data": {
+              "resources": {
+                "Rock": 2
+              },
+              "type": "Immediate",
+              "cardNumber": 4,
+              "activationValue": 0
+            }
+          },
+          {
+            "type": "Server.Game.Effects.AddResourcesEffect",
+            "data": {
+              "position": "HarvestAction",
+              "resources": {
+                "Rock": 2
+              },
+              "type": "Activable",
+              "cardNumber": 4,
+              "activationValue": 4
+            }
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "name": "Foresta",
+        "description": "",
+        "type": "Territory",
+        "costs": [
+          {
+            "requestedResources": {},
+            "militaryRequested": 0,
+            "cardNumber": 24
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.ImmediateEffect",
+            "data": {
+              "resources": {
+                "Wood": 1
+              },
+              "type": "Immediate",
+              "cardNumber": 5,
+              "activationValue": 0
+            }
+          },
+          {
+            "type": "Server.Game.Effects.AddResourcesEffect",
+            "data": {
+              "position": "HarvestAction",
+              "resources": {
+                "Wood": 3
+              },
+              "type": "Activable",
+              "cardNumber": 5,
+              "activationValue": 5
+            }
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "name": "Monastero",
+        "description": "",
+        "type": "Territory",
+        "costs": [
+          {
+            "requestedResources": {},
+            "militaryRequested": 0,
+            "cardNumber": 24
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.ImmediateEffect",
+            "data": {
+              "resources": {
+                "MilitaryPoint": 2,
+                "Slave": 1
+              },
+              "type": "Immediate",
+              "cardNumber": 6,
+              "activationValue": 0
+            }
+          },
+          {
+            "type": "Server.Game.Effects.AddResourcesEffect",
+            "data": {
+              "position": "HarvestAction",
+              "resources": {
+                "Rock": 1,
+                "FaithPoint": 1
+              },
+              "type": "Activable",
+              "cardNumber": 6,
+              "activationValue": 6
+            }
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "name": "Rocca",
+        "description": "",
+        "type": "Territory",
+        "costs": [
+          {
+            "requestedResources": {},
+            "militaryRequested": 0,
+            "cardNumber": 24
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.AddResourcesEffect",
+            "data": {
+              "position": "HarvestAction",
+              "resources": {
+                "Rock": 1,
+                "MilitaryPoint": 2
+              },
+              "type": "Activable",
+              "cardNumber": 7,
+              "activationValue": 5
+            }
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "name": "Città",
+        "description": "",
+        "type": "Territory",
+        "costs": [
+          {
+            "requestedResources": {},
+            "militaryRequested": 0,
+            "cardNumber": 24
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.ImmediateEffect",
+            "data": {
+              "resources": {
+                "Gold": 3
+              },
+              "type": "Immediate",
+              "cardNumber": 8,
+              "activationValue": 0
+            }
+          },
+          {
+            "type": "Server.Game.Effects.AddResourcesEffect",
+            "data": {
+              "position": "HarvestAction",
+              "resources": {
+                "Favor": 1
+              },
+              "type": "Activable",
+              "cardNumber": 8,
+              "activationValue": 6
+            }
+          }
+        ]
+      }
+    ],
     "Building": [
       {
         "number": 25,
@@ -439,8 +716,8 @@
             "data": {
               "cardType": "Building",
               "bonus": {
-                "Rock": 1,
-                "Wood": 1
+                "Wood": 1,
+                "Rock": 1
               },
               "isApplied": false,
               "type": "Permanent",
@@ -750,8 +1027,8 @@
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
               "resources": {
-                "Favor": 1,
-                "MilitaryPoint": 2
+                "MilitaryPoint": 2,
+                "Favor": 1
               },
               "type": "Immediate",
               "cardNumber": 75,
@@ -964,11 +1241,13 @@
           }
         ]
       }
-    ],
+    ]
+  },
+  "2": {
     "Territory": [
       {
-        "number": 1,
-        "name": "Avamposto Commerciale",
+        "number": 9,
+        "name": "Miniera d\u0027oro",
         "description": "",
         "type": "Territory",
         "costs": [
@@ -980,22 +1259,33 @@
         ],
         "effects": [
           {
+            "type": "Server.Game.Effects.ImmediateEffect",
+            "data": {
+              "resources": {
+                "Gold": 1
+              },
+              "type": "Immediate",
+              "cardNumber": 9,
+              "activationValue": 0
+            }
+          },
+          {
             "type": "Server.Game.Effects.AddResourcesEffect",
             "data": {
               "position": "HarvestAction",
               "resources": {
-                "Gold": 1
+                "Gold": 2
               },
               "type": "Activable",
-              "cardNumber": 1,
+              "cardNumber": 9,
               "activationValue": 1
             }
           }
         ]
       },
       {
-        "number": 2,
-        "name": "Bosco",
+        "number": 10,
+        "name": "Villaggio Montano",
         "description": "",
         "type": "Territory",
         "costs": [
@@ -1010,10 +1300,10 @@
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
               "resources": {
-                "Wood": 1
+                "Slave": 1
               },
               "type": "Immediate",
-              "cardNumber": 2,
+              "cardNumber": 10,
               "activationValue": 0
             }
           },
@@ -1022,46 +1312,19 @@
             "data": {
               "position": "HarvestAction",
               "resources": {
-                "Wood": 1
+                "Wood": 2,
+                "MilitaryPoint": 1
               },
               "type": "Activable",
-              "cardNumber": 2,
-              "activationValue": 2
-            }
-          }
-        ]
-      },
-      {
-        "number": 3,
-        "name": "Borgo",
-        "description": "",
-        "type": "Territory",
-        "costs": [
-          {
-            "requestedResources": {},
-            "militaryRequested": 0,
-            "cardNumber": 24
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.AddResourcesEffect",
-            "data": {
-              "position": "HarvestAction",
-              "resources": {
-                "Slave": 1,
-                "Gold": 1
-              },
-              "type": "Activable",
-              "cardNumber": 3,
+              "cardNumber": 10,
               "activationValue": 3
             }
           }
         ]
       },
       {
-        "number": 4,
-        "name": "Cava di Ghiaia",
+        "number": 11,
+        "name": "Villaggio Minerario",
         "description": "",
         "type": "Territory",
         "costs": [
@@ -1076,10 +1339,11 @@
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
               "resources": {
-                "Rock": 2
+                "Rock": 1,
+                "Slave": 2
               },
               "type": "Immediate",
-              "cardNumber": 4,
+              "cardNumber": 11,
               "activationValue": 0
             }
           },
@@ -1088,18 +1352,19 @@
             "data": {
               "position": "HarvestAction",
               "resources": {
-                "Rock": 2
+                "Rock": 2,
+                "Slave": 1
               },
               "type": "Activable",
-              "cardNumber": 4,
+              "cardNumber": 11,
               "activationValue": 4
             }
           }
         ]
       },
       {
-        "number": 5,
-        "name": "Foresta",
+        "number": 12,
+        "name": "Cava di Pietra",
         "description": "",
         "type": "Territory",
         "costs": [
@@ -1117,7 +1382,7 @@
                 "Wood": 1
               },
               "type": "Immediate",
-              "cardNumber": 5,
+              "cardNumber": 12,
               "activationValue": 0
             }
           },
@@ -1126,18 +1391,18 @@
             "data": {
               "position": "HarvestAction",
               "resources": {
-                "Wood": 3
+                "Rock": 3
               },
               "type": "Activable",
-              "cardNumber": 5,
-              "activationValue": 5
+              "cardNumber": 12,
+              "activationValue": 3
             }
           }
         ]
       },
       {
-        "number": 6,
-        "name": "Monastero",
+        "number": 13,
+        "name": "Possedimento",
         "description": "",
         "type": "Territory",
         "costs": [
@@ -1152,11 +1417,11 @@
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
               "resources": {
-                "Slave": 1,
-                "MilitaryPoint": 2
+                "Wood": 1,
+                "Slave": 2
               },
               "type": "Immediate",
-              "cardNumber": 6,
+              "cardNumber": 13,
               "activationValue": 0
             }
           },
@@ -1165,19 +1430,57 @@
             "data": {
               "position": "HarvestAction",
               "resources": {
-                "Rock": 1,
+                "Wood": 2,
+                "Gold": 1
+              },
+              "type": "Activable",
+              "cardNumber": 13,
+              "activationValue": 4
+            }
+          }
+        ]
+      },
+      {
+        "number": 14,
+        "name": "Eremo",
+        "description": "",
+        "type": "Territory",
+        "costs": [
+          {
+            "requestedResources": {},
+            "militaryRequested": 0,
+            "cardNumber": 24
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.ImmediateEffect",
+            "data": {
+              "resources": {
+                "FaithPoint": 1
+              },
+              "type": "Immediate",
+              "cardNumber": 14,
+              "activationValue": 0
+            }
+          },
+          {
+            "type": "Server.Game.Effects.AddResourcesEffect",
+            "data": {
+              "position": "HarvestAction",
+              "resources": {
                 "FaithPoint": 1
               },
               "type": "Activable",
-              "cardNumber": 6,
-              "activationValue": 6
+              "cardNumber": 14,
+              "activationValue": 2
             }
           }
         ]
       },
       {
-        "number": 7,
-        "name": "Rocca",
+        "number": 15,
+        "name": "Maniero",
         "description": "",
         "type": "Territory",
         "costs": [
@@ -1193,19 +1496,19 @@
             "data": {
               "position": "HarvestAction",
               "resources": {
-                "Rock": 1,
-                "MilitaryPoint": 2
+                "MilitaryPoint": 2,
+                "Slave": 2
               },
               "type": "Activable",
-              "cardNumber": 7,
+              "cardNumber": 15,
               "activationValue": 5
             }
           }
         ]
       },
       {
-        "number": 8,
-        "name": "Città",
+        "number": 16,
+        "name": "Ducato",
         "description": "",
         "type": "Territory",
         "costs": [
@@ -1220,10 +1523,10 @@
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
               "resources": {
-                "Gold": 3
+                "Gold": 4
               },
               "type": "Immediate",
-              "cardNumber": 8,
+              "cardNumber": 16,
               "activationValue": 0
             }
           },
@@ -1232,18 +1535,18 @@
             "data": {
               "position": "HarvestAction",
               "resources": {
-                "Favor": 1
+                "Wood": 2,
+                "Rock": 1,
+                "Gold": 1
               },
               "type": "Activable",
-              "cardNumber": 8,
+              "cardNumber": 16,
               "activationValue": 6
             }
           }
         ]
       }
-    ]
-  },
-  "2": {
+    ],
     "Building": [
       {
         "number": 33,
@@ -1280,8 +1583,8 @@
                 "Gold": 3
               },
               "toAdd": {
-                "Rock": 2,
-                "Wood": 2
+                "Wood": 2,
+                "Rock": 2
               },
               "type": "Activable",
               "cardNumber": 33,
@@ -1496,8 +1799,8 @@
             "data": {
               "position": "ProductionAction",
               "requested": {
-                "Rock": 1,
                 "Wood": 1,
+                "Rock": 1,
                 "Slave": 1
               },
               "toAdd": {
@@ -1632,8 +1935,8 @@
             "data": {
               "position": "ProductionAction",
               "resources": {
-                "VictoryPoint": 2,
-                "MilitaryPoint": 2
+                "MilitaryPoint": 2,
+                "VictoryPoint": 2
               },
               "type": "Activable",
               "cardNumber": 40,
@@ -1707,8 +2010,8 @@
               ],
               "value": 6,
               "costBonus": {
-                "Rock": 1,
-                "Wood": 1
+                "Wood": 1,
+                "Rock": 1
               },
               "type": "Immediate",
               "cardNumber": 58,
@@ -1996,8 +2299,8 @@
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
               "resources": {
-                "Favor": 1,
-                "MilitaryPoint": 3
+                "MilitaryPoint": 3,
+                "Favor": 1
               },
               "type": "Immediate",
               "cardNumber": 83,
@@ -2213,11 +2516,13 @@
           }
         ]
       }
-    ],
+    ]
+  },
+  "3": {
     "Territory": [
       {
-        "number": 9,
-        "name": "Miniera d\u0027oro",
+        "number": 17,
+        "name": "Città Mercantile",
         "description": "",
         "type": "Territory",
         "costs": [
@@ -2232,10 +2537,11 @@
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
               "resources": {
+                "Slave": 1,
                 "Gold": 1
               },
               "type": "Immediate",
-              "cardNumber": 9,
+              "cardNumber": 17,
               "activationValue": 0
             }
           },
@@ -2244,135 +2550,18 @@
             "data": {
               "position": "HarvestAction",
               "resources": {
-                "Gold": 2
+                "Gold": 3
               },
               "type": "Activable",
-              "cardNumber": 9,
+              "cardNumber": 17,
               "activationValue": 1
             }
           }
         ]
       },
       {
-        "number": 10,
-        "name": "Villaggio Montano",
-        "description": "",
-        "type": "Territory",
-        "costs": [
-          {
-            "requestedResources": {},
-            "militaryRequested": 0,
-            "cardNumber": 24
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.ImmediateEffect",
-            "data": {
-              "resources": {
-                "Slave": 1
-              },
-              "type": "Immediate",
-              "cardNumber": 10,
-              "activationValue": 0
-            }
-          },
-          {
-            "type": "Server.Game.Effects.AddResourcesEffect",
-            "data": {
-              "position": "HarvestAction",
-              "resources": {
-                "Wood": 2,
-                "MilitaryPoint": 1
-              },
-              "type": "Activable",
-              "cardNumber": 10,
-              "activationValue": 3
-            }
-          }
-        ]
-      },
-      {
-        "number": 11,
-        "name": "Villaggio Minerario",
-        "description": "",
-        "type": "Territory",
-        "costs": [
-          {
-            "requestedResources": {},
-            "militaryRequested": 0,
-            "cardNumber": 24
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.ImmediateEffect",
-            "data": {
-              "resources": {
-                "Rock": 1,
-                "Slave": 2
-              },
-              "type": "Immediate",
-              "cardNumber": 11,
-              "activationValue": 0
-            }
-          },
-          {
-            "type": "Server.Game.Effects.AddResourcesEffect",
-            "data": {
-              "position": "HarvestAction",
-              "resources": {
-                "Rock": 2,
-                "Slave": 1
-              },
-              "type": "Activable",
-              "cardNumber": 11,
-              "activationValue": 4
-            }
-          }
-        ]
-      },
-      {
-        "number": 12,
-        "name": "Cava di Pietra",
-        "description": "",
-        "type": "Territory",
-        "costs": [
-          {
-            "requestedResources": {},
-            "militaryRequested": 0,
-            "cardNumber": 24
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.ImmediateEffect",
-            "data": {
-              "resources": {
-                "Wood": 1
-              },
-              "type": "Immediate",
-              "cardNumber": 12,
-              "activationValue": 0
-            }
-          },
-          {
-            "type": "Server.Game.Effects.AddResourcesEffect",
-            "data": {
-              "position": "HarvestAction",
-              "resources": {
-                "Rock": 3
-              },
-              "type": "Activable",
-              "cardNumber": 12,
-              "activationValue": 3
-            }
-          }
-        ]
-      },
-      {
-        "number": 13,
-        "name": "Possedimento",
+        "number": 18,
+        "name": "Tenuta",
         "description": "",
         "type": "Territory",
         "costs": [
@@ -2388,10 +2577,10 @@
             "data": {
               "resources": {
                 "Wood": 1,
-                "Slave": 2
+                "VictoryPoint": 1
               },
               "type": "Immediate",
-              "cardNumber": 13,
+              "cardNumber": 18,
               "activationValue": 0
             }
           },
@@ -2401,18 +2590,18 @@
               "position": "HarvestAction",
               "resources": {
                 "Wood": 2,
-                "Gold": 1
+                "VictoryPoint": 2
               },
               "type": "Activable",
-              "cardNumber": 13,
-              "activationValue": 4
+              "cardNumber": 18,
+              "activationValue": 3
             }
           }
         ]
       },
       {
-        "number": 14,
-        "name": "Eremo",
+        "number": 19,
+        "name": "Colonia",
         "description": "",
         "type": "Territory",
         "costs": [
@@ -2427,10 +2616,10 @@
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
               "resources": {
-                "FaithPoint": 1
+                "MilitaryPoint": 2
               },
               "type": "Immediate",
-              "cardNumber": 14,
+              "cardNumber": 19,
               "activationValue": 0
             }
           },
@@ -2439,46 +2628,19 @@
             "data": {
               "position": "HarvestAction",
               "resources": {
-                "FaithPoint": 1
+                "Wood": 1,
+                "VictoryPoint": 4
               },
               "type": "Activable",
-              "cardNumber": 14,
-              "activationValue": 2
-            }
-          }
-        ]
-      },
-      {
-        "number": 15,
-        "name": "Maniero",
-        "description": "",
-        "type": "Territory",
-        "costs": [
-          {
-            "requestedResources": {},
-            "militaryRequested": 0,
-            "cardNumber": 24
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.AddResourcesEffect",
-            "data": {
-              "position": "HarvestAction",
-              "resources": {
-                "Slave": 2,
-                "MilitaryPoint": 2
-              },
-              "type": "Activable",
-              "cardNumber": 15,
+              "cardNumber": 19,
               "activationValue": 5
             }
           }
         ]
       },
       {
-        "number": 16,
-        "name": "Ducato",
+        "number": 20,
+        "name": "Cava di Marmo",
         "description": "",
         "type": "Territory",
         "costs": [
@@ -2493,10 +2655,50 @@
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
               "resources": {
-                "Gold": 4
+                "VictoryPoint": 3
               },
               "type": "Immediate",
-              "cardNumber": 16,
+              "cardNumber": 20,
+              "activationValue": 0
+            }
+          },
+          {
+            "type": "Server.Game.Effects.AddResourcesEffect",
+            "data": {
+              "position": "HarvestAction",
+              "resources": {
+                "Rock": 2,
+                "VictoryPoint": 1
+              },
+              "type": "Activable",
+              "cardNumber": 20,
+              "activationValue": 2
+            }
+          }
+        ]
+      },
+      {
+        "number": 21,
+        "name": "Provincia",
+        "description": "",
+        "type": "Territory",
+        "costs": [
+          {
+            "requestedResources": {},
+            "militaryRequested": 0,
+            "cardNumber": 24
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.ImmediateEffect",
+            "data": {
+              "resources": {
+                "Rock": 1,
+                "Favor": 1
+              },
+              "type": "Immediate",
+              "cardNumber": 21,
               "activationValue": 0
             }
           },
@@ -2506,19 +2708,135 @@
               "position": "HarvestAction",
               "resources": {
                 "Rock": 1,
-                "Wood": 2,
-                "Gold": 1
+                "VictoryPoint": 4
               },
               "type": "Activable",
-              "cardNumber": 16,
+              "cardNumber": 21,
               "activationValue": 6
             }
           }
         ]
+      },
+      {
+        "number": 22,
+        "name": "Santuario",
+        "description": "",
+        "type": "Territory",
+        "costs": [
+          {
+            "requestedResources": {},
+            "militaryRequested": 0,
+            "cardNumber": 24
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.ImmediateEffect",
+            "data": {
+              "resources": {
+                "FaithPoint": 1
+              },
+              "type": "Immediate",
+              "cardNumber": 22,
+              "activationValue": 0
+            }
+          },
+          {
+            "type": "Server.Game.Effects.AddResourcesEffect",
+            "data": {
+              "position": "HarvestAction",
+              "resources": {
+                "FaithPoint": 1,
+                "Gold": 1
+              },
+              "type": "Activable",
+              "cardNumber": 22,
+              "activationValue": 1
+            }
+          }
+        ]
+      },
+      {
+        "number": 23,
+        "name": "Castello",
+        "description": "",
+        "type": "Territory",
+        "costs": [
+          {
+            "requestedResources": {},
+            "militaryRequested": 0,
+            "cardNumber": 24
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.ImmediateEffect",
+            "data": {
+              "resources": {
+                "VictoryPoint": 2,
+                "Gold": 2
+              },
+              "type": "Immediate",
+              "cardNumber": 23,
+              "activationValue": 0
+            }
+          },
+          {
+            "type": "Server.Game.Effects.AddResourcesEffect",
+            "data": {
+              "position": "HarvestAction",
+              "resources": {
+                "MilitaryPoint": 3,
+                "Slave": 1
+              },
+              "type": "Activable",
+              "cardNumber": 23,
+              "activationValue": 4
+            }
+          }
+        ]
+      },
+      {
+        "number": 24,
+        "name": "Città Fortificata",
+        "description": "",
+        "type": "Territory",
+        "costs": [
+          {
+            "requestedResources": {},
+            "militaryRequested": 0,
+            "cardNumber": 24
+          }
+        ],
+        "effects": [
+          {
+            "type": "Server.Game.Effects.ImmediateEffect",
+            "data": {
+              "resources": {
+                "MilitaryPoint": 2,
+                "Slave": 1
+              },
+              "type": "Immediate",
+              "cardNumber": 24,
+              "activationValue": 0
+            }
+          },
+          {
+            "type": "Server.Game.Effects.AddResourcesEffect",
+            "data": {
+              "position": "HarvestAction",
+              "resources": {
+                "MilitaryPoint": 1,
+                "Slave": 2
+              },
+              "type": "Activable",
+              "cardNumber": 24,
+              "activationValue": 2
+            }
+          }
+        ]
       }
-    ]
-  },
-  "3": {
+    ],
     "Building": [
       {
         "number": 41,
@@ -2597,8 +2915,8 @@
                 "Gold": 4
               },
               "toAdd": {
-                "Rock": 3,
-                "Wood": 3
+                "Wood": 3,
+                "Rock": 3
               },
               "type": "Activable",
               "cardNumber": 42,
@@ -2682,8 +3000,8 @@
             "data": {
               "position": "ProductionAction",
               "resources": {
-                "Favor": 1,
-                "VictoryPoint": 2
+                "VictoryPoint": 2,
+                "Favor": 1
               },
               "type": "Activable",
               "cardNumber": 44,
@@ -2728,8 +3046,8 @@
                 "Gold": 1
               },
               "toAdd": {
-                "VictoryPoint": 4,
-                "Slave": 2
+                "Slave": 2,
+                "VictoryPoint": 4
               },
               "type": "Activable",
               "cardNumber": 45,
@@ -2819,8 +3137,8 @@
                 "Slave": 1
               },
               "toAdd": {
-                "VictoryPoint": 1,
-                "MilitaryPoint": 3
+                "MilitaryPoint": 3,
+                "VictoryPoint": 1
               },
               "type": "Activable",
               "cardNumber": 47,
@@ -3249,8 +3567,8 @@
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
               "resources": {
-                "Favor": 1,
-                "MilitaryPoint": 4
+                "MilitaryPoint": 4,
+                "Favor": 1
               },
               "type": "Immediate",
               "cardNumber": 91,
@@ -3324,8 +3642,8 @@
             "type": "Server.Game.Effects.ImmediateEffect",
             "data": {
               "resources": {
-                "Rock": 3,
                 "Wood": 3,
+                "Rock": 3,
                 "Gold": 3
               },
               "type": "Immediate",
@@ -3462,324 +3780,6 @@
               "type": "Final",
               "cardNumber": 96,
               "activationValue": 0
-            }
-          }
-        ]
-      }
-    ],
-    "Territory": [
-      {
-        "number": 17,
-        "name": "Città Mercantile",
-        "description": "",
-        "type": "Territory",
-        "costs": [
-          {
-            "requestedResources": {},
-            "militaryRequested": 0,
-            "cardNumber": 24
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.ImmediateEffect",
-            "data": {
-              "resources": {
-                "Slave": 1,
-                "Gold": 1
-              },
-              "type": "Immediate",
-              "cardNumber": 17,
-              "activationValue": 0
-            }
-          },
-          {
-            "type": "Server.Game.Effects.AddResourcesEffect",
-            "data": {
-              "position": "HarvestAction",
-              "resources": {
-                "Gold": 3
-              },
-              "type": "Activable",
-              "cardNumber": 17,
-              "activationValue": 1
-            }
-          }
-        ]
-      },
-      {
-        "number": 18,
-        "name": "Tenuta",
-        "description": "",
-        "type": "Territory",
-        "costs": [
-          {
-            "requestedResources": {},
-            "militaryRequested": 0,
-            "cardNumber": 24
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.ImmediateEffect",
-            "data": {
-              "resources": {
-                "VictoryPoint": 1,
-                "Wood": 1
-              },
-              "type": "Immediate",
-              "cardNumber": 18,
-              "activationValue": 0
-            }
-          },
-          {
-            "type": "Server.Game.Effects.AddResourcesEffect",
-            "data": {
-              "position": "HarvestAction",
-              "resources": {
-                "VictoryPoint": 2,
-                "Wood": 2
-              },
-              "type": "Activable",
-              "cardNumber": 18,
-              "activationValue": 3
-            }
-          }
-        ]
-      },
-      {
-        "number": 19,
-        "name": "Colonia",
-        "description": "",
-        "type": "Territory",
-        "costs": [
-          {
-            "requestedResources": {},
-            "militaryRequested": 0,
-            "cardNumber": 24
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.ImmediateEffect",
-            "data": {
-              "resources": {
-                "MilitaryPoint": 2
-              },
-              "type": "Immediate",
-              "cardNumber": 19,
-              "activationValue": 0
-            }
-          },
-          {
-            "type": "Server.Game.Effects.AddResourcesEffect",
-            "data": {
-              "position": "HarvestAction",
-              "resources": {
-                "VictoryPoint": 4,
-                "Wood": 1
-              },
-              "type": "Activable",
-              "cardNumber": 19,
-              "activationValue": 5
-            }
-          }
-        ]
-      },
-      {
-        "number": 20,
-        "name": "Cava di Marmo",
-        "description": "",
-        "type": "Territory",
-        "costs": [
-          {
-            "requestedResources": {},
-            "militaryRequested": 0,
-            "cardNumber": 24
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.ImmediateEffect",
-            "data": {
-              "resources": {
-                "VictoryPoint": 3
-              },
-              "type": "Immediate",
-              "cardNumber": 20,
-              "activationValue": 0
-            }
-          },
-          {
-            "type": "Server.Game.Effects.AddResourcesEffect",
-            "data": {
-              "position": "HarvestAction",
-              "resources": {
-                "VictoryPoint": 1,
-                "Rock": 2
-              },
-              "type": "Activable",
-              "cardNumber": 20,
-              "activationValue": 2
-            }
-          }
-        ]
-      },
-      {
-        "number": 21,
-        "name": "Provincia",
-        "description": "",
-        "type": "Territory",
-        "costs": [
-          {
-            "requestedResources": {},
-            "militaryRequested": 0,
-            "cardNumber": 24
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.ImmediateEffect",
-            "data": {
-              "resources": {
-                "Favor": 1,
-                "Rock": 1
-              },
-              "type": "Immediate",
-              "cardNumber": 21,
-              "activationValue": 0
-            }
-          },
-          {
-            "type": "Server.Game.Effects.AddResourcesEffect",
-            "data": {
-              "position": "HarvestAction",
-              "resources": {
-                "VictoryPoint": 4,
-                "Rock": 1
-              },
-              "type": "Activable",
-              "cardNumber": 21,
-              "activationValue": 6
-            }
-          }
-        ]
-      },
-      {
-        "number": 22,
-        "name": "Santuario",
-        "description": "",
-        "type": "Territory",
-        "costs": [
-          {
-            "requestedResources": {},
-            "militaryRequested": 0,
-            "cardNumber": 24
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.ImmediateEffect",
-            "data": {
-              "resources": {
-                "FaithPoint": 1
-              },
-              "type": "Immediate",
-              "cardNumber": 22,
-              "activationValue": 0
-            }
-          },
-          {
-            "type": "Server.Game.Effects.AddResourcesEffect",
-            "data": {
-              "position": "HarvestAction",
-              "resources": {
-                "FaithPoint": 1,
-                "Gold": 1
-              },
-              "type": "Activable",
-              "cardNumber": 22,
-              "activationValue": 1
-            }
-          }
-        ]
-      },
-      {
-        "number": 23,
-        "name": "Castello",
-        "description": "",
-        "type": "Territory",
-        "costs": [
-          {
-            "requestedResources": {},
-            "militaryRequested": 0,
-            "cardNumber": 24
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.ImmediateEffect",
-            "data": {
-              "resources": {
-                "VictoryPoint": 2,
-                "Gold": 2
-              },
-              "type": "Immediate",
-              "cardNumber": 23,
-              "activationValue": 0
-            }
-          },
-          {
-            "type": "Server.Game.Effects.AddResourcesEffect",
-            "data": {
-              "position": "HarvestAction",
-              "resources": {
-                "Slave": 1,
-                "MilitaryPoint": 3
-              },
-              "type": "Activable",
-              "cardNumber": 23,
-              "activationValue": 4
-            }
-          }
-        ]
-      },
-      {
-        "number": 24,
-        "name": "Città Fortificata",
-        "description": "",
-        "type": "Territory",
-        "costs": [
-          {
-            "requestedResources": {},
-            "militaryRequested": 0,
-            "cardNumber": 24
-          }
-        ],
-        "effects": [
-          {
-            "type": "Server.Game.Effects.ImmediateEffect",
-            "data": {
-              "resources": {
-                "Slave": 1,
-                "MilitaryPoint": 2
-              },
-              "type": "Immediate",
-              "cardNumber": 24,
-              "activationValue": 0
-            }
-          },
-          {
-            "type": "Server.Game.Effects.AddResourcesEffect",
-            "data": {
-              "position": "HarvestAction",
-              "resources": {
-                "Slave": 2,
-                "MilitaryPoint": 1
-              },
-              "type": "Activable",
-              "cardNumber": 24,
-              "activationValue": 2
             }
           }
         ]

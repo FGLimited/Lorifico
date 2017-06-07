@@ -5,10 +5,10 @@ import Game.Effects.EffectType;
 import Game.Positions.PositionType;
 import Game.Usable.ResourceType;
 import Game.UserObjects.DomesticColor;
-import Game.UserObjects.GameUser;
 import Game.UserObjects.PlayerState;
 import Server.Game.Usable.Cost;
 import Server.Game.UserObjects.Domestic;
+import Server.Game.UserObjects.GameUser;
 import java.util.List;
 import java.util.Map;
 
@@ -46,7 +46,7 @@ public class BonusDomesticEffect extends Effect {
     @Override
     public void apply(PlayerState currentMove) {
 
-        final GameUser currentUser = currentMove.getGameUser();
+        final GameUser currentUser = (GameUser) currentMove.getGameUser();
 
         // Set special neutral domestic
         final Domestic special = new Domestic(currentMove.getGameUser().getFamilyColor(), DomesticColor.Neutral, value);

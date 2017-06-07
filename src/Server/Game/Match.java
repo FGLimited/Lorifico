@@ -9,13 +9,13 @@ import Game.Effects.EffectType;
 import Game.Usable.ResourceType;
 import Game.UserObjects.DomesticColor;
 import Game.UserObjects.FamilyColor;
-import Game.UserObjects.GameUser;
-import Game.UserObjects.PlayerState;
 import Logging.Logger;
 import Model.User.User;
 import Server.Game.Cards.SplitDeck;
 import Server.Game.Effects.Faith.FaithDeck;
 import Server.Game.UserObjects.GameTable;
+import Server.Game.UserObjects.GameUser;
+import Server.Game.UserObjects.PlayerState;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.Executors;
@@ -166,7 +166,7 @@ public class Match extends UserHandler {
             User current = users.get(i);
 
             // Create new game user for current user
-            final GameUser newGameUser = new Server.Game.UserObjects.GameUser(current, colors[i]);
+            final GameUser newGameUser = new GameUser(current, colors[i]);
 
             // Set new game user (this will send update to all clients)
             current.setGameUser(newGameUser);
@@ -178,7 +178,7 @@ public class Match extends UserHandler {
             newGameUser.updateUserState(initialState);
 
             // Add game user to first round order
-            firstRoundOrder.add(current.getGameUser());
+            firstRoundOrder.add(newGameUser);
         }
 
         return firstRoundOrder;

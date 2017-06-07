@@ -3,6 +3,7 @@ package Server.Game.Effects.Faith;
 import Server.Game.Effects.Effect;
 import Game.Effects.EffectType;
 import Game.UserObjects.PlayerState;
+import Server.Game.UserObjects.GameUser;
 
 /**
  * Created by fiore on 17/05/2017.
@@ -26,7 +27,8 @@ public class JumpFirstRoundEffect extends Effect {
         if(applied)
             return;
 
-        currentMove.getGameUser().setRoundJump(true);
+        final GameUser currentUser = (GameUser) currentMove.getGameUser();
+        currentUser.setRoundJump(true);
 
         applied = true;
     }

@@ -22,15 +22,15 @@ public class GameUser implements Game.UserObjects.GameUser {
 
     private final Map<DomesticColor, Domestic> domestics = new HashMap<>();
 
-    private final Map<DomesticColor, Integer> penalty = new HashMap<>();
+    private final transient Map<DomesticColor, Integer> penalty = new HashMap<>();
 
     private final transient User user;
 
-    private volatile transient Game.UserObjects.PlayerState currentState;
+    private volatile transient PlayerState currentState;
 
-    private volatile boolean roundJump = false;
+    private volatile transient boolean roundJump = false;
 
-    private volatile boolean churchSupport = false;
+    private volatile transient boolean churchSupport = false;
 
     private final transient AtomicInteger moves = new AtomicInteger(0);
 
@@ -63,7 +63,11 @@ public class GameUser implements Game.UserObjects.GameUser {
         return new HashMap<>(domestics);
     }
 
-    @Override
+    /**
+     * Set new domestic values
+     *
+     * @param newValues New values map
+     */
     public void setDomestics(Map<DomesticColor, Integer> newValues) {
         // Update domestic value
         newValues.forEach((color, value) -> {
@@ -73,33 +77,53 @@ public class GameUser implements Game.UserObjects.GameUser {
                 domestics.get(color).setValue(value);
         });
 
+        // Assure neutral domestic to have value of zero
+        domestics.get(DomesticColor.Neutral).setValue(0);
+
         // Send update to all users
         if(user.getMatch() != null)
             user.getMatch().sendAll(new DiceDomesticUpdate(user.getUsername(), newValues, domestics));
     }
 
-    @Override
+    /**
+     * Add permanent penalty value to specified domestic
+     *
+     * @param color Domestic color
+     * @param value Penalty value
+     */
     public void setDomesticPenalty(DomesticColor color, int value) {
         penalty.put(color, value);
     }
 
-    @Override
+    /**
+     * Set true if player has to jump first round of each turn
+     *
+     * @param jumpRound True to jump first round of turn
+     */
     public void setRoundJump(boolean jumpRound) {
         roundJump = jumpRound;
     }
 
-    @Override
+    /**
+     * Get round jump flag for this user
+     *
+     * @return Round jump flag
+     */
     public boolean getRoundJump() {
         return roundJump;
     }
 
     @Override
-    public Game.UserObjects.PlayerState getUserState() {
-        return currentState.clone();
+    public PlayerState getUserState() {
+        return (PlayerState) currentState.clone();
     }
 
-    @Override
-    public void updateUserState(Game.UserObjects.PlayerState newState) {
+    /**
+     * Update user state
+     *
+     * @param newState New state to update user state
+     */
+    public void updateUserState(PlayerState newState) {
         currentState = newState;
 
         // Get favors added if any
@@ -123,27 +147,41 @@ public class GameUser implements Game.UserObjects.GameUser {
             user.getMatch().sendAll(new PlayerStateUpdate(user.getUsername(), currentState));
     }
 
-    @Override
+    /**
+     * Set true when player has performed his move
+     *
+     * @param hasMoved HasMoved value
+     */
     public void setHasMoved(boolean hasMoved) {
-
         if(!hasMoved)
             moves.incrementAndGet();
         else
             moves.decrementAndGet();
-
     }
 
-    @Override
+    /**
+     * Check if player has moved or not
+     *
+     * @return True if has moved, false else
+     */
     public boolean getHasMoved() {
         return moves.compareAndSet(0,0);
     }
 
-    @Override
+    /**
+     * Get church support intentions of this user
+     *
+     * @return True if wants to support the church, false else
+     */
     public boolean getChurchSupport() {
         return churchSupport;
     }
 
-    @Override
+    /**
+     * Set church support intentions
+     *
+     * @param supportChurch True to support church, false else
+     */
     public void setChurchSupport(boolean supportChurch) {
         churchSupport = supportChurch;
     }

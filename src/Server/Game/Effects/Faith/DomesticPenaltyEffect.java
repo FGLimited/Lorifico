@@ -3,8 +3,8 @@ package Server.Game.Effects.Faith;
 import Server.Game.Effects.Effect;
 import Game.Effects.EffectType;
 import Game.UserObjects.DomesticColor;
-import Game.UserObjects.GameUser;
 import Game.UserObjects.PlayerState;
+import Server.Game.UserObjects.GameUser;
 
 /**
  * Created by fiore on 20/05/2017.
@@ -36,7 +36,7 @@ public class DomesticPenaltyEffect extends Effect {
         if (isApplied)
             return;
 
-        final GameUser user = currentMove.getGameUser();
+        final GameUser user = (GameUser) currentMove.getGameUser();
 
         user.setDomesticPenalty(DomesticColor.Black, penalty);
         user.setDomesticPenalty(DomesticColor.Orange, penalty);

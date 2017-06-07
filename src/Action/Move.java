@@ -1,7 +1,7 @@
 package Action;
 
 import Game.Positions.Position;
-import Game.UserObjects.GameUser;
+import Server.Game.UserObjects.GameUser;
 import Model.User.User;
 import Server.Game.UserObjects.GameTable;
 import java.util.List;
@@ -30,7 +30,7 @@ public class Move<T> implements BaseAction {
     public void doAction(User user) {
 
         // Get current user and player state
-        final GameUser gameUser = user.getGameUser();
+        final GameUser gameUser = (GameUser) user.getGameUser();
         final GameTable table = user.getMatch().getTable();
 
         // If table is null, game hasn't started yet
@@ -43,7 +43,7 @@ public class Move<T> implements BaseAction {
         gameUser.setHasMoved(true);
 
         // Occupy selected position (this will activate all card/position effects)
-        Position updatedPosition = table.occupy(user.getGameUser(), positionNumber, chosenTs);
+        Position updatedPosition = table.occupy(gameUser, positionNumber, chosenTs);
 
         // Create position update message
         BaseAction updateMessage = new UpdatePosition(updatedPosition.getNumber(), updatedPosition.isOccupied());

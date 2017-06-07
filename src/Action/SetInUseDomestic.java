@@ -3,11 +3,11 @@ package Action;
 import Game.Positions.PositionType;
 import Game.Usable.ResourceType;
 import Game.UserObjects.Choosable;
-import Game.UserObjects.PlayerState;
 import Model.User.User;
 import Server.Game.Usable.Cost;
 import Server.Game.UserObjects.Domestic;
-import Game.UserObjects.GameUser;
+import Server.Game.UserObjects.GameUser;
+import Server.Game.UserObjects.PlayerState;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -50,7 +50,7 @@ public class SetInUseDomestic implements BaseAction {
     public void doAction(User user) {
 
         // Get current game user
-        final GameUser gameUser = user.getGameUser();
+        final GameUser gameUser = (GameUser) user.getGameUser();
 
         // Get current player state
         final PlayerState currentState = gameUser.getUserState();

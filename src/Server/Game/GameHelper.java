@@ -3,9 +3,9 @@ package Server.Game;
 import Game.Cards.CardType;
 import Game.Effects.Effect;
 import Game.Usable.ResourceType;
-import Game.UserObjects.GameUser;
 import Logging.Logger;
 import Networking.Gson.MySerializer;
+import Server.Game.UserObjects.GameUser;
 import Server.Game.UserObjects.PlayerState;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -132,8 +132,8 @@ public class GameHelper {
      * @param boundUser User to bind to new player state
      * @return Player state initialized for game start
      */
-    public Game.UserObjects.PlayerState getInitialPS(GameUser boundUser, int bonusGold) {
-        final PlayerState newState = (PlayerState) initialState.clone();
+    public PlayerState getInitialPS(GameUser boundUser, int bonusGold) {
+        final PlayerState newState = initialState.clone();
 
         bonusGold = newState.getResources().get(ResourceType.Gold) + bonusGold;
 

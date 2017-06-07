@@ -1,8 +1,8 @@
 package Action;
 
 import Game.Effects.Effect;
-import Game.UserObjects.GameUser;
-import Game.UserObjects.PlayerState;
+import Server.Game.UserObjects.GameUser;
+import Server.Game.UserObjects.PlayerState;
 import Model.User.User;
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class UseFavor implements BaseAction {
     public void doAction(User user) {
 
         // Get current user and player state
-        final GameUser currentUser = user.getGameUser();
+        final GameUser currentUser = (GameUser) user.getGameUser();
         final PlayerState currentState = currentUser.getUserState();
 
         // Apply chosen council favors to player state

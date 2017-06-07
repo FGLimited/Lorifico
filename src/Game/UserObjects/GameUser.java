@@ -31,64 +31,10 @@ public interface GameUser {
     Map<DomesticColor, Domestic> getDomestics();
 
     /**
-     * Set new domestic values
-     *
-     * @param newValues New values map
-     */
-    void setDomestics(Map<DomesticColor, Integer> newValues);
-
-    /**
-     * Add permanent penalty value to specified domestic
-     *
-     * @param color Domestic color
-     * @param penalty Penalty value
-     */
-    void setDomesticPenalty(DomesticColor color, int penalty);
-
-    void setRoundJump(boolean jumpRound);
-
-    boolean getRoundJump();
-
-    /**
      * Get current user state (state is not passed by reference)
      *
      * @return Current user state object
      */
     PlayerState getUserState();
-
-    /**
-     * Update user state
-     *
-     * @param newState New state to update user state
-     */
-    void updateUserState(PlayerState newState);
-
-    /**
-     * Set true when player has performed his move
-     *
-     * @param hasMoved HasMoved value
-     */
-    void setHasMoved(boolean hasMoved);
-
-    /**
-     * Check if player has moved or not
-     *
-     * @return True if has moved, false else
-     */
-    boolean getHasMoved();
-
-    /**
-     * Get church support intentions of this user
-     *
-     * @return True if wants to support the church, false else
-     */
-    boolean getChurchSupport();
-
-    /**
-     * Set church support intentions
-     *
-     * @param supportChurch True to support church, false else
-     */
-    void setChurchSupport(boolean supportChurch);
 
 }

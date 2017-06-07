@@ -55,7 +55,7 @@ public class TowerPosition extends Position<Cost> {
      */
     public void setCard(Card cardToBind) throws IllegalArgumentException {
 
-        if(currentCard.getType() != cardType)
+        if(cardToBind.getType() != cardType)
             throw new IllegalArgumentException("Wrong card type! Can't put " + currentCard.getType().name() + " card in " + cardType.name() + " position.");
 
         currentCard = cardToBind;
@@ -68,11 +68,9 @@ public class TowerPosition extends Position<Cost> {
         applyEffets(currentState);
 
         // If position is occupied no one else can be there
-        // or if there isn't a card
         // or if domestic value is too low
         // or if non neutral domestic of same family is already present in the tower
         if(occupant != null
-                || currentCard == null
                 || currentState.getInUseDomestic().getValue() < positionValue
                 || !parent.canOccupy(currentState.getInUseDomestic()))
             return Collections.emptyList();

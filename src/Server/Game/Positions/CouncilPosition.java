@@ -6,7 +6,7 @@ import Game.Usable.ResourceType;
 import Game.UserObjects.PlayerState;
 import Server.Game.Effects.ImmediateEffect;
 import Server.Game.Usable.Cost;
-import Game.UserObjects.GameUser;
+import Server.Game.UserObjects.GameUser;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -70,7 +70,7 @@ public class CouncilPosition extends Position<Cost> {
         immediatePositionEffect.apply(currentState);
 
         // Update list for next turn player's order
-        turnOrder.add(currentState.getGameUser());
+        turnOrder.add((GameUser) currentState.getGameUser());
 
         // Return updated state
         return currentState;

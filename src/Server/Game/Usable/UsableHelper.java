@@ -1,9 +1,8 @@
 package Server.Game.Usable;
 
 import Game.Usable.ResourceType;
-
+import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Created by fiore on 11/05/2017.
@@ -32,8 +31,10 @@ public class UsableHelper {
      */
     public static Map<ResourceType, Integer> cloneMap(Map<ResourceType, Integer> map) {
 
-        return map.entrySet().parallelStream()
-                .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().intValue()));
+        final Map<ResourceType, Integer> clone = new HashMap<>(map.size());
 
+        map.forEach((key, value) -> clone.put(key, value.intValue()));
+
+        return clone;
     }
 }

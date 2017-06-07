@@ -23,7 +23,7 @@ public class PlayerState implements Game.UserObjects.PlayerState {
 
     private final Map<CardType, Map<ResourceType, Integer>> resourceBonus = new HashMap<>();
 
-    private final transient Map<EffectType, List<Effect>> effects = new HashMap<>();
+    private final Map<EffectType, List<Effect>> effects = new HashMap<>();
 
     private final Map<CardType, List<Card>> cards = new HashMap<>();
 
@@ -179,7 +179,7 @@ public class PlayerState implements Game.UserObjects.PlayerState {
     }
 
     @Override
-    public Game.UserObjects.PlayerState clone() {
+    public PlayerState clone() {
         return new PlayerState(this);
     }
 }
