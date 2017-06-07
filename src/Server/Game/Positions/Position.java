@@ -60,6 +60,9 @@ public abstract class Position<T> implements Game.Positions.Position<T> {
     @Override
     public void free() {
 
+        if(occupant == null)
+            return;
+
         occupant.setInPosition(false);
         occupant = null;
     }

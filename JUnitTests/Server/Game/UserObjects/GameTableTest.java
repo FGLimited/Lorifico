@@ -17,7 +17,6 @@ import Server.Game.Usable.Cost;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.*;
 
 /**
@@ -84,11 +83,34 @@ public class GameTableTest {
         Assert.assertEquals(4, values.size());
         values.forEach((type, value) ->
                 Assert.assertTrue(type == DomesticColor.Neutral
-                        || (value > 0 && value < 6)));
+                        || (value > 0 && value <= 6)));
     }
 
     @Test
     public void changeRound() throws Exception {
+        final List<GameUser> currentOrder = new ArrayList<GameUser>() {
+            {
+                add(new GameUser(new FakeUser(new FakeLink()), FamilyColor.Blue));
+                add(new GameUser(new FakeUser(new FakeLink()), FamilyColor.Red));
+                add(testUser);
+            }
+        };
+
+        Assert.assertEquals(FamilyColor.Blue, currentOrder.get(0).getFamilyColor());
+        Assert.assertEquals(FamilyColor.Red, currentOrder.get(1).getFamilyColor());
+        Assert.assertEquals(FamilyColor.Green, currentOrder.get(2).getFamilyColor());
+
+        final PlayerState currentState = testUser.getUserState();
+        currentState.setInUseDomestic(testUser.getDomestics().get(DomesticColor.Orange));
+        testUser.updateUserState(currentState);
+
+        testTable.occupy(testUser, 50, Collections.singletonList(new Cost(null)));
+
+        final List<GameUser> nextOrder = testTable.changeRound(currentOrder);
+
+        Assert.assertEquals(FamilyColor.Green, nextOrder.get(0).getFamilyColor());
+        Assert.assertEquals(FamilyColor.Blue, nextOrder.get(1).getFamilyColor());
+        Assert.assertEquals(FamilyColor.Red, nextOrder.get(2).getFamilyColor());
 
     }
 

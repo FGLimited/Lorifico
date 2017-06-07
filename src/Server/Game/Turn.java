@@ -74,6 +74,10 @@ public class Turn {
             }
         }
 
+        // Send new round order to all users
+        final BaseAction orderUpdate = new RoundOrderUpdate(currentRound);
+        currentRound.forEach(user -> user.getUserLink().sendMessage(orderUpdate));
+
         // Ask for move to each user
         currentRound.forEach(user -> move(user, new MoveRequest()));
 

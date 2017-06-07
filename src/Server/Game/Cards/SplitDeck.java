@@ -749,28 +749,26 @@ public class SplitDeck {
 
     private static Map<Integer, List<Card>> territoryCards() {
 
-        List<Cost> free = Collections.singletonList(new Cost(null));
-
         Effect oneone = new AddResourcesEffect(Collections.singletonMap(ResourceType.Gold, 1), 1, PositionType.HarvestAction);
-        Card one = new Card(CardType.Territory, free, Collections.singletonList(oneone), 1, "Avamposto Commerciale", "");
+        Card one = new Card(CardType.Territory, Collections.singletonList(new Cost(null)), Collections.singletonList(oneone), 1, "Avamposto Commerciale", "");
 
         Effect twoone = new ImmediateEffect(Collections.singletonMap(ResourceType.Wood, 1));
         Effect twotwo = new AddResourcesEffect(Collections.singletonMap(ResourceType.Wood, 1), 2, PositionType.HarvestAction);
-        Card two = new Card(CardType.Territory, free, Arrays.asList(twoone, twotwo), 2, "Bosco", "");
+        Card two = new Card(CardType.Territory, Collections.singletonList(new Cost(null)), Arrays.asList(twoone, twotwo), 2, "Bosco", "");
 
         Map<ResourceType, Integer> threeRes = new HashMap<>();
         threeRes.put(ResourceType.Gold, 1);
         threeRes.put(ResourceType.Slave, 1);
         Effect threeone = new AddResourcesEffect(threeRes, 3, PositionType.HarvestAction);
-        Card three = new Card(CardType.Territory, free, Collections.singletonList(threeone), 3, "Borgo", "");
+        Card three = new Card(CardType.Territory, Collections.singletonList(new Cost(null)), Collections.singletonList(threeone), 3, "Borgo", "");
 
         Effect fourone = new ImmediateEffect(Collections.singletonMap(ResourceType.Rock, 2));
         Effect fourtwo = new AddResourcesEffect(Collections.singletonMap(ResourceType.Rock, 2), 4, PositionType.HarvestAction);
-        Card four = new Card(CardType.Territory, free, Arrays.asList(fourone, fourtwo), 4, "Cava di Ghiaia", "");
+        Card four = new Card(CardType.Territory, Collections.singletonList(new Cost(null)), Arrays.asList(fourone, fourtwo), 4, "Cava di Ghiaia", "");
 
         Effect fiveone = new ImmediateEffect(Collections.singletonMap(ResourceType.Wood, 1));
         Effect fivetwo = new AddResourcesEffect(Collections.singletonMap(ResourceType.Wood, 3), 5, PositionType.HarvestAction);
-        Card five = new Card(CardType.Territory, free, Arrays.asList(fiveone, fivetwo), 5, "Foresta", "");
+        Card five = new Card(CardType.Territory, Collections.singletonList(new Cost(null)), Arrays.asList(fiveone, fivetwo), 5, "Foresta", "");
 
         Effect sixone = new ImmediateEffect(new HashMap<ResourceType, Integer>() {
             {
@@ -784,7 +782,7 @@ public class SplitDeck {
                 put(ResourceType.Rock, 1);
             }
         }, 6, PositionType.HarvestAction);
-        Card six = new Card(CardType.Territory, free, Arrays.asList(sixone, sixtwo), 6, "Monastero", "");
+        Card six = new Card(CardType.Territory, Collections.singletonList(new Cost(null)), Arrays.asList(sixone, sixtwo), 6, "Monastero", "");
 
         Effect sevenone = new AddResourcesEffect(new HashMap<ResourceType, Integer>() {
             {
@@ -792,15 +790,15 @@ public class SplitDeck {
                 put(ResourceType.Rock, 1);
             }
         }, 5, PositionType.HarvestAction);
-        Card seven = new Card(CardType.Territory, free, Collections.singletonList(sevenone), 7, "Rocca", "");
+        Card seven = new Card(CardType.Territory, Collections.singletonList(new Cost(null)), Collections.singletonList(sevenone), 7, "Rocca", "");
 
         Effect eightone = new ImmediateEffect(Collections.singletonMap(ResourceType.Gold, 3));
         Effect eighttwo = new AddResourcesEffect(Collections.singletonMap(ResourceType.Favor, 1), 6, PositionType.HarvestAction);
-        Card eight = new Card(CardType.Territory, free, Arrays.asList(eightone, eighttwo), 8, "Città", "");
+        Card eight = new Card(CardType.Territory, Collections.singletonList(new Cost(null)), Arrays.asList(eightone, eighttwo), 8, "Città", "");
 
         Effect nineone = new ImmediateEffect(Collections.singletonMap(ResourceType.Gold, 1));
         Effect ninetwo = new AddResourcesEffect(Collections.singletonMap(ResourceType.Gold, 2), 1, PositionType.HarvestAction);
-        Card nine = new Card(CardType.Territory, free, Arrays.asList(nineone, ninetwo), 9, "Miniera d'oro", "");
+        Card nine = new Card(CardType.Territory, Collections.singletonList(new Cost(null)), Arrays.asList(nineone, ninetwo), 9, "Miniera d'oro", "");
 
         Effect tenone = new ImmediateEffect(Collections.singletonMap(ResourceType.Slave, 1));
         Effect tentwo = new AddResourcesEffect(new HashMap<ResourceType, Integer>() {
@@ -809,7 +807,7 @@ public class SplitDeck {
                 put(ResourceType.Wood, 2);
             }
         }, 3, PositionType.HarvestAction);
-        Card ten = new Card(CardType.Territory, free, Arrays.asList(tenone, tentwo), 10, "Villaggio Montano", "");
+        Card ten = new Card(CardType.Territory, Collections.singletonList(new Cost(null)), Arrays.asList(tenone, tentwo), 10, "Villaggio Montano", "");
 
         Effect elevenone = new ImmediateEffect(new HashMap<ResourceType, Integer>() {
             {
@@ -823,11 +821,11 @@ public class SplitDeck {
                 put(ResourceType.Rock, 2);
             }
         }, 4, PositionType.HarvestAction);
-        Card eleven = new Card(CardType.Territory, free, Arrays.asList(elevenone, eleventwo), 11, "Villaggio Minerario", "");
+        Card eleven = new Card(CardType.Territory, Collections.singletonList(new Cost(null)), Arrays.asList(elevenone, eleventwo), 11, "Villaggio Minerario", "");
 
         Effect twelveone = new ImmediateEffect(Collections.singletonMap(ResourceType.Wood, 1));
         Effect twelvetwo = new AddResourcesEffect(Collections.singletonMap(ResourceType.Rock, 3), 3, PositionType.HarvestAction);
-        Card twelve = new Card(CardType.Territory, free, Arrays.asList(twelveone, twelvetwo), 12, "Cava di Pietra", "");
+        Card twelve = new Card(CardType.Territory, Collections.singletonList(new Cost(null)), Arrays.asList(twelveone, twelvetwo), 12, "Cava di Pietra", "");
 
         Effect thirteenone = new ImmediateEffect(new HashMap<ResourceType, Integer>() {
             {
@@ -841,11 +839,11 @@ public class SplitDeck {
                 put(ResourceType.Wood, 2);
             }
         }, 4, PositionType.HarvestAction);
-        Card thirteen = new Card(CardType.Territory, free, Arrays.asList(thirteenone, thirteentwo), 13, "Possedimento", "");
+        Card thirteen = new Card(CardType.Territory, Collections.singletonList(new Cost(null)), Arrays.asList(thirteenone, thirteentwo), 13, "Possedimento", "");
 
         Effect fourteenone = new ImmediateEffect(Collections.singletonMap(ResourceType.FaithPoint, 1));
         Effect fourteentwo = new AddResourcesEffect(Collections.singletonMap(ResourceType.FaithPoint, 1), 2, PositionType.HarvestAction);
-        Card fourteen = new Card(CardType.Territory, free, Arrays.asList(fourteenone, fourteentwo), 14, "Eremo", "");
+        Card fourteen = new Card(CardType.Territory, Collections.singletonList(new Cost(null)), Arrays.asList(fourteenone, fourteentwo), 14, "Eremo", "");
 
         Effect fifteenone = new AddResourcesEffect(new HashMap<ResourceType, Integer>() {
             {
@@ -853,7 +851,7 @@ public class SplitDeck {
                 put(ResourceType.Slave, 2);
             }
         }, 5, PositionType.HarvestAction);
-        Card fifteen = new Card(CardType.Territory, free, Collections.singletonList(fifteenone), 15, "Maniero", "");
+        Card fifteen = new Card(CardType.Territory, Collections.singletonList(new Cost(null)), Collections.singletonList(fifteenone), 15, "Maniero", "");
 
         Effect sixteenone = new ImmediateEffect(Collections.singletonMap(ResourceType.Gold, 4));
         Effect sixteentwo = new AddResourcesEffect(new HashMap<ResourceType, Integer>() {
@@ -863,7 +861,7 @@ public class SplitDeck {
                 put(ResourceType.Wood, 2);
             }
         }, 6, PositionType.HarvestAction);
-        Card sixteen = new Card(CardType.Territory, free, Arrays.asList(sixteenone, sixteentwo), 16, "Ducato", "");
+        Card sixteen = new Card(CardType.Territory, Collections.singletonList(new Cost(null)), Arrays.asList(sixteenone, sixteentwo), 16, "Ducato", "");
 
         Effect seventeenone = new ImmediateEffect(new HashMap<ResourceType, Integer>() {
             {
@@ -872,7 +870,7 @@ public class SplitDeck {
             }
         });
         Effect seventeentwo = new AddResourcesEffect(Collections.singletonMap(ResourceType.Gold, 3), 1, PositionType.HarvestAction);
-        Card seventeen = new Card(CardType.Territory, free, Arrays.asList(seventeenone, seventeentwo), 17, "Città Mercantile", "");
+        Card seventeen = new Card(CardType.Territory, Collections.singletonList(new Cost(null)), Arrays.asList(seventeenone, seventeentwo), 17, "Città Mercantile", "");
 
         Effect eighteenone = new ImmediateEffect(new HashMap<ResourceType, Integer>() {
             {
@@ -886,7 +884,7 @@ public class SplitDeck {
                 put(ResourceType.Wood, 2);
             }
         }, 3, PositionType.HarvestAction);
-        Card eighteen = new Card(CardType.Territory, free, Arrays.asList(eighteenone, eighteentwo), 18, "Tenuta", "");
+        Card eighteen = new Card(CardType.Territory, Collections.singletonList(new Cost(null)), Arrays.asList(eighteenone, eighteentwo), 18, "Tenuta", "");
 
         Effect nineteenone = new ImmediateEffect(Collections.singletonMap(ResourceType.MilitaryPoint, 2));
         Effect nineteentwo = new AddResourcesEffect(new HashMap<ResourceType, Integer>() {
@@ -895,7 +893,7 @@ public class SplitDeck {
                 put(ResourceType.Wood, 1);
             }
         }, 5, PositionType.HarvestAction);
-        Card nineteen = new Card(CardType.Territory, free, Arrays.asList(nineteenone, nineteentwo), 19, "Colonia", "");
+        Card nineteen = new Card(CardType.Territory, Collections.singletonList(new Cost(null)), Arrays.asList(nineteenone, nineteentwo), 19, "Colonia", "");
 
         Effect twentyonee = new ImmediateEffect(Collections.singletonMap(ResourceType.VictoryPoint, 3));
         Effect twentytwoe = new AddResourcesEffect(new HashMap<ResourceType, Integer>() {
@@ -904,7 +902,7 @@ public class SplitDeck {
                 put(ResourceType.Rock, 2);
             }
         }, 2, PositionType.HarvestAction);
-        Card twenty = new Card(CardType.Territory, free, Arrays.asList(twentyonee, twentytwoe), 20, "Cava di Marmo", "");
+        Card twenty = new Card(CardType.Territory, Collections.singletonList(new Cost(null)), Arrays.asList(twentyonee, twentytwoe), 20, "Cava di Marmo", "");
 
         Effect twentyoneone = new ImmediateEffect(new HashMap<ResourceType, Integer>() {
             {
@@ -918,7 +916,7 @@ public class SplitDeck {
                 put(ResourceType.Rock, 1);
             }
         }, 6, PositionType.HarvestAction);
-        Card twentyone = new Card(CardType.Territory, free, Arrays.asList(twentyoneone, twentyonetwo), 21, "Provincia", "");
+        Card twentyone = new Card(CardType.Territory, Collections.singletonList(new Cost(null)), Arrays.asList(twentyoneone, twentyonetwo), 21, "Provincia", "");
 
         Effect twentytwoone = new ImmediateEffect(Collections.singletonMap(ResourceType.FaithPoint, 1));
         Effect twentytwotwo = new AddResourcesEffect(new HashMap<ResourceType, Integer>() {
@@ -927,7 +925,7 @@ public class SplitDeck {
                 put(ResourceType.FaithPoint, 1);
             }
         }, 1, PositionType.HarvestAction);
-        Card twentytwo = new Card(CardType.Territory, free, Arrays.asList(twentytwoone, twentytwotwo), 22, "Santuario", "");
+        Card twentytwo = new Card(CardType.Territory, Collections.singletonList(new Cost(null)), Arrays.asList(twentytwoone, twentytwotwo), 22, "Santuario", "");
 
         Effect twentythreeone = new ImmediateEffect(new HashMap<ResourceType, Integer>() {
             {
@@ -941,7 +939,7 @@ public class SplitDeck {
                 put(ResourceType.Slave, 1);
             }
         }, 4, PositionType.HarvestAction);
-        Card twentythree = new Card(CardType.Territory, free, Arrays.asList(twentythreeone, twentythreetwo), 23, "Castello", "");
+        Card twentythree = new Card(CardType.Territory, Collections.singletonList(new Cost(null)), Arrays.asList(twentythreeone, twentythreetwo), 23, "Castello", "");
 
         Effect twentyfourone = new ImmediateEffect(new HashMap<ResourceType, Integer>() {
             {
@@ -955,7 +953,7 @@ public class SplitDeck {
                 put(ResourceType.Slave, 2);
             }
         }, 2, PositionType.HarvestAction);
-        Card twentyfour = new Card(CardType.Territory, free, Arrays.asList(twentyfourone, twentyfourtwo), 24, "Città Fortificata", "");
+        Card twentyfour = new Card(CardType.Territory, Collections.singletonList(new Cost(null)), Arrays.asList(twentyfourone, twentyfourtwo), 24, "Città Fortificata", "");
 
         return new HashMap<Integer, List<Card>>() {
             {
