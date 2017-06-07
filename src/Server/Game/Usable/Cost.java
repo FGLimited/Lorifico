@@ -39,6 +39,14 @@ public class Cost implements Choosable {
     }
 
     /**
+     * Gson constructor
+     */
+    private Cost() {
+        requestedResources = null;
+        militaryRequested = 0;
+    }
+
+    /**
      * Get requested resources
      *
      * @return List of requested resources

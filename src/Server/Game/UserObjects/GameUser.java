@@ -48,6 +48,14 @@ public class GameUser implements Game.UserObjects.GameUser {
             domestics.put(color, new Domestic(familyColor, color, 0));
     }
 
+    /**
+     * Gson constructor
+     */
+    private GameUser() {
+        familyColor = null;
+        user = null;
+    }
+
     @Override
     public FamilyColor getFamilyColor() {
         return familyColor;

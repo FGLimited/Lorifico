@@ -4,7 +4,6 @@ import Client.UI.UserInterfaceFactory;
 import Game.UserObjects.FamilyColor;
 import Model.User.User;
 import Server.Game.UserObjects.GameUser;
-
 import java.util.ArrayList;
 import java.util.List;
 

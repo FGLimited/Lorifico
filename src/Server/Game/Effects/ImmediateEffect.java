@@ -24,6 +24,13 @@ public class ImmediateEffect extends Effect {
         this.resources = resources == null ? new HashMap<>() : resources;
     }
 
+    /**
+     * Gson constructor
+     */
+    private ImmediateEffect() {
+        resources = null;
+    }
+
     @Override
     public boolean canApply(PlayerState currentMove) {
         return true;

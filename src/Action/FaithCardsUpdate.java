@@ -11,11 +11,12 @@ import java.util.Map;
  * Created by fiore on 01/06/2017.
  */
 public class FaithCardsUpdate implements BaseAction {
-    /**
-     * Map&lt;Age_number, Faith_card_number&gt;
-     */
-    private final Map<Integer, Integer> cardPerAge = new HashMap<>();
-    int firstCard, secondCard, thirdCard;
+
+    private int firstCard;
+
+    private int secondCard;
+
+    private int thirdCard;
 
     public FaithCardsUpdate(Map<Integer, Effect> faithDeckResult) {
         firstCard = faithDeckResult.get(2).getCardNumber();

@@ -44,6 +44,15 @@ public class Domestic implements HasValue<Integer>, HasType<DomesticColor> {
         inPosition = toBind.inPosition;
     }
 
+    /**
+     * Gson constructor
+     */
+    private Domestic() {
+        familyColor = null;
+        type = null;
+        inPosition = null;
+    }
+
     @Override
     public Integer getValue() {
         return value;

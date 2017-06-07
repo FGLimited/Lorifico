@@ -26,6 +26,13 @@ public class MarketPosition extends Position<Cost> {
         immediatePositionEffect = immediateEffect;
     }
 
+    /**
+     * Gson constructor
+     */
+    private MarketPosition() {
+        immediatePositionEffect = null;
+    }
+
     @Override
     public List<Cost> canOccupy(PlayerState currentState) {
 

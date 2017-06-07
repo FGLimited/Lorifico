@@ -29,6 +29,14 @@ public class AddResourcesEffect extends Effect {
         this.resources = resources;
     }
 
+    /**
+     * Gson constructor
+     */
+    private AddResourcesEffect() {
+        position = null;
+        resources = null;
+    }
+
     @Override
     public boolean canApply(PlayerState currentMove) {
         return currentMove.getInUseDomestic().getValue() >= activationValue && currentMove.getCheckingPositionType() == position;

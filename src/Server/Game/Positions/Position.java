@@ -26,6 +26,14 @@ public abstract class Position<T> implements Game.Positions.Position<T> {
         this.number = number;
     }
 
+    /**
+     * Gson constructor
+     */
+    protected Position() {
+        type = null;
+        number = 0;
+    }
+
     @Override
     public PositionType getType() {
         return type;

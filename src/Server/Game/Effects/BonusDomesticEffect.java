@@ -38,6 +38,15 @@ public class BonusDomesticEffect extends Effect {
         this.costBonus = costBonus;
     }
 
+    /**
+     * Gson constructor
+     */
+    private BonusDomesticEffect() {
+        positionsType = null;
+        value = 0;
+        costBonus = null;
+    }
+
     @Override
     public boolean canApply(PlayerState currentMove) {
         return true;

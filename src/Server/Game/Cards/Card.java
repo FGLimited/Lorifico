@@ -62,6 +62,18 @@ public class Card implements Game.Cards.Card {
         effects.forEach(effect -> effect.setCardNumber(number));
     }
 
+    /**
+     * Gson constructor
+     */
+    private Card() {
+        number = 0;
+        name = null;
+        description = null;
+        type = null;
+        costs = null;
+        effects = null;
+    }
+
     @Override
     public CardType getType() {
         return type;

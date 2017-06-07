@@ -22,6 +22,13 @@ public class FinalVictoryPointsEffect extends Effect {
         this.quantity = quantity;
     }
 
+    /**
+     * Gson constructor
+     */
+    private FinalVictoryPointsEffect() {
+        quantity = 0;
+    }
+
     @Override
     public boolean canApply(PlayerState currentMove) {
         return true;

@@ -81,6 +81,15 @@ public class PlayerState implements Game.UserObjects.PlayerState {
 
     }
 
+    /**
+     * Gson constructor
+     */
+    private PlayerState() {
+        resources = null;
+        resourcesPenalty = null;
+        gameUser = null;
+    }
+
     @Override
     public Domestic getInUseDomestic() {
         return inUseDomestic;
