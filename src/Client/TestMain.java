@@ -74,16 +74,6 @@ public class TestMain {
         }
 
         @Command
-        public String setFaithPosition(@Param(name = "familyColor") String familyColor, @Param(name = "posizione") int value) {
-            String laGenteCheProgrammaInCSharpSiMeritaDiStareMaleAvreiPotutoUsareUnUpperCaseInveceNo =
-                    familyColor.substring(0, 1).toUpperCase() + familyColor.substring(1).toLowerCase();
-            FamilyColor enumFamilyColor = FamilyColor.valueOf(laGenteCheProgrammaInCSharpSiMeritaDiStareMaleAvreiPotutoUsareUnUpperCaseInveceNo);
-
-            userInterface.getGameUI().getFaithController().moveToPosition(enumFamilyColor, value);
-            return "OK";
-        }
-
-        @Command
         public String setFaithCards(@Param(name = "CardID") int first, @Param(name = "CardID") int second, @Param(name = "CardID") int third) {
             userInterface.getGameUI().getFaithController().showFaithCards(first, second, third);
             return "OK";

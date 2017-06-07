@@ -1,8 +1,10 @@
 package Action;
 
+import Client.UI.UserInterfaceFactory;
 import Game.UserObjects.FamilyColor;
 import Model.User.User;
 import Server.Game.UserObjects.GameUser;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,6 @@ public class RoundOrderUpdate implements BaseAction {
 
     @Override
     public void doAction(User user) {
-        // TODO: update round order near council position on game table
+        UserInterfaceFactory.getInstance().getGameUI().getRoundOrderController().setGameOrder(roundOrder);
     }
 }
