@@ -2,6 +2,10 @@ package Client.UI.GUI.resources.gameComponents;
 
 
 import Client.UI.GameTable;
+import Game.UserObjects.DomesticColor;
+import Game.UserObjects.FamilyColor;
+import Server.Game.UserObjects.Domestic;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,7 +19,8 @@ public class GameTableGroup extends Group implements GameTable {
 
     private static final double IMAGE_WIDTH = 850;
     private static final double IMAGE_HEIGHT = 694;
-    private int i = 0;
+
+    private GameTablePlacesBlock gameTablePlacesBlock;//Group containing coverings and gameTablePlaces
 
     /**
      * Creates a new plane showing game table
@@ -34,40 +39,31 @@ public class GameTableGroup extends Group implements GameTable {
     public GameTableGroup(double xPos, double yPos, double zPos) {
         super();
         //Place Table
-        getChildren().add(createImageBox(TABLE_IMAGE_URL, IMAGE_WIDTH, IMAGE_HEIGHT, xPos, yPos, zPos));
+        getChildren().add(createGameImageBox(TABLE_IMAGE_URL, IMAGE_WIDTH, IMAGE_HEIGHT, xPos, yPos, zPos));
 
-        //Place Coverings
-        getChildren().add(new GameTablePlace(50, 4, 430, 78.5, 135, 57));
-        getChildren().add(new GameTablePlace(42, 1, false, 90, 105, 680.5, 455.5, 684, 462, 43, 40));
-        getChildren().add(new GameTablePlace(43, 1, false, 91.17, 108.2, 748.5, 520, 751.5, 531.5, 43, 40));
-        getChildren().add(new GameTablePlace(41, 1, 595.5, 437, 43, 40));
-        getChildren().add(new GameTablePlace(40, 1, 501.5, 436.5, 43, 40));
-        getChildren().add(new GameTablePlace(30, 1, 7.5, 461.5, 43, 40));
-        getChildren().add(new GameTablePlace(20, 1, 8, 584, 43, 40));
-        getChildren().add(new GameTablePlace(21, 3, false, 226, 111.8, 116.5, 575.5, 130.5, 587, 100, 35));
-        getChildren().add(new GameTablePlace(31, 3, false, 224, 105.7, 116, 457, 130, 465, 100, 35));
+        //Place coverings / places
+        gameTablePlacesBlock = new GameTablePlacesBlock();
+        getChildren().add(gameTablePlacesBlock);
 
-        //Load dices
-        getChildren().add(new Dice(Dice.DiceType.WHITE));
-        getChildren().add(new Dice(Dice.DiceType.ORANGE));
-        getChildren().add(new Dice(Dice.DiceType.BLACK));
-
-        //Load FaithRoad
-        getChildren().add(new FaithRoad());
-
-        //Load towers
-        TowerBlock towerBlock = new TowerBlock();
-        getChildren().add(towerBlock);
-
-        for (int i = 1; i <= 16; i++) {
-            towerBlock.loadCard(i, i);
-        }
+        //Load test domestic
+        getChildren().add(new Domestic3D(new Domestic(FamilyColor.Blue, DomesticColor.Orange, 3), 3));
 
         //Apply Transforms
         getTransforms().add(new Translate(xPos, yPos, zPos));
 
     }
 
+    /**
+     * Called when a new turn is starting and all position have to be free.
+     */
+    @Override
+    public void freeAllPositions() {
+        if (!Platform.isFxApplicationThread()) {
+            Platform.runLater(() -> freeAllPositions());
+            return;
+        }
+        gameTablePlacesBlock.freeAllPosition();
+    }
 
     /**
      * Creates a new stackpane containing a rectangle filled with passed image
@@ -80,7 +76,7 @@ public class GameTableGroup extends Group implements GameTable {
      * @param zPos
      * @return
      */
-    private StackPane createImageBox(String url, double width, double height, double xPos, double yPos, double zPos) {
+    private StackPane createGameImageBox(String url, double width, double height, double xPos, double yPos, double zPos) {
         StackPane stackPane = new StackPane();
 
         Image image = new Image(url);

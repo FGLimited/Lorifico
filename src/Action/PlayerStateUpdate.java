@@ -1,5 +1,6 @@
 package Action;
 
+import Client.Datawarehouse;
 import Game.UserObjects.PlayerState;
 import Model.User.User;
 
@@ -17,6 +18,6 @@ public class PlayerStateUpdate extends UserSpecific implements BaseAction {
 
     @Override
     public void doAction(User user) {
-        // TODO: update player state for specified username (check resources and cards)
+        Datawarehouse.getInstance().setPlayerState(getUsername(), updatedState);
     }
 }

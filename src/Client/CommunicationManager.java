@@ -1,10 +1,13 @@
 package Client;
 
 import Action.BaseAction;
+import Action.UserSpecific;
 import Client.Networking.CommFactory;
 import Logging.Logger;
+import Model.User.User;
 import Networking.CommLink;
 import Networking.Gson.GsonUtils;
+
 import java.io.IOException;
 
 /**
@@ -46,11 +49,27 @@ public class CommunicationManager {
     private void handleMessageIn(String message) {
         Logger.log(Logger.LogLevel.Normal, message);
         BaseAction action = GsonUtils.fromGson(message);
-        if (Datawarehouse.getInstance() != null) {
-            action.doAction(Datawarehouse.getInstance().getUser());
-        } else {
-            action.doAction(null);
+
+        //If action is userSpecific we try to execute it in right context
+        if (action instanceof UserSpecific) {
+            UserSpecific userSpecificAction = (UserSpecific) action;
+
+            //If we have gameUser of this username we'll create on on-the-fly user and execute action using it.
+            if (Datawarehouse.getInstance().getGameUser(userSpecificAction.getUsername()) != null) {
+                User user = new User(userSpecificAction.getUsername(), 0, 0, 0);
+                action.doAction(user);
+                return;
+            }
         }
+
+        //If action is not user specific we'll try to execute it using current user
+        if (Datawarehouse.getInstance().getMyUser() != null) {
+            action.doAction(Datawarehouse.getInstance().getMyUser());
+            return;
+        }
+
+        //if current user is not specified
+        action.doAction(null);
     }
 
     /**

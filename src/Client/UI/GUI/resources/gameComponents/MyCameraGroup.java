@@ -1,8 +1,10 @@
 package Client.UI.GUI.resources.gameComponents;
 
+import Logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.transform.Rotate;
@@ -45,6 +47,8 @@ public class MyCameraGroup extends Group {
         camera = new PerspectiveCamera(true);
         camera.setNearClip(CAMERA_NEAR_CLIP);
         camera.setFarClip(CAMERA_FAR_CLIP);
+        camera.setFieldOfView(45);
+        Logger.log(Logger.LogLevel.Normal, "Camera field of view: " + camera.getFieldOfView());
 
         getTransforms().addAll(translate, rotateX, rotateY, rotateZ);
         getChildren().add(camera);
@@ -78,6 +82,11 @@ public class MyCameraGroup extends Group {
      * @param cameraPosition
      */
     public void setView(CameraPosition cameraPosition) {
+        if (!Platform.isFxApplicationThread()) {
+            Platform.runLater(() -> setView(cameraPosition));
+            return;
+        }
+
         timeline = new Timeline(
                 new KeyFrame(Duration.seconds(3),
                         new KeyValue(getRotateX().angleProperty(), cameraPosition.getxAxisRot()),
@@ -95,8 +104,8 @@ public class MyCameraGroup extends Group {
      * This enum stores camera fixed position to look at different pieces of game
      */
     public enum CameraPosition {
-        GAMETABLE(41.0, 2.5, 0.0, 364.0, 1125.0, -896.0),
-        TOWERS(82.0, -9.5, 0.0, 590.5, 994.5, -386.0);
+        GAMETABLE(33.0, 0, 0.0, 413.66666, 812.6666663, -623.33333350),
+        TOWERS(82.0, -9.5, 0.0, 560.16663, 648.16666, -332.666664);
 
         private double xAxisRot;
         private double yAxisRot;

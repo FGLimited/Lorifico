@@ -5,8 +5,12 @@ package Client;
  */
 
 import Game.UserObjects.GameUser;
+import Game.UserObjects.PlayerState;
 import Logging.Logger;
 import Model.User.User;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Datawarehouse keeps data received from server.
@@ -14,10 +18,10 @@ import Model.User.User;
 public class Datawarehouse {
     private static Datawarehouse datawarehouse;//singleton
 
-    private User user;
-    private GameUser gameUser;
-
-    //.......
+    private User myUser;
+    private String myUsername;
+    private Map<String, GameUser> gameUserMap = new HashMap<>();
+    private Map<String, PlayerState> playerStateMap = new HashMap<>();
 
     private Datawarehouse() {
     }
@@ -32,22 +36,74 @@ public class Datawarehouse {
         return datawarehouse;
     }
 
-    public User getUser() {
-        return user;
+    public User getMyUser() {
+        return myUser;
     }
 
-    public void setUser(User user) {
-        //observer pattern?
-        this.user = user;
-        Logger.log(Logger.LogLevel.Normal, "User received: [" + user.getUsername() + ", ]");
+    /**
+     * Sets current player's User object.
+     *
+     * @param user
+     */
+    public void setMyUser(User user) {
+        this.myUser = user;
+        this.myUsername = user.getUsername();
+        Logger.log(Logger.LogLevel.Normal, "MyUser received: [" + user.getUsername() + ", ]");
     }
 
-    public GameUser getGameUser() {
-        return gameUser;
+    /**
+     * Retrieves my username
+     *
+     * @return
+     */
+    public String getMyUsername() {
+        return myUsername;
     }
 
-    public void setGameUser(GameUser gameUser) {
-        //observer pattern?
-        this.gameUser = gameUser;
+    /**
+     * Retrieves playerState of specified myUser
+     *
+     * @param username
+     * @return
+     */
+    public PlayerState getPlayerState(String username) {
+        return playerStateMap.get(username);
+    }
+
+    /**
+     * Updates playerState of specified username
+     * @param username
+     * @param playerState
+     */
+    public void setPlayerState(String username, PlayerState playerState) {
+        if (playerStateMap.containsKey(username)) {
+            playerStateMap.replace(username, playerState);
+        } else {
+            playerStateMap.put(username, playerState);
+        }
+    }
+
+    /**
+     * Retrieves gameUser of specified myUser
+     *
+     * @param username
+     * @return
+     */
+    public GameUser getGameUser(String username) {
+        return gameUserMap.get(username);
+    }
+
+    /**
+     * Updates gameUser of specified username
+     *
+     * @param username
+     * @param gameUser
+     */
+    public void setGameUser(String username, GameUser gameUser) {
+        if (gameUserMap.containsKey(username)) {
+            gameUserMap.replace(username, gameUser);
+        } else {
+            gameUserMap.put(username, gameUser);
+        }
     }
 }
