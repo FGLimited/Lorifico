@@ -70,6 +70,29 @@ public class Match extends UserHandler {
     }
 
     /**
+     * Start current match if possible
+     */
+    public void start() {
+
+        // Check if match is already started
+        if(isStarted)
+            return;
+
+        // Check if there are almost two users
+        if(users.size() < 2)
+            return;
+
+        // Set start flag
+        isStarted = true;
+
+        // Stop countdown
+        matchExecutor.shutdownNow();
+
+        // Start game
+        matchExecutor.execute(this::initGame);
+    }
+
+    /**
      * Save current match and players' status and return json string
      *
      * @return Json string containing match and players' information
@@ -120,13 +143,7 @@ public class Match extends UserHandler {
 
         // When maximum player
         if(users.size() == 4) {
-            isStarted = true;
-
-            // Stop countdown
-            matchExecutor.shutdownNow();
-
-            // Start game immediately
-            matchExecutor.execute(this::initGame);
+            start();
         }
 
     }
