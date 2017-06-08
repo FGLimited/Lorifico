@@ -12,28 +12,23 @@
                 <Region/>
             </root>
         </SubScene>
-        <AnchorPane maxHeight="50.0" maxWidth="1.7976931348623157E308" opacity="0.9" prefHeight="52.0" prefWidth="780.0"
+        <AnchorPane maxHeight="62.0" maxWidth="1.7976931348623157E308" opacity="0.9" prefHeight="62.0" prefWidth="780.0"
                     style="-fx-background-color: bisque;" StackPane.alignment="TOP_LEFT">
             <children>
                 <Label layoutX="14.0" layoutY="6.0" text="Giocatori"/>
                 <HBox fx:id="playersHBox" layoutX="81.0" layoutY="6.0" prefHeight="34.0" prefWidth="194.0"/>
+                <HBox fx:id="militaryVictoryHBox" layoutX="551.0" layoutY="14.0" prefHeight="34.0" prefWidth="215.0"/>
             </children>
         </AnchorPane>
         <AnchorPane maxHeight="50.0" maxWidth="1.7976931348623157E308" opacity="0.9" prefHeight="33.0" prefWidth="780.0"
                     style="-fx-background-color: bisque;" StackPane.alignment="BOTTOM_CENTER">
             <children>
-                <HBox layoutX="14.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                      prefHeight="58.0" prefWidth="276.0" AnchorPane.leftAnchor="20.0">
-                    <children>
-                        <Label text="Test"/>
-                    </children>
-                </HBox>
-                <HBox layoutX="490.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                      prefHeight="58.0" prefWidth="276.0" AnchorPane.rightAnchor="20.0">
-                    <children>
-                        <Label text="Test"/>
-                    </children>
-                </HBox>
+                <HBox fx:id="myResourcesHBox" layoutX="14.0" maxHeight="1.7976931348623157E308"
+                      maxWidth="1.7976931348623157E308" prefHeight="58.0" prefWidth="276.0"
+                      AnchorPane.leftAnchor="20.0"/>
+                <HBox fx:id="domesticsHBox" layoutX="490.0" maxHeight="1.7976931348623157E308"
+                      maxWidth="1.7976931348623157E308" prefHeight="58.0" prefWidth="276.0"
+                      AnchorPane.rightAnchor="20.0"/>
             </children>
         </AnchorPane>
     </children>
