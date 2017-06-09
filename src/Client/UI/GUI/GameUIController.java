@@ -37,6 +37,15 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
     @FXML
     private HBox playersHBox;
 
+    @FXML
+    private HBox militaryVictoryHBox;
+
+    @FXML
+    private HBox myResourcesHBox;
+
+    @FXML
+    private HBox domesticsHBox;
+
     //Temp variables for moving objs
     private double mousePosX;
     private double mousePosY;
@@ -85,6 +94,15 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
         //Load turnments pawn block
         roundOrderPawnsBlock = new RoundOrderPawnsBlock();
         gameTableGroup.getChildren().add(roundOrderPawnsBlock);
+
+        //Start MilitaryVictoryBoxController, it will show this values for selected user in PlayersBoxController
+        MiliyaryVictoryBoxController miliyaryVictoryBoxController = new MiliyaryVictoryBoxController(militaryVictoryHBox);
+
+        //Start PlayersBoxController (the one showing active players)
+        new PlayersBoxController(playersHBox, miliyaryVictoryBoxController);
+
+        //playersHBox.getChildren().add(UserAvatarClickableElement.getInstance("Guglio"));
+        //playersHBox.getChildren().add(UserAvatarClickableElement.getInstance("Fiore"));
 
         //At least add gameTable to world.
         world.getChildren().add(gameTableGroup);
