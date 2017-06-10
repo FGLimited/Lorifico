@@ -16,8 +16,10 @@
                     style="-fx-background-color: bisque;" StackPane.alignment="TOP_LEFT">
             <children>
                 <Label layoutX="14.0" layoutY="6.0" text="Giocatori"/>
-                <HBox fx:id="playersHBox" layoutX="81.0" layoutY="6.0" prefHeight="34.0" prefWidth="194.0"/>
-                <HBox fx:id="militaryVictoryHBox" layoutX="551.0" layoutY="14.0" prefHeight="34.0" prefWidth="215.0"/>
+                <HBox fx:id="playersHBox" layoutX="81.0" layoutY="6.0" prefHeight="34.0" prefWidth="194.0"
+                      AnchorPane.topAnchor="0.0"/>
+                <HBox fx:id="militaryVictoryHBox" layoutX="505.0" layoutY="6.0" maxWidth="250.0" prefHeight="34.0"
+                      prefWidth="239.0" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="0.0"/>
             </children>
         </AnchorPane>
         <AnchorPane maxHeight="50.0" maxWidth="1.7976931348623157E308" opacity="0.9" prefHeight="33.0" prefWidth="780.0"
