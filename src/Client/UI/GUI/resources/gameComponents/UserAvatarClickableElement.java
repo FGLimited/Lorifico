@@ -1,5 +1,6 @@
 package Client.UI.GUI.resources.gameComponents;
 
+import Client.Datawarehouse;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -16,6 +17,7 @@ import java.util.Map;
  */
 public class UserAvatarClickableElement extends Pane {
     private static Map<String, UserAvatarClickableElement> stringUserAvatarClickableElementMap = new HashMap();
+    private String username;//Username of this User
 
     /**
      * Creates a new HBox containing user avatars and his username
@@ -23,6 +25,7 @@ public class UserAvatarClickableElement extends Pane {
      * @param username
      */
     private UserAvatarClickableElement(String username) {
+        this.username = username;
         String avatarURL = "Client/UI/GUI/resources/images/avatars/avatar00000.png";
 
         //Creates a new imageview containing user's avatar
@@ -54,5 +57,22 @@ public class UserAvatarClickableElement extends Pane {
         if (!stringUserAvatarClickableElementMap.containsKey(username))
             stringUserAvatarClickableElementMap.put(username, new UserAvatarClickableElement(username));
         return stringUserAvatarClickableElementMap.get(username);
+    }
+
+    /**
+     * On hover we'll show this user's data in MilitaryVictoryBox controller.
+     *
+     * @param miliyaryVictoryBoxController
+     */
+    public void setHoverCallBack(MiliyaryVictoryBoxController miliyaryVictoryBoxController) {
+        //When we hover on a UserAvatarClickable let's show his data on right side.
+        this.setOnMouseEntered((event) -> {
+            miliyaryVictoryBoxController.showPointsOf(username);
+        });
+
+        //When mouse exits lets go back and show playing user's data.
+        this.setOnMouseExited((event) -> {
+            miliyaryVictoryBoxController.showPointsOf(Datawarehouse.getInstance().getMyUsername());
+        });
     }
 }

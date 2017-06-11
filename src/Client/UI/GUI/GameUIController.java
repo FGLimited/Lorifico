@@ -8,6 +8,7 @@ import javafx.scene.DepthTest;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -38,7 +39,10 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
     private HBox playersHBox;
 
     @FXML
-    private HBox militaryVictoryHBox;
+    private Label militaryLabel;
+
+    @FXML
+    private Label victoryLabel;
 
     @FXML
     private HBox myResourcesHBox;
@@ -96,13 +100,10 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
         gameTableGroup.getChildren().add(roundOrderPawnsBlock);
 
         //Start MilitaryVictoryBoxController, it will show this values for selected user in PlayersBoxController
-        MiliyaryVictoryBoxController miliyaryVictoryBoxController = new MiliyaryVictoryBoxController(militaryVictoryHBox);
+        MiliyaryVictoryBoxController miliyaryVictoryBoxController = new MiliyaryVictoryBoxController(militaryLabel, victoryLabel);
 
         //Start PlayersBoxController (the one showing active players)
         new PlayersBoxController(playersHBox, miliyaryVictoryBoxController);
-
-        //playersHBox.getChildren().add(UserAvatarClickableElement.getInstance("Guglio"));
-        //playersHBox.getChildren().add(UserAvatarClickableElement.getInstance("Fiore"));
 
         //At least add gameTable to world.
         world.getChildren().add(gameTableGroup);
