@@ -2,6 +2,7 @@ package Client.UI.GUI;
 
 import Client.UI.*;
 import Client.UI.GUI.resources.gameComponents.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.DepthTest;
@@ -45,7 +46,16 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
     private Label victoryLabel;
 
     @FXML
-    private HBox myResourcesHBox;
+    private Label rockLabel;
+
+    @FXML
+    private Label woodLabel;
+
+    @FXML
+    private Label slavesLabel;
+
+    @FXML
+    private Label goldLabel;
 
     @FXML
     private HBox domesticsHBox;
@@ -72,7 +82,7 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
 
         //Setup subscene
         subScene.setDepthTest(DepthTest.ENABLE);
-        subScene.setFill(Color.valueOf("8cb22a"));
+        subScene.setFill(Color.valueOf("80dfff"));
         subScene.setCamera(cameraGroup.getCamera());
         subScene.setRoot(world);
 
@@ -105,7 +115,10 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
         //Start PlayersBoxController (the one showing active players)
         new PlayersBoxController(playersHBox, miliyaryVictoryBoxController);
 
-        //At least add gameTable to world.
+        //Resources Controller
+        new ResourcesBoxController(rockLabel, woodLabel, slavesLabel, goldLabel);
+
+        //Add gameTable to world.
         world.getChildren().add(gameTableGroup);
 
         camMouseDrag();
@@ -134,6 +147,30 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
     public RoundOrderController getRoundOrderController() {
         return roundOrderPawnsBlock;
     }
+
+
+    /**
+     * Called by JavaFX
+     *
+     * @param event
+     */
+    @FXML
+    void showTable(ActionEvent event) {
+        GameUIController gameUIController = (GameUIController) UserInterfaceFactory.getInstance().getGameUI();
+        gameUIController.getCameraGroup().setView(MyCameraGroup.CameraPosition.GAMETABLE);
+    }
+
+    /**
+     * Called by JavaFX
+     *
+     * @param event
+     */
+    @FXML
+    void showTowers(ActionEvent event) {
+        GameUIController gameUIController = (GameUIController) UserInterfaceFactory.getInstance().getGameUI();
+        gameUIController.getCameraGroup().setView(MyCameraGroup.CameraPosition.TOWERS);
+    }
+
 
     /**
      * Metodo di servizio per spostare la visuale
