@@ -2,12 +2,14 @@ package Client.UI.GUI;
 
 import Client.UI.*;
 import Client.UI.GUI.resources.gameComponents.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.DepthTest;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -38,10 +40,22 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
     private HBox playersHBox;
 
     @FXML
-    private HBox militaryVictoryHBox;
+    private Label militaryLabel;
 
     @FXML
-    private HBox myResourcesHBox;
+    private Label victoryLabel;
+
+    @FXML
+    private Label rockLabel;
+
+    @FXML
+    private Label woodLabel;
+
+    @FXML
+    private Label slavesLabel;
+
+    @FXML
+    private Label goldLabel;
 
     @FXML
     private HBox domesticsHBox;
@@ -68,7 +82,7 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
 
         //Setup subscene
         subScene.setDepthTest(DepthTest.ENABLE);
-        subScene.setFill(Color.valueOf("8cb22a"));
+        subScene.setFill(Color.valueOf("80dfff"));
         subScene.setCamera(cameraGroup.getCamera());
         subScene.setRoot(world);
 
@@ -96,15 +110,15 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
         gameTableGroup.getChildren().add(roundOrderPawnsBlock);
 
         //Start MilitaryVictoryBoxController, it will show this values for selected user in PlayersBoxController
-        MiliyaryVictoryBoxController miliyaryVictoryBoxController = new MiliyaryVictoryBoxController(militaryVictoryHBox);
+        MiliyaryVictoryBoxController miliyaryVictoryBoxController = new MiliyaryVictoryBoxController(militaryLabel, victoryLabel);
 
         //Start PlayersBoxController (the one showing active players)
         new PlayersBoxController(playersHBox, miliyaryVictoryBoxController);
 
-        //playersHBox.getChildren().add(UserAvatarClickableElement.getInstance("Guglio"));
-        //playersHBox.getChildren().add(UserAvatarClickableElement.getInstance("Fiore"));
+        //Resources Controller
+        new ResourcesBoxController(rockLabel, woodLabel, slavesLabel, goldLabel);
 
-        //At least add gameTable to world.
+        //Add gameTable to world.
         world.getChildren().add(gameTableGroup);
 
         camMouseDrag();
@@ -133,6 +147,30 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
     public RoundOrderController getRoundOrderController() {
         return roundOrderPawnsBlock;
     }
+
+
+    /**
+     * Called by JavaFX
+     *
+     * @param event
+     */
+    @FXML
+    void showTable(ActionEvent event) {
+        GameUIController gameUIController = (GameUIController) UserInterfaceFactory.getInstance().getGameUI();
+        gameUIController.getCameraGroup().setView(MyCameraGroup.CameraPosition.GAMETABLE);
+    }
+
+    /**
+     * Called by JavaFX
+     *
+     * @param event
+     */
+    @FXML
+    void showTowers(ActionEvent event) {
+        GameUIController gameUIController = (GameUIController) UserInterfaceFactory.getInstance().getGameUI();
+        gameUIController.getCameraGroup().setView(MyCameraGroup.CameraPosition.TOWERS);
+    }
+
 
     /**
      * Metodo di servizio per spostare la visuale
