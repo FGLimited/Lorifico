@@ -46,7 +46,7 @@ public class GameTableGroup extends Group implements GameTable {
         getChildren().add(gameTablePlacesBlock);
 
         //Load test domestic
-        getChildren().add(new Domestic3D(new Domestic(FamilyColor.Blue, DomesticColor.Orange, 3), 3));
+        getChildren().add(new Domestic3D(new Domestic(FamilyColor.Yellow, DomesticColor.Orange, 3)));
 
         //Apply Transforms
         getTransforms().add(new Translate(xPos, yPos, zPos));

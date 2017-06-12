@@ -29,6 +29,7 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
     private TowersBlock towersBlock;//Block containing towers
     private FaithBlock faithBlock;//Block containing faith road.
     private RoundOrderPawnsBlock roundOrderPawnsBlock;//Block containing pawns showing turnments order.
+    private DomesticBoxController domesticBoxController;
 
     @FXML
     private StackPane root;
@@ -60,6 +61,18 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
     @FXML
     private HBox domesticsHBox;
 
+    @FXML
+    private StackPane orangeDomestic2D;
+
+    @FXML
+    private StackPane whiteDomestic2D;
+
+    @FXML
+    private StackPane blackDomestic2D;
+
+    @FXML
+    private StackPane neutralDomestic2D;
+
     //Temp variables for moving objs
     private double mousePosX;
     private double mousePosY;
@@ -75,7 +88,7 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).setStackPane(root);//Updates reference to root stack pane in UserInterface, this way popus will be displayed in this page.
+        ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).setRootStackPane(root);//Updates reference to root stack pane in UserInterface, this way popus will be displayed in this page.
 
         cameraGroup = new MyCameraGroup(63.0, 0, 0, 435.5, 1258.5, -605.0);
         world = new Group(cameraGroup);//Create world group containing camera.
@@ -118,6 +131,9 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
         //Resources Controller
         new ResourcesBoxController(rockLabel, woodLabel, slavesLabel, goldLabel);
 
+        //Domestic controller
+        domesticBoxController = new DomesticBoxController(domesticsHBox, orangeDomestic2D, blackDomestic2D, whiteDomestic2D, neutralDomestic2D);
+
         //Add gameTable to world.
         world.getChildren().add(gameTableGroup);
 
@@ -148,6 +164,10 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
         return roundOrderPawnsBlock;
     }
 
+    @Override
+    public DomesticsController getDomesticsController() {
+        return domesticBoxController;
+    }
 
     /**
      * Called by JavaFX

@@ -37,7 +37,7 @@ public class ConnectionPageController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).setStackPane(root);//Updates reference to root stack pane in UserInterface, this way popus will be displayed in this page.
+        ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).setRootStackPane(root);//Updates reference to root stack pane in UserInterface, this way popus will be displayed in this page.
         populateChoiceBox();
     }
 

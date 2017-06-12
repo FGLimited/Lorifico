@@ -117,7 +117,6 @@ public class UserInterfaceImplemJFX extends Application implements UserInterface
             return;
         }
         try {
-            //Stage primaryStage = ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).getPrimaryStage();
             primaryStage.setTitle(title);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml));
             fxmlLoader.setController(controller);
@@ -142,7 +141,11 @@ public class UserInterfaceImplemJFX extends Application implements UserInterface
         return stackPane;
     }
 
-    protected void setStackPane(StackPane stackPane) {
+    public StackPane getRootStackPane() {
+        return this.stackPane;
+    }
+
+    protected void setRootStackPane(StackPane stackPane) {
         this.stackPane = stackPane;
     }
 }

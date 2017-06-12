@@ -44,21 +44,31 @@ public class Domestic3D extends Group {
      * Creates a new 3D domestic, this will be placed in towers or gameTable places
      *
      * @param serverDomestic
-     * @param positionNumber
      */
-    public Domestic3D(Server.Game.UserObjects.Domestic serverDomestic, int positionNumber) {
+    public Domestic3D(Server.Game.UserObjects.Domestic serverDomestic) {
 
         //Create base cylinder
         Cylinder cylinder = new Cylinder(CYLINDER_RADIUS, CYLINDER_HEIGHT);
-        PhongMaterial phongMaterial = new PhongMaterial(domesticColorMap.get(serverDomestic.getFamilyColor()));
-        cylinder.setMaterial(phongMaterial);
 
         //Put 'cover' of dice color on top of cylinder
         Circle cylinderTop = new Circle(CYLINDER_RADIUS / 1.5);
-        //cylinderTop.setCenterX(cylinder.getLayoutX()+CYLINDER_RADIUS);
-        //cylinderTop.setCenterY(cylinder.getLayoutY()+CYLINDER_RADIUS);
-        //cylinderTop.setTranslateZ(CYLINDER_HEIGHT+2);
-        cylinderTop.setFill(cylinderTopColorMap.get(serverDomestic.getType()));
+
+
+        //Color parts
+        if (serverDomestic.getType().equals(DomesticColor.Neutral)) {
+            //if domestic is the neutral one, covering is filled with family's color
+            cylinderTop.setFill(domesticColorMap.get(serverDomestic.getFamilyColor()));
+
+            //if domestis is neutral, cylinder is filled with neutral color:
+            PhongMaterial phongMaterial = new PhongMaterial(cylinderTopColorMap.get(DomesticColor.Neutral));
+            cylinder.setMaterial(phongMaterial);
+        } else {
+            //If domestic is regular one, cylinder is filled with family's color
+            PhongMaterial phongMaterial = new PhongMaterial(domesticColorMap.get(serverDomestic.getFamilyColor()));
+            cylinder.setMaterial(phongMaterial);
+            //Cilynder top is filled with dice's color.
+            cylinderTop.setFill(cylinderTopColorMap.get(serverDomestic.getType()));
+        }
 
         Group cylinderTopGroup = new Group(cylinderTop);
         cylinderTopGroup.getTransforms().addAll(new Rotate(90, Rotate.X_AXIS),

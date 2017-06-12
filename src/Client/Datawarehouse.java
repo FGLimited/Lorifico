@@ -4,6 +4,7 @@ package Client;
  * Created by andrea on 10/05/17.
  */
 
+import Client.UI.GUI.TurnObserver;
 import Client.UI.PlayerStateObserver;
 import Game.UserObjects.FamilyColor;
 import Game.UserObjects.GameUser;
@@ -30,6 +31,9 @@ public class Datawarehouse {
     //ArrayList of playerstate observers
     private List<PlayerStateObserver> playerStateObserverList = new ArrayList();
 
+    //ArrayList of turn observers
+    private List<TurnObserver> turnObserverList = new ArrayList();
+
     private Datawarehouse() {
     }
 
@@ -51,6 +55,17 @@ public class Datawarehouse {
     public void registerPlayerStateObserver(PlayerStateObserver playerStateObserver) {
         if (!playerStateObserverList.contains(playerStateObserver)) {
             playerStateObserverList.add(playerStateObserver);
+        }
+    }
+
+    /**
+     * Registers a new turn observer.
+     *
+     * @param turnObserver
+     */
+    public void registerTurnObserver(TurnObserver turnObserver) {
+        if (!turnObserverList.contains(turnObserver)) {
+            turnObserverList.add(turnObserver);
         }
     }
 

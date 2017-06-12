@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.SubScene?>
 <?import javafx.scene.text.*?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity"
@@ -80,9 +81,69 @@
                         </Pane>
                     </children>
                 </HBox>
-                <HBox fx:id="domesticsHBox" layoutX="490.0" maxHeight="1.7976931348623157E308"
-                      maxWidth="1.7976931348623157E308" prefHeight="58.0" prefWidth="276.0"
-                      AnchorPane.rightAnchor="20.0"/>
+                <HBox fx:id="domesticsHBox" alignment="TOP_CENTER" layoutX="490.0" maxHeight="1.7976931348623157E308"
+                      maxWidth="1.7976931348623157E308" prefHeight="58.0" prefWidth="287.0"
+                      AnchorPane.rightAnchor="20.0">
+                    <children>
+                        <StackPane fx:id="orangeDomestic2D">
+                            <children>
+                                <Circle fill="DODGERBLUE" radius="28.0" stroke="BLACK" strokeType="INSIDE"/>
+                                <Circle fill="WHITE" radius="15.0" stroke="BLACK" strokeType="INSIDE"
+                                        StackPane.alignment="CENTER"/>
+                                <Label text="0">
+                                    <font>
+                                        <Font size="22.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                            <opaqueInsets>
+                                <Insets/>
+                            </opaqueInsets>
+                        </StackPane>
+                        <Region prefHeight="58.0" prefWidth="22.0"/>
+                        <StackPane fx:id="whiteDomestic2D">
+                            <children>
+                                <Circle fill="DODGERBLUE" radius="28.0" stroke="BLACK" strokeType="INSIDE"/>
+                                <Circle fill="WHITE" radius="15.0" stroke="BLACK" strokeType="INSIDE"
+                                        StackPane.alignment="CENTER"/>
+                                <Label text="0">
+                                    <font>
+                                        <Font size="22.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </StackPane>
+                        <Region prefHeight="58.0" prefWidth="22.0"/>
+                        <StackPane fx:id="blackDomestic2D">
+                            <children>
+                                <Circle fill="DODGERBLUE" radius="28.0" stroke="BLACK" strokeType="INSIDE"/>
+                                <Circle fill="WHITE" radius="15.0" stroke="BLACK" strokeType="INSIDE"
+                                        StackPane.alignment="CENTER"/>
+                                <Label text="0">
+                                    <font>
+                                        <Font size="22.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </StackPane>
+                        <Region prefHeight="58.0" prefWidth="22.0"/>
+                        <StackPane fx:id="neutralDomestic2D">
+                            <children>
+                                <Circle fill="DODGERBLUE" radius="28.0" stroke="BLACK" strokeType="INSIDE"/>
+                                <Circle fill="WHITE" radius="15.0" stroke="BLACK" strokeType="INSIDE"
+                                        StackPane.alignment="CENTER"/>
+                                <Label text="0">
+                                    <font>
+                                        <Font size="22.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </StackPane>
+                    </children>
+                    <opaqueInsets>
+                        <Insets/>
+                    </opaqueInsets>
+                </HBox>
             </children>
         </AnchorPane>
         <AnchorPane maxHeight="62.0" maxWidth="1.7976931348623157E308" opacity="0.9" prefHeight="62.0" prefWidth="780.0"
@@ -114,8 +175,8 @@
                         </Button>
                     </children>
                 </HBox>
-                <HBox layoutX="405.0" layoutY="1.0" maxWidth="250.0" prefHeight="61.0" prefWidth="206.0"
-                      AnchorPane.rightAnchor="189.0" AnchorPane.topAnchor="1.0">
+                <HBox alignment="TOP_CENTER" layoutX="405.0" layoutY="1.0" maxWidth="250.0" prefHeight="61.0"
+                      prefWidth="206.0" AnchorPane.rightAnchor="189.0" AnchorPane.topAnchor="1.0">
                     <children>
                         <StackPane>
                             <children>

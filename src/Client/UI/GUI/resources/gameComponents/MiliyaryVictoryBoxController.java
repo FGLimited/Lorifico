@@ -5,6 +5,7 @@ import Client.UI.PlayerStateObserver;
 import Game.Usable.ResourceType;
 import Game.UserObjects.PlayerState;
 import Logging.Logger;
+import javafx.application.Platform;
 import javafx.scene.control.Label;
 
 /**
@@ -48,6 +49,11 @@ public class MiliyaryVictoryBoxController implements PlayerStateObserver {
      */
     @Override
     public void onPlayerStateUpdate(PlayerState playerState, String username) {
+        if (!Platform.isFxApplicationThread()) {
+            Platform.runLater(() -> onPlayerStateUpdate(playerState, username));
+            return;
+        }
+
         if (username.equals(this.username)) {
             //If we received userState we are displaying we can update GUI
             victoryLabel.setText(playerState.getResources().get(ResourceType.VictoryPoint).toString());

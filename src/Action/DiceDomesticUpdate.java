@@ -27,12 +27,13 @@ public class DiceDomesticUpdate extends UserSpecific implements BaseAction {
     @Override
     public void doAction(User user) {
 
-        //Update dices only once (when my username is received)
         if (Datawarehouse.getInstance().getMyUsername().equals(getUsername())) {
+            //Update dices only once (when my username is received)
             UserInterfaceFactory.getInstance().getGameUI().getDiceController().setNumbers(diceValues.get(DomesticColor.Black),
                     diceValues.get(DomesticColor.White), diceValues.get(DomesticColor.Orange));
-        }
 
-        // TODO: update user domestic value (dice and domestic values could be different)
+            //Updates user's domestics
+            UserInterfaceFactory.getInstance().getGameUI().getDomesticsController().updateDomesticsValues(domesticValues);
+        }
     }
 }

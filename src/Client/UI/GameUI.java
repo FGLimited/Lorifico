@@ -13,4 +13,6 @@ public interface GameUI {
     FaithRoadController getFaithController();
 
     RoundOrderController getRoundOrderController();
+
+    DomesticsController getDomesticsController();
 }

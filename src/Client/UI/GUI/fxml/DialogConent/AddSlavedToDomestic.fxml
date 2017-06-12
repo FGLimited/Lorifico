@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="171.0" prefWidth="372.0"
+            xmlns="http://javafx.com/javafx/8.0.111">
+    <children>
+        <Label layoutX="26.0" layoutY="28.0" text="Il familiare selezionato vale">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label fx:id="domesticValueLabel" layoutX="217.0" layoutY="26.0" text="0">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Label>
+        <Label layoutX="26.0" layoutY="46.0" prefHeight="33.0" prefWidth="310.0"
+               text="Puoi aggiungere schiavi per aumentarne il valore"/>
+        <Label fx:id="errorLabel" layoutX="114.0" layoutY="135.0" text="Valore non valido!" textFill="RED">
+            <font>
+                <Font size="17.0"/>
+            </font>
+        </Label>
+        <JFXTextField fx:id="slavesTextField" alignment="CENTER" layoutX="154.0" layoutY="78.0" maxWidth="117.0"
+                      minWidth="47.0" prefHeight="46.0" prefWidth="64.0">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </JFXTextField>
+    </children>
+</AnchorPane>
