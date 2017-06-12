@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/8.0.111">
+    <children>
+        <ImageView fx:id="cardImageView" fitHeight="327.0" fitWidth="221.0" layoutX="14.0" layoutY="37.0"
+                   pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="14.0">
+            <image>
+                <Image url="@../../resources/images/carteGioco/devcards_b_c_b_1.jdevcards_b_c_pdevcards_b_c_g.jdevcards_b_c_pg.jpg"/>
+            </image>
+        </ImageView>
+        <AnchorPane layoutX="287.0" layoutY="37.0" prefHeight="346.0" prefWidth="281.0" AnchorPane.rightAnchor="32.0">
+            <children>
+                <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Scegli un prezzo">
+                    <font>
+                        <Font size="20.0"/>
+                    </font>
+                </Text>
+                <VBox fx:id="buttonsVBox" layoutX="14.0" layoutY="51.0" maxHeight="280.0" maxWidth="256.0"
+                      prefHeight="280.0" prefWidth="256.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="14.0"
+                      AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="51.0"/>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

@@ -1,8 +1,12 @@
 package Client.UI.GUI.resources.gameComponents;
 
+import Game.UserObjects.Choosable;
 import Logging.Logger;
 import javafx.application.Platform;
 import javafx.scene.Group;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by andrea on 04/06/17.
@@ -19,6 +23,22 @@ public class TowersBlock extends Group implements Client.UI.TowersController {
             towers[towerType.ordinal()] = new Tower(towerType);
             getChildren().add(towers[towerType.ordinal()]);
         }
+    }
+
+    @Override
+    public void setCostsPerPosition(Map<Integer, List<Choosable>> choosablePerPos) {
+        //Send each choosable to respective tower
+        choosablePerPos.forEach((gamePosition, choosables) -> {
+            //Towers are positions from 1 to 16
+            if (gamePosition <= 16) {
+                //identify tower
+                int towerLevel = (gamePosition - 1) % 4;//Floor of the tower (0,1,2,3)
+                int towerKey = (gamePosition - 1) / 4;//Number of the tower (0,1,2,3)
+
+                //Send tower its cost per specified position
+                towers[towerKey].setCostsPerPosition(choosablePerPos, towerLevel, gamePosition);
+            }
+        });
     }
 
     /**

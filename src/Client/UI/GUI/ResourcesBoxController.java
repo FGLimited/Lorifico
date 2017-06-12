@@ -5,6 +5,7 @@ import Client.UI.PlayerStateObserver;
 import Game.Usable.ResourceType;
 import Game.UserObjects.PlayerState;
 import Logging.Logger;
+import javafx.application.Platform;
 import javafx.scene.control.Label;
 
 /**
@@ -38,6 +39,12 @@ public class ResourcesBoxController implements PlayerStateObserver {
      */
     @Override
     public void onPlayerStateUpdate(PlayerState playerState, String username) {
+        //Make sure we are on JavaFX thread:
+        if (!Platform.isFxApplicationThread()) {
+            Platform.runLater(() -> onPlayerStateUpdate(playerState, username));
+            return;
+        }
+
         //if it's my PlayerState we can update GUI
         if (username.equals(Datawarehouse.getInstance().getMyUsername())) {
             rockLabel.setText(playerState.getResources().get(ResourceType.Rock).toString());

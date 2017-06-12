@@ -1,5 +1,10 @@
 package Client.UI;
 
+import Game.UserObjects.Choosable;
+
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by Io on 06/06/2017.
  */
@@ -23,4 +28,9 @@ public interface TowersController {
      * Removes all cards from tower
      */
     void removeAllCardsFromTowers();
+
+    /**
+     * Sets cost of positions
+     */
+    void setCostsPerPosition(Map<Integer, List<Choosable>> choosablePerPos);
 }

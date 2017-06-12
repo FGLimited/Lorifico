@@ -1,10 +1,17 @@
 package Client.UI.GUI.resources.gameComponents;
 
+import Game.UserObjects.Choosable;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by andrea on 03/06/17.
  */
 public class Tower extends Abstract3dsComponent {
     private TowerType towerType;
+    private Map<Integer, GameCard> cardMap = new HashMap<>();//key is floor level (0 to 3)
 
     public Tower(TowerType towerType) {
         this.towerType = towerType;
@@ -25,7 +32,9 @@ public class Tower extends Abstract3dsComponent {
     public void showCard(int number, int floorLevel) {
         //Add card only if it's not already present.
         if (!getChildren().contains(GameCard.getCard(number))) {
-            getChildren().add(GameCard.getCard(number));
+            getChildren().add(GameCard.getCard(number));//Add card to map
+            cardMap.put(floorLevel, GameCard.getCard(number));//Keep track of added cards
+            GameCard.getCard(number).setOnMouseClicked(null);//Remove any callback
         }
         GameCard.getCard(number).setTowerLevelPosition(floorLevel);
     }
@@ -42,8 +51,13 @@ public class Tower extends Abstract3dsComponent {
     public void removeCard(int cardNumber) {
         //if we have this card, we'll remove it
         if (getChildren().contains(GameCard.getCard(cardNumber))) {
+
+            GameCard.getCard(cardNumber).setOnMouseClicked(null);//Remove any callback
+
             //Animates card to floor and removes it from container
             GameCard.getCard(cardNumber).moveCardToFloorThenRemoveFromGroup(this);
+
+            cardMap.values().remove(GameCard.getCard(cardNumber));
         }
     }
 
@@ -52,9 +66,24 @@ public class Tower extends Abstract3dsComponent {
      */
     public void removeAllCards() {
         getChildren().forEach(node -> {
-            if (node instanceof GameCard)
+            if (node instanceof GameCard) {
                 ((GameCard) (node)).moveCardToFloorThenRemoveFromGroup(this);
+                ((GameCard) (node)).setOnMouseClicked(null);//Remove any callback
+                cardMap.values().remove(node);
+            }
         });
+    }
+
+    /**
+     * Sets cost per tower position
+     *
+     * @param choosablePerPos list of costs
+     * @param towerLevel      tower level
+     * @param positionNumber  real position number
+     */
+    public void setCostsPerPosition(Map<Integer, List<Choosable>> choosablePerPos, int towerLevel, int positionNumber) {
+        cardMap.get(towerLevel).setOnMouseClicked(event ->
+                new ChooseCardCostDialog(choosablePerPos, positionNumber, cardMap.get(towerLevel).getCardNumber()));
     }
 
     /**

@@ -13,9 +13,10 @@ import javafx.scene.transform.Translate;
 public abstract class AbstractImageComponent extends Group {
     private Translate translate;
     private ImageView imageView;
+    private Image image;
 
     public void loadImage(String path, double xPos, double yPos, double zPos, double scale, double rotateX, double rotateY, double rotateZ) {
-        Image image = new Image(path, true);
+        image = new Image(path, true);
         imageView = new ImageView(image);
         imageView.setScaleX(scale);
         imageView.setScaleY(scale);
@@ -28,6 +29,10 @@ public abstract class AbstractImageComponent extends Group {
 
     ImageView getImageView() {
         return imageView;
+    }
+
+    public Image getImage() {
+        return image;
     }
 
     public Translate getTranslate() {

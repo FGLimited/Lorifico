@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
 /**
  * Created by andrea on 12/06/17.
  */
-public class AddSlavedToDomesticDialog implements Initializable {
+public class AddSlaveToDomesticDialog implements Initializable {
     private DomesticColor domesticColor;
     private Integer domesticValue;
     private JFXDialog jfxDialog;
@@ -45,7 +45,7 @@ public class AddSlavedToDomesticDialog implements Initializable {
     @FXML
     private JFXTextField slavesTextField;
 
-    public AddSlavedToDomesticDialog(DomesticColor domesticColor, Integer domesticValue) {
+    public AddSlaveToDomesticDialog(DomesticColor domesticColor, Integer domesticValue) {
         this.domesticColor = domesticColor;
         this.domesticValue = domesticValue;
         showDialog();
@@ -68,7 +68,7 @@ public class AddSlavedToDomesticDialog implements Initializable {
         //Try to load dialog content from .fxml
         Node dialogContent;
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Client/UI/GUI/fxml/DialogConent/AddSlavedToDomestic.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Client/UI/GUI/fxml/DialogConent/AddSlaveToDomestic.fxml"));
             fxmlLoader.setController(this);
             dialogContent = fxmlLoader.load();
         } catch (Exception e) {
@@ -83,8 +83,8 @@ public class AddSlavedToDomesticDialog implements Initializable {
 
         //Append dialog to root stackpane
         StackPane stackPane = ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).getRootStackPane();
-        JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER, true);
-        dialog.show();
+        jfxDialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER, true);
+        jfxDialog.show();
     }
 
     @Override
@@ -109,7 +109,7 @@ public class AddSlavedToDomesticDialog implements Initializable {
                 errorLabel.setText("Inserisci un numero");
                 submitButton.setDisable(true);
             } else if (Integer.valueOf(newValue) > maxSlaves) {
-                errorLabel.setText("Non hai questi schiavi");
+                errorLabel.setText("Hai solo " + maxSlaves + " schiavi");
                 submitButton.setDisable(true);
             } else {
                 errorLabel.setText("");
