@@ -2,7 +2,7 @@ package Client.UI.GUI;
 
 import Client.Datawarehouse;
 import Client.UI.DomesticsController;
-import Client.UI.GUI.resources.gameComponents.AddSlavedToDomesticDialog;
+import Client.UI.GUI.resources.gameComponents.AddSlaveToDomesticDialog;
 import Game.UserObjects.DomesticColor;
 import Game.UserObjects.FamilyColor;
 import Game.UserObjects.GameUser;
@@ -67,7 +67,7 @@ public class DomesticBoxController implements DomesticsController, TurnObserver 
             StackPane domesticStackPane = stackPaneMap.get(domesticColor);
 
             //When a click on this domestic happens, call callback
-            domesticStackPane.setOnMouseClicked(event -> new AddSlavedToDomesticDialog(domesticColor, integer));
+            domesticStackPane.setOnMouseClicked(event -> new AddSlaveToDomesticDialog(domesticColor, integer));
 
             //Update label with current value
             domesticStackPane.getChildren().forEach(node ->

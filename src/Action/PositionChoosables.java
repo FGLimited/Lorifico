@@ -1,7 +1,9 @@
 package Action;
 
+import Client.UI.UserInterfaceFactory;
 import Game.UserObjects.Choosable;
 import Model.User.User;
+
 import java.util.List;
 import java.util.Map;
 
@@ -23,9 +25,12 @@ public class PositionChoosables implements BaseAction {
 
     @Override
     public void doAction(User user) {
-        // TODO: activate each tower position with available costs
-        // TODO: activate harvest/production cards reading card number from received effects
         // (empty cost list means position can't be activated)
         // (empty effect list means no effect can be activated but domestic can be placed)
+
+        UserInterfaceFactory.getInstance().getGameUI().getTowersController().setCostsPerPosition(choosablePerPos);
+
+        // TODO: activate harvest/production cards reading card number from received effects
+
     }
 }

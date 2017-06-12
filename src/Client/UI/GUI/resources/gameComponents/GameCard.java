@@ -14,17 +14,17 @@ import java.util.Map;
  * Created by andrea on 04/06/17.
  */
 public class GameCard extends AbstractImageComponent {
-    public static GameCard last;
     private static Map<Integer, GameCard> map = new HashMap<>();
     boolean isHoverEnabled = false;
     private Timeline timeline = new Timeline();
+    private Integer cardNumber;
     //vars used for animations:
     private double initialScale, initialY;
 
     private GameCard(int number) {
+        this.cardNumber = number;
         initialScale = 0.23;
         loadImage("Client/UI/GUI/resources/images/carteGioco/devcards_f_en_c_" + number + ".png", 0, initialY, 0, initialScale, 90, 0, 0);
-        this.last = this;
 
         setOnMouseEntered((event -> {
             if (!isHoverEnabled) return;
@@ -119,6 +119,10 @@ public class GameCard extends AbstractImageComponent {
             if (group.getChildren().contains(this))
                 group.getChildren().remove(this);
         });
+    }
+
+    public Integer getCardNumber() {
+        return cardNumber;
     }
 
     public boolean isHoverEnabled() {
