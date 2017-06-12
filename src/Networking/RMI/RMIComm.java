@@ -6,6 +6,8 @@ import Networking.CommLink;
 import Networking.Gson.GsonUtils;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.function.BiConsumer;
 
 /**
@@ -16,6 +18,8 @@ public class RMIComm extends UnicastRemoteObject implements CommLink, MessageRec
     private final transient RemoteConsumer<String> postMethod;
 
     private volatile transient BiConsumer<CommLink, String> onMessage;
+
+    private final transient ExecutorService executor = Executors.newSingleThreadExecutor();
 
     public RMIComm(RemoteConsumer<String> postMethod) throws RemoteException {
         this.postMethod = postMethod;
@@ -30,7 +34,7 @@ public class RMIComm extends UnicastRemoteObject implements CommLink, MessageRec
     public void messageReceived(final String message) {
 
         if(onMessage != null)
-            onMessage.accept(this, message);
+            executor.execute(() -> onMessage.accept(this, message));
     }
 
     @Override
@@ -48,5 +52,6 @@ public class RMIComm extends UnicastRemoteObject implements CommLink, MessageRec
     @Override
     public void shutdown() {
 
+        executor.shutdownNow();
     }
 }

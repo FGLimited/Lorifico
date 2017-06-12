@@ -1,6 +1,7 @@
 package Networking.Gson;
 
 import Action.BaseAction;
+import Game.UserObjects.Choosable;
 import Game.UserObjects.GameUser;
 import Game.UserObjects.PlayerState;
 import Server.Game.Effects.Effect;
@@ -25,6 +26,7 @@ public class GsonUtils {
                 .registerTypeAdapter(Position.class, new MySerializer<Position>())
                 .registerTypeAdapter(GameUser.class, new MySerializer<GameUser>())
                 .registerTypeAdapter(PlayerState.class, new MySerializer<PlayerState>())
+                .registerTypeAdapter(Choosable.class, new MySerializer<Choosable>())
                 .create();//Gson Builder to serialize communication
     }
 
