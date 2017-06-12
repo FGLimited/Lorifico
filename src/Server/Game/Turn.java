@@ -79,7 +79,16 @@ public class Turn {
         currentRound.forEach(user -> user.getUserLink().sendMessage(orderUpdate));
 
         // Ask for move to each user
-        currentRound.forEach(user -> move(user, new MoveRequest()));
+        currentRound.forEach(user -> {
+
+            final BaseAction moveRequest = new MoveRequest(user.toString());
+
+            // Send user specific move request to all users
+            currentRound.forEach(u -> u.getUserLink().sendMessage(moveRequest));
+
+            // Wait for move on current user
+            waitMove(user);
+        });
 
         // If is last round check for left user, else finalize
         if(roundNumber >= 4 && lastRound.isEmpty())
@@ -103,16 +112,11 @@ public class Turn {
      * Waits for a notification of move performed on current user object
      *
      * @param currentUser Current game user to wait for
-     * @param moveRequest Move request to send to current user
      */
-    private void move(final GameUser currentUser, BaseAction moveRequest) {
+    private void waitMove(final GameUser currentUser) {
 
-        final CommLink userLink = currentUser.getUserLink();
-
+        // Set move flag on current user
         currentUser.setHasMoved(false);
-
-        // Ask user to perform a move
-        userLink.sendMessage(moveRequest);
 
         // Wait for user move until timeout
         synchronized (currentUser) {
@@ -125,7 +129,7 @@ public class Turn {
         }
 
         // If user hasn't moved after timeout send timeout message and go ahead
-        userLink.sendMessage(new MoveEnd(!currentUser.getHasMoved()));
+        currentUser.getUserLink().sendMessage(new MoveEnd(!currentUser.getHasMoved()));
     }
 
     /**
@@ -150,7 +154,9 @@ public class Turn {
             if(faithPoints >= requestedFaith) {
 
                 // ask to user if he wants penalty or victory points and go back
-                move(user, new FaithRoadRequest());
+                user.getUserLink().sendMessage(new FaithRoadRequest());
+
+                waitMove(user);
             }
 
 

@@ -13,8 +13,8 @@ public enum PositionType {
     BuildingTower(Cost.class),
     PersonalityTower(Cost.class),
     ChallengeTower(Cost.class),
-    Market(Effect.class),
-    Council(Effect.class);
+    Market(Cost.class),
+    Council(Cost.class);
 
     public final Class tType;
 

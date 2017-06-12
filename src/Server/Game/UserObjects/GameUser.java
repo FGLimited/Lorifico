@@ -193,4 +193,9 @@ public class GameUser implements Game.UserObjects.GameUser {
     public void setChurchSupport(boolean supportChurch) {
         churchSupport = supportChurch;
     }
+
+    @Override
+    public String toString() {
+        return user.getUsername();
+    }
 }

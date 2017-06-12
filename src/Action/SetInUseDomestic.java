@@ -104,8 +104,7 @@ public class SetInUseDomestic implements BaseAction {
         }
 
         // Send choosable for requested positions back to client
-        user.getLink().sendMessage(new PositionChoosables(user.getMatch().getTable()
-                .getPositions(gameUser, requestedPositions)));
+        user.getLink().sendMessage(new PositionChoosables(positions));
 
     }
 }
