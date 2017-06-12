@@ -1,5 +1,6 @@
 package Action;
 
+import Client.Datawarehouse;
 import Model.User.User;
 
 /**
@@ -13,6 +14,6 @@ public class MoveRequest extends UserSpecific implements BaseAction {
 
     @Override
     public void doAction(User user) {
-        // TODO: ask user to choose a domestic and slaves to use and send back SetInUseDomestic message
+        Datawarehouse.getInstance().setWhoseTurn(getUsername());
     }
 }

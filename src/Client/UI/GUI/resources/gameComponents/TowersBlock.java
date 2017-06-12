@@ -35,8 +35,10 @@ public class TowersBlock extends Group implements Client.UI.TowersController {
                 int towerLevel = (gamePosition - 1) % 4;//Floor of the tower (0,1,2,3)
                 int towerKey = (gamePosition - 1) / 4;//Number of the tower (0,1,2,3)
 
+                List<Choosable> choosableList = choosablePerPos.get(gamePosition);
+
                 //Send tower its cost per specified position
-                towers[towerKey].setCostsPerPosition(choosablePerPos, towerLevel, gamePosition);
+                towers[towerKey].setCostsPerPosition(choosableList, towerLevel, gamePosition);
             }
         });
     }

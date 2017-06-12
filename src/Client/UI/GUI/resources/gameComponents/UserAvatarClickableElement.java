@@ -1,11 +1,15 @@
 package Client.UI.GUI.resources.gameComponents;
 
 import Client.Datawarehouse;
+import Client.UI.TurnObserver;
+import Logging.Logger;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.transform.Scale;
 
@@ -15,9 +19,10 @@ import java.util.Map;
 /**
  * Created by Io on 08/06/2017.
  */
-public class UserAvatarClickableElement extends Pane {
+public class UserAvatarClickableElement extends Pane implements TurnObserver {
     private static Map<String, UserAvatarClickableElement> stringUserAvatarClickableElementMap = new HashMap();
     private String username;//Username of this User
+    private Label usernameLabel;//Label where username is shown
 
     /**
      * Creates a new HBox containing user avatars and his username
@@ -32,18 +37,22 @@ public class UserAvatarClickableElement extends Pane {
         ImageView avatarImageView = (new ImageView(new Image(avatarURL, true)));
         avatarImageView.getTransforms().add(new Scale(0.08, 0.08));
 
-        //Add a label with user's username.
-        Label label = new Label(username);
-        label.setFont(new Font(15));
-        label.setPadding(new Insets(36, 0, 0, 0));//Move label under avatar
+        //Add a usernameLabel with user's username.
+        usernameLabel = new Label(username);
+        usernameLabel.setFont(new Font(15));
+        usernameLabel.setPadding(new Insets(36, 0, 0, 0));//Move usernameLabel under avatar
 
-        minWidthProperty().bind(label.widthProperty().add(20));
-        label.translateXProperty().bind(widthProperty().subtract(label.widthProperty()).divide(2));
+        minWidthProperty().bind(usernameLabel.widthProperty().add(20));
+        usernameLabel.translateXProperty().bind(widthProperty().subtract(usernameLabel.widthProperty()).divide(2));
         avatarImageView.translateXProperty().bind(widthProperty().divide(2).subtract(20));
 
         //Attach to VBox
-        getChildren().addAll(avatarImageView, label);
+        getChildren().addAll(avatarImageView, usernameLabel);
 
+        Datawarehouse.getInstance().registerTurnObserver(this);//Register as turn observer
+
+        //If it's already my turn, change text's color:
+        if (Datawarehouse.getInstance().getWhoseTurn().equals(username)) usernameLabel.setTextFill(Color.RED);
     }
 
     /**
@@ -74,5 +83,26 @@ public class UserAvatarClickableElement extends Pane {
         this.setOnMouseExited((event) -> {
             miliyaryVictoryBoxController.showPointsOf(Datawarehouse.getInstance().getMyUsername());
         });
+    }
+
+    /**
+     * Method called when turn changes, if it's this user's turn we'll highlight it, otherwise remove effect
+     *
+     * @param username user playing current turn.
+     */
+    @Override
+    public void onTurnChange(String username) {
+        if (!Platform.isFxApplicationThread()) {
+            Platform.runLater(() -> onTurnChange(username));
+            return;
+        }
+        Logger.log(Logger.LogLevel.Normal, "UserAvatarClickableElement: updating playing user");
+
+        //if it's my turn color label's text in red
+        if (username.equals(this.username)) {
+            usernameLabel.setTextFill(Color.RED);
+        } else {
+            usernameLabel.setTextFill(Color.BLACK);
+        }
     }
 }

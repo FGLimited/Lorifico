@@ -20,7 +20,6 @@ import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -28,7 +27,7 @@ import java.util.stream.Collectors;
  * Created by andrea on 12/06/17.
  */
 public class ChooseCardCostDialog implements Initializable {
-    private Map<Integer, List<Choosable>> choosablePerPos;
+    private List<Choosable> choosableList;
     private Integer positionNumber, cardNumber;
 
     @FXML
@@ -37,8 +36,8 @@ public class ChooseCardCostDialog implements Initializable {
     @FXML
     private VBox buttonsVBox;
 
-    public ChooseCardCostDialog(Map<Integer, List<Choosable>> choosablePerPos, int positionNumber, int cardNumber) {
-        this.choosablePerPos = choosablePerPos;
+    public ChooseCardCostDialog(List<Choosable> choosableList, int positionNumber, int cardNumber) {
+        this.choosableList = choosableList;
         this.positionNumber = positionNumber;
         this.cardNumber = cardNumber;
         showDialog();
@@ -46,9 +45,6 @@ public class ChooseCardCostDialog implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //Place buy buttons
-        List<Choosable> choosableList = choosablePerPos.get(positionNumber);
-
         //Set card's image
         cardImageView.setImage(GameCard.getCard(cardNumber).getImage());
 
@@ -63,6 +59,10 @@ public class ChooseCardCostDialog implements Initializable {
                 }
                 stringOfCosts = stringOfCosts + " " + cost.getResources().entrySet().stream().
                         map(mapLine -> mapLine.getKey().toCostString(mapLine.getValue())).collect(Collectors.joining(" "));
+
+                if (cost.getResources().size() == 0) {
+                    stringOfCosts = "Nessun costo";
+                }
 
                 //Creates new button labeled with just created 'stringOfCosts'
                 JFXButton jfxButton = new JFXButton(stringOfCosts);

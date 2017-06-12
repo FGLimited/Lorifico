@@ -4,8 +4,8 @@ package Client;
  * Created by andrea on 10/05/17.
  */
 
-import Client.UI.GUI.TurnObserver;
 import Client.UI.PlayerStateObserver;
+import Client.UI.TurnObserver;
 import Game.UserObjects.FamilyColor;
 import Game.UserObjects.GameUser;
 import Game.UserObjects.PlayerState;
@@ -25,6 +25,7 @@ public class Datawarehouse {
 
     private User myUser;
     private String myUsername;
+    private String whoseTurn;
     private Map<String, GameUser> gameUserMap = new HashMap<>();
     private Map<String, PlayerState> playerStateMap = new HashMap<>();
 
@@ -151,5 +152,19 @@ public class Datawarehouse {
         } else {
             gameUserMap.put(username, gameUser);
         }
+    }
+
+    public String getWhoseTurn() {
+        return whoseTurn;
+    }
+
+    /**
+     * Notify objects which are observing turn changes.
+     *
+     * @param username
+     */
+    public void setWhoseTurn(String username) {
+        this.whoseTurn = username;
+        turnObserverList.forEach(turnObserver -> turnObserver.onTurnChange(username));
     }
 }

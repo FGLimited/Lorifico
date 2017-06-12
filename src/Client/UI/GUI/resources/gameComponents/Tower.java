@@ -1,6 +1,9 @@
 package Client.UI.GUI.resources.gameComponents;
 
+import Client.Datawarehouse;
+import Client.UI.TurnObserver;
 import Game.UserObjects.Choosable;
+import javafx.application.Platform;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +12,7 @@ import java.util.Map;
 /**
  * Created by andrea on 03/06/17.
  */
-public class Tower extends Abstract3dsComponent {
+public class Tower extends Abstract3dsComponent implements TurnObserver {
     private TowerType towerType;
     private Map<Integer, GameCard> cardMap = new HashMap<>();//key is floor level (0 to 3)
 
@@ -21,6 +24,8 @@ public class Tower extends Abstract3dsComponent {
         for (TowerLabel.TowerLevel towerLevel : TowerLabel.TowerLevel.values()) {
             getChildren().add(new TowerLabel(this, towerLevel));
         }
+
+        Datawarehouse.getInstance().registerTurnObserver(this);
     }
 
     /**
@@ -35,6 +40,7 @@ public class Tower extends Abstract3dsComponent {
             getChildren().add(GameCard.getCard(number));//Add card to map
             cardMap.put(floorLevel, GameCard.getCard(number));//Keep track of added cards
             GameCard.getCard(number).setOnMouseClicked(null);//Remove any callback
+            GameCard.getCard(number).setHoverEnabled(false);
         }
         GameCard.getCard(number).setTowerLevelPosition(floorLevel);
     }
@@ -77,13 +83,42 @@ public class Tower extends Abstract3dsComponent {
     /**
      * Sets cost per tower position
      *
-     * @param choosablePerPos list of costs
+     * @param choosableList list of costs
      * @param towerLevel      tower level
      * @param positionNumber  real position number
      */
-    public void setCostsPerPosition(Map<Integer, List<Choosable>> choosablePerPos, int towerLevel, int positionNumber) {
-        cardMap.get(towerLevel).setOnMouseClicked(event ->
-                new ChooseCardCostDialog(choosablePerPos, positionNumber, cardMap.get(towerLevel).getCardNumber()));
+    public void setCostsPerPosition(List<Choosable> choosableList, int towerLevel, int positionNumber) {
+        //If we have a cost for positionNumber it means that we can buy it.
+        if (!choosableList.isEmpty()) {
+            //Attach buy callback
+            cardMap.get(towerLevel).setOnMouseClicked(event ->
+                    new ChooseCardCostDialog(choosableList, positionNumber, cardMap.get(towerLevel).getCardNumber()));
+            //Animate card
+            cardMap.get(towerLevel).setHoverEnabled(true);
+        } else {
+            //We can't buy this card
+            cardMap.get(towerLevel).setHoverEnabled(false);
+        }
+    }
+
+    /**
+     * When turn changes we have to remove all callbacks from cards and disable hover
+     *
+     * @param username user playing current turn.
+     */
+    @Override
+    public void onTurnChange(String username) {
+        if (!Platform.isFxApplicationThread()) {
+            Platform.runLater(() -> onTurnChange(username));
+            return;
+        }
+
+        getChildren().forEach(node -> {
+            if (node instanceof GameCard) {
+                ((GameCard) (node)).setHoverEnabled(false);
+                ((GameCard) (node)).setOnMouseClicked(null);//Remove any callback
+            }
+        });
     }
 
     /**

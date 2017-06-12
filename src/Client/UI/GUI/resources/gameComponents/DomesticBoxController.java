@@ -1,8 +1,8 @@
-package Client.UI.GUI;
+package Client.UI.GUI.resources.gameComponents;
 
 import Client.Datawarehouse;
 import Client.UI.DomesticsController;
-import Client.UI.GUI.resources.gameComponents.AddSlaveToDomesticDialog;
+import Client.UI.TurnObserver;
 import Game.UserObjects.DomesticColor;
 import Game.UserObjects.FamilyColor;
 import Game.UserObjects.GameUser;
@@ -67,7 +67,7 @@ public class DomesticBoxController implements DomesticsController, TurnObserver 
             StackPane domesticStackPane = stackPaneMap.get(domesticColor);
 
             //When a click on this domestic happens, call callback
-            domesticStackPane.setOnMouseClicked(event -> new AddSlaveToDomesticDialog(domesticColor, integer));
+            domesticStackPane.setOnMouseClicked(event -> new AddSlaveToDomesticDialog(domesticColor, integer, this));
 
             //Update label with current value
             domesticStackPane.getChildren().forEach(node ->
@@ -78,22 +78,36 @@ public class DomesticBoxController implements DomesticsController, TurnObserver 
     }
 
     /**
+     * Used to disable hbox when is not my turn or domestic was chosen
+     */
+    public void disableDomesticBox() {
+        hBox.setDisable(true);
+        hBox.setOpacity(0.5);
+    }
+
+    /**
      * Called when turn changes
      *
      * @param username user playing current turn.
      */
     @Override
     public void onTurnChange(String username) {
+        if (!Platform.isFxApplicationThread()) {
+            Platform.runLater(() -> onTurnChange(username));
+            return;
+        }
+
         //If it's my turn, enable domesticsBox
         if (username.equals(Datawarehouse.getInstance().getMyUsername())) {
             hBox.setDisable(false);
+            hBox.setOpacity(1);
         } else {
-            hBox.setDisable(true);
+            disableDomesticBox();
         }
     }
 
     /**
-     * Sets correct colors on 2D UI.
+     * Sets correct colors in 2D UI.
      *
      * @param element
      * @param domesticColor

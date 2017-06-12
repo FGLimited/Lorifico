@@ -1,4 +1,4 @@
-package Client.UI.GUI;
+package Client.UI.GUI.resources.gameComponents;
 
 import Client.Datawarehouse;
 import Client.UI.PlayerStateObserver;

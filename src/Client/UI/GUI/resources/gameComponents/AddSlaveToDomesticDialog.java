@@ -34,6 +34,7 @@ public class AddSlaveToDomesticDialog implements Initializable {
     private Integer domesticValue;
     private JFXDialog jfxDialog;
     private JFXButton submitButton;
+    private DomesticBoxController domesticBoxController;
 
 
     @FXML
@@ -45,9 +46,10 @@ public class AddSlaveToDomesticDialog implements Initializable {
     @FXML
     private JFXTextField slavesTextField;
 
-    public AddSlaveToDomesticDialog(DomesticColor domesticColor, Integer domesticValue) {
+    public AddSlaveToDomesticDialog(DomesticColor domesticColor, Integer domesticValue, DomesticBoxController domesticBoxController) {
         this.domesticColor = domesticColor;
         this.domesticValue = domesticValue;
+        this.domesticBoxController = domesticBoxController;
         showDialog();
     }
 
@@ -132,5 +134,6 @@ public class AddSlaveToDomesticDialog implements Initializable {
         CommunicationManager.getInstance().sendMessage(action);
 
         jfxDialog.close();
+        domesticBoxController.disableDomesticBox();
     }
 }

@@ -76,6 +76,7 @@ public class GameCard extends AbstractImageComponent {
      * @param level
      */
     public void setTowerLevelPosition(int level) {
+        boolean wasHoverEnabled = isHoverEnabled;
         setHoverEnabled(false);//Stop animations to prevent mess with timelines
         initialY = 64.5;
 
@@ -92,7 +93,7 @@ public class GameCard extends AbstractImageComponent {
         timeline.setAutoReverse(false);
         timeline.setCycleCount(1);
         timeline.play();
-        timeline.setOnFinished(event -> setHoverEnabled(true));
+        timeline.setOnFinished(event -> setHoverEnabled(wasHoverEnabled));
     }
 
     /**

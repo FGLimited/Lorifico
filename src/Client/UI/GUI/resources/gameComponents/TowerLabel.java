@@ -1,7 +1,5 @@
 package Client.UI.GUI.resources.gameComponents;
 
-import Action.DisplayPopup;
-import Client.UI.UserInterfaceFactory;
 import javafx.scene.effect.ColorAdjust;
 
 /**
@@ -28,11 +26,6 @@ public class TowerLabel extends AbstractImageComponent {
         });
 
         getImageView().setOnMouseExited((event -> getImageView().setEffect(null)));
-
-        setOnMouseClicked(event -> {
-            UserInterfaceFactory.getInstance().displayPopup(DisplayPopup.Level.Normal, "Aiuto", "Per accedere a questo piano devi aver ...");
-
-        });
     }
 
     /**

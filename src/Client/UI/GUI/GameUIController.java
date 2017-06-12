@@ -41,6 +41,9 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
     private HBox playersHBox;
 
     @FXML
+    private Label showingUserLabel;
+
+    @FXML
     private Label militaryLabel;
 
     @FXML
@@ -123,7 +126,7 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
         gameTableGroup.getChildren().add(roundOrderPawnsBlock);
 
         //Start MilitaryVictoryBoxController, it will show this values for selected user in PlayersBoxController
-        MiliyaryVictoryBoxController miliyaryVictoryBoxController = new MiliyaryVictoryBoxController(militaryLabel, victoryLabel);
+        MiliyaryVictoryBoxController miliyaryVictoryBoxController = new MiliyaryVictoryBoxController(showingUserLabel, militaryLabel, victoryLabel);
 
         //Start PlayersBoxController (the one showing active players)
         new PlayersBoxController(playersHBox, miliyaryVictoryBoxController);
