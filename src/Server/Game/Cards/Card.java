@@ -111,7 +111,7 @@ public class Card implements Game.Cards.Card {
         if(type == CardType.Territory) {
 
             // Get required military points to add a new territory card
-            Cost militaryPointCost = checkMilitaryPoints(currentState.getCards(type).size());
+            Cost militaryPointCost = checkMilitaryPoints(currentState.getCards(type).size() + 1);
 
             // If user hasn't enough military points he can't buy this card
             if(!militaryPointCost.canBuy(currentState))
