@@ -215,11 +215,10 @@ public class GameTable {
      * @param currentUser Current user
      * @param positionNumber Number of position to occupy
      * @param chosenTs Chosen effects/cost to activate/pay occupying specified position
-     * @param <T> Effect or Cost
      * @return Updated position
      */
     @SuppressWarnings("unchecked")
-    public <T> Position occupy(GameUser currentUser, int positionNumber, List<T> chosenTs) {
+    public Position occupy(GameUser currentUser, int positionNumber, List<Choosable> chosenTs) {
 
         // Updated position reference
         final Position requestedPos = positions.get(positionNumber);

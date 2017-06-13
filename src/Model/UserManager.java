@@ -135,8 +135,11 @@ public class UserManager implements UserAuthenticator {
 
     @Override
     public void disconnectUser(String username) {
-        if(authenticatedUsers.contains(username))
-            authenticatedUsers.remove(username);
+        if(!authenticatedUsers.contains(username))
+            return;
+
+        authenticatedUsers.remove(username);
+        Logger.log(Logger.LogLevel.Normal, "User " + username + " disconnected from server.");
     }
 
     /**
