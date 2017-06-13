@@ -1,5 +1,6 @@
 package Action;
 
+import Client.UI.UserInterfaceFactory;
 import Model.User.User;
 import Server.Game.UserObjects.Domestic;
 
@@ -19,9 +20,11 @@ public class UpdatePosition implements BaseAction {
 
     @Override
     public void doAction(User user) {
-
-        // TODO: update position state moving specified domestic in place
-        //       remove domestic from selection area to avoid multiple usage
+        if (positionNumber > 16) {
+            //todo: set domestic position on gametable
+        } else {
+            UserInterfaceFactory.getInstance().getGameUI().getTowersController().addDomestic(occupant, positionNumber);
+        }
 
     }
 }

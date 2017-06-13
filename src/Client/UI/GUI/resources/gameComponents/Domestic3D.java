@@ -18,13 +18,13 @@ import java.util.Map;
  * Created by andrea on 05/06/17.
  */
 public class Domestic3D extends Group {
-    private final double CYLINDER_RADIUS = 8;
-    private final double CYLINDER_HEIGHT = 24;
+    public static Domestic3D last;
+    private final double CYLINDER_RADIUS = 12;
+    private final double CYLINDER_HEIGHT = 35;
     private final double CYLINDER_MIN_Z = -5;
     private Server.Game.UserObjects.Domestic serverDomestic;
     private Translate translate;
     private Timeline timeline;
-
     private Map<DomesticColor, Color> cylinderTopColorMap = new HashMap<DomesticColor, Color>() {{
         put(DomesticColor.Black, Color.BLACK);
         put(DomesticColor.Orange, Color.ORANGE);
@@ -73,7 +73,7 @@ public class Domestic3D extends Group {
         Group cylinderTopGroup = new Group(cylinderTop);
         cylinderTopGroup.getTransforms().addAll(new Rotate(90, Rotate.X_AXIS),
                 new Translate(cylinder.getLayoutX(), cylinder.getLayoutX(),
-                        cylinder.getHeight() * 0.57));
+                        cylinder.getHeight() * 0.51));
 
         //Add Translate / Rotate
         translate = new Translate();
@@ -86,9 +86,16 @@ public class Domestic3D extends Group {
         getChildren().addAll(cylinder, cylinderTopGroup);
         getTransforms().addAll(translate, rotate);
 
+        last = this;
     }
 
     public Translate getTranslate() {
         return translate;
+    }
+
+    public void setPos(double x, double y, double z) {
+        translate.setX(x);
+        translate.setY(y);
+        translate.setZ(z);
     }
 }

@@ -3,6 +3,8 @@ package Client.UI.GUI;
 import Action.SetInUseDomestic;
 import Client.UI.*;
 import Client.UI.GUI.resources.gameComponents.*;
+import Game.UserObjects.DomesticColor;
+import Game.UserObjects.FamilyColor;
 import Server.Game.UserObjects.Domestic;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -144,6 +146,10 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
 
         camMouseDrag();
 
+        getTowersController().addDomestic(new Domestic(FamilyColor.Blue, DomesticColor.Orange, 0), 4);
+        getTowersController().addDomestic(new Domestic(FamilyColor.Blue, DomesticColor.White, 0), 8);
+        getTowersController().addDomestic(new Domestic(FamilyColor.Blue, DomesticColor.Neutral, 0), 12);
+        getTowersController().addDomestic(new Domestic(FamilyColor.Blue, DomesticColor.Black, 0), 16);
         synchronized (this) {
             notifyAll();//Say world we are ready to show this awesome GUI
         }
@@ -246,7 +252,7 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
 
 
             if (me.isShiftDown()) {//Placing purpose
-                Translate translate = CylindricalPawn.last.getTranslate();
+                Translate translate = Domestic3D.last.getTranslate();
                 translate.setX(translate.getX() + mouseDeltaX * MULTIPLIER);
                 translate.setY(translate.getY() + mouseDeltaY * MULTIPLIER);
                 printStackPCoords(translate);
@@ -254,7 +260,7 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
 
 
             if (me.isPrimaryButtonDown()) {//Placing purpose
-                Translate translate = CylindricalPawn.last.getTranslate();
+                Translate translate = Domestic3D.last.getTranslate();
                 translate.setZ(translate.getZ() + mouseDeltaY * MULTIPLIER);
                 printStackPCoords(translate);
             }

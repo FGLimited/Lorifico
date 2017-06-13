@@ -6,6 +6,7 @@ import Game.Cards.CardType;
 import Game.UserObjects.Choosable;
 import Game.UserObjects.PlayerState;
 import Logging.Logger;
+import Server.Game.UserObjects.Domestic;
 import javafx.application.Platform;
 import javafx.scene.Group;
 
@@ -119,5 +120,53 @@ public class TowersBlock extends Group implements Client.UI.TowersController, Pl
         playerState.getCards(CardType.Challenge).forEach(card -> removeCardFromTower(card.getNumber()));
         playerState.getCards(CardType.Personality).forEach(card -> removeCardFromTower(card.getNumber()));
         playerState.getCards(CardType.Territory).forEach(card -> removeCardFromTower(card.getNumber()));
+    }
+
+    @Override
+    public void addDomestic(Domestic domestic, int gamePosition) {
+        if (!Platform.isFxApplicationThread()) {
+            Platform.runLater(() -> addDomestic(domestic, gamePosition));
+            return;
+        }
+
+        if (gamePosition > 16) {
+            Logger.log(Logger.LogLevel.Error, "Cannot add domestic, position " + gamePosition + " is not on towers");
+            return;
+        }
+
+        int towerLevel = (gamePosition - 1) % 4;//Floor of the tower (0,1,2,3)
+        int towerKey = (gamePosition - 1) / 4;//Number of the tower (0,1,2,3)
+        towers[towerKey].addDomestic(domestic, towerLevel);
+    }
+
+    /**
+     * Removes specified domestic from tower
+     *
+     * @param domestic
+     */
+    @Override
+    public void removeDomestic(Domestic domestic) {
+        if (!Platform.isFxApplicationThread()) {
+            Platform.runLater(() -> removeDomestic(domestic));
+            return;
+        }
+
+        //Say each tower to remove every card they have. DIVIDE ET IMPERA!
+        for (Tower.TowerType towerType : Tower.TowerType.values()) {
+            towers[towerType.ordinal()].removeDomestic(domestic);
+        }
+    }
+
+    @Override
+    public void removeAllDomestics() {
+        if (!Platform.isFxApplicationThread()) {
+            Platform.runLater(() -> removeAllDomestics());
+            return;
+        }
+
+        //Say each tower to remove every card they have. DIVIDE ET IMPERA!
+        for (Tower.TowerType towerType : Tower.TowerType.values()) {
+            towers[towerType.ordinal()].removeAllDomestics();
+        }
     }
 }

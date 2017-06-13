@@ -2,9 +2,6 @@ package Client.UI.GUI.resources.gameComponents;
 
 
 import Client.UI.GameTable;
-import Game.UserObjects.DomesticColor;
-import Game.UserObjects.FamilyColor;
-import Server.Game.UserObjects.Domestic;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -44,9 +41,6 @@ public class GameTableGroup extends Group implements GameTable {
         //Place coverings / places
         gameTablePlacesBlock = new GameTablePlacesBlock();
         getChildren().add(gameTablePlacesBlock);
-
-        //Load test domestic
-        getChildren().add(new Domestic3D(new Domestic(FamilyColor.Yellow, DomesticColor.Orange, 3)));
 
         //Apply Transforms
         getTransforms().add(new Translate(xPos, yPos, zPos));

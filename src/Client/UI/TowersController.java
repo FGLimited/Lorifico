@@ -1,6 +1,7 @@
 package Client.UI;
 
 import Game.UserObjects.Choosable;
+import Server.Game.UserObjects.Domestic;
 
 import java.util.List;
 import java.util.Map;
@@ -33,4 +34,16 @@ public interface TowersController {
      * Sets cost of positions
      */
     void setCostsPerPosition(Map<Integer, List<Choosable>> choosablePerPos);
+
+    /**
+     * Adds domestic to tower
+     *
+     * @param domestic
+     * @param gamePosition
+     */
+    void addDomestic(Domestic domestic, int gamePosition);
+
+    void removeDomestic(Domestic domestic);
+
+    void removeAllDomestics();
 }

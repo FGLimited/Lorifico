@@ -3,6 +3,7 @@ package Client.UI.GUI.resources.gameComponents;
 import Client.Datawarehouse;
 import Client.UI.TurnObserver;
 import Game.UserObjects.Choosable;
+import Server.Game.UserObjects.Domestic;
 import javafx.application.Platform;
 
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import java.util.Map;
 public class Tower extends Abstract3dsComponent implements TurnObserver {
     private TowerType towerType;
     private Map<Integer, GameCard> cardMap = new HashMap<>();//key is floor level (0 to 3)
+    private Map<Domestic, Domestic3D> domesticMap = new HashMap<>();//key is server's domestic
 
     public Tower(TowerType towerType) {
         this.towerType = towerType;
@@ -122,6 +124,40 @@ public class Tower extends Abstract3dsComponent implements TurnObserver {
             if (node instanceof GameCard) {
                 ((GameCard) (node)).setHoverEnabled(false);
                 ((GameCard) (node)).setOnMouseClicked(null);//Remove any callback
+            }
+        });
+    }
+
+    /**
+     * Removes a domestic from tower
+     *
+     * @param domestic
+     */
+    public void removeDomestic(Domestic domestic) {
+        if (domesticMap.containsKey(domestic)) {
+            getChildren().remove(domesticMap.get(domestic));//Remove from tower
+            domesticMap.remove(domestic);//Remove from map
+        }
+    }
+
+    /**
+     * Adds a domestic to tower
+     *
+     * @param domestic
+     * @param towerLevel
+     */
+    public void addDomestic(Domestic domestic, int towerLevel) {
+        Domestic3D domestic3D = new Domestic3D(domestic);
+        domesticMap.put(domestic, domestic3D);//Link Domestic3D to server's domestic
+        domestic3D.setPos(86.6, 35.6, -39.6 + (-104.4) * towerLevel);
+        getChildren().add(domestic3D);//Add domestic to Tower
+    }
+
+    public void removeAllDomestics() {
+        getChildren().forEach(node -> {
+            if (node instanceof Domestic3D) {
+                getChildren().remove(node);
+                domesticMap.values().remove(node);
             }
         });
     }
