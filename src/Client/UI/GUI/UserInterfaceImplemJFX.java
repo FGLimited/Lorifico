@@ -103,6 +103,7 @@ public class UserInterfaceImplemJFX extends Application implements UserInterface
         return gameTable;
     }
 
+
     /**
      * Changes scene
      *

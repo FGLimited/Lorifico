@@ -25,6 +25,7 @@ import javafx.scene.layout.StackPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 /**
  * Created by andrea on 12/06/17.
@@ -36,6 +37,9 @@ public class AddSlaveToDomesticDialog implements Initializable {
     private JFXButton submitButton;
     private DomesticBoxController domesticBoxController;
 
+    //This stores special SetInUseDomestic we have to use if this is a Special Domestic.
+    private SetInUseDomestic setInUseDomesticAction;
+
 
     @FXML
     private Label domesticValueLabel;
@@ -46,17 +50,42 @@ public class AddSlaveToDomesticDialog implements Initializable {
     @FXML
     private JFXTextField slavesTextField;
 
+    /**
+     * Used to add slaves to REGULAR domestic
+     *
+     * @param domesticColor
+     * @param domesticValue
+     * @param domesticBoxController box to disable after we complete action
+     */
     public AddSlaveToDomesticDialog(DomesticColor domesticColor, Integer domesticValue, DomesticBoxController domesticBoxController) {
         this.domesticColor = domesticColor;
         this.domesticValue = domesticValue;
         this.domesticBoxController = domesticBoxController;
-        showDialog();
+        showDialog(this::sendRegularDomesticToServer);
     }
 
-    private void showDialog() {
+    /**
+     * Used to add slaves to a SPECIAL domestic
+     *
+     * @param domestic               special domestic
+     * @param setInUseDomesticAction action we have to send back to server
+     */
+    public AddSlaveToDomesticDialog(Domestic domestic, SetInUseDomestic setInUseDomesticAction) {
+        this.domesticColor = domestic.getType();
+        this.domesticValue = domestic.getValue();
+        this.setInUseDomesticAction = setInUseDomesticAction;
+        showDialog(this::sendBonusDomesticToServer);
+    }
+
+    /**
+     * Show dialog with specified callback when green button is pressed
+     *
+     * @param callback callback
+     */
+    private void showDialog(Consumer<Integer> callback) {
         //Make sure we are on JavaFX thread:
         if (!Platform.isFxApplicationThread()) {
-            Platform.runLater(() -> showDialog());
+            Platform.runLater(() -> showDialog(callback));
             return;
         }
 
@@ -66,6 +95,7 @@ public class AddSlaveToDomesticDialog implements Initializable {
         //Create submit button
         submitButton = new JFXButton("Scegli Familiare");
         submitButton.setStyle("-fx-background-color: limegreen");
+        submitButton.setOnAction(action -> callback.accept(Integer.valueOf(slavesTextField.getText())));
 
         //Try to load dialog content from .fxml
         Node dialogContent;
@@ -93,7 +123,6 @@ public class AddSlaveToDomesticDialog implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         errorLabel.setText("");//Empty error label
         submitButton.setDisable(true);
-        submitButton.setOnAction(action -> sendToServer(Integer.valueOf(slavesTextField.getText())));
         domesticValueLabel.setText(domesticValue.toString());
 
         final int maxSlaves;
@@ -122,11 +151,11 @@ public class AddSlaveToDomesticDialog implements Initializable {
 
 
     /**
-     * Sends server selected
+     * Sends server selected slaves
      *
      * @param slaves
      */
-    private void sendToServer(int slaves) {
+    private void sendRegularDomesticToServer(int slaves) {
         FamilyColor myFamilyColor = Datawarehouse.getInstance().getFamilyColor(Datawarehouse.getInstance().getMyUsername());
         Domestic serverDomestic = new Domestic(myFamilyColor, domesticColor, domesticValue);
 
@@ -134,6 +163,19 @@ public class AddSlaveToDomesticDialog implements Initializable {
         CommunicationManager.getInstance().sendMessage(action);
 
         jfxDialog.close();
-        domesticBoxController.disableDomesticBox();
+        domesticBoxController.disableDomestic(domesticColor);//Disable played domestic
+        domesticBoxController.disableDomesticBox();//Disable domestic box (we cannot play another domestic now)
+    }
+
+    /**
+     * Sends server selected slaves for special domestic
+     *
+     * @param slaves
+     */
+    private void sendBonusDomesticToServer(int slaves) {
+        setInUseDomesticAction.setSlaves(slaves);
+        CommunicationManager.getInstance().sendMessage(setInUseDomesticAction);
+
+        jfxDialog.close();
     }
 }

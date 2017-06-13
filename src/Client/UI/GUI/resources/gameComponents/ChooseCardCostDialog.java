@@ -1,5 +1,8 @@
 package Client.UI.GUI.resources.gameComponents;
 
+import Action.BaseAction;
+import Action.Move;
+import Client.CommunicationManager;
 import Client.UI.GUI.UserInterfaceImplemJFX;
 import Client.UI.UserInterfaceFactory;
 import Game.UserObjects.Choosable;
@@ -19,6 +22,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -29,6 +33,7 @@ import java.util.stream.Collectors;
 public class ChooseCardCostDialog implements Initializable {
     private List<Choosable> choosableList;
     private Integer positionNumber, cardNumber;
+    private JFXDialog dialog;
 
     @FXML
     private ImageView cardImageView;
@@ -70,12 +75,23 @@ public class ChooseCardCostDialog implements Initializable {
                 jfxButton.setPrefWidth(258);
                 jfxButton.setPrefHeight(27);
                 jfxButton.setPadding(new Insets(0, 0, 20, 0));
+                jfxButton.setOnAction(event -> buyButtonCallback(positionNumber, cost));
 
                 //Appends button to scene
                 buttonsVBox.getChildren().add(jfxButton);
             }
         });
 
+    }
+
+    private void buyButtonCallback(Integer positionNumber, Cost cost) {
+        List<Choosable> costList = new ArrayList<>();
+        costList.add(cost);
+
+        BaseAction action = new Move(positionNumber, costList);
+        CommunicationManager.getInstance().sendMessage(action);
+
+        dialog.close();
     }
 
     private void showDialog() {
@@ -105,7 +121,7 @@ public class ChooseCardCostDialog implements Initializable {
 
         //Append dialog to root stackpane
         StackPane stackPane = ((UserInterfaceImplemJFX) UserInterfaceFactory.getInstance()).getRootStackPane();
-        JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER, true);
+        dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER, true);
         dialog.show();
     }
 }

@@ -1,7 +1,9 @@
 package Client.UI.GUI;
 
+import Action.SetInUseDomestic;
 import Client.UI.*;
 import Client.UI.GUI.resources.gameComponents.*;
+import Server.Game.UserObjects.Domestic;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -170,6 +172,11 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
     @Override
     public DomesticsController getDomesticsController() {
         return domesticBoxController;
+    }
+
+    @Override
+    public void addSlaveToSpecialDomestic(Domestic domestic, SetInUseDomestic setInUseDomesticAction) {
+        new AddSlaveToDomesticDialog(domestic, setInUseDomesticAction);
     }
 
     /**

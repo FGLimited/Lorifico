@@ -1,5 +1,6 @@
 package Action;
 
+import Client.UI.UserInterfaceFactory;
 import Game.Positions.PositionType;
 import Model.User.User;
 import Server.Game.Usable.Cost;
@@ -36,14 +37,10 @@ public class BonusDomesticMove implements BaseAction {
 
     @Override
     public void doAction(User user) {
+        //Creates action to send back to server
+        SetInUseDomestic setSpecialDomestic = new SetInUseDomestic(specialDomestic, 0, bonusPositions, bonusCost);
 
-        // TODO: ask user to add slaves if necessary, than send update to the server
-        int slaves = 0;
-
-        BaseAction setSpecialDomestic = new SetInUseDomestic(specialDomestic, slaves, bonusPositions, bonusCost);
-
-        // TODO: send setSpecialDomestic to server
-        // (a position update will be sent back as in normal domestic selection mode)
-
+        //Creates a dialog asking for slaves, dialog on submit will send setSpecialDomestic action to server
+        UserInterfaceFactory.getInstance().getGameUI().addSlaveToSpecialDomestic(specialDomestic, setSpecialDomestic);
     }
 }

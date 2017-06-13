@@ -98,6 +98,8 @@ public class Tower extends Abstract3dsComponent implements TurnObserver {
         } else {
             //We can't buy this card
             cardMap.get(towerLevel).setHoverEnabled(false);
+            //Remove callback
+            cardMap.get(towerLevel).setOnMouseClicked(null);
         }
     }
 

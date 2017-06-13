@@ -8,6 +8,7 @@ import Server.Game.Usable.Cost;
 import Server.Game.UserObjects.Domestic;
 import Server.Game.UserObjects.GameUser;
 import Server.Game.UserObjects.PlayerState;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,12 +20,9 @@ import java.util.Map;
 public class SetInUseDomestic implements BaseAction {
 
     private final Domestic selectedDomestic;
-
-    private final int slaves;
-
     private final List<PositionType> requestedPositions;
-
     private final Cost costBonus;
+    private int slaves;
 
     /**
      * Choose which domestic to use for current round
@@ -44,6 +42,15 @@ public class SetInUseDomestic implements BaseAction {
 
     public SetInUseDomestic(Domestic selectedDomestic, int slaves) {
         this(selectedDomestic, slaves, null, null);
+    }
+
+    /**
+     * Used to set slaves if not set in constructor
+     *
+     * @param slaves slaves to add
+     */
+    public void setSlaves(int slaves) {
+        this.slaves = slaves;
     }
 
     @Override

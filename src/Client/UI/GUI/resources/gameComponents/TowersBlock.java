@@ -1,6 +1,10 @@
 package Client.UI.GUI.resources.gameComponents;
 
+import Client.Datawarehouse;
+import Client.UI.PlayerStateObserver;
+import Game.Cards.CardType;
 import Game.UserObjects.Choosable;
+import Game.UserObjects.PlayerState;
 import Logging.Logger;
 import javafx.application.Platform;
 import javafx.scene.Group;
@@ -11,7 +15,7 @@ import java.util.Map;
 /**
  * Created by andrea on 04/06/17.
  */
-public class TowersBlock extends Group implements Client.UI.TowersController {
+public class TowersBlock extends Group implements Client.UI.TowersController, PlayerStateObserver {
     private Tower[] towers = new Tower[4];
 
     /**
@@ -23,6 +27,8 @@ public class TowersBlock extends Group implements Client.UI.TowersController {
             towers[towerType.ordinal()] = new Tower(towerType);
             getChildren().add(towers[towerType.ordinal()]);
         }
+
+        Datawarehouse.getInstance().registerPlayerStateObserver(this);
     }
 
     @Override
@@ -98,5 +104,20 @@ public class TowersBlock extends Group implements Client.UI.TowersController {
         for (Tower.TowerType towerType : Tower.TowerType.values()) {
             towers[towerType.ordinal()].removeAllCards();
         }
+    }
+
+    /**
+     * If a card which is on towers is seen in a user's punchboard, we have to remove it
+     *
+     * @param playerState
+     * @param username
+     */
+    @Override
+    public void onPlayerStateUpdate(PlayerState playerState, String username) {
+        //Remove every card which is in user's punchboard from towers
+        playerState.getCards(CardType.Building).forEach(card -> removeCardFromTower(card.getNumber()));
+        playerState.getCards(CardType.Challenge).forEach(card -> removeCardFromTower(card.getNumber()));
+        playerState.getCards(CardType.Personality).forEach(card -> removeCardFromTower(card.getNumber()));
+        playerState.getCards(CardType.Territory).forEach(card -> removeCardFromTower(card.getNumber()));
     }
 }

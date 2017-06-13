@@ -1,17 +1,19 @@
 package Action;
 
 import Game.Positions.Position;
-import Server.Game.UserObjects.GameUser;
+import Game.UserObjects.Choosable;
 import Model.User.User;
 import Server.Game.UserObjects.GameTable;
+import Server.Game.UserObjects.GameUser;
+
 import java.util.List;
 
 /**
  * Created by fiore on 23/05/2017.
  */
-public class Move<T> implements BaseAction {
+public class Move implements BaseAction {
 
-    private final List<T> chosenTs;
+    private final List<Choosable> chosenTs;
 
     private final int positionNumber;
 
@@ -21,7 +23,7 @@ public class Move<T> implements BaseAction {
      * @param positionNumber Position number
      * @param chosenTs Chosen cost / chosen effects to activate
      */
-    public Move(int positionNumber, List<T> chosenTs) {
+    public Move(int positionNumber, List<Choosable> chosenTs) {
         this.positionNumber = positionNumber;
         this.chosenTs = chosenTs;
     }
@@ -35,7 +37,6 @@ public class Move<T> implements BaseAction {
 
         // If table is null, game hasn't started yet
         if(table == null){
-            // TODO: scantot
             return;
         }
 

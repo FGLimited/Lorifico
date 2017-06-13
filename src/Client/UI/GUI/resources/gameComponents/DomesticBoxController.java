@@ -49,7 +49,7 @@ public class DomesticBoxController implements DomesticsController, TurnObserver 
     }
 
     /**
-     * Updates 2D GUI Labels and updates callback
+     * Updates 2D GUI Labels and updates callbacks, this is called at the beginning of each game phase.
      *
      * @param domesticValues
      */
@@ -59,8 +59,11 @@ public class DomesticBoxController implements DomesticsController, TurnObserver 
             Platform.runLater(() -> updateDomesticsValues(domesticValues));
             return;
         }
-        //Updates domestics in 2D UI with correct color.
-        stackPaneMap.forEach(((domesticColor, stackPane) -> update2DGUIColors(stackPane, domesticColor)));
+        //Updates domestics in 2D GUI with correct color and resets each stackpane opacity
+        stackPaneMap.forEach(((domesticColor, stackPane) -> {
+            update2DGUIColors(stackPane, domesticColor);
+            stackPane.setOpacity(1);
+        }));
 
         //Updates domestic with current label and callback
         domesticValues.forEach((DomesticColor domesticColor, Integer integer) -> {
@@ -83,6 +86,18 @@ public class DomesticBoxController implements DomesticsController, TurnObserver 
     public void disableDomesticBox() {
         hBox.setDisable(true);
         hBox.setOpacity(0.5);
+    }
+
+    /**
+     * Called when a domestic is played and has to be disabled in selection box
+     *
+     * @param domesticColor domestic to disable
+     */
+    public void disableDomestic(DomesticColor domesticColor) {
+        if (stackPaneMap.get(domesticColor) != null) {
+            stackPaneMap.get(domesticColor).setOpacity(0.5);//Make it trasparent
+            stackPaneMap.get(domesticColor).setOnMouseClicked(null);//Remove on click action
+        }
     }
 
     /**
