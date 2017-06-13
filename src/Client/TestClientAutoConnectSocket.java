@@ -30,6 +30,10 @@ public class TestClientAutoConnectSocket {
             e.printStackTrace();
         }
 
+        BaseAction baseAction = new LoginOrRegister(args[0], "prova", false);
+        CommunicationManager.getInstance().sendMessage(baseAction);
+
+
         new Thread(() -> {
             try {
                 ShellFactory.createConsoleShell("Debuggenzo", "?list per i comandi", new DebugLorenzo())
