@@ -221,7 +221,7 @@ public class GameTable {
     public Position occupy(GameUser currentUser, int positionNumber, List<Choosable> chosenTs) {
 
         // Updated position reference
-        final Position requestedPos = positions.get(positionNumber);
+        Position requestedPos = positions.get(positionNumber);
 
         PlayerState newState = (PlayerState) requestedPos.occupy(currentUser.getUserState(), chosenTs);
 
