@@ -95,7 +95,7 @@ public class DomesticBoxController implements DomesticsController, TurnObserver 
      */
     public void disableDomestic(DomesticColor domesticColor) {
         if (stackPaneMap.get(domesticColor) != null) {
-            stackPaneMap.get(domesticColor).setOpacity(0.5);//Make it trasparent
+            stackPaneMap.get(domesticColor).setOpacity(0.3);//Make it trasparent
             stackPaneMap.get(domesticColor).setOnMouseClicked(null);//Remove on click action
         }
     }
