@@ -12,11 +12,11 @@ import javafx.scene.layout.HBox;
  */
 public class PlayersBoxController implements PlayerStateObserver {
     private HBox node;//Node where we are attaching our UserAvatarClickableElements
-    private MiliyaryVictoryBoxController miliyaryVictoryBoxController;//Reference to box showing up Player's infos.
+    private MilitaryVictoryBoxController militaryVictoryBoxController;//Reference to box showing up Player's infos.
 
-    public PlayersBoxController(HBox playersHBox, MiliyaryVictoryBoxController miliyaryVictoryBoxController) {
+    public PlayersBoxController(HBox playersHBox, MilitaryVictoryBoxController militaryVictoryBoxController) {
         this.node = playersHBox;
-        this.miliyaryVictoryBoxController = miliyaryVictoryBoxController;
+        this.militaryVictoryBoxController = militaryVictoryBoxController;
 
         Datawarehouse.getInstance().registerPlayerStateObserver(this);
     }
@@ -44,7 +44,7 @@ public class PlayersBoxController implements PlayerStateObserver {
                 node.getChildren().add(UserAvatarClickableElement.getInstance(username));
 
                 //When we hover on a user, his data is shown on the right side of GUI
-                UserAvatarClickableElement.getInstance(username).setHoverCallBack(miliyaryVictoryBoxController);
+                UserAvatarClickableElement.getInstance(username).setHoverCallBack(militaryVictoryBoxController);
             }
         } else Logger.log(Logger.LogLevel.Error, "PlayersBoxController, node is null");
     }

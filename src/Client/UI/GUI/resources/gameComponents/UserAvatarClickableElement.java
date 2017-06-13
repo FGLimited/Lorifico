@@ -71,17 +71,17 @@ public class UserAvatarClickableElement extends Pane implements TurnObserver {
     /**
      * On hover we'll show this user's data in MilitaryVictoryBox controller.
      *
-     * @param miliyaryVictoryBoxController
+     * @param militaryVictoryBoxController
      */
-    public void setHoverCallBack(MiliyaryVictoryBoxController miliyaryVictoryBoxController) {
+    public void setHoverCallBack(MilitaryVictoryBoxController militaryVictoryBoxController) {
         //When we hover on a UserAvatarClickable let's show his data on right side.
         this.setOnMouseEntered((event) -> {
-            miliyaryVictoryBoxController.showPointsOf(username);
+            militaryVictoryBoxController.showPointsOf(username);
         });
 
         //When mouse exits lets go back and show playing user's data.
         this.setOnMouseExited((event) -> {
-            miliyaryVictoryBoxController.showPointsOf(Datawarehouse.getInstance().getMyUsername());
+            militaryVictoryBoxController.showPointsOf(Datawarehouse.getInstance().getMyUsername());
         });
     }
 

@@ -11,11 +11,11 @@ import javafx.scene.control.Label;
 /**
  * Created by Io on 08/06/2017.
  */
-public class MiliyaryVictoryBoxController implements PlayerStateObserver {
+public class MilitaryVictoryBoxController implements PlayerStateObserver {
     private Label militaryLabel, victoryLabel, showingUserLabel;
     private String usernameShowed;//User we are showing (this can be anyone of playing users!!)
 
-    public MiliyaryVictoryBoxController(Label showingUserLabel, Label militaryLabel, Label victoryLabel) {
+    public MilitaryVictoryBoxController(Label showingUserLabel, Label militaryLabel, Label victoryLabel) {
         this.militaryLabel = militaryLabel;
         this.victoryLabel = victoryLabel;
         this.showingUserLabel = showingUserLabel;//Label containing whose data is displayed (if different from me)

@@ -126,10 +126,10 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
         gameTableGroup.getChildren().add(roundOrderPawnsBlock);
 
         //Start MilitaryVictoryBoxController, it will show this values for selected user in PlayersBoxController
-        MiliyaryVictoryBoxController miliyaryVictoryBoxController = new MiliyaryVictoryBoxController(showingUserLabel, militaryLabel, victoryLabel);
+        MilitaryVictoryBoxController militaryVictoryBoxController = new MilitaryVictoryBoxController(showingUserLabel, militaryLabel, victoryLabel);
 
         //Start PlayersBoxController (the one showing active players)
-        new PlayersBoxController(playersHBox, miliyaryVictoryBoxController);
+        new PlayersBoxController(playersHBox, militaryVictoryBoxController);
 
         //Resources Controller
         new ResourcesBoxController(rockLabel, woodLabel, slavesLabel, goldLabel);
