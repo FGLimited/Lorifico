@@ -1,8 +1,6 @@
 package Server.Game;
 
-import Action.FaithCardsUpdate;
-import Action.SendMatchAttendees;
-import Action.TowersUpdate;
+import Action.*;
 import Game.Cards.CardType;
 import Game.Effects.Effect;
 import Game.Effects.EffectType;
@@ -16,7 +14,6 @@ import Server.Game.Effects.Faith.FaithDeck;
 import Server.Game.UserObjects.GameTable;
 import Server.Game.UserObjects.GameUser;
 import Server.Game.UserObjects.PlayerState;
-
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.Executors;
@@ -32,10 +29,15 @@ public class Match extends UserHandler {
     private static AtomicInteger matchCounter = new AtomicInteger(0);
 
     private final int matchNumber = matchCounter.getAndIncrement();
+
     private final long startDelay;
+
     private final long moveTimeout;
+
     private volatile ScheduledExecutorService matchExecutor = Executors.newSingleThreadScheduledExecutor();
+
     private volatile boolean isStarted = false;
+
     private volatile GameTable table;
 
     private volatile SplitDeck cardsDeck;
@@ -102,12 +104,22 @@ public class Match extends UserHandler {
     /**
      * Abort match without saving current status
      *
-     * @param leftUser User who left the game
+     * @param leftUser User who left the game before the end
      */
     public void abort(User leftUser) {
+
+        // If match isn't started do nothing
+        if(!isStarted)
+            return;
+
+        // Stop match execution
         matchExecutor.shutdownNow();
 
-        // TODO: notify all users of game end because of a user left
+        // Create match abort message
+        final BaseAction endMatch = new EndMatch(leftUser.getUsername());
+
+        // Send message to all players
+        sendAll(endMatch);
     }
 
     public synchronized void addUser(User newUser) {
@@ -117,6 +129,11 @@ public class Match extends UserHandler {
 
         //Send all match users a list container other attendees
         sendAll(new SendMatchAttendees(users));
+
+        // When maximum player
+        if(users.size() == 4) {
+            start();
+        }
 
         // When the second users is added start countdown for match start
         if(users.size() >= 2) {
@@ -138,12 +155,6 @@ public class Match extends UserHandler {
 
             }, startDelay, TimeUnit.MILLISECONDS);
         }
-
-        // When maximum player
-        if(users.size() == 4) {
-            start();
-        }
-
     }
 
     /**
@@ -287,7 +298,11 @@ public class Match extends UserHandler {
         // Order by victory points
         users.sort(Comparator.comparingInt(user -> user.getUserState().getResources().get(ResourceType.VictoryPoint)));
 
-        // TODO: send classification
+        // Create end match message
+        final BaseAction endMatch = new EndMatch(users);
+
+        // Send message to all players
+        sendAll(endMatch);
     }
 
     /**
