@@ -5,8 +5,10 @@ import Client.UI.TurnObserver;
 import Game.UserObjects.Choosable;
 import Server.Game.UserObjects.Domestic;
 import javafx.application.Platform;
+import javafx.scene.Node;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -154,12 +156,13 @@ public class Tower extends Abstract3dsComponent implements TurnObserver {
     }
 
     public void removeAllDomestics() {
-        getChildren().forEach(node -> {
+        for (Iterator<Node> iterator = getChildren().iterator(); iterator.hasNext(); ) {
+            Node node = iterator.next();
             if (node instanceof Domestic3D) {
-                getChildren().remove(node);
+                iterator.remove();
                 domesticMap.values().remove(node);
             }
-        });
+        }
     }
 
     /**

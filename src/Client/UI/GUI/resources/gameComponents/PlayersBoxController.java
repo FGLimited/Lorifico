@@ -45,6 +45,7 @@ public class PlayersBoxController implements PlayerStateObserver {
 
                 //When we hover on a user, his data is shown on the right side of GUI
                 UserAvatarClickableElement.getInstance(username).setHoverCallBack(militaryVictoryBoxController);
+                UserAvatarClickableElement.getInstance(username).setOnMouseClicked(event -> new PunchboardController(username));
             }
         } else Logger.log(Logger.LogLevel.Error, "PlayersBoxController, node is null");
     }

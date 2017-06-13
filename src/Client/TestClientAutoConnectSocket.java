@@ -13,6 +13,8 @@ import com.budhash.cliche.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by andrea on 10/05/2017.
@@ -30,8 +32,14 @@ public class TestClientAutoConnectSocket {
             e.printStackTrace();
         }
 
-        BaseAction baseAction = new LoginOrRegister(args[0], "prova", false);
-        CommunicationManager.getInstance().sendMessage(baseAction);
+        final ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(2);
+        executor.schedule(new Runnable() {
+            @Override
+            public void run() {
+                BaseAction baseAction = new LoginOrRegister(args[0], "prova", false);
+                CommunicationManager.getInstance().sendMessage(baseAction);
+            }
+        }, 500, TimeUnit.MILLISECONDS);
 
 
         new Thread(() -> {

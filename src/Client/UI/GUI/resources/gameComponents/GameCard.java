@@ -1,5 +1,6 @@
 package Client.UI.GUI.resources.gameComponents;
 
+import Game.Cards.CardType;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -18,6 +19,7 @@ public class GameCard extends AbstractImageComponent {
     boolean isHoverEnabled = false;
     private Timeline timeline = new Timeline();
     private Integer cardNumber;
+    private CardType cardType;
     //vars used for animations:
     private double initialScale, initialY;
 
@@ -53,6 +55,11 @@ public class GameCard extends AbstractImageComponent {
             timeline.setCycleCount(1);
             timeline.play();
         }));
+
+        if (number < 25) cardType = CardType.Territory;
+        else if (number >= 25 && number < 49) cardType = CardType.Building;
+        else if (number >= 49 && number < 73) cardType = CardType.Personality;
+        else cardType = CardType.Challenge;
     }
 
     /**
@@ -132,5 +139,9 @@ public class GameCard extends AbstractImageComponent {
 
     public void setHoverEnabled(boolean hoverEnabled) {
         isHoverEnabled = hoverEnabled;
+    }
+
+    public CardType getCardType() {
+        return cardType;
     }
 }

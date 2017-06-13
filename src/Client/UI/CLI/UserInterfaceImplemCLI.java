@@ -56,11 +56,6 @@ public class UserInterfaceImplemCLI implements UserInterface {
     }
 
     @Override
-    public Punchboard getPunchboard() {
-        return null;
-    }
-
-    @Override
     public GameTable getGameTable() {
         return null;
     }

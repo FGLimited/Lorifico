@@ -47,12 +47,6 @@ public interface UserInterface {
     public GameUI getGameUI();
 
     /**
-     * Gets punchboard in game object
-     * @return
-     */
-    public Punchboard getPunchboard();
-
-    /**
      * Gets gametable in game object
      * @return
      */

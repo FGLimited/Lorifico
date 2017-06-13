@@ -3,8 +3,6 @@ package Client.UI.GUI;
 import Action.SetInUseDomestic;
 import Client.UI.*;
 import Client.UI.GUI.resources.gameComponents.*;
-import Game.UserObjects.DomesticColor;
-import Game.UserObjects.FamilyColor;
 import Server.Game.UserObjects.Domestic;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -90,7 +88,7 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
 
     @Override
     public void showPage() {
-        ((UserInterfaceImplemJFX) (UserInterfaceFactory.getInstance())).changeScene("Gioca", "fxml/GamePage.fxml", 780, 480, true, this);
+        ((UserInterfaceImplemJFX) (UserInterfaceFactory.getInstance())).changeScene("Gioca", "fxml/GamePage.fxml", 1000, 600, true, this);
     }
 
     @Override
@@ -146,10 +144,6 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
 
         camMouseDrag();
 
-        getTowersController().addDomestic(new Domestic(FamilyColor.Blue, DomesticColor.Orange, 0), 4);
-        getTowersController().addDomestic(new Domestic(FamilyColor.Blue, DomesticColor.White, 0), 8);
-        getTowersController().addDomestic(new Domestic(FamilyColor.Blue, DomesticColor.Neutral, 0), 12);
-        getTowersController().addDomestic(new Domestic(FamilyColor.Blue, DomesticColor.Black, 0), 16);
         synchronized (this) {
             notifyAll();//Say world we are ready to show this awesome GUI
         }

@@ -93,11 +93,6 @@ public class UserInterfaceImplemJFX extends Application implements UserInterface
     }
 
     @Override
-    public Punchboard getPunchboard() {
-        return null;
-    }
-
-    @Override
     public GameTable getGameTable() {
         if (gameTable == null) gameTable = new GameTableGroup();
         return gameTable;
