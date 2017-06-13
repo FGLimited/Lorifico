@@ -16,9 +16,13 @@ import java.util.concurrent.Executors;
 public class SocketAcceptor implements LinkAcceptor {
 
     private final int port;
+
     private final LinkHandler handler;
+
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
+
     private volatile ServerSocket listener;
+
     private volatile boolean listen = false;
 
     /**

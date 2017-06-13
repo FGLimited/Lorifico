@@ -1,7 +1,6 @@
 package Server.Networking;
 
 import Logging.Logger;
-
 import java.util.ArrayList;
 import java.util.List;
 
