@@ -26,10 +26,7 @@ public class Cost implements Choosable {
 
         requestedResources = resources == null ? new HashMap<>() : UsableHelper.cloneMap(resources);
 
-        if(militaryRequested != null)
-            this.militaryRequested = militaryRequested > requestedResources.get(ResourceType.MilitaryPoint) ? militaryRequested : resources.get(ResourceType.MilitaryPoint);
-        else
-            this.militaryRequested = 0;
+        this.militaryRequested = militaryRequested != null ? militaryRequested : 0;
 
         cardNumber = 0;
     }
