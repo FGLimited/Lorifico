@@ -40,7 +40,7 @@ public class MarketPosition extends Position<Cost> {
         // or domestic has zero value
         // or aggregate bounds won't let this domestic in
         // return empty list
-        if(occupant != null
+        if(isOccupied() != null
                 || currentState.getInUseDomestic().getValue() > 0
                 || !parent.canOccupy(currentState.getInUseDomestic()))
             return Collections.emptyList();

@@ -98,7 +98,7 @@ public class Cost implements Choosable {
      * @return True if required resources are available, false else
      */
     private boolean canBuyResources(PlayerState currentState) {
-        final Map<ResourceType, Integer> userResources = currentState.getResources();
+        Map<ResourceType, Integer> userResources = currentState.getResources();
 
         for (ResourceType type : requestedResources.keySet()) {
             if(requestedResources.get(type) > userResources.get(type))
@@ -117,7 +117,7 @@ public class Cost implements Choosable {
     public void apply(PlayerState currentState) {
 
         // Get current state resources
-        final Map<ResourceType, Integer> currentResources = currentState.getResources();
+        Map<ResourceType, Integer> currentResources = currentState.getResources();
 
         // Apply costs to current resources
         UsableHelper.editResources(requestedResources, currentResources, false);
@@ -136,7 +136,7 @@ public class Cost implements Choosable {
     public Cost sum(Cost toSum, boolean subtractSum) {
 
         // Clone current instance
-        final Cost totalCost = new Cost(requestedResources, Math.max(toSum.militaryRequested, militaryRequested));
+        Cost totalCost = new Cost(requestedResources, Math.max(toSum.militaryRequested, militaryRequested));
 
         // Sum resources from other instance
         UsableHelper.editResources(toSum.requestedResources, totalCost.requestedResources, subtractSum);

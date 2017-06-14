@@ -44,7 +44,7 @@ public class PositionBonusEffect extends Effect {
     public void apply(PlayerState currentMove) {
 
         // Get in use domestic
-        final Domestic inUse = currentMove.getInUseDomestic();
+        Domestic inUse = currentMove.getInUseDomestic();
 
         // Apply bonus/penalty value
         inUse.setValue(inUse.getValue() + value);

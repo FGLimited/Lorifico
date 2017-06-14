@@ -17,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by fiore on 11/05/2017.
@@ -49,15 +50,15 @@ public class GameTable {
             throw new FileNotFoundException("File doesn't exists!");
 
         // Initialize json deserializer
-        final Gson gson = new GsonBuilder()
+        Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Position.class, new MySerializer<Position>())
                 .registerTypeAdapter(Effect.class, new MySerializer<Effect>())
                 .create();
 
-        final GameTable table = gson.fromJson(Files.newBufferedReader(jsonSetupPath), GameTable.class);
+        GameTable table = gson.fromJson(Files.newBufferedReader(jsonSetupPath), GameTable.class);
 
         // Initialize aggregates map to empty
-        final Map<PositionType, List<Position>> aggregates = new HashMap<>();
+        Map<PositionType, List<Position>> aggregates = new HashMap<>();
         for(PositionType type : PositionType.values())
             aggregates.put(type, new ArrayList<>());
 
@@ -69,7 +70,7 @@ public class GameTable {
             Position singleHarvest = table.positions.get(20);
             Position singleProduction = table.positions.get(30);
 
-            final Set<Integer> numbers = new HashSet<>(table.positions.keySet());
+            Set<Integer> numbers = new HashSet<>(table.positions.keySet());
 
             for (Integer i : numbers) {
 
@@ -120,13 +121,16 @@ public class GameTable {
      */
     @SuppressWarnings("unchecked")
     public Map<Integer, List<Choosable>> getPositions(GameUser currentUser, List<PositionType> requestedPositions) {
-        final boolean getAll = requestedPositions == null;
+        final AtomicBoolean getAll = new AtomicBoolean();
+        getAll.set(requestedPositions == null);
 
         Map<Integer, List<Choosable>> choseForPos = new HashMap<>();
 
         positions.values().forEach(pos -> {
-            if(getAll || requestedPositions.contains(pos.getType()))
+            if(getAll.get() || requestedPositions.contains(pos.getType())) {
+                Logger.log(Logger.LogLevel.Normal, "Position " + pos.getNumber() + "@" + pos.hashCode() + " for user " + currentUser.toString());
                 choseForPos.put(pos.getNumber(), pos.canOccupy(currentUser.getUserState()));
+            }
         });
 
         return choseForPos;
@@ -149,6 +153,9 @@ public class GameTable {
      * @return Update message with new card associated with tower positions
      */
     public TowersUpdate changeTurn(Map<CardType, List<Server.Game.Cards.Card>> newCards, Effect newFaithEffect) {
+
+        // Free all positions
+        positions.values().forEach(Position::free);
 
         // Update cards in tower positions
         newCards.forEach((type, list) ->
@@ -197,10 +204,7 @@ public class GameTable {
         nextTurnOrder.addAll(currentOrder);
 
         // Create new order list
-        final List<GameUser> newOrder = new ArrayList<>(nextTurnOrder);
-
-        // Free all positions
-        positions.values().forEach(Position::free);
+        List<GameUser> newOrder = new ArrayList<>(nextTurnOrder);
 
         // Clear council order
         nextTurnOrder.clear();

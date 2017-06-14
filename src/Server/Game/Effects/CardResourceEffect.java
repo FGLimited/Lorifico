@@ -70,7 +70,7 @@ public class CardResourceEffect extends Effect {
     @Override
     public void apply(PlayerState currentMove) {
 
-        final Map<ResourceType, Integer> currentResources = currentMove.getResources();
+        Map<ResourceType, Integer> currentResources = currentMove.getResources();
 
         int ownedCards = currentMove.getCards(cardType).size();
 

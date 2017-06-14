@@ -42,7 +42,7 @@ public class ActionPosition extends Position<Effect> {
         applyEffects(currentState);
 
         // If position is occupied or in use domestic has value zero can't occupy
-        if(occupant != null && currentState.getInUseDomestic().getValue() == 0)
+        if(isOccupied() != null && currentState.getInUseDomestic().getValue() == 0)
             return Collections.emptyList();
 
         // Return list of activable effects

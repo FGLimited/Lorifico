@@ -119,7 +119,7 @@ public class Card implements Game.Cards.Card {
         }
 
         // Apply resource discount for this type of card if any
-        final Map<ResourceType, Integer> currentResources = currentState.getResources();
+        Map<ResourceType, Integer> currentResources = currentState.getResources();
         UsableHelper.editResources(currentState.getCostBonus(type), currentResources, true);
         currentState.setResources(currentResources, false);
 
@@ -138,7 +138,7 @@ public class Card implements Game.Cards.Card {
      */
     private Cost checkMilitaryPoints(int cardsNumber) {
 
-        final int requiredPoints = GameHelper.getInstance().requestedMilitary(cardsNumber);
+        int requiredPoints = GameHelper.getInstance().requestedMilitary(cardsNumber);
 
         // Create point cost with required military points
         // No point has to be removed, but they have to be there when buying the card

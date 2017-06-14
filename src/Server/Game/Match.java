@@ -126,10 +126,6 @@ public class Match extends UserHandler {
      */
     public void abort(User leftUser) {
 
-        // If match isn't started do nothing
-        if(!isStarted)
-            return;
-
         // Stop match execution
         matchExecutor.shutdownNow();
 
@@ -138,6 +134,9 @@ public class Match extends UserHandler {
 
         // Send message to all players
         sendAll(endMatch);
+
+        // Remove match from list
+        Lobby.getInstance().clearMatch(this);
     }
 
     public synchronized void addUser(User newUser) {
@@ -321,6 +320,9 @@ public class Match extends UserHandler {
 
         // Send message to all players
         sendAll(endMatch);
+
+        // Remove match from list
+        Lobby.getInstance().clearMatch(this);
     }
 
     /**

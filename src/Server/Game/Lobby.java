@@ -11,6 +11,16 @@ import java.util.Optional;
  */
 public class Lobby extends UserHandler {
 
+    private static Lobby instance = new Lobby();
+
+    public static Lobby getInstance() {
+        return instance;
+    }
+
+    private Lobby() {
+
+    }
+
     private final List<Match> matches = Collections.synchronizedList(new ArrayList<>());
 
     @Override
@@ -26,13 +36,33 @@ public class Lobby extends UserHandler {
         if(firstFreeMatch.isPresent())
             firstFreeMatch.get().addUser(newUser);
         else {
-            Match newMatch = new Match(30000, 120000);
+            Match newMatch = new Match(30000, 480000);
             newMatch.addUser(newUser);
             matches.add(newMatch);
         }
     }
 
-    public List<Match> getAllMatches() {
-        return matches;
+    /**
+     * Remove specified match from list
+     *
+     * @param toClear Match to remove
+     */
+    public void clearMatch(Match toClear) {
+        matches.remove(toClear);
     }
+
+    /**
+     * Abort all matches
+     */
+    public void dismissAll() {
+
+        // Create fake user
+        final User server = new User("Server shutdown", 0, 0, 0);
+
+        // Abort all matches
+        matches.parallelStream().forEach(match -> match.abort(server));
+
+        matches.clear();
+    }
+
 }

@@ -81,7 +81,7 @@ public class TowerPosition extends Position<Cost> {
         // If position is occupied no one else can be there
         // or if domestic value is too low
         // or if non neutral domestic of same family is already present in the tower
-        if(occupant != null
+        if(isOccupied() != null
                 || currentState.getInUseDomestic().getValue() < positionValue
                 || !parent.canOccupy(currentState.getInUseDomestic()))
             return Collections.emptyList();
@@ -115,9 +115,7 @@ public class TowerPosition extends Position<Cost> {
         List<Cost> totalCosts = new ArrayList<>();
 
         // Add occupation cost to card cost and populate totalCosts list
-        affordableCosts.forEach(cardCost -> {
-            totalCosts.add(cardCost.sum(occupiedCost, true));
-        });
+        affordableCosts.forEach(cardCost -> totalCosts.add(cardCost.sum(occupiedCost, true)));
 
         // Return total costs' list
         return totalCosts;

@@ -32,8 +32,8 @@ public class Move implements BaseAction {
     public void doAction(User user) {
 
         // Get current user and player state
-        final GameUser gameUser = (GameUser) user.getGameUser();
-        final GameTable table = user.getMatch().getTable();
+        GameUser gameUser = (GameUser) user.getGameUser();
+        GameTable table = user.getMatch().getTable();
 
         // If table is null, game hasn't started yet
         if(table == null){

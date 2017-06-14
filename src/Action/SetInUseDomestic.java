@@ -56,13 +56,13 @@ public class SetInUseDomestic implements BaseAction {
     public void doAction(User user) {
 
         // Get current game user
-        final GameUser gameUser = (GameUser) user.getGameUser();
+        GameUser gameUser = (GameUser) user.getGameUser();
 
         // Get current player state
-        final PlayerState currentState = gameUser.getUserState();
+        PlayerState currentState = gameUser.getUserState();
 
         // Create bound domestic or special neutral if necessary
-        final Domestic inUse;
+        Domestic inUse;
 
         if(selectedDomestic.getType() != null)
             inUse = new Domestic(gameUser.getDomestics().get(selectedDomestic.getType()));
@@ -97,7 +97,7 @@ public class SetInUseDomestic implements BaseAction {
                     return;
 
                 // Create new cost list
-                final List<Choosable> costs = new ArrayList<>();
+                List<Choosable> costs = new ArrayList<>();
 
                 // Apply bonus to each cost and update new list
                 list.forEach(cost -> costs.add(((Cost)cost).sum(costBonus, false)));

@@ -31,7 +31,7 @@ public class UsableHelper {
      */
     public static Map<ResourceType, Integer> cloneMap(Map<ResourceType, Integer> map) {
 
-        final Map<ResourceType, Integer> clone = new HashMap<>(map.size());
+        Map<ResourceType, Integer> clone = new HashMap<>(map.size());
 
         map.forEach((key, value) -> clone.put(key, value.intValue()));
 

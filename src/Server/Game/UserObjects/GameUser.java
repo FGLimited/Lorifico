@@ -135,7 +135,7 @@ public class GameUser implements Game.UserObjects.GameUser {
         currentState = newState;
 
         // Get favors added if any
-        final int newFavors = currentState.getResources().get(ResourceType.Favor);
+        int newFavors = currentState.getResources().get(ResourceType.Favor);
 
         // Ask user to choose gained favors
         if(newFavors > 0) {

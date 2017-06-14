@@ -36,7 +36,7 @@ public class DomesticPenaltyEffect extends Effect {
         if (isApplied)
             return;
 
-        final GameUser user = (GameUser) currentMove.getGameUser();
+        GameUser user = (GameUser) currentMove.getGameUser();
 
         user.setDomesticPenalty(DomesticColor.Black, penalty);
         user.setDomesticPenalty(DomesticColor.Orange, penalty);

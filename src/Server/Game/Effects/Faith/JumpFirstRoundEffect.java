@@ -27,7 +27,7 @@ public class JumpFirstRoundEffect extends Effect {
         if(applied)
             return;
 
-        final GameUser currentUser = (GameUser) currentMove.getGameUser();
+        GameUser currentUser = (GameUser) currentMove.getGameUser();
         currentUser.setRoundJump(true);
 
         applied = true;

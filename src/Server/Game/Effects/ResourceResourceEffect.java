@@ -44,7 +44,7 @@ public class ResourceResourceEffect extends Effect {
     @Override
     public void apply(PlayerState currentMove) {
 
-        final Map<ResourceType, Integer> currentResources = currentMove.getResources();
+        Map<ResourceType, Integer> currentResources = currentMove.getResources();
 
         int toAdd = (currentResources.get(fromResource) / fromQuantity) * toQuantity;
 

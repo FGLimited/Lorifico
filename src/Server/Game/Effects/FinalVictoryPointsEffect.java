@@ -37,7 +37,7 @@ public class FinalVictoryPointsEffect extends Effect {
     @Override
     public void apply(PlayerState currentMove) {
 
-        final Map<ResourceType, Integer> currentResources = currentMove.getResources();
+        Map<ResourceType, Integer> currentResources = currentMove.getResources();
 
         currentResources.replace(ResourceType.VictoryPoint, currentResources.get(ResourceType.VictoryPoint) + quantity);
 

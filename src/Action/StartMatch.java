@@ -9,7 +9,7 @@ import Server.Game.Match;
 public class StartMatch implements BaseAction {
     @Override
     public void doAction(User user) {
-        final Match currentMatch = user.getMatch();
+        Match currentMatch = user.getMatch();
 
         // Start match relative to calling user
         if(currentMatch != null)

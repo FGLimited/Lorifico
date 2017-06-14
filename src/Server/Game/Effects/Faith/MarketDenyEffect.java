@@ -1,9 +1,9 @@
 package Server.Game.Effects.Faith;
 
+import Action.MarketDeny;
 import Server.Game.Effects.Effect;
 import Game.Effects.EffectType;
 import Game.UserObjects.PlayerState;
-import Networking.CommLink;
 
 /**
  * Created by fiore on 20/05/2017.
@@ -27,9 +27,8 @@ public class MarketDenyEffect extends Effect {
         if(isApplied)
             return;
 
-        final CommLink userLink = currentMove.getGameUser().getUserLink();
-
-        // TODO: send market deny message to avoid domestic positioning request in market positions
+        // Send market deny message to client
+        currentMove.getGameUser().getUserLink().sendMessage(new MarketDeny());
 
         isApplied = true;
     }

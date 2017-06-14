@@ -37,7 +37,7 @@ public class UserHandlerTest {
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(
-                new Object[] { new Lobby() },
+                new Object[] { Lobby.getInstance() },
                 new Object[] { new Match(30, 30000) }
         );
     }

@@ -49,9 +49,11 @@ public class CardCostPenaltyEffect extends Effect {
 
         // Get all costs from given card type
         final List<Cost> cardCosts = new ArrayList<>();
+        cardCosts.clear();
         currentMove.getCards(cardType).forEach(card -> cardCosts.addAll(card.getCosts()));
 
-        final AtomicInteger pointsToRemove = new AtomicInteger(0);
+        final AtomicInteger pointsToRemove = new AtomicInteger();
+        pointsToRemove.set(0);
 
         // Check each cost to find requested resources and add resource value to removed points counter
         cardCosts.forEach(cost -> {
@@ -68,7 +70,7 @@ public class CardCostPenaltyEffect extends Effect {
         });
 
         // Get current user resources
-        final Map<ResourceType, Integer> currentResources = currentMove.getResources();
+        Map<ResourceType, Integer> currentResources = currentMove.getResources();
 
         // Remove victory points
         currentResources.replace(ResourceType.VictoryPoint, currentResources.get(ResourceType.VictoryPoint) - pointsToRemove.get());

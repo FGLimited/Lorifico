@@ -40,7 +40,7 @@ public class ImmediateEffect extends Effect {
     public void apply(PlayerState currentMove) {
 
         // Get current resources
-        final Map<ResourceType, Integer> currentResources = currentMove.getResources();
+        Map<ResourceType, Integer> currentResources = currentMove.getResources();
 
         // Add resources from effect
         UsableHelper.editResources(resources, currentResources, true);

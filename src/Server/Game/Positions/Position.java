@@ -3,7 +3,6 @@ package Server.Game.Positions;
 import Game.Positions.PositionType;
 import Game.UserObjects.PlayerState;
 import Server.Game.UserObjects.Domestic;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +18,7 @@ public abstract class Position<T> implements Game.Positions.Position<T> {
 
     transient volatile PositionAggregate parent = null;
 
-    volatile Domestic occupant = null;
+    private volatile Domestic occupant;
 
     protected Position(PositionType type, int number) {
         this.type = type;

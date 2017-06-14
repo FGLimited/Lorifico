@@ -10,6 +10,7 @@ import Server.Networking.SQL.DBContext;
 import Server.Networking.Socket.SocketAcceptor;
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 /**
  * Created by andrea on 10/05/2017.
@@ -20,13 +21,21 @@ public class Main {
         final String mySqlConnString = "jdbc:mysql://flow3rhouse.duckdns.org/LorenzoDB?user=Lollo&password=Lorenzo@";
 
         // Create database instance for users
-        DBContext db = new DBContext(mySqlConnString);
+        final DBContext db = new DBContext(mySqlConnString);
+        try {
+            db.connect();
+
+        } catch (SQLException sqle) {
+            Logger.log(Logger.LogLevel.Error, "Can't connect to the database.\n" + sqle.getMessage());
+
+            return;
+        }
 
         // Initialize user manager
         UserManager.init(db);
 
         // Initialize login handler
-        LogInHandler loginHandler = new LogInHandler(new Lobby());
+        LogInHandler loginHandler = new LogInHandler(Lobby.getInstance());
 
         // Initialize connection handler with multiple connection providers
         ConnectionHandler connHandler = new ConnectionHandler();
@@ -42,6 +51,9 @@ public class Main {
             Logger.log(Logger.LogLevel.Error, "Can't initialize socket acceptor.\n" + iae.getMessage());
             return;
         }
+
+        // Set shutdown hook
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> Lobby.getInstance().dismissAll()));
 
         // Start connection handlers
         connHandler.startAll();

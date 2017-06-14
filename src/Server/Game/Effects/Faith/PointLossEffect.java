@@ -41,7 +41,7 @@ public class PointLossEffect extends Effect {
             return;
 
         // Get current resources
-        final Map<ResourceType, Integer> currentResources = currentMove.getResources();
+        Map<ResourceType, Integer> currentResources = currentMove.getResources();
 
         // Calculate how many victory points to remove
         int pointsToRemove = 0;

@@ -21,7 +21,7 @@ public class SendChat implements BaseAction {
     public void doAction(User user) {
 
         // Get current match
-        final Match current = user.getMatch();
+        Match current = user.getMatch();
 
         // Send message back to all if player is in a match
         if(current != null)

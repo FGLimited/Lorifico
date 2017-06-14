@@ -72,13 +72,12 @@ public class PlayerState implements Game.UserObjects.PlayerState {
         toClone.resourceBonus.forEach((key, resources) ->
                 resourceBonus.put(key, UsableHelper.cloneMap(resources)));
 
-        effects.putAll(toClone.effects);
-        cards.putAll(toClone.cards);
+        toClone.effects.forEach((type, list) -> effects.put(type, new ArrayList<>(list)));
+        toClone.cards.forEach((type, list) -> cards.put(type, new ArrayList<>(list)));
         gameUser = toClone.gameUser;
-        inUseDomestic = toClone.inUseDomestic;
+        inUseDomestic = toClone.inUseDomestic != null ? new Domestic(toClone.inUseDomestic) : null;
         checkingPosition = toClone.checkingPosition;
         slavePerDomestic = toClone.slavePerDomestic;
-
     }
 
     /**

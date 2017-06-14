@@ -26,8 +26,8 @@ public class UseFavor implements BaseAction {
     public void doAction(User user) {
 
         // Get current user and player state
-        final GameUser currentUser = (GameUser) user.getGameUser();
-        final PlayerState currentState = currentUser.getUserState();
+        GameUser currentUser = (GameUser) user.getGameUser();
+        PlayerState currentState = currentUser.getUserState();
 
         // Apply chosen council favors to player state
         chosenFavors.forEach(favor -> favor.apply(currentState));

@@ -47,7 +47,7 @@ public class TransformResourcesEffect extends Effect {
     @Override
     public void apply(PlayerState currentMove) {
 
-        final Map<ResourceType, Integer> currentResources = currentMove.getResources();
+        Map<ResourceType, Integer> currentResources = currentMove.getResources();
 
         UsableHelper.editResources(requested, currentResources, false);
         UsableHelper.editResources(toAdd, currentResources, true);

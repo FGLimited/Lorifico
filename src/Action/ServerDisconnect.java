@@ -12,7 +12,7 @@ public class ServerDisconnect implements BaseAction {
     public void doAction(User user) {
 
         // Abort current match if initialized
-        final Match currentMatch = user.getMatch();
+        Match currentMatch = user.getMatch();
         if(currentMatch != null)
             currentMatch.abort(user);
 
