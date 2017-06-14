@@ -8,7 +8,6 @@ import Server.Game.Usable.Cost;
 import Server.Game.UserObjects.Domestic;
 import Server.Game.UserObjects.GameUser;
 import Server.Game.UserObjects.PlayerState;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

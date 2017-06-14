@@ -14,9 +14,9 @@ import Server.Game.Effects.Faith.FaithDeck;
 import Server.Game.UserObjects.GameTable;
 import Server.Game.UserObjects.GameUser;
 import Server.Game.UserObjects.PlayerState;
+import Server.SingleThreadSchedExErr;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -34,7 +34,7 @@ public class Match extends UserHandler {
 
     private final long moveTimeout;
 
-    private volatile ScheduledExecutorService matchExecutor = Executors.newSingleThreadScheduledExecutor();
+    private volatile ScheduledExecutorService matchExecutor = new SingleThreadSchedExErr(this::executionErrorHandler);
 
     private volatile boolean isStarted = false;
 
@@ -47,6 +47,24 @@ public class Match extends UserHandler {
     public Match(long startDelay, long moveTimeout) {
         this.startDelay = startDelay;
         this.moveTimeout = moveTimeout;
+    }
+
+    /**
+     * If an unhandled exception is thrown during the game informs all users of the error and stops the game
+     *
+     * @param t Exception thrown
+     */
+    private void executionErrorHandler(Throwable t) {
+
+        Logger.log(Logger.LogLevel.Error, "Exception thrown during match " + matchNumber + " execution.\n" + t.getMessage());
+
+        final BaseAction errorMessage = new DisplayPopup(DisplayPopup.Level.Error, "C'è stato un problema interno del server: purtroppo il gioco sarà interrotto.");
+        final BaseAction endMatch = new EndMatch("Server error");
+
+        sendAll(errorMessage);
+        sendAll(endMatch);
+
+        matchExecutor.shutdownNow();
     }
 
     /**
@@ -86,7 +104,7 @@ public class Match extends UserHandler {
         // Stop countdown
         matchExecutor.shutdownNow();
 
-        matchExecutor = Executors.newSingleThreadScheduledExecutor();
+        matchExecutor = new SingleThreadSchedExErr(this::executionErrorHandler);
 
         // Start game
         matchExecutor.execute(this::initGame);
@@ -143,7 +161,7 @@ public class Match extends UserHandler {
                 matchExecutor.shutdownNow();
 
                 // Create new executor because old one can't be used after shutdown
-                matchExecutor = Executors.newSingleThreadScheduledExecutor();
+                matchExecutor = new SingleThreadSchedExErr(this::executionErrorHandler);
             }
 
             // Schedule new match start
@@ -221,7 +239,6 @@ public class Match extends UserHandler {
         List<GameUser> roundOrder;
 
         try {
-
             roundOrder = initObjects();
 
         } catch (IOException ioe) {
@@ -229,7 +246,8 @@ public class Match extends UserHandler {
                     "Match number: " + matchNumber + "\n" +
                     ioe.getMessage());
 
-            // TODO: notify all users and exit
+            // Notify all users and exit
+            executionErrorHandler(ioe);
 
             return;
         }

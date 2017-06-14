@@ -7,6 +7,8 @@ import Game.UserObjects.PlayerState;
 import Server.Game.Usable.Cost;
 import Game.Effects.Effect;
 import Game.Usable.ResourceType;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -74,7 +76,7 @@ public class TowerPosition extends Position<Cost> {
     public List<Cost> canOccupy(PlayerState currentState) {
 
         // Apply user permanent effects to his current state
-        applyEffets(currentState);
+        applyEffects(currentState);
 
         // If position is occupied no one else can be there
         // or if domestic value is too low
@@ -110,10 +112,12 @@ public class TowerPosition extends Position<Cost> {
             return affordableCosts;
 
         // Else create new cost list
-        List<Cost> totalCosts = Collections.emptyList();
+        List<Cost> totalCosts = new ArrayList<>();
 
         // Add occupation cost to card cost and populate totalCosts list
-        affordableCosts.forEach(cardCost -> totalCosts.add(cardCost.sum(occupiedCost, true)));
+        affordableCosts.forEach(cardCost -> {
+            totalCosts.add(cardCost.sum(occupiedCost, true));
+        });
 
         // Return total costs' list
         return totalCosts;
@@ -124,7 +128,7 @@ public class TowerPosition extends Position<Cost> {
      *
      * @param currentState Current player state
      */
-    private void applyEffets(PlayerState currentState) {
+    private void applyEffects(PlayerState currentState) {
 
         // Set current position type
         currentState.setCheckingPositionType(this.getType());
@@ -139,7 +143,7 @@ public class TowerPosition extends Position<Cost> {
         super.occupy(currentState, chosenCosts);
 
         // Apply user permanent effects to his current state
-        applyEffets(currentState);
+        applyEffects(currentState);
 
         // Apply position and card cost chosen
         chosenCosts.get(0).apply(currentState);
