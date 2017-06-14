@@ -28,6 +28,7 @@ public class Datawarehouse {
     private String whoseTurn;
     private Map<String, GameUser> gameUserMap = new HashMap<>();
     private Map<String, PlayerState> playerStateMap = new HashMap<>();
+    private List<User> matchAttendees = new ArrayList<>();
 
     //ArrayList of playerstate observers
     private List<PlayerStateObserver> playerStateObserverList = new ArrayList();
@@ -166,5 +167,13 @@ public class Datawarehouse {
     public void setWhoseTurn(String username) {
         this.whoseTurn = username;
         turnObserverList.forEach(turnObserver -> turnObserver.onTurnChange(username));
+    }
+
+    public List<User> getMatchAttendees() {
+        return matchAttendees;
+    }
+
+    public void setMatchAttendees(List<User> matchAttendees) {
+        this.matchAttendees = matchAttendees;
     }
 }

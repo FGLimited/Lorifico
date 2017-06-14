@@ -4,6 +4,7 @@ import Client.Datawarehouse;
 import Client.UI.GUI.UserInterfaceImplemJFX;
 import Client.UI.UserInterfaceFactory;
 import Game.Cards.CardType;
+import Logging.Logger;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import javafx.application.Platform;
@@ -68,6 +69,7 @@ public class PunchboardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Logger.log(Logger.LogLevel.Normal, "Showing " + username + "'s punchboard");
         Datawarehouse.getInstance().getPlayerState(username).getCards(CardType.Building).forEach(card -> createAndAddCardImageView(card.getNumber()));
         Datawarehouse.getInstance().getPlayerState(username).getCards(CardType.Territory).forEach(card -> createAndAddCardImageView(card.getNumber()));
         Datawarehouse.getInstance().getPlayerState(username).getCards(CardType.Personality).forEach(card -> createAndAddCardImageView(card.getNumber()));

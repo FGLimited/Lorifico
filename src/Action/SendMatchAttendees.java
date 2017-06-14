@@ -1,5 +1,6 @@
 package Action;
 
+import Client.Datawarehouse;
 import Client.UI.UserInterfaceFactory;
 import Model.User.User;
 
@@ -17,9 +18,10 @@ public class SendMatchAttendees implements BaseAction {
 
     @Override
     public void doAction(User user) {
-        UserInterfaceFactory.getInstance().getLobby().setMatchAttendees(userList);
+        UserInterfaceFactory.getInstance().getLobby().setMatchAttendees(userList);//Show users playing on UI
         if (userList.size() > 1) {
             UserInterfaceFactory.getInstance().getLobby().restartTimer();
         }
+        Datawarehouse.getInstance().setMatchAttendees(userList);//Store list of users playing with us
     }
 }

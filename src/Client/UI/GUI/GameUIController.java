@@ -245,6 +245,7 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
             }
 
 
+            /*
             if (me.isShiftDown()) {//Placing purpose
                 Translate translate = Domestic3D.last.getTranslate();
                 translate.setX(translate.getX() + mouseDeltaX * MULTIPLIER);
@@ -258,6 +259,7 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
                 translate.setZ(translate.getZ() + mouseDeltaY * MULTIPLIER);
                 printStackPCoords(translate);
             }
+            */
 
 
         });
