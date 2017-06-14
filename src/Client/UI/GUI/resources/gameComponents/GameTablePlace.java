@@ -15,6 +15,7 @@ import javafx.scene.transform.Translate;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by andrea on 31/05/17.
@@ -26,15 +27,17 @@ public class GameTablePlace extends StackPane {
     private int id;//id of this covering
     private int capacity;//Max capacity of this position
     private Map<Domestic, Domestic3D> occupantsDomesticMap = new HashMap<>();
+    private AtomicBoolean areTablePlacesEnabled;//boolean shared with all other coverings.
 
     private GameTablePlace binding = null;//GameTablePlace we are binded to, if that
     // binding place is free then no domestic can be placed in this
 
 
-    protected GameTablePlace(int id, int capacity, boolean isCovered, GameTablePlace binding, double width, double height, double xCoveringPos, double yCoveringPos, double xRegionPos, double yRegionPos, double radiusX, double radiusY) {
-        this(id, capacity, isCovered, width, height, xCoveringPos, yCoveringPos, xRegionPos, yRegionPos, radiusX, radiusY);
+    protected GameTablePlace(int id, int capacity, boolean isCovered, GameTablePlace binding, double width, double height, double xCoveringPos, double yCoveringPos, double xRegionPos, double yRegionPos, double radiusX, double radiusY, AtomicBoolean areTablePlacesEnabled) {
+        this(id, capacity, isCovered, width, height, xCoveringPos, yCoveringPos, xRegionPos, yRegionPos, radiusX, radiusY, areTablePlacesEnabled);
         this.binding = binding;
     }
+
     /**
      * Creates a gameTablePlace that could be covered or be click-able.
      *
@@ -49,9 +52,10 @@ public class GameTablePlace extends StackPane {
      * @param radiusX
      * @param radiusY
      */
-    protected GameTablePlace(int id, int capacity, boolean isCovered, double width, double height, double xCoveringPos, double yCoveringPos, double xRegionPos, double yRegionPos, double radiusX, double radiusY) {
+    protected GameTablePlace(int id, int capacity, boolean isCovered, double width, double height, double xCoveringPos, double yCoveringPos, double xRegionPos, double yRegionPos, double radiusX, double radiusY, AtomicBoolean areTablePlacesEnabled) {
         this.capacity = capacity;
         this.id = id;
+        this.areTablePlacesEnabled = areTablePlacesEnabled;
         if (isCovered) {
             final String url = COVERINGS_BASE_URL + "/covering" + id + ".png";
             createCoveringStackPane(url, width, height, xCoveringPos, yCoveringPos, Z_POS);
@@ -69,10 +73,11 @@ public class GameTablePlace extends StackPane {
      * @param radiusX
      * @param radiusY
      */
-    protected GameTablePlace(int id, int capacity, double xRegionPos, double yRegionPos, double radiusX, double radiusY) {
+    protected GameTablePlace(int id, int capacity, double xRegionPos, double yRegionPos, double radiusX, double radiusY, AtomicBoolean areTablePlacesEnabled) {
         createClickableRegion(xRegionPos, yRegionPos, Z_POS, radiusX, radiusY);
         this.capacity = capacity;
         this.id = id;
+        this.areTablePlacesEnabled = areTablePlacesEnabled;
     }
 
 

@@ -21,7 +21,7 @@ public class UpdatePosition implements BaseAction {
     @Override
     public void doAction(User user) {
         if (positionNumber > 16) {
-            //todo: set domestic position on gametable
+            UserInterfaceFactory.getInstance().getGameTable().addDomestic(occupant, positionNumber);
         } else {
             UserInterfaceFactory.getInstance().getGameUI().getTowersController().addDomestic(occupant, positionNumber);
         }

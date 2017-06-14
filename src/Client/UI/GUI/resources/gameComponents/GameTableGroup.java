@@ -2,12 +2,17 @@ package Client.UI.GUI.resources.gameComponents;
 
 
 import Client.UI.GameTable;
+import Game.UserObjects.Choosable;
+import Server.Game.UserObjects.Domestic;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.transform.Translate;
+
+import java.util.List;
+import java.util.Map;
 
 
 public class GameTableGroup extends Group implements GameTable {
@@ -57,6 +62,20 @@ public class GameTableGroup extends Group implements GameTable {
             return;
         }
         gameTablePlacesBlock.freeAllPosition();
+    }
+
+    @Override
+    public void addDomestic(Domestic occupant, int positionNumber) {
+        if (!Platform.isFxApplicationThread()) {
+            Platform.runLater(() -> addDomestic(occupant, positionNumber));
+            return;
+        }
+        gameTablePlacesBlock.addDomestic(occupant, positionNumber);
+    }
+
+    @Override
+    public void setCostsPerPosition(Map<Integer, List<Choosable>> choosablePerPos) {
+        gameTablePlacesBlock.setCostPerPosition(choosablePerPos);
     }
 
     /**

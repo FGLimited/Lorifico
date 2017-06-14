@@ -56,6 +56,7 @@ public class GameCard extends AbstractImageComponent {
             timeline.play();
         }));
 
+        //This is NOT a switch case.
         if (number < 25) cardType = CardType.Territory;
         else if (number >= 25 && number < 49) cardType = CardType.Building;
         else if (number >= 49 && number < 73) cardType = CardType.Personality;

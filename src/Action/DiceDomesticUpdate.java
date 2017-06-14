@@ -34,6 +34,8 @@ public class DiceDomesticUpdate extends UserSpecific implements BaseAction {
 
             //Updates user's domestics
             UserInterfaceFactory.getInstance().getGameUI().getDomesticsController().updateDomesticsValues(domesticValues);
+
+            //Removes all domestics from GameTable
             UserInterfaceFactory.getInstance().getGameUI().getTowersController().removeAllDomestics();
         }
     }

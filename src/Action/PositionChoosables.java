@@ -29,6 +29,7 @@ public class PositionChoosables implements BaseAction {
         // (empty effect list means no effect can be activated but domestic can be placed)
 
         UserInterfaceFactory.getInstance().getGameUI().getTowersController().setCostsPerPosition(choosablePerPos);
+        UserInterfaceFactory.getInstance().getGameTable().setCostsPerPosition(choosablePerPos);
 
         // TODO: activate harvest/production cards reading card number from received effects
 

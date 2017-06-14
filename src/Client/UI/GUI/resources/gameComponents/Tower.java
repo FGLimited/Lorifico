@@ -170,8 +170,8 @@ public class Tower extends Abstract3dsComponent implements TurnObserver {
      */
     public enum TowerType {
         GREEN("green", 30, -21),
-        BLUE("blue", 231.5, -21),
         YELLOW("yellow", 420.5, -21),
+        BLUE("blue", 231.5, -21),
         PURPLE("purple", 626, -21);
 
         private static final String BASE_URL = "/Client/UI/GUI/resources/3D";
