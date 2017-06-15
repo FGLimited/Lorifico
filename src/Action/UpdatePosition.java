@@ -29,6 +29,5 @@ public class UpdatePosition implements BaseAction {
         } else {
             UserInterfaceFactory.getInstance().getGameUI().getTowersController().addDomestic(occupant, positionNumber);
         }
-
     }
 }

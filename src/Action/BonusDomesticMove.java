@@ -5,6 +5,7 @@ import Game.Positions.PositionType;
 import Model.User.User;
 import Server.Game.Usable.Cost;
 import Server.Game.UserObjects.Domestic;
+
 import java.util.List;
 
 /**
@@ -41,5 +42,8 @@ public class BonusDomesticMove implements BaseAction {
 
         //Creates a dialog asking for slaves, dialog on submit will send setSpecialDomestic action to server
         UserInterfaceFactory.getInstance().getGameUI().addSlaveToSpecialDomestic(specialDomestic, setSpecialDomestic);
+
+        //Say user what's happening
+        UserInterfaceFactory.getInstance().displayPopup(DisplayPopup.Level.Normal, "Carta bonus", "Gioca il tuo effetto bonus");
     }
 }

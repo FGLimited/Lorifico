@@ -142,6 +142,9 @@ public class AddSlaveToDomesticDialog implements Initializable {
             } else if (Integer.valueOf(newValue) > maxSlaves) {
                 errorLabel.setText("Hai solo " + maxSlaves + " schiavi");
                 submitButton.setDisable(true);
+            } else if (Integer.valueOf(newValue) + domesticValue == 0) {
+                errorLabel.setText("Deve valere almeno 1");
+                submitButton.setDisable(true);
             } else {
                 errorLabel.setText("");
                 submitButton.setDisable(false);

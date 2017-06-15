@@ -1,11 +1,12 @@
 package Client.UI.GUI.resources.gameComponents;
 
 import Action.BaseAction;
-import Action.DisplayPopup;
 import Action.Move;
 import Client.CommunicationManager;
-import Client.UI.UserInterfaceFactory;
+import Client.Datawarehouse;
+import Client.UI.TurnObserver;
 import Game.UserObjects.Choosable;
+import Server.Game.Usable.Cost;
 import Server.Game.UserObjects.Domestic;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -17,19 +18,18 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.transform.Translate;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by andrea on 31/05/17.
  */
-public class GameTablePlace extends Group {
+public class GameTablePlace extends Group implements TurnObserver {
     private final String COVERINGS_BASE_URL = "Client/UI/GUI/resources/images/gameTable";
     private final int Z_POS = -1;
     private Translate translate;
     private int id;//id of this covering
     private int capacity;//Max capacity of this position
     private Map<Domestic, Domestic3D> occupantsDomesticMap = new HashMap<>();
-    private AtomicBoolean areTablePlacesEnabled;//boolean shared with all other coverings.
+    private boolean isTablePlaceEnabled;//boolean shared with all other coverings.
 
     private double xRegionPos, yRegionPos, radiusX, radiusY;//Position of clickable region
 
@@ -38,8 +38,8 @@ public class GameTablePlace extends Group {
     private GameTablePlace binding = null;//GameTablePlace we are binded to, if that
     // binding place is free then no domestic can be placed in this
 
-    protected GameTablePlace(int id, int capacity, boolean isCovered, GameTablePlace binding, double width, double height, double xCoveringPos, double yCoveringPos, double xRegionPos, double yRegionPos, double radiusX, double radiusY, AtomicBoolean areTablePlacesEnabled) {
-        this(id, capacity, isCovered, width, height, xCoveringPos, yCoveringPos, xRegionPos, yRegionPos, radiusX, radiusY, areTablePlacesEnabled);
+    protected GameTablePlace(int id, int capacity, boolean isCovered, GameTablePlace binding, double width, double height, double xCoveringPos, double yCoveringPos, double xRegionPos, double yRegionPos, double radiusX, double radiusY, Boolean isTablePlaceEnabled) {
+        this(id, capacity, isCovered, width, height, xCoveringPos, yCoveringPos, xRegionPos, yRegionPos, radiusX, radiusY, isTablePlaceEnabled);
         this.binding = binding;
     }
 
@@ -57,11 +57,11 @@ public class GameTablePlace extends Group {
      * @param radiusX
      * @param radiusY
      */
-    protected GameTablePlace(int id, int capacity, boolean isCovered, double width, double height, double xCoveringPos, double yCoveringPos, double xRegionPos, double yRegionPos, double radiusX, double radiusY, AtomicBoolean areTablePlacesEnabled) {
+    protected GameTablePlace(int id, int capacity, boolean isCovered, double width, double height, double xCoveringPos, double yCoveringPos, double xRegionPos, double yRegionPos, double radiusX, double radiusY, Boolean isTablePlaceEnabled) {
         this.capacity = capacity;
         this.capacity = capacity;
         this.id = id;
-        this.areTablePlacesEnabled = areTablePlacesEnabled;
+        this.isTablePlaceEnabled = isTablePlaceEnabled;
         this.xRegionPos = xRegionPos;
         this.yRegionPos = yRegionPos;
         this.radiusX = radiusX;
@@ -72,6 +72,8 @@ public class GameTablePlace extends Group {
         } else {
             createClickableRegion(this.xRegionPos, this.yRegionPos, Z_POS, this.radiusX, this.radiusY);
         }
+
+        Datawarehouse.getInstance().registerTurnObserver(this);//Register as turn observer
     }
 
     /**
@@ -83,15 +85,17 @@ public class GameTablePlace extends Group {
      * @param radiusX
      * @param radiusY
      */
-    protected GameTablePlace(int id, int capacity, double xRegionPos, double yRegionPos, double radiusX, double radiusY, AtomicBoolean areTablePlacesEnabled) {
+    protected GameTablePlace(int id, int capacity, double xRegionPos, double yRegionPos, double radiusX, double radiusY, Boolean isTablePlaceEnabled) {
         this.capacity = capacity;
         this.id = id;
-        this.areTablePlacesEnabled = areTablePlacesEnabled;
+        this.isTablePlaceEnabled = isTablePlaceEnabled;
         this.xRegionPos = xRegionPos;
         this.yRegionPos = yRegionPos;
         this.radiusX = radiusX;
         this.radiusY = radiusY;
         createClickableRegion(this.xRegionPos, this.yRegionPos, Z_POS, this.radiusX, this.radiusY);
+
+        Datawarehouse.getInstance().registerTurnObserver(this);//Register as turn observer
     }
 
 
@@ -138,9 +142,8 @@ public class GameTablePlace extends Group {
 
         //We highlight it when mouse is over it
         ellipse.setOnMouseEntered(event -> {
-            //If table places aren't enabled stop animation
-
-            if (!areTablePlacesEnabled.get())
+            //If table place isn't enabled stop animation
+            if (!isTablePlaceEnabled)
                 return;
 
             //Check if this position is bound to another one
@@ -167,32 +170,31 @@ public class GameTablePlace extends Group {
 
         //Callback on click
         ellipse.setOnMouseClicked(event -> {
-            //If table places aren't enabled stop animation
-            if (!areTablePlacesEnabled.get())
+            //If table place isn't enabled stop animation
+            if (!isTablePlaceEnabled)
                 return;
 
             //Check if this position is bound to another one
-            if (binding != null) {
-                //If position we are bound to is not full, abort
-                if (!binding.isFull()) return;
+            //If position we are bound to is not full, abort
+            if (binding != null && !binding.isFull()) {
+                return;
             }
 
             if (isFull()) return;//if we are full, stop
 
-            //
+            //Calculate right position id (coverings may have capacity>1)
             int position = (this.id + occupantsDomesticMap.size());
 
-            List<Choosable> choosenEffects;
-            if (choosablePerPos.get(position) == null || choosablePerPos.get(position).isEmpty()) {
-                choosenEffects = Collections.emptyList();
+            if (choosablePerPos.get(position) != null && (choosablePerPos.get(position).get(0) instanceof Cost)) {
+                //If we have (empty) COSTS related to this position, this is a market or council position.
+                //Ask server to occupy this position
+                BaseAction action = new Move(position, Collections.emptyList());
+                CommunicationManager.getInstance().sendMessage(action);
             } else {
-                UserInterfaceFactory.getInstance().displayPopup(DisplayPopup.Level.Warning, "not implemented", "not implemented");
-                return;
+                //If we have EFFECTS (not costs) related to this position, this is an harvesting or production position.
+                //Show punchboard asking user to highlight wanted effects.
+                new ChooseCardsEffectsDialog(position, choosablePerPos.get(position));
             }
-
-            //Ask server to occupy this position
-            BaseAction action = new Move(position, choosenEffects);
-            CommunicationManager.getInstance().sendMessage(action);
         });
 
     }
@@ -243,6 +245,23 @@ public class GameTablePlace extends Group {
      */
     public void setCostPerPosition(Map<Integer, List<Choosable>> choosablePerPos) {
         this.choosablePerPos = choosablePerPos;
+
+        //Enable this table position if there's something related to it in choosablePerPos
+        if (choosablePerPos.get(id) != null && !choosablePerPos.get(id).isEmpty()) {
+            isTablePlaceEnabled = true;
+        } else isTablePlaceEnabled = false;
+    }
+
+    /**
+     * When turn changes, disable all places.
+     *
+     * @param username user playing current turn.
+     */
+    @Override
+    public void onTurnChange(String username) {
+        if (!username.equals(Datawarehouse.getInstance().getMyUsername())) {
+            isTablePlaceEnabled = false;
+        }
     }
 }
 

@@ -34,6 +34,12 @@ public class TowersBlock extends Group implements Client.UI.TowersController, Pl
 
     @Override
     public void setCostsPerPosition(Map<Integer, List<Choosable>> choosablePerPos) {
+        //First disable all cards and remove all callbacks
+        //Say each tower to remove specified card, if they don't have it they'll just do nothing. DIVIDE ET IMPERA!
+        for (Tower.TowerType towerType : Tower.TowerType.values()) {
+            towers[towerType.ordinal()].disableAllCards();
+        }
+
         //Send each choosable to respective tower
         choosablePerPos.forEach((gamePosition, choosables) -> {
             //Towers are positions from 1 to 16

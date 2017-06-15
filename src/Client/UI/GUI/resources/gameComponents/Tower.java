@@ -84,6 +84,17 @@ public class Tower extends Abstract3dsComponent implements TurnObserver {
         });
     }
 
+
+    /**
+     * Disables all cards
+     */
+    public void disableAllCards() {
+        cardMap.forEach((integer, gameCard) -> {
+            gameCard.setOnMouseClicked(null);
+            gameCard.setHoverEnabled(false);
+        });
+    }
+
     /**
      * Sets cost per tower position
      *
@@ -97,16 +108,9 @@ public class Tower extends Abstract3dsComponent implements TurnObserver {
             //Attach buy callback
             cardMap.get(towerLevel).setOnMouseClicked(event ->
                     new ChooseCardCostDialog(choosableList, positionNumber, cardMap.get(towerLevel).getCardNumber()));
-            //Animate card
+
+            //Enable hover animation
             cardMap.get(towerLevel).setHoverEnabled(true);
-        } else {
-            //if card is shown on towers (someone could have bought it)
-            if (cardMap.get(towerLevel) != null) {
-                //We can't buy this card
-                cardMap.get(towerLevel).setHoverEnabled(false);
-                //Remove callback
-                cardMap.get(towerLevel).setOnMouseClicked(null);
-            }
         }
     }
 
@@ -164,6 +168,7 @@ public class Tower extends Abstract3dsComponent implements TurnObserver {
             }
         }
     }
+
 
     /**
      * Enum used to store infos about towers

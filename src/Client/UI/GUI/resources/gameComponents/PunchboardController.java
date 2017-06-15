@@ -114,10 +114,10 @@ public class PunchboardController implements Initializable {
         return imageView;
     }
 
-    public void showCardInDialog(int cardNumber) {
+    private void showCardInDialog(int cardNumber) {
         //Make sure we are on JavaFX thread:
         if (!Platform.isFxApplicationThread()) {
-            Platform.runLater(() -> createPunchboardDialog());
+            Platform.runLater(() -> showCardInDialog(cardNumber));
             return;
         }
 
