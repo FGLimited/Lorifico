@@ -45,4 +45,11 @@ public interface Effect extends HasType<EffectType>, Choosable {
      */
     void setCardNumber(int cardNumber);
 
+    /**
+     * Get written description for this effect
+     *
+     * @return Description for the effect
+     */
+    String getDescription();
+
 }

@@ -42,4 +42,9 @@ public abstract class Effect implements Game.Effects.Effect {
     public void setCardNumber(int cardNumber) {
         this.cardNumber = cardNumber;
     }
+
+    @Override
+    public String getDescription() {
+        return "Awesome description of the effect|";
+    }
 }
