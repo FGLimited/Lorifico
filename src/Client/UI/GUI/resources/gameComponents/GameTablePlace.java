@@ -247,10 +247,13 @@ public class GameTablePlace extends Group implements TurnObserver {
     public void setCostPerPosition(Map<Integer, List<Choosable>> choosablePerPos) {
         this.choosablePerPos = choosablePerPos;
 
-        //Enable this table position if there's something related to it in choosablePerPos
-        if (choosablePerPos.get(id) != null && !choosablePerPos.get(id).isEmpty()) {
-            isTablePlaceEnabled = true;
-        } else isTablePlaceEnabled = false;
+        //Enable this table position if there's something related to one of its ids in choosablePerPos
+        isTablePlaceEnabled = false;
+        for (int i = id; i < id + capacity; i++) {
+            if (choosablePerPos.get(i) != null && !choosablePerPos.get(i).isEmpty()) {
+                isTablePlaceEnabled = true;
+            }
+        }
     }
 
     /**
