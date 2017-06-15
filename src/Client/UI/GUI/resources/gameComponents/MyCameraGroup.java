@@ -104,8 +104,9 @@ public class MyCameraGroup extends Group {
      * This enum stores camera fixed position to look at different pieces of game
      */
     public enum CameraPosition {
-        GAMETABLE(33.0, 0, 0.0, 413.66666, 812.6666663, -623.33333350),
-        TOWERS(82.0, -9.5, 0.0, 560.16663, 648.16666, -332.666664);
+        MAINVIEW(63.0, 0.0, 0.0, 432.0, 1290.5, -640.5),
+        GAMETABLE(33.0, 0.0, 0.0, 409.66666, 863.6666663, -659.8333335),
+        TOWERS(82.0, -9.5, 0.0, 539.16663, 735.16666, -326.666664);
 
         private double xAxisRot;
         private double yAxisRot;

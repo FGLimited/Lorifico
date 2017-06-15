@@ -1,8 +1,10 @@
 package Action;
 
+import Client.UI.UserInterfaceFactory;
 import Game.Effects.Effect;
 import Model.User.User;
 import Server.Game.GameHelper;
+
 import java.util.List;
 
 /**
@@ -25,6 +27,7 @@ public class ChooseFavor implements BaseAction {
 
     @Override
     public void doAction(User user) {
+        UserInterfaceFactory.getInstance().displayPopup(DisplayPopup.Level.Normal, "Consiglio", "Scegli i favori");
         // TODO: prompt the user to chose correct number of favors
     }
 }

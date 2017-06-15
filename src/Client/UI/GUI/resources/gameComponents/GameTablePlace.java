@@ -1,28 +1,28 @@
 package Client.UI.GUI.resources.gameComponents;
 
+import Action.BaseAction;
+import Action.DisplayPopup;
+import Action.Move;
+import Client.CommunicationManager;
+import Client.UI.UserInterfaceFactory;
 import Game.UserObjects.Choosable;
-import Game.UserObjects.DomesticColor;
-import Game.UserObjects.FamilyColor;
 import Server.Game.UserObjects.Domestic;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.transform.Translate;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by andrea on 31/05/17.
  */
-public class GameTablePlace extends StackPane {
+public class GameTablePlace extends Group {
     private final String COVERINGS_BASE_URL = "Client/UI/GUI/resources/images/gameTable";
     private final int Z_POS = -1;
     private Translate translate;
@@ -33,14 +33,14 @@ public class GameTablePlace extends StackPane {
 
     private double xRegionPos, yRegionPos, radiusX, radiusY;//Position of clickable region
 
+    private Map<Integer, List<Choosable>> choosablePerPos;//List of effects linked to each position
+
     private GameTablePlace binding = null;//GameTablePlace we are binded to, if that
     // binding place is free then no domestic can be placed in this
-
 
     protected GameTablePlace(int id, int capacity, boolean isCovered, GameTablePlace binding, double width, double height, double xCoveringPos, double yCoveringPos, double xRegionPos, double yRegionPos, double radiusX, double radiusY, AtomicBoolean areTablePlacesEnabled) {
         this(id, capacity, isCovered, width, height, xCoveringPos, yCoveringPos, xRegionPos, yRegionPos, radiusX, radiusY, areTablePlacesEnabled);
         this.binding = binding;
-        this.capacity = capacity;
     }
 
     /**
@@ -59,6 +59,7 @@ public class GameTablePlace extends StackPane {
      */
     protected GameTablePlace(int id, int capacity, boolean isCovered, double width, double height, double xCoveringPos, double yCoveringPos, double xRegionPos, double yRegionPos, double radiusX, double radiusY, AtomicBoolean areTablePlacesEnabled) {
         this.capacity = capacity;
+        this.capacity = capacity;
         this.id = id;
         this.areTablePlacesEnabled = areTablePlacesEnabled;
         this.xRegionPos = xRegionPos;
@@ -69,7 +70,7 @@ public class GameTablePlace extends StackPane {
             final String url = COVERINGS_BASE_URL + "/covering" + id + ".png";
             createCoveringStackPane(url, width, height, xCoveringPos, yCoveringPos, Z_POS);
         } else {
-            createClickableRegion(xRegionPos, yRegionPos, Z_POS, radiusX, radiusY);
+            createClickableRegion(this.xRegionPos, this.yRegionPos, Z_POS, this.radiusX, this.radiusY);
         }
     }
 
@@ -83,7 +84,6 @@ public class GameTablePlace extends StackPane {
      * @param radiusY
      */
     protected GameTablePlace(int id, int capacity, double xRegionPos, double yRegionPos, double radiusX, double radiusY, AtomicBoolean areTablePlacesEnabled) {
-        createClickableRegion(xRegionPos, yRegionPos, Z_POS, radiusX, radiusY);
         this.capacity = capacity;
         this.id = id;
         this.areTablePlacesEnabled = areTablePlacesEnabled;
@@ -91,6 +91,7 @@ public class GameTablePlace extends StackPane {
         this.yRegionPos = yRegionPos;
         this.radiusX = radiusX;
         this.radiusY = radiusY;
+        createClickableRegion(this.xRegionPos, this.yRegionPos, Z_POS, this.radiusX, this.radiusY);
     }
 
 
@@ -110,7 +111,6 @@ public class GameTablePlace extends StackPane {
         imageView.setFitHeight(height);
         imageView.setFitWidth(width);
         getChildren().add(imageView);
-        setPrefSize(width, height);
         translate = new Translate(xPos, yPos, zPos);
         getTransforms().add(translate);
     }
@@ -130,9 +130,8 @@ public class GameTablePlace extends StackPane {
         ellipse.setOpacity(0);//it's trasparent
 
         getChildren().add(ellipse);
-        ellipse.radiusXProperty().bind(prefWidthProperty());
-        ellipse.radiusYProperty().bind(prefHeightProperty());
-        setPrefSize(radiusX, radiusY);
+        ellipse.radiusXProperty().set(radiusX);
+        ellipse.radiusYProperty().set(radiusY);
         translate = new Translate(xPos, yPos, zPos);
         getTransforms().add(translate);
 
@@ -140,7 +139,7 @@ public class GameTablePlace extends StackPane {
         //We highlight it when mouse is over it
         ellipse.setOnMouseEntered(event -> {
             //If table places aren't enabled stop animation
-            /*
+
             if (!areTablePlacesEnabled.get())
                 return;
 
@@ -151,7 +150,7 @@ public class GameTablePlace extends StackPane {
             }
 
             if (isFull()) return;//if we are full, stop
-*/
+
             ColorAdjust colorAdjust = new ColorAdjust();
             colorAdjust.setContrast(0.1);
             colorAdjust.setHue(-0.05);
@@ -174,20 +173,26 @@ public class GameTablePlace extends StackPane {
 
             //Check if this position is bound to another one
             if (binding != null) {
-                System.out.println("this pos has binding");
                 //If position we are bound to is not full, abort
                 if (!binding.isFull()) return;
-                System.out.println("binding is full, go on");
             }
 
             if (isFull()) return;//if we are full, stop
 
-            //Else send message to server asking to occupy this position
+            //
             int position = (this.id + occupantsDomesticMap.size());
-            //BaseAction action = new Move(position, Collections.emptyList());
-            //CommunicationManager.getInstance().sendMessage(action);
-            addDomestic(new Domestic(FamilyColor.Blue, DomesticColor.Orange, 3), position);
-            System.out.println("Asking server to occupy " + position);
+
+            List<Choosable> choosenEffects;
+            if (choosablePerPos.get(position) == null || choosablePerPos.get(position).isEmpty()) {
+                choosenEffects = Collections.emptyList();
+            } else {
+                UserInterfaceFactory.getInstance().displayPopup(DisplayPopup.Level.Warning, "not implemented", "not implemented");
+                return;
+            }
+
+            //Ask server to occupy this position
+            BaseAction action = new Move(position, choosenEffects);
+            CommunicationManager.getInstance().sendMessage(action);
         });
 
     }
@@ -211,21 +216,33 @@ public class GameTablePlace extends StackPane {
     }
 
 
+    /**
+     * Adds domestic to this position
+     *
+     * @param domestic       domestic to place
+     * @param positionNumber position chosen
+     */
     public void addDomestic(Domestic domestic, int positionNumber) {
         if (positionNumber < id || positionNumber >= id + capacity) return;//Position is not in this covering
 
         //Calculate xPos
         double xPos;
         if (capacity == 1) xPos = 0;
-        else xPos = ((radiusX * 2) / capacity) * occupantsDomesticMap.size();
+        else xPos = -radiusX / 1.4 + ((radiusX * 2) / capacity) * occupantsDomesticMap.size();
 
+        //Creates a 3d domestic
         Domestic3D domestic3D = new Domestic3D(domestic);
         occupantsDomesticMap.putIfAbsent(domestic, domestic3D);//Link Domestic3D to server's domestic
         domestic3D.setPos(xPos, 0, -20);
         getChildren().add(domestic3D);//Add domestic to Tower
-        System.out.println("Added");
     }
 
+    /**
+     * Sets reference to map containing effects per position
+     * @param choosablePerPos map containing effects per position
+     */
     public void setCostPerPosition(Map<Integer, List<Choosable>> choosablePerPos) {
+        this.choosablePerPos = choosablePerPos;
     }
 }
+

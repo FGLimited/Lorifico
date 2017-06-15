@@ -1,5 +1,9 @@
 package Action;
 
+import Client.UI.GUI.GameUIController;
+import Client.UI.GUI.resources.gameComponents.MyCameraGroup;
+import Client.UI.GameUI;
+import Client.UI.UserInterfaceFactory;
 import Model.User.User;
 
 /**
@@ -15,8 +19,14 @@ public class MoveEnd implements BaseAction {
 
     @Override
     public void doAction(User user) {
-        // TODO: if isTimeout notify user that move time is out and no other move can be performed
+        if (isTimeout) {
+            UserInterfaceFactory.getInstance().displayPopup(DisplayPopup.Level.Warning, "Tempo scaduto", "Hai finito il tempo a disposizione!");
+        }
 
-        // TODO: disable all, now is move time for another user
+        //If we are in GUI, reset camera view.
+        GameUI gameUIController = UserInterfaceFactory.getInstance().getGameUI();
+        if (gameUIController instanceof GameUIController) {
+            ((GameUIController) gameUIController).getCameraGroup().setView(MyCameraGroup.CameraPosition.MAINVIEW);
+        }
     }
 }
