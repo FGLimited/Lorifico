@@ -6,11 +6,9 @@ import javafx.scene.effect.ColorAdjust;
  * Created by andrea on 03/06/17.
  */
 public class TowerLabel extends AbstractImageComponent {
-    public static TowerLabel last;
 
     public TowerLabel(Tower tower, TowerLevel towerLevel) {
         super.loadImage(towerLevel.getLevelImagePath(tower), towerLevel.getxPos(), towerLevel.getyPos(), towerLevel.getzPos(), 0.1, 90, 0, 0);
-        this.last = this;//DEBUG
 
         applyEffects();
     }

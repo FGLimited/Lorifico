@@ -47,6 +47,7 @@ public class Domestic3D extends Group {
      */
     public Domestic3D(Server.Game.UserObjects.Domestic serverDomestic) {
 
+
         //Create base cylinder
         Cylinder cylinder = new Cylinder(CYLINDER_RADIUS, CYLINDER_HEIGHT);
 

@@ -140,7 +140,7 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
         domesticBoxController = new DomesticBoxController(domesticsHBox, orangeDomestic2D, blackDomestic2D, whiteDomestic2D, neutralDomestic2D);
 
         //Add gameTable to world.
-        world.getChildren().add(gameTableGroup);
+        world.getChildren().addAll(gameTableGroup);
 
         camMouseDrag();
 
@@ -245,7 +245,6 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
             }
 
 
-            /*
             if (me.isShiftDown()) {//Placing purpose
                 Translate translate = Domestic3D.last.getTranslate();
                 translate.setX(translate.getX() + mouseDeltaX * MULTIPLIER);
@@ -259,7 +258,6 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
                 translate.setZ(translate.getZ() + mouseDeltaY * MULTIPLIER);
                 printStackPCoords(translate);
             }
-            */
 
 
         });

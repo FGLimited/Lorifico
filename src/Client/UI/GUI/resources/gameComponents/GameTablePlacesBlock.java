@@ -13,11 +13,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Created by andrea on 06/06/17.
  */
 public class GameTablePlacesBlock extends Group {
-    private AtomicBoolean areTablePlacesEnabled = new AtomicBoolean(false);
+    private AtomicBoolean areTablePlacesEnabled = new AtomicBoolean(true);
 
     public GameTablePlacesBlock() {
         //Place Coverings / Clickable Positions
-        int playingUsers = Datawarehouse.getInstance().getMatchAttendees().size();
+
+        int playingUsers = Datawarehouse.getInstance().getMatchAttendees().size();//number of active players
+        playingUsers = 4;
 
         getChildren().add(new GameTablePlace(50, 4, 430, 78.5, 135, 57, areTablePlacesEnabled));
         getChildren().add(new GameTablePlace(42, 1, (playingUsers < 4 ? true : false), 90, 105, 680.5, 455.5, 684, 462, 43, 40, areTablePlacesEnabled));
@@ -41,16 +43,24 @@ public class GameTablePlacesBlock extends Group {
     public void freeAllPosition() {
         getChildren().forEach(node -> {
             if (node instanceof GameTablePlace) {
-                //node.freeAllPosition();
+                ((GameTablePlace) node).freeAllPosition();
             }
         });
     }
 
     public void addDomestic(Domestic occupant, int positionNumber) {
-        return;
+        getChildren().forEach(node -> {
+            if (node instanceof GameTablePlace) {
+                ((GameTablePlace) node).addDomestic(occupant, positionNumber);
+            }
+        });
     }
 
     public void setCostPerPosition(Map<Integer, List<Choosable>> choosablePerPos) {
-        return;
+        getChildren().forEach(node -> {
+            if (node instanceof GameTablePlace) {
+                ((GameTablePlace) node).setCostPerPosition(choosablePerPos);
+            }
+        });
     }
 }

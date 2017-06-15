@@ -1,9 +1,10 @@
 package Client.UI.GUI.resources.gameComponents;
 
-import Action.BaseAction;
-import Action.Move;
-import Client.CommunicationManager;
+import Game.UserObjects.Choosable;
+import Game.UserObjects.DomesticColor;
+import Game.UserObjects.FamilyColor;
 import Server.Game.UserObjects.Domestic;
+import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,8 +13,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.transform.Translate;
 
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -29,6 +31,8 @@ public class GameTablePlace extends StackPane {
     private Map<Domestic, Domestic3D> occupantsDomesticMap = new HashMap<>();
     private AtomicBoolean areTablePlacesEnabled;//boolean shared with all other coverings.
 
+    private double xRegionPos, yRegionPos, radiusX, radiusY;//Position of clickable region
+
     private GameTablePlace binding = null;//GameTablePlace we are binded to, if that
     // binding place is free then no domestic can be placed in this
 
@@ -36,6 +40,7 @@ public class GameTablePlace extends StackPane {
     protected GameTablePlace(int id, int capacity, boolean isCovered, GameTablePlace binding, double width, double height, double xCoveringPos, double yCoveringPos, double xRegionPos, double yRegionPos, double radiusX, double radiusY, AtomicBoolean areTablePlacesEnabled) {
         this(id, capacity, isCovered, width, height, xCoveringPos, yCoveringPos, xRegionPos, yRegionPos, radiusX, radiusY, areTablePlacesEnabled);
         this.binding = binding;
+        this.capacity = capacity;
     }
 
     /**
@@ -56,6 +61,10 @@ public class GameTablePlace extends StackPane {
         this.capacity = capacity;
         this.id = id;
         this.areTablePlacesEnabled = areTablePlacesEnabled;
+        this.xRegionPos = xRegionPos;
+        this.yRegionPos = yRegionPos;
+        this.radiusX = radiusX;
+        this.radiusY = radiusY;
         if (isCovered) {
             final String url = COVERINGS_BASE_URL + "/covering" + id + ".png";
             createCoveringStackPane(url, width, height, xCoveringPos, yCoveringPos, Z_POS);
@@ -78,6 +87,10 @@ public class GameTablePlace extends StackPane {
         this.capacity = capacity;
         this.id = id;
         this.areTablePlacesEnabled = areTablePlacesEnabled;
+        this.xRegionPos = xRegionPos;
+        this.yRegionPos = yRegionPos;
+        this.radiusX = radiusX;
+        this.radiusY = radiusY;
     }
 
 
@@ -126,11 +139,19 @@ public class GameTablePlace extends StackPane {
 
         //We highlight it when mouse is over it
         ellipse.setOnMouseEntered(event -> {
+            //If table places aren't enabled stop animation
+            /*
+            if (!areTablePlacesEnabled.get())
+                return;
+
             //Check if this position is bound to another one
             if (binding != null) {
                 //If position we are bound to is not full, abort
                 if (!binding.isFull()) return;
             }
+
+            if (isFull()) return;//if we are full, stop
+*/
             ColorAdjust colorAdjust = new ColorAdjust();
             colorAdjust.setContrast(0.1);
             colorAdjust.setHue(-0.05);
@@ -147,16 +168,25 @@ public class GameTablePlace extends StackPane {
 
         //Callback on click
         ellipse.setOnMouseClicked(event -> {
+            //If table places aren't enabled stop animation
+            if (!areTablePlacesEnabled.get())
+                return;
+
             //Check if this position is bound to another one
             if (binding != null) {
+                System.out.println("this pos has binding");
                 //If position we are bound to is not full, abort
                 if (!binding.isFull()) return;
+                System.out.println("binding is full, go on");
             }
+
+            if (isFull()) return;//if we are full, stop
 
             //Else send message to server asking to occupy this position
             int position = (this.id + occupantsDomesticMap.size());
-            BaseAction action = new Move(position, Collections.emptyList());
-            CommunicationManager.getInstance().sendMessage(action);
+            //BaseAction action = new Move(position, Collections.emptyList());
+            //CommunicationManager.getInstance().sendMessage(action);
+            addDomestic(new Domestic(FamilyColor.Blue, DomesticColor.Orange, 3), position);
             System.out.println("Asking server to occupy " + position);
         });
 
@@ -165,5 +195,37 @@ public class GameTablePlace extends StackPane {
     public boolean isFull() {
         if (occupantsDomesticMap.size() >= capacity) return true;
         return false;
+    }
+
+    /**
+     * Removes all domestic from this position
+     */
+    public void freeAllPosition() {
+        for (Iterator<Node> iterator = getChildren().iterator(); iterator.hasNext(); ) {
+            Node node = iterator.next();
+            if (node instanceof Domestic3D) {
+                iterator.remove();
+                occupantsDomesticMap.values().remove(node);
+            }
+        }
+    }
+
+
+    public void addDomestic(Domestic domestic, int positionNumber) {
+        if (positionNumber < id || positionNumber >= id + capacity) return;//Position is not in this covering
+
+        //Calculate xPos
+        double xPos;
+        if (capacity == 1) xPos = 0;
+        else xPos = ((radiusX * 2) / capacity) * occupantsDomesticMap.size();
+
+        Domestic3D domestic3D = new Domestic3D(domestic);
+        occupantsDomesticMap.putIfAbsent(domestic, domestic3D);//Link Domestic3D to server's domestic
+        domestic3D.setPos(xPos, 0, -20);
+        getChildren().add(domestic3D);//Add domestic to Tower
+        System.out.println("Added");
+    }
+
+    public void setCostPerPosition(Map<Integer, List<Choosable>> choosablePerPos) {
     }
 }
