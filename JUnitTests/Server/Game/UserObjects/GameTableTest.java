@@ -69,6 +69,11 @@ public class GameTableTest {
         Assert.assertTrue(firstCost.canBuy(testUser.getUserState()));
         Assert.assertTrue(firstTowerCards.stream()
                 .anyMatch(card -> card.getNumber() == firstCost.getCardNumber()));
+
+        final Map<Integer, List<Choosable>> allPos = testTable
+                .getPositions(testUser, null);
+
+        Assert.assertEquals(32, allPos.size());
     }
 
     @Test
