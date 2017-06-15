@@ -41,7 +41,16 @@ public class TransformResourcesEffect extends Effect {
 
     @Override
     public boolean canApply(PlayerState currentMove) {
-        return currentMove.getInUseDomestic().getValue() >= activationValue && currentMove.getCheckingPositionType() == position;
+
+        final Map<ResourceType, Integer> currentResources = currentMove.getResources();
+
+        return currentMove.getInUseDomestic().getValue() >= activationValue
+                && currentMove.getCheckingPositionType() == position
+                && requested.entrySet()
+                .parallelStream()
+                .filter(resource ->
+                        currentResources.get(resource.getKey()) < resource.getValue())
+                .count() == 0;
     }
 
     @Override
@@ -55,4 +64,33 @@ public class TransformResourcesEffect extends Effect {
         currentMove.setResources(currentResources, true);
     }
 
+    @Override
+    public String getDescription() {
+
+        StringBuilder description = new StringBuilder("Trasforma ");
+
+        for (Map.Entry<ResourceType, Integer> entry : requested.entrySet()) {
+
+            description
+                    .append(entry.getKey().toCostString(entry.getValue()))
+                    .append(", ");
+        }
+
+        description
+                .delete(description.length() - 2, description.length())
+                .append(" in ");
+
+        for (Map.Entry<ResourceType, Integer> entry : toAdd.entrySet()) {
+
+            description
+                    .append(entry.getKey().toCostString(entry.getValue()))
+                    .append(", ");
+        }
+
+        description
+                .delete(description.length() - 2, description.length())
+                .append(".");
+
+        return description.toString();
+    }
 }

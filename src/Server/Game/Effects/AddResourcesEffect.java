@@ -54,4 +54,25 @@ public class AddResourcesEffect extends Effect {
         currentMove.setResources(currentResources, true);
     }
 
+    @Override
+    public String getDescription() {
+
+        if(resources == null || resources.isEmpty())
+            return "Ricevi nulla.";
+
+        StringBuilder description = new StringBuilder("Ricevi ");
+
+        for (Map.Entry<ResourceType, Integer> entry : resources.entrySet()) {
+
+            description
+                    .append(entry.getKey().toCostString(entry.getValue()))
+                    .append(", ");
+        }
+
+        description
+                .delete(description.length() - 2, description.length())
+                .append(".");
+
+        return description.toString();
+    }
 }

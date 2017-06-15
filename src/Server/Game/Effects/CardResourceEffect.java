@@ -80,4 +80,10 @@ public class CardResourceEffect extends Effect {
 
     }
 
+
+    @Override
+    public String getDescription() {
+
+        return "Ricevi " + resource.toCostString(quantity) + " per ogni carta di tipo " + cardType.getName() + ".";
+    }
 }
