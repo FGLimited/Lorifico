@@ -1,10 +1,11 @@
-package Client.UI.GUI.resources.gameComponents;
+package Client.UI.GUI.resources.dialogs;
 
 import Action.BaseAction;
 import Action.SetInUseDomestic;
 import Client.CommunicationManager;
 import Client.Datawarehouse;
 import Client.UI.GUI.UserInterfaceImplemJFX;
+import Client.UI.GUI.resources.gameComponents.DomesticBoxController;
 import Client.UI.UserInterfaceFactory;
 import Game.Usable.ResourceType;
 import Game.UserObjects.DomesticColor;

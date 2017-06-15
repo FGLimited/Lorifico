@@ -4,6 +4,7 @@ import Action.BaseAction;
 import Action.Move;
 import Client.CommunicationManager;
 import Client.Datawarehouse;
+import Client.UI.GUI.resources.dialogs.ChooseCardsEffectsDialog;
 import Client.UI.TurnObserver;
 import Game.UserObjects.Choosable;
 import Server.Game.Usable.Cost;

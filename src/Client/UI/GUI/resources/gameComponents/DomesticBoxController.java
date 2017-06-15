@@ -2,6 +2,7 @@ package Client.UI.GUI.resources.gameComponents;
 
 import Client.Datawarehouse;
 import Client.UI.DomesticsController;
+import Client.UI.GUI.resources.dialogs.AddSlaveToDomesticDialog;
 import Client.UI.TurnObserver;
 import Game.UserObjects.DomesticColor;
 import Game.UserObjects.FamilyColor;

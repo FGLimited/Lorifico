@@ -1,6 +1,7 @@
 package Client.UI.GUI.resources.gameComponents;
 
 import Client.Datawarehouse;
+import Client.UI.GUI.resources.dialogs.ChooseCardCostDialog;
 import Client.UI.TurnObserver;
 import Game.UserObjects.Choosable;
 import Server.Game.UserObjects.Domestic;

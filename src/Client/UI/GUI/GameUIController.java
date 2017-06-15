@@ -2,7 +2,10 @@ package Client.UI.GUI;
 
 import Action.SetInUseDomestic;
 import Client.UI.*;
+import Client.UI.GUI.resources.dialogs.AddSlaveToDomesticDialog;
+import Client.UI.GUI.resources.dialogs.ChooseCouncilFavoursDialog;
 import Client.UI.GUI.resources.gameComponents.*;
+import Game.Effects.Effect;
 import Server.Game.UserObjects.Domestic;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +21,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Translate;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -177,6 +181,11 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
     @Override
     public void addSlaveToSpecialDomestic(Domestic domestic, SetInUseDomestic setInUseDomesticAction) {
         new AddSlaveToDomesticDialog(domestic, setInUseDomesticAction);
+    }
+
+    @Override
+    public void askCouncilFavours(List<Effect> councilFavors, int differentFavors) {
+        new ChooseCouncilFavoursDialog(councilFavors, differentFavors);
     }
 
     /**

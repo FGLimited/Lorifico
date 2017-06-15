@@ -27,7 +27,6 @@ public class ChooseFavor implements BaseAction {
 
     @Override
     public void doAction(User user) {
-        UserInterfaceFactory.getInstance().displayPopup(DisplayPopup.Level.Normal, "Consiglio", "Scegli i favori");
-        // TODO: prompt the user to chose correct number of favors
+        UserInterfaceFactory.getInstance().getGameUI().askCouncilFavours(councilFavors, differentFavors);
     }
 }
