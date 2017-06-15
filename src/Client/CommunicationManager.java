@@ -25,11 +25,11 @@ public class CommunicationManager {
         //System.setProperty("java.security.policy","src/client.policy");
         //System.setSecurityManager(new SecurityManager());
 
-        commLink = (new CommFactory()).getLink(ip, port, commType);
-        if (commLink == null)
-            throw new IOException("Impossibile connettersi al server");
-        commLink.setOnMessage((link, message) -> handleMessageIn(message));
+        while (commLink == null) {
+            commLink = (new CommFactory()).getLink(ip, port, commType);
+        }
 
+        commLink.setOnMessage((link, message) -> handleMessageIn(message));
     }
 
     public static CommunicationManager getInstance() {
