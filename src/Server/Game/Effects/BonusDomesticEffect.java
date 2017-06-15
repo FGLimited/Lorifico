@@ -64,6 +64,6 @@ public class BonusDomesticEffect extends Effect {
 
         // Send special domestic and bonus positions type
         currentUser.getUserLink()
-                .sendMessage(new BonusDomesticMove(special, positionsType, new Cost(costBonus)));
+                .sendMessage(new BonusDomesticMove(special, positionsType, costBonus != null ? new Cost(costBonus) : null));
     }
 }
