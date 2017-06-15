@@ -7,6 +7,7 @@ import Model.UserAuthenticator;
 import Model.UserManager;
 import Networking.CommLink;
 import Networking.Gson.GsonUtils;
+import Server.Game.Lobby;
 import Server.Game.UserHandler;
 import com.google.gson.JsonSyntaxException;
 
@@ -15,13 +16,9 @@ import com.google.gson.JsonSyntaxException;
  */
 public class LogInHandler implements LinkHandler {
 
-    private final UserHandler userHandler;
+    private final UserHandler userHandler = Lobby.getInstance();
 
     private final UserAuthenticator userFactory = UserManager.getInstance();
-
-    public LogInHandler(UserHandler authorizedUserHandler) {
-        userHandler = authorizedUserHandler;
-    }
 
     public void addClientComm(CommLink newLink) {
         Logger.log(Logger.LogLevel.Normal, "New client connected.");
