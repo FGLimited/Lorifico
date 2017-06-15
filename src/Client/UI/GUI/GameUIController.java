@@ -203,6 +203,18 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
 
 
     /**
+     * Called by JavaFX
+     *
+     * @param event
+     */
+    @FXML
+    void showMainView(ActionEvent event) {
+        GameUIController gameUIController = (GameUIController) UserInterfaceFactory.getInstance().getGameUI();
+        gameUIController.getCameraGroup().setView(MyCameraGroup.CameraPosition.MAINVIEW);
+    }
+
+
+    /**
      * Metodo di servizio per spostare la visuale
      */
     private void camMouseDrag() {
@@ -244,9 +256,9 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
                 printCamCoords();
             }
 
-
+/*
             if (me.isShiftDown()) {//Placing purpose
-                Translate translate = Domestic3D.last.getTranslate();
+                Translate translate = GameTablePlace.last.getTranslate();
                 translate.setX(translate.getX() + mouseDeltaX * MULTIPLIER);
                 translate.setY(translate.getY() + mouseDeltaY * MULTIPLIER);
                 printStackPCoords(translate);
@@ -254,10 +266,11 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
 
 
             if (me.isPrimaryButtonDown()) {//Placing purpose
-                Translate translate = Domestic3D.last.getTranslate();
+                Translate translate = GameTablePlace.last.getTranslate();
                 translate.setZ(translate.getZ() + mouseDeltaY * MULTIPLIER);
                 printStackPCoords(translate);
             }
+            */
 
 
         });
