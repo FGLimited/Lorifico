@@ -36,7 +36,7 @@ public class Lobby extends UserHandler {
         if(firstFreeMatch.isPresent())
             firstFreeMatch.get().addUser(newUser);
         else {
-            Match newMatch = new Match(30000, 480000);
+            Match newMatch = new Match(30000, 240000);
             newMatch.addUser(newUser);
             matches.add(newMatch);
         }

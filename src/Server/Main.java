@@ -35,7 +35,7 @@ public class Main {
         UserManager.init(db);
 
         // Initialize login handler
-        LogInHandler loginHandler = new LogInHandler(Lobby.getInstance());
+        LogInHandler loginHandler = new LogInHandler();
 
         // Initialize connection handler with multiple connection providers
         ConnectionHandler connHandler = new ConnectionHandler();

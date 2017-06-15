@@ -50,6 +50,7 @@
       "type": "Server.Game.Effects.ImmediateEffect",
       "data": {
         "type": "Immediate",
+        "cardNumber":0,
         "resources": {
           "Wood": 1,
           "Rock": 1
@@ -60,6 +61,7 @@
       "type": "Server.Game.Effects.ImmediateEffect",
       "data": {
         "type": "Immediate",
+        "cardNumber":1,
         "resources": {
           "Slave": 2
         }
@@ -69,6 +71,7 @@
       "type": "Server.Game.Effects.ImmediateEffect",
       "data": {
         "type": "Immediate",
+        "cardNumber":2,
         "resources": {
           "Gold": 2
         }
@@ -78,6 +81,7 @@
       "type": "Server.Game.Effects.ImmediateEffect",
       "data": {
         "type": "Immediate",
+        "cardNumber":3,
         "resources": {
           "MilitaryPoint": 2
         }
@@ -87,6 +91,7 @@
       "type": "Server.Game.Effects.ImmediateEffect",
       "data": {
         "type": "Immediate",
+        "cardNumber":4,
         "resources": {
           "FaithPoint": 1
         }

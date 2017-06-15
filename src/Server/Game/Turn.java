@@ -4,7 +4,6 @@ import Action.*;
 import Game.Effects.Effect;
 import Game.Usable.ResourceType;
 import Logging.Logger;
-import Networking.CommLink;
 import Server.Game.UserObjects.GameTable;
 import Server.Game.UserObjects.GameUser;
 import Server.Game.UserObjects.PlayerState;
