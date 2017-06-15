@@ -45,6 +45,6 @@ public abstract class Effect implements Game.Effects.Effect {
 
     @Override
     public String getDescription() {
-        return "Awesome description of the effect|";
+        return "Awesome description of the effect!";
     }
 }

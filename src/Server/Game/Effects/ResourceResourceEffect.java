@@ -54,4 +54,8 @@ public class ResourceResourceEffect extends Effect {
 
     }
 
+    @Override
+    public String getDescription() {
+        return "Ottieni " + fromResource.toCostString(fromQuantity) + " ogni " + toResource.toCostString(toQuantity) + ".";
+    }
 }
