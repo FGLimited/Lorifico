@@ -127,6 +127,9 @@ public class Turn {
             }
         }
 
+        // Reset move counter to zero
+        currentUser.resetMove();
+
         // If user hasn't moved after timeout send timeout message and go ahead
         currentUser.getUserLink().sendMessage(new MoveEnd(!currentUser.getHasMoved()));
     }

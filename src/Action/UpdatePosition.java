@@ -20,6 +20,10 @@ public class UpdatePosition implements BaseAction {
 
     @Override
     public void doAction(User user) {
+
+        if(occupant.getType() == null)
+            return;
+
         if (positionNumber > 16) {
             UserInterfaceFactory.getInstance().getGameTable().addDomestic(occupant, positionNumber);
         } else {

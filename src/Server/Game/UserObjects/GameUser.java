@@ -167,6 +167,10 @@ public class GameUser implements Game.UserObjects.GameUser {
             moves.decrementAndGet();
     }
 
+    public void resetMove() {
+        moves.set(0);
+    }
+
     /**
      * Check if player has moved or not
      *

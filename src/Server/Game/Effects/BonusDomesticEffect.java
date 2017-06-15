@@ -4,7 +4,6 @@ import Action.BonusDomesticMove;
 import Game.Effects.EffectType;
 import Game.Positions.PositionType;
 import Game.Usable.ResourceType;
-import Game.UserObjects.DomesticColor;
 import Game.UserObjects.PlayerState;
 import Server.Game.Usable.Cost;
 import Server.Game.UserObjects.Domestic;
@@ -58,7 +57,7 @@ public class BonusDomesticEffect extends Effect {
         GameUser currentUser = (GameUser) currentMove.getGameUser();
 
         // Set special neutral domestic
-        Domestic special = new Domestic(currentMove.getGameUser().getFamilyColor(), DomesticColor.Neutral, value);
+        Domestic special = new Domestic(currentMove.getGameUser().getFamilyColor(), null, value);
 
         // Set not moved for current user
         currentUser.setHasMoved(false);

@@ -1,5 +1,6 @@
 package Action;
 
+
 import Game.Positions.PositionType;
 import Game.Usable.ResourceType;
 import Game.UserObjects.Choosable;
@@ -93,7 +94,7 @@ public class SetInUseDomestic implements BaseAction {
 
             positions.forEach((number, list) -> {
                 // If current list isn't a cost list go ahead
-                if(list.get(0).getClass() != Cost.class)
+                if(list.isEmpty() || list.get(0).getClass() != Cost.class)
                     return;
 
                 // Create new cost list

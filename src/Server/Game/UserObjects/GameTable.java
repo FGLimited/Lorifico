@@ -127,10 +127,8 @@ public class GameTable {
         Map<Integer, List<Choosable>> choseForPos = new HashMap<>();
 
         positions.values().forEach(pos -> {
-            if(getAll.get() || requestedPositions.contains(pos.getType())) {
-                Logger.log(Logger.LogLevel.Normal, "Position " + pos.getNumber() + "@" + pos.hashCode() + " for user " + currentUser.toString());
+            if(getAll.get() || requestedPositions.contains(pos.getType()))
                 choseForPos.put(pos.getNumber(), pos.canOccupy(currentUser.getUserState()));
-            }
         });
 
         return choseForPos;

@@ -43,7 +43,7 @@ public class PositionAggregate {
      * @return True if any position is occupied, false else
      */
     boolean isOccupied() {
-        return positions.parallelStream().filter(position -> position.isOccupied() != null).count() != 0;
+        return positions.parallelStream().filter(position -> position.isOccupied() != null && position.isOccupied().getType() != null).count() != 0;
     }
 
     /**
