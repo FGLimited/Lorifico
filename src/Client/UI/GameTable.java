@@ -30,4 +30,9 @@ public interface GameTable {
      * @param choosablePerPos costs per position
      */
     void setCostsPerPosition(Map<Integer, List<Choosable>> choosablePerPos);
+
+    /**
+     * Disables market untill end of the game for this user
+     */
+    void marketDeny();
 }

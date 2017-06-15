@@ -1,5 +1,6 @@
 package Action;
 
+import Client.UI.UserInterfaceFactory;
 import Model.User.User;
 
 /**
@@ -8,6 +9,7 @@ import Model.User.User;
 public class MarketDeny implements BaseAction {
     @Override
     public void doAction(User user) {
-        // TODO: deny market positions selection
+        UserInterfaceFactory.getInstance().getGameTable().marketDeny();
+        UserInterfaceFactory.getInstance().displayPopup(DisplayPopup.Level.Normal, "Mercato", "D'ora in poi non potrai piu' utilizzare il mercato");
     }
 }

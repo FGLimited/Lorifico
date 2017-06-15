@@ -78,6 +78,11 @@ public class GameTableGroup extends Group implements GameTable {
         gameTablePlacesBlock.setCostPerPosition(choosablePerPos);
     }
 
+    @Override
+    public void marketDeny() {
+        gameTablePlacesBlock.marketDeny();
+    }
+
     /**
      * Creates a new stackpane containing a rectangle filled with passed image
      *

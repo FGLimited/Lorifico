@@ -30,7 +30,7 @@ public class GameTablePlace extends Group implements TurnObserver {
     private int id;//id of this covering
     private int capacity;//Max capacity of this position
     private Map<Domestic, Domestic3D> occupantsDomesticMap = new HashMap<>();
-    private boolean isTablePlaceEnabled;//boolean shared with all other coverings.
+    private boolean isTablePlaceEnabled;//boolean update with server's messages.
 
     private double xRegionPos, yRegionPos, radiusX, radiusY;//Position of clickable region
 
@@ -230,8 +230,8 @@ public class GameTablePlace extends Group implements TurnObserver {
 
         //Calculate xPos
         double xPos;
-        if (capacity == 1) xPos = 0;
-        else xPos = -radiusX / 1.4 + ((radiusX * 2) / capacity) * occupantsDomesticMap.size();
+        if (capacity > 1) xPos = -radiusX / 1.4 + ((radiusX * 2) / capacity) * occupantsDomesticMap.size();
+        else xPos = 0;
 
         //Creates a 3d domestic
         Domestic3D domestic3D = new Domestic3D(domestic);
@@ -267,5 +267,14 @@ public class GameTablePlace extends Group implements TurnObserver {
             isTablePlaceEnabled = false;
         }
     }
-}
 
+    /**
+     * Blocks market for this user untill the end of the game
+     */
+    public void marketDeny() {
+        //We have to check if this covering is related to market
+        if (id >= 40 && id <= 43) {
+            capacity = 0;
+        }
+    }
+}

@@ -73,4 +73,12 @@ public class GameTablePlacesBlock extends Group {
             }
         });
     }
+
+    public void marketDeny() {
+        getChildren().forEach(node -> {
+            if (node instanceof GameTablePlace) {
+                ((GameTablePlace) node).marketDeny();
+            }
+        });
+    }
 }
