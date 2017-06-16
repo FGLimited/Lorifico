@@ -2,6 +2,7 @@ package Client;
 
 import Client.UI.UserInterface;
 import Client.UI.UserInterfaceFactory;
+import Logging.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,9 +13,13 @@ import java.io.InputStreamReader;
  */
 public class Main {
     public static void main(String[] args) {
+        //Hook on windows close
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             if (CommunicationManager.getInstance() != null) CommunicationManager.getInstance().shutdown();
         }));
+
+        Logger.setLogLevel(Logger.LogLevel.Error);//Display only error messages
+
         BufferedReader sysIn = new BufferedReader(new InputStreamReader(System.in));
         String cmdIn = "";
 
@@ -31,10 +36,6 @@ public class Main {
             }
         }
         while (!(cmdIn.toUpperCase().equals(UserInterfaceFactory.UserInterfaceType.CLI.toString()) || cmdIn.toUpperCase().equals(UserInterfaceFactory.UserInterfaceType.JAVAFX.toString())));
-
-        //NB: We cannot close the BufferedReader, CLI will use it!
-
-        //Get the desired UI and run it.
 
         //Create a new user interface, we don't need to save it because Factory will from now on return always the same obj
         UserInterface userInterface = UserInterfaceFactory.getInstance(UserInterfaceFactory.UserInterfaceType.valueOf(cmdIn.toUpperCase()));
