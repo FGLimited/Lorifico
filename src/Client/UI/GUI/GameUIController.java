@@ -175,7 +175,7 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
     }
 
     @Override
-    public DomesticsController getDomesticsController() {
+    public DomesticsController getDomesticsChoiceBoxController() {
         return domesticBoxController;
     }
 

@@ -30,8 +30,5 @@ public class PositionChoosables implements BaseAction {
 
         UserInterfaceFactory.getInstance().getGameUI().getTowersController().setCostsPerPosition(choosablePerPos);
         UserInterfaceFactory.getInstance().getGameTable().setCostsPerPosition(choosablePerPos);
-
-        // TODO: activate harvest/production cards reading card number from received effects
-
     }
 }

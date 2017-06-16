@@ -1,8 +1,8 @@
 package Client.UI.GUI;
 
 import Action.DisplayPopup;
-import Client.UI.*;
 import Client.UI.GUI.resources.gameComponents.GameTableGroup;
+import Client.UI.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
@@ -73,11 +73,6 @@ public class UserInterfaceImplemJFX extends Application implements UserInterface
     public Login getLogin() {
         if (login == null) login = new LoginPageController();
         return login;
-    }
-
-    @Override
-    public ChooseAvatar getChooseAvatar() {
-        return null;
     }
 
     @Override

@@ -27,13 +27,6 @@ public interface UserInterface {
     public Login getLogin();
 
     /**
-     * Gets ChooseAvatar page controller.
-     *
-     * @return
-     */
-    public ChooseAvatar getChooseAvatar();
-
-    /**
      * Gets Lobby page controller
      *
      * @return

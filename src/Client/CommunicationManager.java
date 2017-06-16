@@ -1,6 +1,7 @@
 package Client;
 
 import Action.BaseAction;
+import Action.ServerDisconnect;
 import Action.UserSpecific;
 import Client.Networking.CommFactory;
 import Logging.Logger;
@@ -39,6 +40,13 @@ public class CommunicationManager {
     public static CommunicationManager getInstance(CommFactory.LinkType commType, String ip, int port) throws IOException {
         if (communicationManager == null) communicationManager = new CommunicationManager(commType, ip, port);
         return communicationManager;
+    }
+
+    public void shutdown() {
+        if (commLink == null) return;
+        BaseAction action = new ServerDisconnect();
+        sendMessage(action);
+        commLink.shutdown();
     }
 
     /**

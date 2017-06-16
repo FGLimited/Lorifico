@@ -16,11 +16,11 @@ public class ChangeClientView implements BaseAction {
     @Override
     public void doAction(User user) {
         switch (view) {
-            case CHOOSE_AVATAR:
-                UserInterfaceFactory.getInstance().getChooseAvatar().showPage();
-                break;
             case LOBBY:
                 UserInterfaceFactory.getInstance().getLobby().showPage();
+                break;
+            case GAME:
+                UserInterfaceFactory.getInstance().getGameUI().showPage();
                 break;
             default:
                 break;
@@ -30,7 +30,6 @@ public class ChangeClientView implements BaseAction {
     }
 
     public enum View {
-        CHOOSE_AVATAR,
         LOBBY,
         GAME
     }

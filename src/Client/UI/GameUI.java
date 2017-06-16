@@ -20,7 +20,7 @@ public interface GameUI {
 
     RoundOrderController getRoundOrderController();
 
-    DomesticsController getDomesticsController();
+    DomesticsController getDomesticsChoiceBoxController();
 
     void addSlaveToSpecialDomestic(Domestic domestic, SetInUseDomestic setInUseDomesticAction);
 
