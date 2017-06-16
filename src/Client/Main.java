@@ -12,6 +12,9 @@ import java.io.InputStreamReader;
  */
 public class Main {
     public static void main(String[] args) {
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            if (CommunicationManager.getInstance() != null) CommunicationManager.getInstance().shutdown();
+        }));
         BufferedReader sysIn = new BufferedReader(new InputStreamReader(System.in));
         String cmdIn = "";
 

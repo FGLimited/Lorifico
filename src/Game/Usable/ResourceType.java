@@ -22,7 +22,7 @@ public enum ResourceType {
     }
 
     /**
-     * Generates an italian string
+     * Generates an itaTranslate string
      *
      * @param value
      * @return

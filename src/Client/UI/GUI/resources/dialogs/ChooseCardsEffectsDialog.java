@@ -16,6 +16,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -147,6 +148,7 @@ public class ChooseCardsEffectsDialog {
 
                     JFXButton jfxButton = new JFXButton(effect.getDescription());
                     jfxButton.setStyle("-fx-background-color: limegreen");
+                    jfxButton.setPadding(new Insets(0, 0, 20, 0));
 
                     //When an effect is selected (by clicking on his button), dialog is closed and effect added to choosen list.
                     jfxButton.setOnAction(event -> {

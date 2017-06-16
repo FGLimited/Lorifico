@@ -33,7 +33,7 @@ public class DiceDomesticUpdate extends UserSpecific implements BaseAction {
                     diceValues.get(DomesticColor.White), diceValues.get(DomesticColor.Orange));
 
             //Updates user's domestics
-            UserInterfaceFactory.getInstance().getGameUI().getDomesticsController().updateDomesticsValues(domesticValues);
+            UserInterfaceFactory.getInstance().getGameUI().getDomesticsChoiceBoxController().updateDomesticsValues(domesticValues);
 
             //Removes all domestics from GameTable
             UserInterfaceFactory.getInstance().getGameUI().getTowersController().removeAllDomestics();
