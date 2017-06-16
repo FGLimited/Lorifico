@@ -4,6 +4,7 @@ import Action.SetInUseDomestic;
 import Client.UI.*;
 import Client.UI.GUI.resources.dialogs.AddSlaveToDomesticDialog;
 import Client.UI.GUI.resources.dialogs.ChooseCouncilFavoursDialog;
+import Client.UI.GUI.resources.dialogs.FaithRoadChoiceDialog;
 import Client.UI.GUI.resources.gameComponents.*;
 import Game.Effects.Effect;
 import Server.Game.UserObjects.Domestic;
@@ -181,6 +182,11 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
     @Override
     public void addSlaveToSpecialDomestic(Domestic domestic, SetInUseDomestic setInUseDomesticAction) {
         new AddSlaveToDomesticDialog(domestic, setInUseDomesticAction);
+    }
+
+    @Override
+    public void askFaithRoad() {
+        new FaithRoadChoiceDialog();
     }
 
     @Override

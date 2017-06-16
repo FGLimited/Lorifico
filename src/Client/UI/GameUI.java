@@ -25,4 +25,6 @@ public interface GameUI {
     void addSlaveToSpecialDomestic(Domestic domestic, SetInUseDomestic setInUseDomesticAction);
 
     void askCouncilFavours(List<Effect> councilFavors, int differentFavors);
+
+    void askFaithRoad();
 }

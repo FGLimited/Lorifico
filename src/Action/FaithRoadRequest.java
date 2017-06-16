@@ -1,5 +1,6 @@
 package Action;
 
+import Client.UI.UserInterfaceFactory;
 import Model.User.User;
 
 /**
@@ -8,11 +9,6 @@ import Model.User.User;
 public class FaithRoadRequest implements BaseAction {
     @Override
     public void doAction(User user) {
-        // TODO: ask user if wants to support the church or not
-        boolean userChoice = false;
-
-        BaseAction faithChoice = new FaithRoadChoice(userChoice);
-
-        // TODO: send faithChoice back to the server
+        UserInterfaceFactory.getInstance().getGameUI().askFaithRoad();
     }
 }
