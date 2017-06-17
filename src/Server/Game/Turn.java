@@ -185,7 +185,8 @@ public class Turn {
                     faithEffect.apply(currentState);
 
                 // Notify client to put penalty cube on current faith card
-                user.getUserLink().sendMessage(new FaithPenaltyApplied(number / 2));
+                final BaseAction faithPenalty = new FaithPenaltyApplied(user.toString(), number / 2);
+                order.forEach(u -> u.getUserLink().sendMessage(faithPenalty));
             }
 
             // Update player state with new changes
