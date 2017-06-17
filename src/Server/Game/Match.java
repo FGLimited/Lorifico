@@ -362,7 +362,7 @@ public class Match extends UserHandler {
 
         // Apply all final effects
         currentState.getEffects(EffectType.Final).forEach(finalEffect -> {
-            if(finalEffect.canApply(user.getUserState()))
+            if(finalEffect.canApply(currentState))
                 finalEffect.apply(currentState);
         });
 

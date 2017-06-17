@@ -12,13 +12,13 @@ public interface Effect extends HasType<EffectType>, Choosable {
     /**
      * Check if this effect can be activated placing in use domestic in correct position
      *
-     * @param currentMove Current player state
+     * @param currentMove Current player state (won't be modified)
      * @return True if applicable, false else
      */
     boolean canApply(PlayerState currentMove);
 
     /**
-     * Apply thi effect to player state (no check if performed on canApply)
+     * Apply this effect to player state (no check is performed on canApply)
      *
      * @param currentMove Current player state
      */

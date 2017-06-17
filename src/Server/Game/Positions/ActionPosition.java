@@ -83,7 +83,10 @@ public class ActionPosition extends Position<Effect> {
 
         // Apply all permanent effects
         currentState.getEffects(EffectType.Permanent)
-                .forEach(effect -> effect.apply(currentState));
+                .forEach(effect -> {
+                    if(effect.canApply(currentState))
+                        effect.apply(currentState);
+                });
     }
 
 }
