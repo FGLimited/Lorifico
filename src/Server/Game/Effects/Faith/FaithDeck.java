@@ -64,6 +64,7 @@ public class FaithDeck {
         return gameFaithEffects;
     }
 
+    /*
     public static void main(String[] args) throws IOException {
 
         // First deck
@@ -148,5 +149,5 @@ public class FaithDeck {
         pw.close();
 
     }
-
+    */
 }

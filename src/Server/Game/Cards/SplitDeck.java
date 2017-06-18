@@ -77,6 +77,7 @@ public class SplitDeck {
         return currentTurn;
     }
 
+    /*
     public static void main(String[] args) throws IOException {
 
         Map<Integer, Map<CardType, List<Card>>> splitDeck = new HashMap<>();
@@ -963,5 +964,6 @@ public class SplitDeck {
             }
         };
     }
+    */
 
 }

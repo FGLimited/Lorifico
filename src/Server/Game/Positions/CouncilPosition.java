@@ -58,15 +58,13 @@ public class CouncilPosition extends Position<Cost> {
 
         // If position is occupied
         // or domestic has zero value
-        // or aggregate bounds won't let this domestic in
         // return empty list
         if(isOccupied() != null
-                || currentState.getInUseDomestic().getValue() < 1
-                || !parent.canOccupy(currentState.getInUseDomestic()))
+                || currentState.getInUseDomestic().getValue() < 1)
             return Collections.emptyList();
 
         // If can occupy return empty cost
-        return Collections.singletonList(new Cost(null, null));
+        return Collections.singletonList(new Cost(null));
     }
 
     @Override

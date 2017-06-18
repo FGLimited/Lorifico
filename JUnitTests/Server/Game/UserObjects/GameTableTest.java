@@ -111,7 +111,7 @@ public class GameTableTest {
 
         testTable.occupy(testUser, 50, Collections.singletonList(new Cost(null)));
 
-        final List<GameUser> nextOrder = testTable.changeRound(currentOrder);
+        final List<GameUser> nextOrder = testTable.changeOrder(currentOrder);
 
         Assert.assertEquals(FamilyColor.Green, nextOrder.get(0).getFamilyColor());
         Assert.assertEquals(FamilyColor.Blue, nextOrder.get(1).getFamilyColor());

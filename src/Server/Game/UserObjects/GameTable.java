@@ -188,12 +188,12 @@ public class GameTable {
     }
 
     /**
-     * Get new players order for next round and free all positions
+     * Get new players order for next turn
      *
      * @param currentOrder Players order from current round
      * @return Players order for next round
      */
-    public List<GameUser> changeRound(List<GameUser> currentOrder) {
+    public List<GameUser> changeOrder(List<GameUser> currentOrder) {
 
         // Remove family in council from current order
         currentOrder.removeAll(nextTurnOrder);
