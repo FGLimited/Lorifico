@@ -19,7 +19,7 @@ public class TestClientAutoConnectSocket {
 
 
     public static void main(String[] args) {
-        UserInterface userInterface = UserInterfaceFactory.getInstance(UserInterfaceFactory.UserInterfaceType.CLI);
+        UserInterface userInterface = UserInterfaceFactory.getInstance(UserInterfaceFactory.UserInterfaceType.JAVAFX);
         try {
             CommunicationManager.getInstance(CommFactory.LinkType.SOCKET, "127.0.0.1", 8080);
         } catch (IOException e) {

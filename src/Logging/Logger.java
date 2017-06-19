@@ -24,7 +24,8 @@ public class Logger {
     public enum LogLevel {
         Normal ("\u001b[32m"),
         Warning ("\u001b[33m"),
-        Error ("\u001b[31m");
+        Error ("\u001b[31m"),
+        None("");
 
         public final static String colorReset = "\u001b[0m";
         public final String colorCode;

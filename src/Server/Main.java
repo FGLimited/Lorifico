@@ -18,6 +18,8 @@ import java.sql.SQLException;
 public class Main {
     public static void main(String args[]) throws IOException {
 
+        Logger.setLogLevel(Logger.LogLevel.Normal);
+
         final String mySqlConnString = "jdbc:mysql://flow3rhouse.duckdns.org/LorenzoDB?user=Lollo&password=Lorenzo@";
 
         // Create database instance for users

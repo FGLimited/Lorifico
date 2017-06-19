@@ -9,6 +9,7 @@ import Server.Game.UserObjects.GameUser;
 import Server.Game.UserObjects.PlayerState;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -55,8 +56,6 @@ public class Turn {
      */
     public List<GameUser> playAllRounds() {
 
-        boolean isLast = false;
-
         // Get current round order
         List<GameUser> currentRound;
 
@@ -78,6 +77,7 @@ public class Turn {
         currentRound.forEach(user -> user.getUserLink().sendMessage(orderUpdate));
 
         // Ask for move to each user
+
         currentRound.forEach(user -> {
 
             final BaseAction moveRequest = new MoveRequest(user.toString());
@@ -90,15 +90,9 @@ public class Turn {
         });
 
         // If is last round check for left user, else finalize
-        if(roundNumber >= 4 && lastRound.isEmpty())
-                isLast = true;
-        else // Else update round order and go ahead
-            order = table.changeRound(currentRound);
-
-        // If is last round perform faith way points check
-        if(isLast) {
+        if(roundNumber >= 4 && lastRound.isEmpty()) {
             faithCheck();
-            return table.changeRound(order);
+            return table.changeOrder(order);
         }
 
         // Increment round number
@@ -166,10 +160,14 @@ public class Turn {
                 // Get victory points for current faith road position
                 final int victoryPoints = GameHelper.getInstance().getFaithBonus(faithPoints);
 
-                // Update current player state
-                currentState.setResources(
-                        Collections.singletonMap(ResourceType.VictoryPoint,
-                                currentState.getResources().get(ResourceType.VictoryPoint) + victoryPoints),
+                // Update current player state adding victory points and removing all faith points
+                currentState.setResources(new HashMap<ResourceType, Integer>() {
+                                              {
+                                                  put(ResourceType.VictoryPoint,
+                                                          currentState.getResources().get(ResourceType.VictoryPoint) + victoryPoints);
+                                                  put(ResourceType.FaithPoint, 0);
+                                              }
+                                          },
                         true);
             }
             else {
@@ -185,7 +183,8 @@ public class Turn {
                     faithEffect.apply(currentState);
 
                 // Notify client to put penalty cube on current faith card
-                user.getUserLink().sendMessage(new FaithPenaltyApplied(number / 2));
+                final BaseAction faithPenalty = new FaithPenaltyApplied(user.toString(), number / 2);
+                order.forEach(u -> u.getUserLink().sendMessage(faithPenalty));
             }
 
             // Update player state with new changes

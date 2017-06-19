@@ -133,7 +133,10 @@ public class TowerPosition extends Position<Cost> {
 
         // Apply all permanent effects
         currentState.getEffects(EffectType.Permanent)
-                .forEach(effect -> effect.apply(currentState));
+                .forEach(effect -> {
+                    if(effect.canApply(currentState))
+                        effect.apply(currentState);
+                });
     }
 
     @Override

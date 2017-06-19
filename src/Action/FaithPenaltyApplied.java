@@ -5,11 +5,12 @@ import Model.User.User;
 /**
  * Created by fiore on 06/06/2017.
  */
-public class FaithPenaltyApplied implements BaseAction {
+public class FaithPenaltyApplied extends UserSpecific implements BaseAction {
 
     private final int faithCard;
 
-    public FaithPenaltyApplied(int cardNumber) {
+    public FaithPenaltyApplied(String username, int cardNumber) {
+        super(username);
         faithCard = cardNumber;
     }
 
