@@ -34,11 +34,10 @@ public class FaithBlock extends Group implements FaithRoadController, PlayerStat
         map.put(FamilyColor.Yellow, new FaithCylindricalPawn(Color.YELLOW, 0, occupantsFaithPosition, 0, 0));
         map.put(FamilyColor.Red, new FaithCylindricalPawn(Color.RED, 0, occupantsFaithPosition, 0, 0));
 
-        //we created faith
         //Attach pawns to FaithBlock
         map.forEach(((familyColor, cylindricalPawn) -> getChildren().add(cylindricalPawn)));
 
-        //Attach faith road to game table
+        //Move Faith Block
         getTransforms().add(new Translate(34, 368, 0));
 
         //Say Datawarehouse we are interested in playerstate
@@ -65,6 +64,17 @@ public class FaithBlock extends Group implements FaithRoadController, PlayerStat
         getChildren().add(new FaithCard(first));
         getChildren().add(new FaithCard(second));
         getChildren().add(new FaithCard(third));
+    }
+
+    /**
+     * Shows a faith cube on 1st 2nd or 3rd card
+     *
+     * @param familyColor color of cube
+     * @param cardOrdinal may be 1,2,3
+     */
+    @Override
+    public void showFaithCube(FamilyColor familyColor, int cardOrdinal) {
+        getChildren().add(new FaithCube(familyColor, cardOrdinal));
     }
 
     /**

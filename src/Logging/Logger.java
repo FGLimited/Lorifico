@@ -17,6 +17,10 @@ public class Logger {
         defaultOut.println(message);
     }
 
+    public static int getLogLevel() {
+        return logLevel.ordinal();
+    }
+
     public static void setLogLevel(LogLevel logLevel) {
         Logger.logLevel = logLevel;
     }

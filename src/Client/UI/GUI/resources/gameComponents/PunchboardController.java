@@ -31,6 +31,11 @@ public class PunchboardController implements Initializable {
     @FXML
     private AnchorPane anchorPane;//Node containing punchboard imageview etc..
 
+    /**
+     * Creates and shows a punchboard
+     *
+     * @param username
+     */
     public PunchboardController(String username) {
         this.username = username;//Set username
         createPunchboardDialog();
@@ -114,6 +119,10 @@ public class PunchboardController implements Initializable {
         return imageView;
     }
 
+    /**
+     * Creates a new small dialog containing only the selected card
+     * @param cardNumber
+     */
     private void showCardInDialog(int cardNumber) {
         //Make sure we are on JavaFX thread:
         if (!Platform.isFxApplicationThread()) {

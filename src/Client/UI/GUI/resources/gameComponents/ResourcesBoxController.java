@@ -51,7 +51,7 @@ public class ResourcesBoxController implements PlayerStateObserver {
             goldLabel.setText(playerState.getResources().get(ResourceType.Gold).toString());
             woodLabel.setText(playerState.getResources().get(ResourceType.Wood).toString());
             slavesLabel.setText(playerState.getResources().get(ResourceType.Slave).toString());
-            Logger.log(Logger.LogLevel.Normal, "ResourcesBoxController updated shown resources on GUI");
+            Logger.log(Logger.LogLevel.Normal, "ResourcesBoxController: updated shown resources on GUI");
         }
     }
 }

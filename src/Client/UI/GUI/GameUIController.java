@@ -7,6 +7,7 @@ import Client.UI.GUI.resources.dialogs.ChooseCouncilFavoursDialog;
 import Client.UI.GUI.resources.dialogs.FaithRoadChoiceDialog;
 import Client.UI.GUI.resources.gameComponents.*;
 import Game.Effects.Effect;
+import Logging.Logger;
 import Server.Game.UserObjects.Domestic;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -147,7 +148,10 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
         //Add gameTable to world.
         world.getChildren().addAll(gameTableGroup);
 
-        camMouseDrag();
+        //If we are debugging, turn mouse actions on
+        if (Logger.getLogLevel() < Logger.LogLevel.None.ordinal()) {
+            camMouseDrag();
+        }
 
         synchronized (this) {
             notifyAll();//Say world we are ready to show this awesome GUI
@@ -230,7 +234,7 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
 
 
     /**
-     * Metodo di servizio per spostare la visuale
+     * DEBUG: Metodo di servizio per spostare la visuale
      */
     private void camMouseDrag() {
 
@@ -271,9 +275,9 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
                 printCamCoords();
             }
 
-/*
+            /*
             if (me.isShiftDown()) {//Placing purpose
-                Translate translate = GameTablePlace.last.getTranslate();
+                Translate translate = FaithCube.last.getTranslate();
                 translate.setX(translate.getX() + mouseDeltaX * MULTIPLIER);
                 translate.setY(translate.getY() + mouseDeltaY * MULTIPLIER);
                 printStackPCoords(translate);
@@ -281,12 +285,11 @@ public class GameUIController implements Client.UI.GameUI, Initializable {
 
 
             if (me.isPrimaryButtonDown()) {//Placing purpose
-                Translate translate = GameTablePlace.last.getTranslate();
+                Translate translate = FaithCube.last.getTranslate();
                 translate.setZ(translate.getZ() + mouseDeltaY * MULTIPLIER);
                 printStackPCoords(translate);
             }
             */
-
 
         });
     }

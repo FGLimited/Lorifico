@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  *
  * This main is used for testing purpose only
  */
-public class TestMain {
+public class TestClientWithoutServerConnection {
 
 
     public static void main(String[] args) {
