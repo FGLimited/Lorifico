@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
@@ -46,6 +47,7 @@ public class FaithRoadChoiceDialog {
         //Creates YES button
         JFXButton yesButton = new JFXButton("Supporta");
         yesButton.setStyle("-fx-background-color: lime");
+        yesButton.setPadding(new Insets(0, 20, 0, 20));
         yesButton.setOnAction(event ->
         {
             sendToServer(true);
@@ -56,7 +58,8 @@ public class FaithRoadChoiceDialog {
 
         //Create NO button
         JFXButton noButton = new JFXButton("Non questa volta");
-        noButton.setStyle("-fx-background-color: lime");
+        noButton.setStyle("-fx-background-color: red");
+        noButton.setPadding(new Insets(0, 20, 0, 20));
         noButton.setOnAction(event ->
         {
             sendToServer(false);

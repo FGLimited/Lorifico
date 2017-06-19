@@ -74,6 +74,11 @@ public class FaithBlock extends Group implements FaithRoadController, PlayerStat
      */
     @Override
     public void showFaithCube(FamilyColor familyColor, int cardOrdinal) {
+        if (!Platform.isFxApplicationThread()) {
+            Platform.runLater(() -> showFaithCube(familyColor, cardOrdinal));
+            return;
+        }
+
         getChildren().add(new FaithCube(familyColor, cardOrdinal));
     }
 

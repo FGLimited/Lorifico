@@ -1,9 +1,12 @@
 package Action;
 
-import Server.Game.UserObjects.GameUser;
+import Client.UI.UserInterfaceFactory;
 import Model.User.User;
+import Server.Game.UserObjects.GameUser;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by fiore on 13/06/2017.
@@ -39,12 +42,12 @@ public class EndMatch implements BaseAction {
 
     @Override
     public void doAction(User user) {
-        // TODO: if isAbort
-        //          notify that a user left the match before the end
-        //       else
-        //          show podium to the user
-
-        // TODO: close all and shutdown connection
-        // if you want to go into the lobby again reconnect
+        if (isAbort) {
+            UserInterfaceFactory.getInstance().displayPopup(DisplayPopup.Level.Normal, "Partita Terminata", "Un utente si e' disconnesso...");
+        } else {
+            String classifica = podium.stream().collect(Collectors.joining(", "));
+            UserInterfaceFactory.getInstance().displayPopup(DisplayPopup.Level.Normal, "Partita Terminata",
+                    "La classifica e'\n" + classifica);
+        }
     }
 }

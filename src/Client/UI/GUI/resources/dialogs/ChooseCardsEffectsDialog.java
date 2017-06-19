@@ -148,7 +148,8 @@ public class ChooseCardsEffectsDialog {
 
                     JFXButton jfxButton = new JFXButton(effect.getDescription());
                     jfxButton.setStyle("-fx-background-color: limegreen");
-                    jfxButton.setPadding(new Insets(0, 0, 20, 0));
+                    jfxButton.setPrefWidth(300);
+                    jfxButton.setPadding(new Insets(20, 0, 20, 0));
 
                     //When an effect is selected (by clicking on his button), dialog is closed and effect added to choosen list.
                     jfxButton.setOnAction(event -> {
@@ -163,6 +164,8 @@ public class ChooseCardsEffectsDialog {
             //Add button to chose 'no effect from this card'
             JFXButton jfxButton = new JFXButton("Nessuna azione di questa carta");
             jfxButton.setStyle("-fx-background-color: red");
+            jfxButton.setPrefWidth(300);
+            jfxButton.setPadding(new Insets(20, 0, 20, 0));
             jfxButton.setOnAction(event -> jfxDialog.close());
             buttonsVBox.getChildren().add(jfxButton);
         }
