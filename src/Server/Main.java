@@ -8,7 +8,10 @@ import Server.Networking.LogInHandler;
 import Server.Networking.RMI.RMIAcceptor;
 import Server.Networking.SQL.DBContext;
 import Server.Networking.Socket.SocketAcceptor;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
@@ -40,7 +43,7 @@ public class Main {
         LogInHandler loginHandler = new LogInHandler();
 
         // Initialize connection handler with multiple connection providers
-        ConnectionHandler connHandler = new ConnectionHandler();
+        final ConnectionHandler connHandler = new ConnectionHandler();
 
         try {
             connHandler.addAcceptor(new SocketAcceptor(loginHandler, 8080));
@@ -54,11 +57,25 @@ public class Main {
             return;
         }
 
-        // Set shutdown hook
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> Lobby.getInstance().dismissAll()));
-
         // Start connection handlers
         connHandler.startAll();
 
+        System.out.println("Use \"end\" to shutdown the application");
+
+        final BufferedReader sysIn = new BufferedReader(new InputStreamReader(System.in));
+
+        String command = "";
+
+        while (!command.equals("end")) {
+
+            command = sysIn.readLine();
+
+        }
+
+        connHandler.stopAll();
+
+        Lobby.getInstance().dismissAll();
+
+        Runtime.getRuntime().halt(0);
     }
 }

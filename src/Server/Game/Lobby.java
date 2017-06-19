@@ -17,6 +17,8 @@ public class Lobby extends UserHandler {
         return instance;
     }
 
+    private volatile boolean dismissingAll = false;
+
     private Lobby() {
 
     }
@@ -48,13 +50,17 @@ public class Lobby extends UserHandler {
      * @param toClear Match to remove
      */
     public void clearMatch(Match toClear) {
-        matches.remove(toClear);
+
+        if(!dismissingAll)
+            matches.remove(toClear);
     }
 
     /**
      * Abort all matches
      */
     public void dismissAll() {
+
+        dismissingAll = true;
 
         // Create fake user
         final User server = new User("Server shutdown", 0, 0, 0);
@@ -63,6 +69,8 @@ public class Lobby extends UserHandler {
         matches.parallelStream().forEach(match -> match.abort(server));
 
         matches.clear();
+
+        dismissingAll = false;
     }
 
 }

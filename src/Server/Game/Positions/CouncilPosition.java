@@ -74,8 +74,11 @@ public class CouncilPosition extends Position<Cost> {
         // Apply immediate effect
         immediatePositionEffect.apply(currentState);
 
+        final GameUser currentUser = (GameUser) currentState.getGameUser();
+
         // Update list for next turn player's order
-        turnOrder.add((GameUser) currentState.getGameUser());
+        if(!turnOrder.stream().anyMatch(user -> user.getFamilyColor() == currentUser.getFamilyColor()))
+            turnOrder.add(currentUser);
 
         // Return updated state
         return currentState;

@@ -9,10 +9,8 @@ import Server.Game.Usable.Cost;
 import Server.Game.UserObjects.Domestic;
 import Server.Game.UserObjects.GameUser;
 import Server.Game.UserObjects.PlayerState;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 /**
  * Created by fiore on 23/05/2017.
@@ -79,8 +77,17 @@ public class SetInUseDomestic implements BaseAction {
         // Set domestic in current state
         currentState.setInUseDomestic(inUse);
 
+        // Create resource update
+        final HashMap<ResourceType, Integer> resourceUpdate = new HashMap<>();
+        resourceUpdate.put(ResourceType.Slave, currentState.getResources().get(ResourceType.Slave) - slaves);
+
+        // If cost bonus is present add bonus to player state
+        if(costBonus != null) {
+            costBonus.getResources().forEach((type, bonus) -> resourceUpdate.put(type, resourceUpdate.get(type) + bonus));
+        }
+
         // Decrement slaves value
-        currentState.setResources(Collections.singletonMap(ResourceType.Slave, currentState.getResources().get(ResourceType.Slave) - slaves), false);
+        currentState.setResources(resourceUpdate, false);
 
         // Update user state with new in use domestic
         gameUser.updateUserState(currentState);
@@ -92,6 +99,13 @@ public class SetInUseDomestic implements BaseAction {
         // If a cost bonus is specified apply it to all available costs
         if(costBonus != null){
 
+            // Remove bonus resources from current player state
+            costBonus.getResources().forEach((type, bonus) -> resourceUpdate.replace(type, resourceUpdate.get(type) - bonus));
+            resourceUpdate.remove(ResourceType.Slave);
+            currentState.setResources(resourceUpdate, false);
+            gameUser.updateUserState(currentState);
+
+            // Update all available costs removing bonus resources
             positions.forEach((number, list) -> {
                 // If current list isn't a cost list go ahead
                 if(list.isEmpty() || list.get(0).getClass() != Cost.class)

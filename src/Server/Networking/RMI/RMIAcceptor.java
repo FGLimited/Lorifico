@@ -8,6 +8,7 @@ import Networking.RMI.RMIComm;
 import Networking.RMI.RMICommFactory;
 import org.jetbrains.annotations.Nullable;
 import java.rmi.AlreadyBoundException;
+import java.rmi.NoSuchObjectException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -19,6 +20,8 @@ import java.rmi.server.UnicastRemoteObject;
 public class RMIAcceptor extends UnicastRemoteObject implements LinkAcceptor, RMICommFactory {
 
     private final LinkHandler handler;
+
+    private volatile Registry rmiRegistry;
 
     private boolean isListening = false;
 
@@ -40,28 +43,59 @@ public class RMIAcceptor extends UnicastRemoteObject implements LinkAcceptor, RM
      * @throws RemoteException If rmi can't even initialize itself
      */
     private void loadRMIRegistry() throws RemoteException {
-        Registry rmiRegistry = LocateRegistry.createRegistry(1099);
+
+        if(rmiRegistry == null)
+            rmiRegistry = LocateRegistry.createRegistry(1099);
 
         try {
             rmiRegistry.bind("RMICommFactory", this);
         } catch (AlreadyBoundException abe) {
-            Logger.log(Logger.LogLevel.Error, "Object has already been loaded, but will be overwritten.\n" + abe.getMessage());
+            Logger.log(Logger.LogLevel.Warning, "Object has already been loaded, but will be overwritten.\n" + abe.getMessage());
 
             rmiRegistry.rebind("RMICommFactory", this);
         }
     }
 
+    /**
+     * Unload rmi registry
+     *
+     * @throws NoSuchObjectException If registry wasn't load before
+     */
+    private void unloadRMIRegistry() throws NoSuchObjectException {
+
+        if(rmiRegistry == null)
+            return;
+
+        UnicastRemoteObject.unexportObject(rmiRegistry, true);
+        rmiRegistry = null;
+
+    }
+
     @Override
     public void listen() {
-        Logger.log(Logger.LogLevel.Normal, "RMI acceptor started.");
+
+        try {
+            loadRMIRegistry();
+        } catch (RemoteException re) {
+            Logger.log(Logger.LogLevel.Error, "Can't load RMI registry.\n" + re.getMessage());
+            return;
+        }
 
         isListening = true;
+        Logger.log(Logger.LogLevel.Normal, "RMI acceptor started.");
     }
 
     @Override
     public void stop() {
-        Logger.log(Logger.LogLevel.Normal, "RMI acceptor shutdown.");
 
+        try {
+            unloadRMIRegistry();
+        } catch (NoSuchObjectException nsoe) {
+            Logger.log(Logger.LogLevel.Error, "Can't unload rmi registry.\n" + nsoe.getMessage());
+            return;
+        }
+
+        Logger.log(Logger.LogLevel.Normal, "RMI acceptor shutdown.");
         isListening = false;
     }
 
