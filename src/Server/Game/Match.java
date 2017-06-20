@@ -57,6 +57,7 @@ public class Match extends UserHandler {
     private void executionErrorHandler(Throwable t) {
 
         Logger.log(Logger.LogLevel.Error, "Exception thrown during match " + matchNumber + " execution.\n" + t.getMessage());
+        t.printStackTrace();
 
         final BaseAction errorMessage = new DisplayPopup(DisplayPopup.Level.Error, "C'è stato un problema interno del server: purtroppo il gioco sarà interrotto.");
         final BaseAction endMatch = new EndMatch("Server error");

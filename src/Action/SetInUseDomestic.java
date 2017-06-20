@@ -59,6 +59,7 @@ public class SetInUseDomestic implements BaseAction {
 
         // Get current player state
         PlayerState currentState = gameUser.getUserState();
+        final Map<ResourceType, Integer> currentResources = currentState.getResources();
 
         // Create bound domestic or special neutral if necessary
         Domestic inUse;
@@ -83,7 +84,7 @@ public class SetInUseDomestic implements BaseAction {
 
         // If cost bonus is present add bonus to player state
         if(costBonus != null) {
-            costBonus.getResources().forEach((type, bonus) -> resourceUpdate.put(type, resourceUpdate.get(type) + bonus));
+            costBonus.getResources().forEach((type, bonus) -> resourceUpdate.put(type, currentResources.get(type) + bonus));
         }
 
         // Decrement slaves value
