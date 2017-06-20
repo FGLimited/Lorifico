@@ -59,11 +59,15 @@ public class BonusDomesticEffect extends Effect {
         // Set special neutral domestic
         Domestic special = new Domestic(currentMove.getGameUser().getFamilyColor(), null, value);
 
+        Cost bonus = null;
+        if(costBonus != null && !costBonus.isEmpty())
+            bonus = new Cost(costBonus);
+
         // Set not moved for current user
         currentUser.setHasMoved(false);
 
         // Send special domestic and bonus positions type
         currentUser.getUserLink()
-                .sendMessage(new BonusDomesticMove(special, positionsType, costBonus != null ? new Cost(costBonus) : null));
+                .sendMessage(new BonusDomesticMove(special, positionsType, bonus));
     }
 }

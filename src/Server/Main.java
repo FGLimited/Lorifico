@@ -1,5 +1,6 @@
 package Server;
 
+import Server.Game.Cards.SplitDeck;
 import Server.Game.Lobby;
 import Logging.Logger;
 import Model.UserManager;
@@ -8,7 +9,6 @@ import Server.Networking.LogInHandler;
 import Server.Networking.RMI.RMIAcceptor;
 import Server.Networking.SQL.DBContext;
 import Server.Networking.Socket.SocketAcceptor;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -23,7 +23,7 @@ public class Main {
 
         Logger.setLogLevel(Logger.LogLevel.Normal);
 
-        final String mySqlConnString = "jdbc:mysql://flow3rhouse.duckdns.org/LorenzoDB?user=Lollo&password=Lorenzo@";
+        final String mySqlConnString = "jdbc:mysql://localhost/LorenzoDB?user=Lollo&password=Lorenzo@";
 
         // Create database instance for users
         final DBContext db = new DBContext(mySqlConnString);

@@ -19,8 +19,20 @@ public class UsableHelper {
      */
     public static <T> void editResources(Map<T, Integer> src, Map<T, Integer> dest, boolean removeAdd) {
 
-        for(Map.Entry<T, Integer> resource : src.entrySet())
-            dest.merge(resource.getKey(), resource.getValue(), (a, b) -> removeAdd ? a + b : (a - b >= 0 ? a - b : 0));
+        src.forEach((type, quantity) -> {
+            if(dest.containsKey(type)){
+                if (removeAdd) {
+                    dest.replace(type, dest.get(type) + quantity);
+                }
+                else
+                    dest.replace(type, Math.max(dest.get(type) - quantity, 0));
+            }
+            else {
+                if (removeAdd) {
+                    dest.put(type, quantity);
+                }
+            }
+        });
     }
 
     /**
