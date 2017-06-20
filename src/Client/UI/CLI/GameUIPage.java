@@ -2,6 +2,7 @@ package Client.UI.CLI;
 
 import Action.DisplayPopup;
 import Action.SetInUseDomestic;
+import Client.CommunicationManager;
 import Client.Datawarehouse;
 import Client.UI.CLI.cliUtils.CliSout;
 import Client.UI.CLI.dialogs.ChooseFavorsDialog;
@@ -135,7 +136,8 @@ public class GameUIPage implements Client.UI.GameUI {
 
     @Override
     public void addSlaveToSpecialDomestic(Domestic domestic, SetInUseDomestic setInUseDomesticAction) {
-
+        setInUseDomesticAction.setSlaves(0);
+        CommunicationManager.getInstance().sendMessage(setInUseDomesticAction);
     }
 
     @Override
