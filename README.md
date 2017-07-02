@@ -12,3 +12,8 @@ Il gioco consiste in una implementazione in Java di "Lorenzo il Magnifico" sfrut
  # MySQL
  La connessione al MySQL va impostata nel file Server.Main, prima di iniziare a giocare è necessario caricare il dump del database presente in **lorenzoDB.sql**
  
+# Screenshots
+![alt text](https://raw.githubusercontent.com/FGLimited/Lorifico/master/screenshots/Lorenzo0.jpg "Screen")
+![alt text](https://raw.githubusercontent.com/FGLimited/Lorifico/master/screenshots/Lorenzo1.jpg "Screen")
+![alt text](https://raw.githubusercontent.com/FGLimited/Lorifico/master/screenshots/Lorenzo2.jpg "Screen")
+![alt text](https://raw.githubusercontent.com/FGLimited/Lorifico/master/screenshots/Lorenzo3.jpg "Screen")
